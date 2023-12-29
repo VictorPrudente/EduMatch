@@ -13,7 +13,7 @@ public class Usuario {
     Integer idade;
     Endereco endereco;
     Integer pontuacao;
-    
+
     public void aumentarPontuacao(int pontos){
         this.pontuacao += pontos;
     }
