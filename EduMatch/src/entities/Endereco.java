@@ -1,9 +1,8 @@
 package entities;
-import interfaces.IEndereco;
 
-public class Endereco implements IEndereco {
+public class Endereco {
     String logradouro;
-    int numero;
+    Integer numero;
     String complemento;
     String cep;
     String cidade;
@@ -20,7 +19,6 @@ public class Endereco implements IEndereco {
         this.pais = pais;
     }
 
-    @Override
     public String imprimirEndereco(){
         return "Logradouro: " + logradouro + ", " + numero +
                 "\nComplemento: " + complemento +
@@ -30,72 +28,57 @@ public class Endereco implements IEndereco {
                 "\nPaís: " + pais;
     }
 
-    @Override
     public String getLogradouro(){
         return logradouro;
     }
 
-    @Override
     public void setLogradouro(){
         this.logradouro = logradouro;
     }
 
-    @Override
-    public int getNumero(){
+    public Integer getNumero(){
         return numero;
     }
 
-    @Override
     public void setNumero(){
         this.numero = numero;
     }
 
-    @Override
     public String getComplemento(){
         return complemento;
     }
 
-    @Override
     public void setComplemento(){
         this.complemento = complemento;
     }
 
-    @Override
     public String getCep(){
         return cep;
     }
 
-    @Override
     public void setCep(){
         this.cep = cep;
     }
 
-    @Override
     public String getCidade(){
         return cidade;
     }
 
-    @Override
     public void setCidade(){
         this.cidade = cidade;
     }
 
-    @Override
     public String getEstado(){
         return estado;
     }
 
-    @Override
     public void setEstado(){
         this.estado = estado;
     }
 
-    @Override
     public String getPais(){
         return pais;
     }
-
-    @Override
     public void setPais(){
         this.pais = pais;
     }
