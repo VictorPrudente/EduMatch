@@ -120,15 +120,15 @@ public class Usuario {
     public String toString() {
         return
                 "nome= " + nome + '\'' +
-                        ", sobrenome= " + sobrenome + '\'' +
-                        ", email= " + email + '\'' +
-                        ", login='" + login + '\'' +
-                        ", senha='" + senha + '\'' +
-                        ", tipoDeUser=" + tipoDeUser +
-                        ", CPF='" + CPF + '\'' +
-                        ", idade=" + idade +
-                        ", endereco=" + endereco +
-                        ", pontuacao=" + pontuacao;
+                ", sobrenome= " + sobrenome + '\'' +
+                ", email= " + email + '\'' +
+                ", login='" + login + '\'' +
+                ", senha='" + senha + '\'' +
+                ", tipoDeUser=" + tipoDeUser +
+                ", CPF='" + CPF + '\'' +
+                ", idade=" + idade +
+                ", endereco=" + endereco +
+                ", pontuacao=" + pontuacao;
     }
 
     @Override
