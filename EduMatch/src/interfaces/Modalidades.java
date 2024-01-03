@@ -1,5 +1,6 @@
 package interfaces;
 
+import entities.Certificado;
 import entities.Usuario;
 
 public interface Modalidades {
