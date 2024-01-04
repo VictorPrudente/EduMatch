@@ -1,15 +1,17 @@
 package entities;
 
 public class Endereco {
-    String logradouro;
-    Integer numero;
-    String complemento;
-    String cep;
-    String cidade;
-    String estado;
-    String pais;
+    private String id;
+    private String logradouro;
+    private Integer numero;
+    private String complemento;
+    private String cep;
+    private String cidade;
+    private String estado;
+    private String pais;
 
-    public Endereco(String logradouro, Integer numero, String complemento, String cep, String cidade, String estado, String pais){
+    public Endereco(String id, String logradouro, Integer numero, String complemento, String cep, String cidade, String estado, String pais){
+        this.id = id;
         this.logradouro = logradouro;
         this.numero = numero;
         this.complemento = complemento;
@@ -19,13 +21,23 @@ public class Endereco {
         this.pais = pais;
     }
 
-    public String imprimirEndereco(){
-        return "Logradouro: " + logradouro + ", " + numero +
+    @Override
+    public String toString() {
+        return "ID: " + id +
+                "Logradouro: " + logradouro + ", " + numero +
                 "\nComplemento: " + complemento +
                 "\nCEP: " + cep +
                 "\nCidade: " + cidade +
                 "\nEstado: " + estado +
                 "\nPaís: " + pais;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getLogradouro(){
