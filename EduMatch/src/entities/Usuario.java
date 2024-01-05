@@ -1,43 +1,42 @@
 package entities;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+
 public class Usuario {
+
+    private Integer id;
     private String nome;
     private String sobrenome;
-    private String email;
-    private String login;
-    private String senha;
-    private Integer tipoDeUser;
     private String CPF;
     private Integer idade;
-    private Endereco endereco;
     private Integer pontuacao;
+    private EduMatch.src.entities.Escola escola;
+    private List<Endereco> enderecos;
+    private List<Contato> contatos;
+    private List<Certificado> certificados;
 
     public Usuario() {
     }
 
-    public Usuario(String nome, String sobrenome, String login, String senha, Integer tipoDeUser, String CPF,
-                   Integer idade, Endereco endereco, Integer pontuacao) {
+
+    public Usuario(int id, String nome, String sobrenome, String CPF,
+                   Integer idade) {
+        this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
-        this.login = login;
-        this.senha = senha;
-        this.tipoDeUser = tipoDeUser;
         this.CPF = CPF;
         this.idade = idade;
-        this.endereco = endereco;
-        this.pontuacao = pontuacao;
-    }
-
-    public void aumentarPontuacao(int pontos){
-        this.pontuacao += pontos;
+        this.pontuacao = 0;
     }
 
     public boolean temAutorizacaoDosPais(){
         return false;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public String getNome() {
@@ -56,30 +55,6 @@ public class Usuario {
         this.sobrenome = sobrenome;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public Integer getTipoDeUser() {
-        return tipoDeUser;
-    }
-
-    public void setTipoDeUser(Integer tipoDeUser) {
-        this.tipoDeUser = tipoDeUser;
-    }
-
     public String getCPF() {
         return CPF;
     }
@@ -96,39 +71,43 @@ public class Usuario {
         this.idade = idade;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
     public Integer getPontuacao() {
         return pontuacao;
     }
 
-    public String getEmail() {
-        return email;
+    public List<Endereco> getEnderecos() {
+        return enderecos;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
+    }
+
+    public List<Contato> getContatos() {
+        return contatos;
+    }
+
+    public void setContatos(List<Contato> contatos) {
+        this.contatos = contatos;
+    }
+
+    public List<Certificado> getCertificados() {
+        return certificados;
+    }
+
+    public void setCertificados(List<Certificado> certificados) {
+        this.certificados = certificados;
     }
 
     @Override
     public String toString() {
         return
-                "nome= " + nome + '\'' +
-                        ", sobrenome= " + sobrenome + '\'' +
-                        ", email= " + email + '\'' +
-                        ", login='" + login + '\'' +
-                        ", senha='" + senha + '\'' +
-                        ", tipoDeUser=" + tipoDeUser +
-                        ", CPF='" + CPF + '\'' +
-                        ", idade=" + idade +
-                        ", endereco=" + endereco +
-                        ", pontuacao=" + pontuacao;
+                "id= " + id + '\'' +
+                ", nome= " + nome + '\'' +
+                ", sobrenome= " + sobrenome + '\'' +
+                ", CPF='" + CPF + '\'' +
+                ", idade=" + idade +
+                ", pontuacao=" + pontuacao;
     }
 
     @Override
@@ -136,11 +115,12 @@ public class Usuario {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Usuario usuario = (Usuario) o;
-        return Objects.equals(CPF, usuario.CPF);
+        return Objects.equals(id, usuario.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(CPF);
+        return Objects.hash(id);
     }
+
 }
