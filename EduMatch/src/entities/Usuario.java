@@ -12,21 +12,24 @@ public class Usuario {
     private String CPF;
     private Integer idade;
     private Integer pontuacao;
+    private EduMatch.src.entities.Escola escola;
+    private List<Endereco> enderecos;
+    private List<Contato> contatos;
+    private List<Certificado> certificados;
 
     public Usuario() {
     }
 
 
-    public Usuario(String nome, String sobrenome, String CPF,
-                   Integer idade, Integer pontuacao) {
+    public Usuario(int id, String nome, String sobrenome, String CPF,
+                   Integer idade) {
+        this.id = id;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.CPF = CPF;
         this.idade = idade;
-        this.pontuacao = pontuacao;
+        this.pontuacao = 0;
     }
-
-
 
     public boolean temAutorizacaoDosPais(){
         return false;
@@ -34,10 +37,6 @@ public class Usuario {
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(int id){
-        this.id = id;
     }
 
     public String getNome() {
@@ -76,14 +75,45 @@ public class Usuario {
         return pontuacao;
     }
 
+    public List<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void setEnderecos(List<Endereco> enderecos) {
+        this.enderecos = enderecos;
+    }
+
+    public List<Contato> getContatos() {
+        return contatos;
+    }
+
+    public void setContatos(List<Contato> contatos) {
+        this.contatos = contatos;
+    }
+
+    public List<Certificado> getCertificados() {
+        return certificados;
+    }
+
+    public void setCertificados(List<Certificado> certificados) {
+        this.certificados = certificados;
+    }
+
     @Override
     public String toString() {
-        return String.format("""
-                -=-=-=-=-=-=-=-=-=-
-                ID: %d
-                Nome: %s %s
-                Idade: %d
-                Pontucação: %d""", id, nome, sobrenome, idade, pontuacao);
+        return
+                "id= " + id + '\'' +
+                "nome= " + nome + '\'' +
+                ", sobrenome= " + sobrenome + '\'' +
+                ", email= " + email + '\'' +
+                ", login='" + login + '\'' +
+                ", senha='" + senha + '\'' +
+                ", tipoDeUser=" + tipoDeUser +
+                ", CPF='" + CPF + '\'' +
+                ", idade=" + idade +
+                ", endereco=" + endereco +
+
+                ", pontuacao=" + pontuacao;
     }
 
     @Override
