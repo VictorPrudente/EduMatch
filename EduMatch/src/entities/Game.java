@@ -1,17 +1,23 @@
 package entities;
 
 public class Game {
-    public int pontos;
-    public String modalidade;
-    public int dificuldade;
-    public int vitorias;
-    public int derrotas;
+    private int pontos;
+    private String modalidade;
+    private int dificuldade;
+    private int vitorias;
+    private int derrotas;
+
+    public Game(){}
+    public Game(String modalidade, int dificuldade) {
+        this.modalidade = modalidade;
+        this.dificuldade = dificuldade;
+    }
 
     public void escolherModalidade(String modalidade){
         this.modalidade= modalidade;
     }
-    public void escolherDificuldade(int diff){
-        this.dificuldade = diff;
+    public void escolherDificuldade(int dificuldade){
+        this.dificuldade = dificuldade;
     }
 
     public void comecarJogo (){
@@ -40,5 +46,31 @@ public class Game {
         pontos += 10;
     }
 
+    public int getPontos() {
+        return pontos;
+    }
 
+    public String getModalidade() {
+        return modalidade;
+    }
+
+    public int getDificuldade() {
+        return dificuldade;
+    }
+
+    public int getVitorias() {
+        return vitorias;
+    }
+
+    public int getDerrotas() {
+        return derrotas;
+    }
+
+    public void setModalidade(String modalidade) {
+        this.modalidade = modalidade;
+    }
+
+    public void setDificuldade(int dificuldade) {
+        this.dificuldade = dificuldade;
+    }
 }
