@@ -103,10 +103,16 @@ public class Usuario {
     public String toString() {
         return
                 "id= " + id + '\'' +
-                ", nome= " + nome + '\'' +
+                "nome= " + nome + '\'' +
                 ", sobrenome= " + sobrenome + '\'' +
+                ", email= " + email + '\'' +
+                ", login='" + login + '\'' +
+                ", senha='" + senha + '\'' +
+                ", tipoDeUser=" + tipoDeUser +
                 ", CPF='" + CPF + '\'' +
                 ", idade=" + idade +
+                ", endereco=" + endereco +
+
                 ", pontuacao=" + pontuacao;
     }
 
