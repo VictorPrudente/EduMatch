@@ -9,9 +9,9 @@ import java.util.Scanner;
 public class ContatoService {
     private ArrayList<Contato> contatos = new ArrayList<>();
     public ContatoService(){
-        Contato contatoUm=new Contato("Principal", "333000333", 1);
-        Contato contatoDois=new Contato("Principal", "983220021", 2);
-        Contato contatoTres=new Contato("Principal", "6642167", 1);
+        Contato contatoUm=new Contato("Principal", "333000333", TipoDeContato.CELULAR);
+        Contato contatoDois=new Contato("Principal", "983220021", TipoDeContato.RESIDENCIAL);
+        Contato contatoTres=new Contato("Principal", "6642167", TipoDeContato.COMERCIAL);
         contatos.add(contatoUm);
         contatos.add(contatoDois);
         contatos.add(contatoTres);

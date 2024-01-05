@@ -25,16 +25,9 @@ public class Contato {
     public TipoDeContato getTipo() {
         return tipo;
     }
-    public void setTipo(int tipo) {
+    public void setTipo(TipoDeContato tipo) {
+        this.tipo=tipo;
 
-        if (tipo == 0){
-            this.tipo=TipoDeContato.CELULAR;
-        }
-        else if (tipo == 1){
-            this.tipo=TipoDeContato.RESIDENCIAL;
-        }else{
-            this.tipo=TipoDeContato.COMERCIAL;
-        }
     }
     public int getId() {
         return Id;
@@ -46,18 +39,10 @@ public class Contato {
         Contato contato = (Contato) o;
         return Id == contato.Id;
     }
-    public Contato(String descricao, String telefone, int tipo) {
+    public Contato(String descricao, String telefone, TipoDeContato tipo) {
         this.descricao = descricao;
         this.telefone = telefone;
-
-        if (tipo == 0){
-            this.tipo=TipoDeContato.CELULAR;
-        }
-        else if (tipo == 1){
-            this.tipo=TipoDeContato.RESIDENCIAL;
-        }else{
-            this.tipo=TipoDeContato.COMERCIAL;
-        }
+        this.tipo = tipo;
         Id = ULTIMO_ID;
         Contato.ULTIMO_ID++;
     }
