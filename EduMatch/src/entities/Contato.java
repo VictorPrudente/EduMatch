@@ -1,11 +1,13 @@
 package entities;
+import enums.TipoDeContato;
+
 import java.util.Objects;
 import java.util.Scanner;
 public class Contato {
     public static int ULTIMO_ID=1;
     private String descricao;
     private String telefone;
-    private Tipo tipo;
+    private TipoDeContato tipo;
     private int Id;
 
     public String getDescricao() {
@@ -20,14 +22,18 @@ public class Contato {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-    public Tipo getTipo() {
+    public TipoDeContato getTipo() {
         return tipo;
     }
     public void setTipo(int tipo) {
-        if (tipo == 1){
-            this.tipo=Tipo.RESIDENCIAL;
+
+        if (tipo == 0){
+            this.tipo=TipoDeContato.CELULAR;
+        }
+        else if (tipo == 1){
+            this.tipo=TipoDeContato.RESIDENCIAL;
         }else{
-            this.tipo=Tipo.COMERCIAL;
+            this.tipo=TipoDeContato.COMERCIAL;
         }
     }
     public int getId() {
@@ -44,10 +50,13 @@ public class Contato {
         this.descricao = descricao;
         this.telefone = telefone;
 
-        if (tipo == 1){
-            this.tipo=Tipo.RESIDENCIAL;
+        if (tipo == 0){
+            this.tipo=TipoDeContato.CELULAR;
+        }
+        else if (tipo == 1){
+            this.tipo=TipoDeContato.RESIDENCIAL;
         }else{
-            this.tipo=Tipo.COMERCIAL;
+            this.tipo=TipoDeContato.COMERCIAL;
         }
         Id = ULTIMO_ID;
         Contato.ULTIMO_ID++;
@@ -61,8 +70,4 @@ public class Contato {
         System.out.println("Telefone: " + getTelefone());
         System.out.println("Tipo: " + getTipo());
     }
-}
-enum Tipo {
-    RESIDENCIAL,
-    COMERCIAL
 }
