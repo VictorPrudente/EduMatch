@@ -1,6 +1,5 @@
 package services;
 
-import entities.Endereco;
 import entities.Usuario;
 
 import java.util.*;
@@ -10,7 +9,6 @@ import java.util.stream.Collectors;
 public class UsuarioService {
 
     private AtomicInteger COUNTER = new AtomicInteger();
-    Integer id = COUNTER.incrementAndGet();
     Random random = new Random();
     private static ArrayList<Usuario> usuarios = new ArrayList<>();
 
@@ -20,16 +18,35 @@ public class UsuarioService {
     }
 
     private void inicializarLista(){
-        usuarios.add(new Usuario(id, "Pedro", "Brown", "123123", random.nextInt(15, 50)));
-        usuarios.add(new Usuario(id, "Lucio", "Blue", "123", random.nextInt(15, 50)));
-        usuarios.add(new Usuario(id, "Marcos", "Yellow", "123", random.nextInt(15, 50)));
-        usuarios.add(new Usuario(id, "Lucia", "White", "123", random.nextInt(15, 50)));
-        usuarios.add(new Usuario(id, "Maria", "Black", "123", random.nextInt(15, 50)));
-        usuarios.add(new Usuario(id, "Yolanda", "Red", "123", random.nextInt(15, 50)));
-        usuarios.add(new Usuario(id, "Josefina", "Purple", "123", random.nextInt(15, 50)));
-        usuarios.add(new Usuario(id, "Carlas", "Gold", "123", random.nextInt(15, 50)));
-        usuarios.add(new Usuario(id, "Leslie", "Pink", "123", random.nextInt(15, 50)));
+        Usuario usuario = new Usuario("Pedro", "Brown", "123123", random.nextInt(15, 50), random.nextInt(30));
+        usuario.setId(COUNTER.incrementAndGet());
+        usuarios.add(usuario);
 
+        usuario = new Usuario("Lucio", "Blue", "123", random.nextInt(15, 50), random.nextInt(30));
+        usuario.setId(COUNTER.incrementAndGet());
+        usuarios.add(usuario);
+
+        usuario = new Usuario("Marcos", "Yellow", "123", random.nextInt(15, 50), random.nextInt(30));
+        usuario.setId(COUNTER.incrementAndGet());
+        usuarios.add(usuario);
+        usuario = new Usuario("Lucia", "White", "123", random.nextInt(15, 50), random.nextInt(30));
+        usuario.setId(COUNTER.incrementAndGet());
+        usuarios.add(usuario);
+        usuario = new Usuario("Maria", "Black", "123", random.nextInt(15, 50), random.nextInt(30));
+        usuario.setId(COUNTER.incrementAndGet());
+        usuarios.add(usuario);
+        usuario = new Usuario("Yolanda", "Red", "123", random.nextInt(15, 50), random.nextInt(30));
+        usuario.setId(COUNTER.incrementAndGet());
+        usuarios.add(usuario);
+        usuario = new Usuario("Josefina", "Purple", "123", random.nextInt(15, 50), random.nextInt(30));
+        usuario.setId(COUNTER.incrementAndGet());
+        usuarios.add(usuario);
+        usuario = new Usuario("Carlas", "Gold", "123", random.nextInt(15, 50), random.nextInt(30));
+        usuario.setId(COUNTER.incrementAndGet());
+        usuarios.add(usuario);
+        usuario = new Usuario("Leslie", "Pink", "123", random.nextInt(15, 50), random.nextInt(30));
+        usuario.setId(COUNTER.incrementAndGet());
+        usuarios.add(usuario);
     }
     public boolean salvar(Usuario usuario){
         for (Usuario usuarioNaLista : usuarios){
@@ -43,26 +60,30 @@ public class UsuarioService {
         return true;
     }
 
-    public String listarTodos(){
-        return usuarios.toString();
+    public void listarTodos(){
+        for (Usuario usuario : usuarios){
+            System.out.println(usuario.toString());
+        }
     }
 
-    public String rankearUsuarios(){
+    public void rankearUsuarios(){
         List<Usuario> rankingDeJogadores = usuarios
                 .stream()
                 .filter(usuario -> usuario.getPontuacao() != null)
                 .sorted(Comparator.comparing(Usuario::getPontuacao).reversed())
                 .collect(Collectors.toCollection(ArrayList::new));
-        return rankingDeJogadores.toString();
+        for (Usuario jogadores : rankingDeJogadores){
+            System.out.println(jogadores.toString());
+        }
     }
 
     public Usuario listarPorId(int id) throws Exception {
-            for (Usuario usuario : usuarios) {
-                if (usuario.getId() == id) {
-                    return usuario;
-                }
+        for (Usuario usuario : usuarios) {
+            if (usuario.getId() == id) {
+                return usuario;
             }
-            throw new Exception("Usuário com o ID " + id + " não encontrado.");
+        }
+        throw new Exception("Usuário com o ID " + id + " não encontrado.");
     }
     public Usuario listarPorCPF(String CPF) throws Exception {
         for (Usuario usuario : usuarios) {
@@ -72,13 +93,14 @@ public class UsuarioService {
         }
         throw new Exception("Usuário com o CPF " + CPF + " não encontrado.");
     }
-    public void atualizar(int id, Usuario usuarioAtualizado){
-        Usuario usuario = usuarios.get(id);
-        usuario.setNome(usuarioAtualizado.getNome());
-        usuario.setSobrenome(usuarioAtualizado.getSobrenome());
-        usuario.setIdade(usuarioAtualizado.getIdade());
-        usuario.setEnderecos(usuarioAtualizado.getEnderecos());
-        usuario.setContatos(usuarioAtualizado.getContatos());
+
+    public void atualizar(int id, String nome, String sobrenome){
+        Optional<Usuario> usuario = usuarios.stream().filter(usuario1 -> usuario1.getId() == id).findFirst();
+
+        usuario.ifPresent(usuario1 -> {
+            usuario1.setNome(nome);
+            usuario1.setSobrenome(sobrenome);});
+        System.out.println("Usuario atualizado com sucesso!");
     }
 
     public void deletar(int id, Usuario usuario){
