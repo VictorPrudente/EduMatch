@@ -42,13 +42,13 @@ public class Contato {
     }
     public void criar (){
         Scanner teclado = new Scanner(System.in);
-        System.out.println("Digite endereço: ");
+        System.out.println("Descrição: ");
         setDescricao(teclado.next());
 
         System.out.println("Digite telefone: ");
         setTelefone(teclado.next());
 
-        System.out.println("Tipo: (1 Residencial / 2 Comercial) ");
+        System.out.println("Tipo (1 Residencial / 2 Comercial): ");
         setTipo(teclado.nextInt());
     }
 }
