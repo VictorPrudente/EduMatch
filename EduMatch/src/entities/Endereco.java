@@ -1,7 +1,7 @@
 package entities;
 
 public class Endereco {
-    private String id;
+    private int id;
     private String logradouro;
     private Integer numero;
     private String complemento;
@@ -10,8 +10,20 @@ public class Endereco {
     private String estado;
     private String pais;
 
-    public Endereco(String id, String logradouro, Integer numero, String complemento, String cep, String cidade, String estado, String pais){
+    public Endereco(){}
+
+    public Endereco(int id,String logradouro, Integer numero, String complemento, String cep, String cidade, String estado, String pais){
         this.id = id;
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.cep = cep;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.pais = pais;
+    }
+
+    public Endereco(String logradouro, Integer numero, String complemento, String cep, String cidade, String estado, String pais){
         this.logradouro = logradouro;
         this.numero = numero;
         this.complemento = complemento;
@@ -23,20 +35,23 @@ public class Endereco {
 
     @Override
     public String toString() {
-        return "ID: " + id +
-                "Logradouro: " + logradouro + ", " + numero +
-                "\nComplemento: " + complemento +
-                "\nCEP: " + cep +
-                "\nCidade: " + cidade +
-                "\nEstado: " + estado +
-                "\nPaís: " + pais;
+        return String.format("""
+                -=-=-=-=-=-=-=-=-=-=-=
+                ID: %d
+                Logradouro: %s
+                Número: %d
+                Complemento: %s
+                CEP: %s
+                Cidade: %s
+                Estado: %s
+                País: %s""", id, logradouro, numero, complemento, cep, cidade, estado, pais);
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -44,7 +59,7 @@ public class Endereco {
         return logradouro;
     }
 
-    public void setLogradouro(){
+    public void setLogradouro(String logradouro){
         this.logradouro = logradouro;
     }
 
@@ -52,7 +67,7 @@ public class Endereco {
         return numero;
     }
 
-    public void setNumero(){
+    public void setNumero(Integer numero){
         this.numero = numero;
     }
 
@@ -60,7 +75,7 @@ public class Endereco {
         return complemento;
     }
 
-    public void setComplemento(){
+    public void setComplemento(String complemento){
         this.complemento = complemento;
     }
 
@@ -68,7 +83,7 @@ public class Endereco {
         return cep;
     }
 
-    public void setCep(){
+    public void setCep(String cep){
         this.cep = cep;
     }
 
@@ -76,7 +91,7 @@ public class Endereco {
         return cidade;
     }
 
-    public void setCidade(){
+    public void setCidade(String cidade){
         this.cidade = cidade;
     }
 
@@ -84,14 +99,15 @@ public class Endereco {
         return estado;
     }
 
-    public void setEstado(){
+    public void setEstado(String estado){
         this.estado = estado;
     }
 
     public String getPais(){
         return pais;
     }
-    public void setPais(){
+
+    public void setPais(String pais){
         this.pais = pais;
     }
 }
