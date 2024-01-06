@@ -1,19 +1,22 @@
 package services;
 
+import entities.Empresa;
 import entities.Escola;
-import entities.enums.TipoEscola;
+import enums.TipoEscola;
+import interfaces.Service;
+
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class EscolaService {
+public class EscolaService implements Service<Escola> {
 
     private AtomicInteger COUNTER = new AtomicInteger();
     Random random = new Random();
 
-    ArrayList<Escola> listaEscolas = new ArrayList<>();
+    ArrayList<Escola> escolas = new ArrayList<>();
     public EscolaService(){
         inicializarLista();
     }
@@ -21,54 +24,54 @@ public class EscolaService {
     public void inicializarLista(){
         Escola escola = new Escola("Garibaldi", TipoEscola.PRIVADA, "123456");
         escola.setId(COUNTER.incrementAndGet());
-        listaEscolas.add(escola);
+        escolas.add(escola);
     }
 
 
     public ArrayList<Escola> listar() {
-        return listaEscolas;
+        return escolas;
     }
 
     //CREATED
-    public boolean adicionar(Escola escola) {
-        for (Escola escola1 : listaEscolas) {
+    @Override
+    public boolean salvar(Escola escola) {
+        for (Escola escola1 : escolas) {
             if (escola1.getCnpj().equals(escola.getCnpj())) {
                 System.out.println("O CNPJ " + escola.getCnpj() + "já foi cadastrada!");
                 return false;
             }
 
         }
-        listaEscolas.add(escola);
+        escolas.add(escola);
         System.out.println("Escola cadastrada com sucesso!");
         return true;
     }
 
     //READ
-    public Escola buscar(String cnpj){
-        for (Escola escola1 : listaEscolas){
-            if (escola1.getCnpj().equals(cnpj)){
-                return escola1;
-            }
+    @Override
+    public void listarTodos(){
+        for (Escola escola : escolas){
+            System.out.println(escola.toString());
         }
-        throw new NoSuchElementException("Escola com O CNPJ " + cnpj + "não encontrado!");
     }
+
 
 
     //UPDATED
-    public String atualizar(Escola escola, String nomeEscola){
-        for (int i = 0; i < listaEscolas.size(); i++){
-            if (listaEscolas.get(i).equals(escola)){
-                listaEscolas.get(i).setNome(nomeEscola);
-                return "Escola atualizada com sucesso!";            }
+    @Override
+    public boolean atualizar(int id, Escola escola) {
+        for (Escola EscolaAtualizar : escolas) {
+            if (EscolaAtualizar.getId() == id) {
+                EscolaAtualizar.setNome(escola.getNome());
+                EscolaAtualizar.setTipo(TipoEscola.valueOf(escola.getTipo()));
+                return true;
+            }
         }
-        throw new NoSuchElementException("Não foi possível atualizar o nome da escola: " + escola.getNome());
+        return false;
     }
-
     //DELETED
-    public String deletar(Escola escola) {
-        if (listaEscolas.remove(escola)) {
-            return "Escola foi removida com sucesso!";
-        }
-        throw new NoSuchElementException("Escola com o ID: " + escola.getId() + " não encontrado!");
+    @Override
+    public boolean deletar(Escola escola) {
+        return escolas.remove(escola);
     }
 }

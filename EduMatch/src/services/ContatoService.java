@@ -1,11 +1,14 @@
 package services;
 
 import entities.Contato;
-import entities.enums.TipoDeContato;
+import entities.Empresa;
+import entities.Usuario;
+import enums.TipoDeContato;
+import interfaces.Service;
 
 import java.util.ArrayList;
 
-public class ContatoService {
+public class ContatoService implements Service<Contato> {
     private ArrayList<Contato> contatos = new ArrayList<>();
     public ContatoService(){
         Contato contatoUm=new Contato("Principal", "333000333", TipoDeContato.CELULAR);
@@ -21,8 +24,11 @@ public class ContatoService {
         return true;
     }
     //READ
-    public ArrayList<Contato> listarTodos() {
-        return contatos;
+    @Override
+    public void listarTodos() {
+        for (Contato contato : contatos){
+            System.out.println(contato.toString());
+        }
     }
 
     public Contato listarPorId(int id){
@@ -42,28 +48,23 @@ public class ContatoService {
         }return lista;
     }
     //UPDATE
+    @Override
     public boolean atualizar (int id, Contato contato){
 
-        Contato atualizar=new Contato(id);
-
-        if (contatos.contains(atualizar)){
-            int p=contatos.indexOf(atualizar);
-            contatos.set (p, contato);
-            return true;
-        }else{
-            return false;
+        for (Contato contatoAtualizar : contatos) {
+            if (contatoAtualizar.getId() == id) {
+                contatoAtualizar.setDescricao(contato.getDescricao());
+                contatoAtualizar.setTipo(contato.getTipo());
+                contatoAtualizar.setTelefone(contato.getTelefone());
+                return true;
+            }
         }
+        return false;
     }
     //DELETE
-    public boolean deletar (int id){
-
-        Contato delete=new Contato(id);
-        if (contatos.contains(delete)){
-            contatos.remove(delete);
-            return true;
-        }else{
-            return false;
-        }
+    @Override
+    public boolean deletar (Contato contato){
+        return contatos.remove(contato);
     }
 
 }
