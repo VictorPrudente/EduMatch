@@ -2,8 +2,10 @@
 
 ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=Em%20Andamento&color=red&style=for-the-badge)
 
-## Sobre o projeto
+## :information_source: Sobre o projeto
 O EduMatch é um aplicativo em desenvolvimento que visa promover a educação inclusiva, equitativa e de qualidade. O objetivo principal é auxiliar os usuários na entrada em instituições de ensino técnico e superior, além de desenvolver conhecimentos relevantes em diversas áreas de atuação.
+
+[:information_source: Saiba mais](https://github.com/VictorPrudente/vs13-squad9-EduMatch/blob/main/ApresentacaoPDF/EduTech%20-%20Vem%20Ser.pdf)
 
 ### Integrantes & Branches
 
