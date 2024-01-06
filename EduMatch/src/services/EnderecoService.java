@@ -1,12 +1,14 @@
 package services;
 
 import entities.Endereco;
+import interfaces.Service;
+
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class EnderecoService {
+public class EnderecoService implements Service<Endereco> {
 
     private AtomicInteger COUNTER = new AtomicInteger();
     private static ArrayList<Endereco> enderecos = new ArrayList<>();
@@ -26,36 +28,41 @@ public class EnderecoService {
         enderecos.add(new Endereco(COUNTER.incrementAndGet(), "Rua São Jorge", 445, "Beco", "89012-345", "Salvador", "BA", "Brasil"));
         enderecos.add(new Endereco(COUNTER.incrementAndGet(), "Avenida Assis Brasil", 556, "Apto 10", "90123-456", "Ilhéus", "BA", "Brasil"));
     }
-
+    @Override
     public boolean salvar(Endereco enderecoNovo){
+        for(Endereco endereco : enderecos){
+            if(enderecoNovo.equals(endereco)){
+                return false;
+            }
+        }
         return enderecos.add(enderecoNovo);
     }
-
+    @Override
     public void listarTodos(){
         for (Endereco endereco : enderecos){
             System.out.println(endereco.toString());
         }
     }
 
-    public void atualizar (int id, String logradouro, Integer numero, String complemento, String cep, String cidade, String estado, String pais){
-        Optional<Endereco> endereco = enderecos.stream().filter(endereco1 -> endereco1.getId() == id).findFirst();
-
-        endereco.ifPresent(endereco1 -> {
-            endereco1.setLogradouro(logradouro);
-            endereco1.setNumero(numero);
-            endereco1.setComplemento(complemento);
-            endereco1.setCep(cep);
-            endereco1.setCidade(cidade);
-            endereco1.setEstado(estado);
-            endereco1.setPais(pais);});
-        System.out.println("Endereço atualizado com sucesso!");
-    }
-
-    public void deletar(int id, Endereco endereco){
-        for(Endereco enderecoDeletar : enderecos){
-            if(enderecoDeletar.getId() == id){
-                enderecos.remove(enderecoDeletar);
+    @Override
+    public boolean atualizar (int id, Endereco endereco){
+        for (Endereco enderecoAtualizar : enderecos) {
+            if (enderecoAtualizar.getId() == id) {
+                enderecoAtualizar.setCep(endereco.getCep());
+                enderecoAtualizar.setCidade(endereco.getCidade());
+                enderecoAtualizar.setComplemento(endereco.getComplemento());
+                enderecoAtualizar.setEstado(endereco.getEstado());
+                enderecoAtualizar.setLogradouro(endereco.getLogradouro());
+                enderecoAtualizar.setPais(endereco.getPais());
+                enderecoAtualizar.setNumero(endereco.getNumero());
+                return true;
             }
         }
+        return false;
+    }
+
+    @Override
+    public boolean deletar(Endereco endereco){
+        return enderecos.remove(endereco);
     }
 }
