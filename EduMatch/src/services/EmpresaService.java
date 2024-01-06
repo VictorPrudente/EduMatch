@@ -1,9 +1,11 @@
 package services;
 import entities.Empresa;
 import entities.Endereco;
+import entities.Usuario;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -41,30 +43,44 @@ public class EmpresaService {
             }
         }
         empresas.add(empresa);
+        System.out.println("Empresa salva com sucesso!");
         return true;
     }
 
     // READ
-    public ArrayList<Empresa> listarTodos(){
-        return empresas;
+    public void listarTodos(){
+        for (Empresa empresa : empresas){
+            System.out.println(empresa.toString());
+        }
     }
 
-    public Empresa listarPorId(int Id){
+    public Empresa listarPorId(int Id) throws Exception{
         for (Empresa empresa : empresas){
             if (empresa.getId() == Id){
                 return empresa;
             }
         }
-        throw new NoSuchElementException("Empresa com o ID " + Id + "não encontrado.");
+        throw new Exception("Empresa com o ID " + Id + "não encontrado.");
     }
 
+    public Empresa listarPorCNPJ(String CNPJ) throws Exception {
+        for (Empresa empresa : empresas) {
+            if (empresa.getCnpj().equals(CNPJ)) {
+                return empresa;
+            }
+        }
+        throw new Exception("A empresa com o CNPJ " + CNPJ + " não encontrado.");
+    }
     // UPDATE
-    public void atualizar (int Id, Empresa empresaAtualizada){
-        Empresa empresa = empresas.get(Id);
-        empresa.setNome(empresaAtualizada.getNome());
-        empresa.setSetor(empresaAtualizada.getSetor());
-        empresa.setAreaDeAtuacao(empresaAtualizada.getAreaDeAtuacao());
-        empresa.setEndereco(empresaAtualizada.getEndereco());
+    public void atualizar(int id, String nome, String setor, String areaDeAtuacao){
+        Optional<Empresa> empresa = empresas.stream().filter(empresa1 -> empresa1.getId() == id).findFirst();
+
+        empresa.ifPresent(usuario1 -> {
+            usuario1.setNome(nome);
+            usuario1.setSetor(setor);
+            usuario1.setAreaDeAtuacao(areaDeAtuacao);
+        });
+        System.out.println("Usuario atualizado com sucesso!");
     }
 
     // DELETE
@@ -78,3 +94,5 @@ public class EmpresaService {
         }
     }
 }
+
+

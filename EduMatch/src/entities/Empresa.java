@@ -13,7 +13,7 @@ public class Empresa {
 
     public Empresa (){}
     public Empresa(String nome, String setor, String cnpj, String areaDeAtuacao,
-                    int Id){
+                   int Id){
         this.nome = nome;
         this.setor = setor;
         this.cnpj = cnpj;
@@ -44,6 +44,19 @@ public class Empresa {
     }
     public void cadastrarUmAluno(Usuario usuario){
         System.out.println("Usuário " + usuario + "cadastrado na empresa" + this.nome
-        + "com sucesso!");
+                + "com sucesso!");
+    }
+
+    @Override
+    public String toString() {
+        return "Empresa{" +
+                "usuario=" + usuario +
+                ", nome='" + nome + '\'' +
+                ", setor='" + setor + '\'' +
+                ", cnpj='" + cnpj + '\'' +
+                ", areaDeAtuacao='" + areaDeAtuacao + '\'' +
+                ", endereco=" + endereco +
+                ", Id=" + Id +
+                '}';
     }
 }
