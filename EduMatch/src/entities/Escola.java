@@ -1,51 +1,60 @@
 package entities;
 
+import enums.TipoEscola;
+
 public class Escola {
 
-        private String nome;
-        private int tipo;
-        private String cnpj;
+    private int Id;
+    private String nome;
+    private TipoEscola tipo;
+    private String cnpj;
 
-        public Escola(String nome, int tipo, String cnpj) {
-                this.nome = nome;
-                this.tipo = tipo;
-                this.cnpj = cnpj;
-        }
+    public Escola(String nome, TipoEscola tipo, String cnpj) {
+        this.nome = nome;
+        this.tipo = tipo;
+        this.cnpj = cnpj;
+    }
 
-        @Override
-        public String toString() {
-                return "Escola{" +
-                        "nome='" + nome + '\'' +
-                        ", tipo=" + tipo +
-                        ", cnpj='" + cnpj + '\'' +
-                        '}';
-        }
+    public int getId() {
+        return Id;
+    }
 
-        public String getNome() {
-                return nome;
-        }
+    public void setId(int id) {
+        Id = id;
+    }
 
-        public void setNome(String nome) {
-                this.nome = nome;
-        }
+    public String getNome() {
+        return nome;
+    }
 
-        public int getTipo() {
-                return tipo;
-        }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-        public void setTipo(int tipo) {
-                this.tipo = tipo;
-        }
+    public String getTipo() {
+        return tipo.name();
+    }
 
-        public String getCnpj() {
-                return cnpj;
-        }
+    public void setTipo(TipoEscola tipo) {
+        this.tipo = tipo;
+    }
 
-        public void setCnpj(String cnpj) {
-                this.cnpj = cnpj;
-        }
+    public String getCnpj() {
+        return cnpj;
+    }
 
-        public void cadastrarAluno (String nomeAluno){
-            System.out.println("Realizado o cadastro do aluno: " + nomeAluno);
-        }
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    @Override
+    public String toString() {
+        return "Escola{" +
+                "Id=" + Id +
+                ", nome='" + nome + '\'' +
+                ", tipo=" + tipo +
+                ", cnpj='" + cnpj + '\'' +
+                '}';
+    }
+
 }
