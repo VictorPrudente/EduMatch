@@ -1,52 +1,74 @@
 package services;
 
 import entities.Escola;
+import enums.TipoEscola;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class EscolaService {
 
-    ArrayList<Escola> listaEscolas = new ArrayList<>();
+    private AtomicInteger COUNTER = new AtomicInteger();
+    Random random = new Random();
 
-    public ArrayList<Escola> listar(){
+    ArrayList<Escola> listaEscolas = new ArrayList<>();
+    public EscolaService(){
+        inicializarLista();
+    }
+
+    public void inicializarLista(){
+        Escola escola = new Escola("Garibaldi", TipoEscola.PRIVADA, "123456");
+        escola.setId(COUNTER.incrementAndGet());
+        listaEscolas.add(escola);
+    }
+
+
+    public ArrayList<Escola> listar() {
         return listaEscolas;
     }
 
     //CREATED
-    public String adicionar(Escola escola) {
-        if (listaEscolas.add(escola)) {
-            return "Escola: " + escola.getNome() + " adicionada com sucesso!";
-        } else {
-            return "Não foi possível adicionar a escola" + escola.getNome();
+    public boolean adicionar(Escola escola) {
+        for (Escola escola1 : listaEscolas) {
+            if (escola1.getCnpj().equals(escola.getCnpj())) {
+                System.out.println("O CNPJ " + escola.getCnpj() + "já foi cadastrada!");
+                return false;
+            }
+
         }
+        listaEscolas.add(escola);
+        System.out.println("Escola cadastrada com sucesso!");
+        return true;
     }
 
     //READ
-    public String buscar(String cnpj) {
-        for (int i = 0; i < listaEscolas.size(); i++) {  //percorrendo a lista
-            if (listaEscolas.get(i).getCnpj().equals(cnpj)) { //retorna objeto -
-                return "A escola pesquisa é: " + listaEscolas.get(i).getNome();
+    public Escola buscar(String cnpj){
+        for (Escola escola1 : listaEscolas){
+            if (escola1.getCnpj().equals(cnpj)){
+                return escola1;
             }
         }
-        return "Escola com O CNPJ " + cnpj + " não encontrado!";
+        throw new NoSuchElementException("Escola com O CNPJ " + cnpj + "não encontrado!");
     }
 
+
     //UPDATED
-    public String atualizar(Escola escola, String nomeEscola) {
-        for (int i = 0; i < listaEscolas.size(); i++) {
-            if (listaEscolas.get(i).equals(escola)) {
+    public String atualizar(Escola escola, String nomeEscola){
+        for (int i = 0; i < listaEscolas.size(); i++){
+            if (listaEscolas.get(i).equals(escola)){
                 listaEscolas.get(i).setNome(nomeEscola);
-                return "Escola: " + escola.getNome() + " atualizada com sucesso!";
-            }
+                return "Escola atualizada com sucesso!";            }
         }
-        return "Não foi possível atualizar o nome da escola: " + escola.getNome();
+        throw new NoSuchElementException("Não foi possível atualizar o nome da escola: " + escola.getNome());
     }
 
     //DELETED
     public String deletar(Escola escola) {
         if (listaEscolas.remove(escola)) {
-            return "Escola: " + escola.getNome() + " foi removida com sucesso!";
+            return "Escola foi removida com sucesso!";
         }
-        return "Não é possível remover a escola: " + escola.getNome();
+        throw new NoSuchElementException("Escola com o ID: " + escola.getId() + " não encontrado!");
     }
 }
