@@ -1,4 +1,7 @@
-# EduMatch
+ <div style="display: flex; align-items: center;">
+  <h1>EduMatch</h1>
+  <img src="https://cdn.discordapp.com/attachments/1189248506335076532/1193284397340827819/OIG-removebg-preview.png?ex=65ac27b2&is=6599b2b2&hm=6279f3e262abe1fa18348c3635399f35fd233dad72a1700056e585daa58b296b&" width="80" height="80" style="margin-right: 10px;" alt="OIG Logo">
+</div>
 
 ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=Em%20Andamento&color=red&style=for-the-badge)
 
@@ -99,8 +102,17 @@ Acompanhe o progresso das tarefas no [Trello](https://trello.com/b/okeu5gWa/educ
 12. [**feat/certificado**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-certificado)
     - Criação da classe certificado que representa um certificado de conclusão no sistema do jogo.
 
+
+## Linguagem utilizada
+  <img align="center" alt="Rafa-Java" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg">
+
+####
 ## Autores do Projeto
 
 | ![Arthur Schroder](https://media.licdn.com/dms/image/D4E03AQE-LrTH9UVR6w/profile-displayphoto-shrink_800_800/0/1692737537511?e=1709769600&v=beta&t=998PBs6Ht2ZAV3FoUq2C06cbVV-hnFYer_ZlFE9qLcI) | ![Brayan Benet](https://avatars.githubusercontent.com/u/63371569?v=4) | ![Camila Bauer](https://avatars.githubusercontent.com/u/112354608?v=4) | ![Carlos Estrela](https://avatars.githubusercontent.com/u/69488591?v=4) | ![Débora Hickmann](https://avatars.githubusercontent.com/u/101061552?v=4) | ![Vinícius Félix](https://avatars.githubusercontent.com/u/133911179?v=4) | ![Jaíne Rodrigues](https://avatars.githubusercontent.com/u/93234113?v=4) | ![Pablo Leão](https://media.licdn.com/dms/image/C5603AQHoRy_hhnD87A/profile-displayphoto-shrink_800_800/0/1621551129575?e=1709769600&v=beta&t=pYTRXe20pjxbK1lxOpIWPlF6kzMK-juDxLgBWQES468) | ![Victor Prudente](https://avatars.githubusercontent.com/u/143949574?v=4) |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | [Arthur Schroder](https://github.com/ArthurSchroder) <br> BackEnd | [Brayan Benet](https://github.com/brayanbenet) <br> QA | [Camila Bauer](https://github.com/CamilaBauer) <br> QA | [Carlos Estrela](https://github.com/carlosalbertoestrela) <br> QA | [Débora Hickmann](https://github.com/Deboraaahickmann) <br> QA | [Vinícius Félix](https://github.com/galego-vinicius) <br> BackEnd | [Jaíne Rodrigues](https://github.com/jaineRodrigues) <br> FrontEnd | [Pablo Leão](https://github.com/pablo-leao) <br> FrontEnd | [Victor Prudente](https://github.com/VictorPrudente) <br> BackEnd |
+
+####
+## Agradecimento
+ <img align="center" alt="DBC-COMPANY" height="35" width="35" src="https://media.licdn.com/dms/image/C4D0BAQFszK2MGQUCUA/company-logo_200_200/0/1668687291660?e=1712793600&v=beta&t=lCZTO8Oys0B71J1Yt4Hc66uam-3_3gJZAyWqooiGUVc">
