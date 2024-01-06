@@ -31,8 +31,8 @@ public class Escola {
         this.nome = nome;
     }
 
-    public TipoEscola getTipo() {
-        return tipo;
+    public String getTipo() {
+        return tipo.name();
     }
 
     public void setTipo(TipoEscola tipo) {
