@@ -107,13 +107,14 @@ public class SoftSkillService {
     }
 
     //TODO implementar retorno de mensagem caso não encontre uma questão;
-    public void listarPelaDificuldade(Dificuldades dificuldade){
+    public List<SoftSkill> listarPelaDificuldade(Dificuldades dificuldade){
+        ArrayList<SoftSkill> questoes = new ArrayList<>();
         for (SoftSkill questao : listaQuestesSoftSkill){
             if (questao.getDificuldade() == dificuldade){
-                System.out.println(questao.toString());
+                questoes.add(questao);
             }
-            }
-        }
+        } return questoes;
+    }
 
     public void atualizar(int id, String textoAtualizado, String opcaoCorreta){
         Optional<SoftSkill> questao = listaQuestesSoftSkill.stream().filter(questao1 -> questao1.getId() == id).findFirst();
