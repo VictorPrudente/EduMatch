@@ -2,9 +2,9 @@ package interfaces;
 
 public interface Service {
 
-    public boolean salvar();
-    public boolean atualizar();
-    public boolean deletar();
-    public void listarTodos();
+    boolean salvar();
+    boolean atualizar();
+    boolean deletar();
+    void listarTodos();
 
 }
