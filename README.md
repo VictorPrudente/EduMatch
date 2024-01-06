@@ -72,54 +72,9 @@ Um aplicativo que visa assegurar a educação inclusiva, equitativa e de qualida
 12. [**feat/certificado**](COLOCAR LINK)
     - A branch feat/certificado foi usada para criar a classe certificado que representa um certificado de conclusão no sistema do jogo.
     - Ele inclui informações como ID, data de conclusão, trilha (que pode ser Matemática, Português ou Softskills) e o usuário associado.
- 
- ## :handbag: Autores
 
-<div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;">
+## :smile: Autores
 
-  <div style="text-align: center; max-width: 150px;">
-    <img loading="lazy" src="https://media.licdn.com/dms/image/D4E03AQE-LrTH9UVR6w/profile-displayphoto-shrink_800_800/0/1692737537511?e=1709769600&v=beta&t=998PBs6Ht2ZAV3FoUq2C06cbVV-hnFYer_ZlFE9qLcI" width=115><br>
-    <sub><a href="https://github.com/ArthurSchroder">Arthur Schroder</a> - BackEnd</sub>
-  </div>
-
-  <div style="text-align: center; max-width: 150px;">
-    <img loading="lazy" src="https://avatars.githubusercontent.com/u/63371569?v=4" width=115><br>
-    <sub><a href="https://github.com/brayanbenet">Brayan Benet</a> - QA</sub>
-  </div>
-
-  <div style="text-align: center; max-width: 150px;">
-    <img loading="lazy" src="https://avatars.githubusercontent.com/u/112354608?v=4" width=115><br>
-    <sub><a href="https://github.com/CamilaBauer">Camila Bauer</a> - QA</sub>
-  </div>
-
-  <div style="text-align: center; max-width: 150px;">
-    <img loading="lazy" src="https://avatars.githubusercontent.com/u/69488591?v=4" width=115><br>
-    <sub><a href="https://github.com/carlosalbertoestrela">Carlos Estrela</a> - BackEnd</sub>
-  </div>
-
-  <div style="text-align: center; max-width: 150px;">
-    <img loading="lazy" src="https://avatars.githubusercontent.com/u/101061552?v=4" width=115><br>
-    <sub><a href="https://github.com/Deboraaahickmann">Débora Hickmann</a> - QA</sub>
-  </div>
-
-  <div style="text-align: center; max-width: 150px;">
-    <img loading="lazy" src="https://avatars.githubusercontent.com/u/133911179?v=4" width=115><br>
-    <sub><a href="https://github.com/galego-vinicius">Vinícius Félix</a> - BackEnd</sub>
-  </div>
-
-  <div style="text-align: center; max-width: 150px;">
-    <img loading="lazy" src="https://avatars.githubusercontent.com/u/93234113?v=4" width=115><br>
-    <sub><a href="https://github.com/jaineRodrigues">Jaíne Rodrigues</a> - FrontEnd</sub>
-  </div>
-
-  <div style="text-align: center; max-width: 150px;">
-    <img loading="lazy" src="https://media.licdn.com/dms/image/C5603AQHoRy_hhnD87A/profile-displayphoto-shrink_800_800/0/1621551129575?e=1709769600&v=beta&t=pYTRXe20pjxbK1lxOpIWPlF6kzMK-juDxLgBWQES468" width=115><br>
-    <sub><a href="https://github.com/pablo-leao">Pablo Leão</a> - FrontEnd</sub>
-  </div>
-
-  <div style="text-align: center; max-width: 150px;">
-    <img loading="lazy" src="https://avatars.githubusercontent.com/u/143949574?v=4" width=115><br>
-    <sub><a href="https://github.com/VictorPrudente">Victor Prudente</a> - BackEnd</sub>
-  </div>
-
-</div>
+| ![Arthur Schroder](https://media.licdn.com/dms/image/D4E03AQE-LrTH9UVR6w/profile-displayphoto-shrink_800_800/0/1692737537511?e=1709769600&v=beta&t=998PBs6Ht2ZAV3FoUq2C06cbVV-hnFYer_ZlFE9qLcI) | ![Brayan Benet](https://avatars.githubusercontent.com/u/63371569?v=4) | ![Camila Bauer](https://avatars.githubusercontent.com/u/112354608?v=4) | ![Carlos Estrela](https://avatars.githubusercontent.com/u/69488591?v=4) | ![Débora Hickmann](https://avatars.githubusercontent.com/u/101061552?v=4) | ![Vinícius Félix](https://avatars.githubusercontent.com/u/133911179?v=4) | ![Jaíne Rodrigues](https://avatars.githubusercontent.com/u/93234113?v=4) | ![Pablo Leão](https://media.licdn.com/dms/image/C5603AQHoRy_hhnD87A/profile-displayphoto-shrink_800_800/0/1621551129575?e=1709769600&v=beta&t=pYTRXe20pjxbK1lxOpIWPlF6kzMK-juDxLgBWQES468) | ![Victor Prudente](https://avatars.githubusercontent.com/u/143949574?v=4) |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| [Arthur Schroder](https://github.com/ArthurSchroder) - BackEnd | [Brayan Benet](https://github.com/brayanbenet) - QA | [Camila Bauer](https://github.com/CamilaBauer) - QA | [Carlos Estrela](https://github.com/carlosalbertoestrela) - BackEnd | [Débora Hickmann](https://github.com/Deboraaahickmann) - QA | [Vinícius Félix](https://github.com/galego-vinicius) - BackEnd | [Jaíne Rodrigues](https://github.com/jaineRodrigues) - FrontEnd | [Pablo Leão](https://github.com/pablo-leao) - FrontEnd | [Victor Prudente](https://github.com/VictorPrudente) - BackEnd |
