@@ -103,7 +103,7 @@ public class UsuarioService {
         System.out.println("Usuario atualizado com sucesso!");
     }
 
-    public void deletar(int id, Usuario usuario){
+    public void deletar(int id){
         for (Usuario usuarioADeletar : usuarios){
             if (usuarioADeletar.getId() == id){
                 usuarios.remove(usuarioADeletar);

@@ -1,7 +1,7 @@
 package services;
 
 import entities.Escola;
-import enums.TipoEscola;
+import entities.enums.TipoEscola;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
