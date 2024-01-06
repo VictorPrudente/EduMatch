@@ -1,4 +1,3 @@
-import entities.Escola;
 import entities.Usuario;
 import services.EscolaService;
 import services.UsuarioService;

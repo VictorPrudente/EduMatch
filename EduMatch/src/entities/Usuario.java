@@ -12,10 +12,8 @@ public class Usuario {
     private String CPF;
     private Integer idade;
     private Integer pontuacao;
-
     public Usuario() {
     }
-
 
     public Usuario(String nome, String sobrenome, String CPF,
                    Integer idade, Integer pontuacao) {
@@ -25,8 +23,6 @@ public class Usuario {
         this.idade = idade;
         this.pontuacao = pontuacao;
     }
-
-
 
     public boolean temAutorizacaoDosPais(){
         return false;
@@ -76,6 +72,9 @@ public class Usuario {
         return pontuacao;
     }
 
+    public void setPontuacao(int pontuacao){
+        this.pontuacao += pontuacao;
+    }
     @Override
     public String toString() {
         return String.format("""

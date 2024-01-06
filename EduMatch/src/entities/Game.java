@@ -1,76 +1,53 @@
 package entities;
 
-public class Game {
-    private int pontos;
-    private String modalidade;
-    private int dificuldade;
-    private int vitorias;
-    private int derrotas;
+import java.util.Objects;
 
-    public Game(){}
-    public Game(String modalidade, int dificuldade) {
-        this.modalidade = modalidade;
-        this.dificuldade = dificuldade;
-    }
+public abstract class Game{
 
-    public void escolherModalidade(String modalidade){
-        this.modalidade= modalidade;
-    }
-    public void escolherDificuldade(int dificuldade){
-        this.dificuldade = dificuldade;
+    protected int id;
+    protected String questao;
+    protected String opcaoCerta;
+    protected int pontos;
+    public Game(){
+
     }
 
-    public void comecarJogo (){
-        System.out.println("O jogo começou!");
+    public Game(int id, String questao, String opcaoCerta, int pontos) {
+        this.id = id;
+        this.questao = questao;
+        this.opcaoCerta = opcaoCerta;
+        this.pontos = pontos;
     }
 
-    public void ganharJogo(){
-        System.out.println("Parabéns! Você venceu!");
-        pontos += 15 * dificuldade;
-        vitorias ++;
+    public String getQuestao() {
+        return questao;
     }
 
-    public void desistir (){
-        System.out.println("Você desistiu dessa partida!");
-        derrotas ++;
-        pontos -= 5;
+    public void setQuestao(String questao) {
+        this.questao = questao;
     }
 
-    public void perderJogo(){
-        System.out.println("Poxa, infelizmente você perdeu! ");
-        derrotas++;
-        pontos -=5;
+    public String getOpcaoCerta() {
+        return opcaoCerta;
     }
-    public void semErros(){
-        System.out.println("Parabéns, você não errou nada!");
-        pontos += 10;
+
+    public void setOpcaoCerta(String opcaoCerta) {
+        this.opcaoCerta = opcaoCerta;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getPontos() {
         return pontos;
     }
 
-    public String getModalidade() {
-        return modalidade;
-    }
-
-    public int getDificuldade() {
-        return dificuldade;
-    }
-
-    public int getVitorias() {
-        return vitorias;
-    }
-
-    public int getDerrotas() {
-        return derrotas;
-    }
-
-    public void setModalidade(String modalidade) {
-        this.modalidade = modalidade;
-    }
-
-    public void setDificuldade(int dificuldade) {
-        this.dificuldade = dificuldade;
+    public void setPontos(int pontos) {
+        this.pontos = pontos;
     }
 }
