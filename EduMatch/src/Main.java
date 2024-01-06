@@ -1,61 +1,89 @@
+import entities.SoftSkill;
 import entities.Usuario;
-import services.EscolaService;
-import services.UsuarioService;
+import entities.enums.Dificuldades;
+import services.*;
 
-import java.util.ArrayList;
+import java.awt.*;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
         EscolaService escolaService = new EscolaService();
-        escolaService.inicializarLista();
+        UsuarioService usuarioService = new UsuarioService();
+        SoftSkillService softSkillService = new SoftSkillService();
+        EnderecoService enderecoService = new EnderecoService();
+        EmpresaService empresaService = new EmpresaService();
+        ContatoService contatoService = new ContatoService();
+        Scanner sc = new Scanner(System.in);
+        int opcao = 0;
+        String opcaoQuestao;
 
-        int selecaoMenu=0;
-        Scanner teclado = new Scanner(System.in);
-        do {
-            System.out.println("[1] Novo jogo\n" +
-                    "[2] Ranking\n" +
-                    "[3] Opções\n" +
-                    "[6] Sair");
-            selecaoMenu = teclado.nextInt();
 
-            switch (selecaoMenu) {
+        System.out.println("BEM VINDOS AO EDUMATCH");
+        System.out.print("Por favor, digite seu nome: ");
+        String nome = sc.nextLine();
+        System.out.print("Por favor, digite Sobrenome: ");
+        String sobrenome = sc.nextLine();
+        System.out.print("Agora, digite seu CPF: ");
+        String cpf = sc.nextLine();
+        System.out.print("Por favor, Digite sua idade: ");
+        int idade = sc.nextInt();
+        sc.nextLine();
+        Usuario usuario = new Usuario(nome, sobrenome, cpf, idade, 0);
+        usuarioService.salvar(usuario);
+
+        System.out.println();
+        System.out.println();
+        while (true) {
+            System.out.println("MENU PRINCIPAL");
+            System.out.println("""
+                    [1] Novo jogo
+                    [2] Ranking
+                    [3] Opções
+                    [4] Sair""");
+            System.out.print("Digite sua opção: ");
+            opcao = sc.nextInt();
+            switch (opcao) {
                 case 1: {
-                    int selecaoJogo=0;
-                    do {
-                        System.out.println("Escolha uma trilha\n" +
-                                "[1] Português\n" +
-                                "[2] Matemática\n" +
-                                "[3] SoftSkills\n" +
-                                "[4] Retornar ao Menu Principal");
-                        selecaoJogo = teclado.nextInt();
-
-                        switch (selecaoJogo){
-                            case 1: {
-                                //TODO Português
-                                break;
-                            }
-                            case 2: {
-                                //TODO Matemática
-                                break;
-                            }
-                            case 3: {
-                                //TODO SoftSkills
-                                break;
-                            }
-                            case 4: {
-                                System.out.println("Retornar ao Menu Principal");
-                                break;
-                            }
-                            default: {
-                                System.out.println("Opção Inválida!");
-                            }
-
+                    System.out.println();
+                    System.out.println("""
+                            Escolha uma trilha
+                            [1] Português
+                            [2] Matemática
+                            [3] SoftSkills
+                            [4] Retornar ao Menu Principal""");
+                    System.out.print("Digite sua opção: ");
+                    opcao = sc.nextInt();
+                    sc.nextLine();
+                    switch (opcao){
+                        case 1: {
+                            break;
                         }
+                        case 2: {
+                            break;
+                        }
+                        case 3: {
+                            System.out.println();
+                            for (int i = 0; i<3; i++){
+                            SoftSkill questao = softSkillService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(1);
 
-                    }while(selecaoJogo != 4);
-                    break;
+                            System.out.println(questao);
+
+                            System.out.print("Opção: ");
+                            opcaoQuestao = sc.nextLine();
+
+                            if (opcaoQuestao.equals(questao.getOpcaoCerta())){
+                                usuario.setPontuacao(questao.getPontos());
+                                System.out.println("Opção correta! Isso ai :D");
+                            } else {
+                                System.out.println("Opção errada, preste mais atenção!");
+                            }}
+                            break;
+                        }
+                    }
+                break;
                 }
                 case 2: {
                     int selecaoRanking = 0;
@@ -65,7 +93,7 @@ public class Main {
                                 "[2] Posição geral\n" +
                                 "[3] Voltar ao menu principal");
 
-                        selecaoRanking= teclado.nextInt();
+                        selecaoRanking = sc.nextInt();
 
                         switch (selecaoRanking) {
                             case 1: {
@@ -101,7 +129,8 @@ public class Main {
                                 "[7] Listar empresas cadastradas\n" +
                                 "[8] Voltar ao Menu Principal");
 
-                        selecaoOpcoes= teclado.nextInt();
+                        selecaoOpcoes = sc.nextInt();
+                        sc.nextLine();
 
                         switch (selecaoOpcoes) {
                             case 1: {
@@ -124,7 +153,7 @@ public class Main {
                                             "[2] Listar ultimo certificado adquirido\n" +
                                             "[3] Voltar ao menu opções");
 
-                                    selecaoCertificados=teclado.nextInt();
+                                    selecaoCertificados = sc.nextInt();
 
                                     switch (selecaoCertificados) {
                                         case 1: {
@@ -144,7 +173,7 @@ public class Main {
                                         }
                                     }
 
-                                }while (selecaoCertificados != 3);
+                                } while (selecaoCertificados != 3);
                                 break;
                             }
                             case 5: {
@@ -159,13 +188,9 @@ public class Main {
                                             "[2] Cadastrar em uma escola\n" +
                                             "[3] Voltar ao menu principal");
 
-                                     selecaoEscolas= teclado.nextInt();
+                                    selecaoEscolas = sc.nextInt();
                                     switch (selecaoEscolas) {
                                         case 1: {
-                                            ArrayList<Escola> lista=escolaService.listar();
-                                            for (Escola escola: lista) {
-                                                System.out.println(escola.toString());
-                                            }
                                             break;
                                         }
                                         case 2: {
@@ -195,7 +220,7 @@ public class Main {
                                 System.out.println("Opção Inválida!");
                             }
                         }
-                    } while (selecaoOpcoes !=8);
+                    } while (selecaoOpcoes != 8);
 
                     break;
                 }
@@ -207,8 +232,11 @@ public class Main {
                     System.out.println("Opção Inválida!");
                 }
             }
-        }while (selecaoMenu != 6);
-
+            break;
+        }
+        sc.close();
+    }
+}
 
 
 
@@ -267,5 +295,3 @@ Menu Escolas
 -------------------------------------
         *
         * */
-    }
-}

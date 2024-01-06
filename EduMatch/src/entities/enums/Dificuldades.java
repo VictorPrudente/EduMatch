@@ -15,7 +15,7 @@ public enum Dificuldades {
     }
     public static Dificuldades valueOf(int nivel){
         for (Dificuldades dificuldade : Dificuldades.values()){
-            if (dificuldade.getNivel() == nivel){
+            if (dificuldade.ordinal() == nivel){
                 return dificuldade;
             }
         }
