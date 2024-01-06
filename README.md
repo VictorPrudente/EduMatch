@@ -1,5 +1,6 @@
  <div style="display: flex; align-items: center;">
-  <h1>EduMatch</h1> <img src="https://cdn.discordapp.com/attachments/1189248506335076532/1193284397340827819/OIG-removebg-preview.png?ex=65ac27b2&is=6599b2b2&hm=6279f3e262abe1fa18348c3635399f35fd233dad72a1700056e585daa58b296b&" width="80" height="80" style="margin-right: 10px;" alt="OIG Logo">
+  <h1 style="margin-right: 10px;">EduMatch</h1>
+  <img src="https://cdn.discordapp.com/attachments/1189248506335076532/1193284397340827819/OIG-removebg-preview.png?ex=65ac27b2&is=6599b2b2&hm=6279f3e262abe1fa18348c3635399f35fd233dad72a1700056e585daa58b296b&" width="80" height="80" alt="OIG Logo">
 </div>
 
 ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=Em%20Andamento&color=red&style=for-the-badge)
