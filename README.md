@@ -1,7 +1,5 @@
- <div style="display: flex; align-items: center;">
-  <h1 style="margin-right: 10px;">EduMatch</h1>
-  <img src="https://cdn.discordapp.com/attachments/1189248506335076532/1193284397340827819/OIG-removebg-preview.png?ex=65ac27b2&is=6599b2b2&hm=6279f3e262abe1fa18348c3635399f35fd233dad72a1700056e585daa58b296b&" width="80" height="80" alt="OIG Logo">
-</div>
+
+![OIG Logo](https://media.discordapp.net/attachments/1189248506335076532/1193294742163828856/image.png?ex=65ac3154&is=6599bc54&hm=488e00b9f6f908bcf0971f18b5b5594320d3d407ad9ce5032daca4ac5c9152f2&=&format=webp&quality=lossless)
 
 ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=Em%20Andamento&color=red&style=for-the-badge)
 
@@ -38,10 +36,10 @@ O EduMatch é um aplicativo em desenvolvimento que visa promover a educação in
     - [feat/classe-empresa](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-Empresa)
 
 
-- **Jaíne Rodrigues** - [FrontEnd](https://github.com/jaineRodrigues)
+- **Jaíne Rodrigues** - [FrontEnd](https://vs13-squad9-edu-match.vercel.app/)
 
 
-- **Pablo Leão** - [FrontEnd](https://github.com/pablo-leao)
+- **Pablo Leão** - [FrontEnd](https://vs13-squad9-edu-match.vercel.app/)
 
 
 - **Victor Prudente**
