@@ -7,7 +7,6 @@ import enums.TipoDeContato;
 import interfaces.Service;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ContatoService implements Service<Contato> {
     private ArrayList<Contato> contatos = new ArrayList<>();

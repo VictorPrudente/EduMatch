@@ -96,6 +96,7 @@ public class UsuarioService implements Service<Usuario> {
         }
         throw new Exception("Usuário com o CPF " + CPF + " não encontrado.");
     }
+  
     @Override
     public boolean atualizar(int id,Usuario usuarioAtualizado){
         for (Usuario usuarioAtualizar : usuarios){
@@ -104,6 +105,7 @@ public class UsuarioService implements Service<Usuario> {
                 usuarioAtualizar.setIdade(usuarioAtualizado.getIdade());
                 usuarioAtualizar.setNome(usuarioAtualizado.getNome());
                 return true;
+
             }
         }
         return false;

@@ -5,6 +5,7 @@ import entities.Escola;
 import enums.TipoEscola;
 import interfaces.Service;
 
+
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Random;

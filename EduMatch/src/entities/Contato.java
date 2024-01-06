@@ -1,8 +1,6 @@
 package entities;
-import enums.TipoDeContato;
+import entities.enums.TipoDeContato;
 
-import java.util.Objects;
-import java.util.Scanner;
 public class Contato {
     public static int ULTIMO_ID=1;
     private String descricao;

@@ -1,6 +1,6 @@
 package entities;
 
-import enums.TipoEscola;
+import entities.enums.TipoEscola;
 
 public class Escola {
 
