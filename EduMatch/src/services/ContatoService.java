@@ -1,10 +1,9 @@
 package services;
 
 import entities.Contato;
-import enums.TipoDeContato;
+import entities.enums.TipoDeContato;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ContatoService {
     private ArrayList<Contato> contatos = new ArrayList<>();
