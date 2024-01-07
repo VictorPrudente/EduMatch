@@ -111,6 +111,14 @@ public class Usuario {
                 Pontucação: %d""", nome, sobrenome, idade, pontuacao);
     }
 
+    public String imprimirDados(){
+        return String.format("""
+                Nome: %s %s
+                CPF: %s
+                Idade: %d
+                Escola: %s
+                Pontuação: %d""", nome, sobrenome, CPF, idade, escola, pontuacao);
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -54,7 +54,7 @@ public class Menu {
         sb.append("[3] Escola\n");
         sb.append("[4] Listar Certificados\n");
         sb.append("[5] Mostrar dados do usuário\n");
-        sb.append("[6] Listar escolas cadastradas\n");
+        sb.append("[6] Listar Empresas cadastradas\n");
         sb.append("[7] Voltar ao Menu Principal");
         System.out.println(sb);
     }
@@ -86,8 +86,8 @@ public class Menu {
     public void menuEscola(){
 
         StringBuilder sb = new StringBuilder();
-
-        sb.append("\n[1] Listar Escolas\n");
+        sb.append("\nMENU ESCOLA\n");
+        sb.append("[1] Listar Escolas\n");
         sb.append("[2] Cadastrar em uma escola\n");
         sb.append("[3] Voltar ao menu principal");
         System.out.println(sb);
@@ -96,8 +96,8 @@ public class Menu {
     public void menuCertificado(){
 
         StringBuilder sb = new StringBuilder();
-
-        sb.append("\n[1] Listar certificados\n");
+        sb.append("\nMENU CERTIFICADOS\n");
+        sb.append("[1] Listar certificados\n");
         sb.append("[2] Listar ultimo certificado adquirido\n");
         sb.append("[3] Voltar ao menu opções");
 
@@ -107,8 +107,8 @@ public class Menu {
     public void menuRanking(){
 
         StringBuilder sb = new StringBuilder();
-
-        sb.append("\n[1] Minha pontuação\n");
+        sb.append("\nMENU RANKING\n");
+        sb.append("[1] Minha pontuação\n");
         sb.append("[2] Posição geral\n");
         sb.append("[3] Voltar ao menu principal");
 

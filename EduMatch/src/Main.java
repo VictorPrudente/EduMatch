@@ -156,6 +156,7 @@ public class Main {
                                     System.out.println(usuario.getEnderecos());
                                     System.out.print("Escolha um endereço pelo seu ID: ");
                                     int id = sc.nextInt();
+                                    sc.nextLine();
                                     Endereco endereco = cadastro.cadastrarEndereco(sc);
                                     enderecoService.atualizar(id, endereco);
                                     break;
@@ -178,7 +179,7 @@ public class Main {
                             continue;
                         }
                         case 2: {
-                            //TODO Contatos
+                            //Contatos
                             menu.menuContato();
                             System.out.print("Opção: ");
                             opcao = sc.nextInt();
@@ -203,9 +204,12 @@ public class Main {
                                     System.out.println(usuario.getContatos());
                                     System.out.print("Opção: ");
                                     opcao = sc.nextInt();
+                                    sc.nextLine();
                                     Contato contato = contatoService.listarPorId(opcao);
                                     Contato contatoAtualizado = cadastro.cadastrarContato(sc);
                                     contatoService.atualizar(opcao, contato);
+                                    usuario.getContatos().remove(contato);
+                                    usuario.addContatos(contatoAtualizado);
                                     break;
                                 }
                                 case 4:{
@@ -214,6 +218,7 @@ public class Main {
                                     System.out.print("Opção: ");
                                     opcao = sc.nextInt();
                                     Contato contato = contatoService.listarPorId(opcao);
+                                    usuario.getContatos().remove(contato);
                                     contatoService.deletar(contato);
                                 }
                                 case 5:{
@@ -282,42 +287,14 @@ public class Main {
                             break;
                         }
                         case 5: {
-                            System.out.println(usuario.toString());
+                            System.out.println(usuario.imprimirDados());
                             continue;
                         }
                         case 6: {
-                            int selecaoEscolas = 0;
-                            do {
-                                System.out.println("Menu Escolas\n" +
-                                        "[1] Listar Escolas\n" +
-                                        "[2] Cadastrar em uma escola\n" +
-                                        "[3] Voltar ao menu principal");
-
-                                selecaoEscolas = sc.nextInt();
-                                switch (selecaoEscolas) {
-                                    case 1: {
-                                        break;
-                                    }
-                                    case 2: {
-                                        //TODO Cadastrar uma escola
-                                        break;
-                                    }
-                                    case 3: {
-                                        System.out.println("Voltar ao menu principal");
-                                        break;
-                                    }
-                                    default: {
-                                        System.out.println("Opção Inválida!");
-                                    }
-                                }
-                            } while (selecaoEscolas != 3);
+                            empresaService.listarTodos();
                             break;
                         }
                         case 7: {
-                            //TODO Listar empresas cadastradas
-                            break;
-                        }
-                        case 8: {
                             System.out.println("Retornar ao Menu Principal");
                             break;
                         }
