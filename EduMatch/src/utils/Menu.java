@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 public class Menu {
 
-
     public void validarQuestao(String opcaoRespondida, Game questao, Usuario usuario){
         if (opcaoRespondida.equals(questao.getOpcaoCerta())) {
             usuario.setPontuacao(questao.getPontos());

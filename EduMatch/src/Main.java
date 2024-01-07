@@ -41,7 +41,6 @@ public class Main {
             System.out.print("Digite sua opção: ");
             opcao = sc.nextInt();
             sc.nextLine();
-
             switch (opcao) {
                 //NOVO JOGO
                 case 1: {
@@ -154,34 +153,42 @@ public class Main {
                                 case 3:{
                                     //ATUALIZAR UM ENDEREÇO
                                     int i = 0;
-                                    System.out.println("ATUALIZAR UM ENDEREÇO");
-                                    for (Endereco endereco : usuario.getEnderecos()) {
-                                        System.out.printf("[%d]", ++i);
-                                        System.out.println(endereco + "\n");
+                                    if(!usuario.getEnderecos().isEmpty()) {
+                                        System.out.println("ATUALIZAR UM ENDEREÇO");
+                                        for (Endereco endereco : usuario.getEnderecos()) {
+                                            System.out.printf("[%d]", ++i);
+                                            System.out.println(endereco + "\n");
+                                        }
+                                        System.out.print("Escolha um endereço pelo seu ID: ");
+                                        int id = sc.nextInt();
+                                        sc.nextLine();
+                                        Endereco enderecoAtualizado = cadastro.cadastrarEndereco(sc);
+                                        Endereco enderecoAntigo = usuario.getEnderecos().get(id - 1);
+                                        usuario.addEnderecos(enderecoAtualizado);
+                                        usuario.getEnderecos().remove(enderecoAntigo);
+                                        System.out.println("Endereço atualizado com sucesso!\n");
+                                    } else {
+                                        System.out.println("Você não tem nenhum endereço cadastrado.\n");
                                     }
-                                    System.out.print("Escolha um endereço pelo seu ID: ");
-                                    int id = sc.nextInt();
-                                    sc.nextLine();
-                                    Endereco enderecoAtualizado = cadastro.cadastrarEndereco(sc);
-                                    Endereco enderecoAntigo = usuario.getEnderecos().get(id-1);
-                                    usuario.addEnderecos(enderecoAtualizado);
-                                    usuario.getEnderecos().remove(enderecoAntigo);
-                                    System.out.println("Endereço atualizado com sucesso!\n");
                                     break;
                                 }
                                 case 4:{
                                     //DELETAR UM ENDEREÇO
                                     int i = 0;
-                                    System.out.println("DELETAR UM ENDEREÇO");
-                                    for (Endereco endereco : usuario.getEnderecos()) {
-                                        System.out.printf("[%d] ", ++i);
-                                        System.out.println(endereco + "\n");
+                                    if(!usuario.getEnderecos().isEmpty()) {
+                                        System.out.println("DELETAR UM ENDEREÇO");
+                                        for (Endereco endereco : usuario.getEnderecos()) {
+                                            System.out.printf("[%d] ", ++i);
+                                            System.out.println(endereco + "\n");
+                                        }
+                                        System.out.print("Escolha um endereço pelo seu ID: ");
+                                        int id = sc.nextInt();
+                                        Endereco endereco = usuario.getEnderecos().get(id - 1);
+                                        usuario.getEnderecos().remove(endereco);
+                                        System.out.println("Endereço deletado com sucesso!\n");
+                                    } else {
+                                        System.out.println("Você não tem nenhum endereço cadastrado.\n");
                                     }
-                                    System.out.print("Escolha um endereço pelo seu ID: ");
-                                    int id = sc.nextInt();
-                                    Endereco endereco = usuario.getEnderecos().get(id-1);
-                                    usuario.getEnderecos().remove(endereco);
-                                    System.out.println("Endereço deletado com sucesso!\n");
                                     break;
                                 }
                                 case 5:{
@@ -216,9 +223,9 @@ public class Main {
                                     break;
                                 }
                                 case 3:{
-                                    System.out.println("Escolha o ID do contato a ser atualizado: ");
                                     int i = 0;
                                     if (!usuario.getContatos().isEmpty()) {
+                                    System.out.println("Escolha o ID do contato a ser atualizado: ");
                                         for (Contato contato : usuario.getContatos()) {
                                             System.out.printf("[%d] ", ++i);
                                             System.out.print(contato);
@@ -232,11 +239,12 @@ public class Main {
                                         usuario.addContatos(contatoAtualizado);
                                         usuario.getContatos().remove(contato);
                                     } else
-                                        System.out.println("Lista de contatos vazia.");
+                                        System.out.println("Lista de contatos vazia.\n");
                                     break;
                                 }
                                 case 4:{
                                     int i = 0;
+                                    if(!usuario.getContatos().isEmpty()){
                                     System.out.println("Escolha o ID do contato a ser deletado: ");
                                     for(Contato contato : usuario.getContatos()){
                                         System.out.printf("[%d] ", ++i);
@@ -246,6 +254,9 @@ public class Main {
                                     opcao = sc.nextInt();
                                     Contato contato = usuario.getContatos().get(opcao-1);
                                     usuario.getContatos().remove(contato);
+                                    } else {
+                                        System.out.println("Lista de contatos vazia.\n");
+                                    }
                                 }
                                 case 5:{
                                     continue;
