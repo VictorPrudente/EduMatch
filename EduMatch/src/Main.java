@@ -136,8 +136,9 @@ public class Main {
                                 case 1:{
                                     System.out.println();
                                     System.out.println("ENDEREÇOS CADASTRADOS");
-                                    System.out.println(usuario.getEnderecos());
-                                    System.out.println();
+                                    for (Endereco endereco : usuario.getEnderecos()) {
+                                        System.out.println(endereco);
+                                    }
                                     continue;
                                 }
                                 case 2:{
@@ -153,7 +154,9 @@ public class Main {
                                 case 3:{
                                     //ATUALIZAR UM ENDEREÇO
                                     System.out.println("ATUALIZAR UM ENDEREÇO");
-                                    System.out.println(usuario.getEnderecos());
+                                    for (Endereco endereco : usuario.getEnderecos()) {
+                                        System.out.println(endereco);
+                                    }
                                     System.out.print("Escolha um endereço pelo seu ID: ");
                                     int id = sc.nextInt();
                                     sc.nextLine();
@@ -164,7 +167,9 @@ public class Main {
                                 case 4:{
                                     //DELETAR UM ENDEREÇO
                                     System.out.println("DELETAR UM ENDEREÇO");
-                                    System.out.println(usuario.getEnderecos());
+                                    for (Endereco endereco : usuario.getEnderecos()) {
+                                        System.out.println(endereco);
+                                    }
                                     System.out.print("Escolha um endereço pelo seu ID: ");
                                     int id = sc.nextInt();
                                     Endereco endereco = enderecoService.listarPorId(id);
@@ -189,7 +194,9 @@ public class Main {
                                 case 1:{
                                     System.out.println();
                                     System.out.println("CONTATOS CADASTRADOS");
-                                    System.out.println(usuario.getContatos());
+                                    for(Contato contato : usuario.getContatos()){
+                                        System.out.println(contato);
+                                    }
                                     System.out.println();
                                     continue;
                                 }
@@ -201,7 +208,9 @@ public class Main {
                                 }
                                 case 3:{
                                     System.out.println("Escolha o ID do contato a ser atualizado: ");
-                                    System.out.println(usuario.getContatos());
+                                    for(Contato contato : usuario.getContatos()){
+                                        System.out.println(contato);
+                                    }
                                     System.out.print("Opção: ");
                                     opcao = sc.nextInt();
                                     sc.nextLine();
@@ -214,7 +223,9 @@ public class Main {
                                 }
                                 case 4:{
                                     System.out.println("Escolha o ID do contato a ser deletado: ");
-                                    System.out.println(usuario.getContatos());
+                                    for(Contato contato : usuario.getContatos()){
+                                        System.out.println(contato);
+                                    }
                                     System.out.print("Opção: ");
                                     opcao = sc.nextInt();
                                     Contato contato = contatoService.listarPorId(opcao);
