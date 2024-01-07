@@ -2,6 +2,7 @@ import entities.SoftSkill;
 import entities.Usuario;
 import entities.enums.Dificuldades;
 import services.*;
+import utils.Menu;
 
 import java.awt.*;
 import java.util.InputMismatchException;
@@ -16,6 +17,7 @@ public class Main {
         EnderecoService enderecoService = new EnderecoService();
         EmpresaService empresaService = new EmpresaService();
         ContatoService contatoService = new ContatoService();
+        Menu menu = new Menu();
         Scanner sc = new Scanner(System.in);
         int opcao = 0;
         String opcaoQuestao;
@@ -36,29 +38,26 @@ public class Main {
 
         System.out.println();
         System.out.println();
+
         while (true) {
-            System.out.println("MENU PRINCIPAL");
-            System.out.println("""
-                    [1] Novo jogo
-                    [2] Ranking
-                    [3] Opções
-                    [4] Sair""");
+            menu.menuPrincipal();
             System.out.print("Digite sua opção: ");
             opcao = sc.nextInt();
+            sc.nextLine();
+
             switch (opcao) {
+                //NOVO JOGO
                 case 1: {
                     System.out.println();
-                    System.out.println("""
-                            Escolha uma trilha
-                            [1] Português
-                            [2] Matemática
-                            [3] SoftSkills
-                            [4] Retornar ao Menu Principal""");
+                    menu.menuNovoJogo();
                     System.out.print("Digite sua opção: ");
                     opcao = sc.nextInt();
                     sc.nextLine();
-                    switch (opcao){
+                    switch (opcao) {
                         case 1: {
+                            for (int i = 0; i<3; i++){
+
+                            }
                             break;
                         }
                         case 2: {
@@ -66,161 +65,143 @@ public class Main {
                         }
                         case 3: {
                             System.out.println();
-                            for (int i = 0; i<3; i++){
-                            SoftSkill questao = softSkillService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(1);
+                            for (int i = 0; i < 3; i++) {
+                                SoftSkill questao = softSkillService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(i);
+                                System.out.println(questao);
 
-                            System.out.println(questao);
+                                System.out.print("Opção: ");
+                                opcaoQuestao = sc.nextLine();
 
-                            System.out.print("Opção: ");
-                            opcaoQuestao = sc.nextLine();
-
-                            if (opcaoQuestao.equals(questao.getOpcaoCerta())){
-                                usuario.setPontuacao(questao.getPontos());
-                                System.out.println("Opção correta! Isso ai :D");
-                            } else {
-                                System.out.println("Opção errada, preste mais atenção!");
-                            }}
+                                if (opcaoQuestao.equals(questao.getOpcaoCerta())) {
+                                    usuario.setPontuacao(questao.getPontos());
+                                    System.out.println("Opção correta! Isso ai :D");
+                                } else {
+                                    System.out.println("Opção errada, preste mais atenção!");
+                                }
+                            }
                             break;
                         }
                     }
-                break;
-                }
-                case 2: {
-                    int selecaoRanking = 0;
-                    do {
-                        System.out.println("Ranking\n" +
-                                "[1] Minha pontuação\n" +
-                                "[2] Posição geral\n" +
-                                "[3] Voltar ao menu principal");
-
-                        selecaoRanking = sc.nextInt();
-
-                        switch (selecaoRanking) {
-                            case 1: {
-                                //TODO Minha pontuacao
-                                break;
-                            }
-                            case 2: {
-                                //TODO Posicao geral
-                                break;
-                            }
-                            case 3: {
-                                System.out.println("Retornar ao Menu Principal");
-                                break;
-                            }
-                            default: {
-                                System.out.println("Opção Inválida!");
-                            }
-                        }
-                    } while (selecaoRanking != 3);
-
                     break;
                 }
-                case 3: {
-                    int selecaoOpcoes = 0;
-                    do {
-                        System.out.println("Menu Opcões\n" +
-                                "[1] Endereços\n" +
-                                "[2] Contatos\n" +
-                                "[3] Escola\n" +
-                                "[4] Listar Certificados\n" +
-                                "[5] Mostrar dados do usuário\n" +
-                                "[6] Listar escolas cadastradas\n" +
-                                "[7] Listar empresas cadastradas\n" +
-                                "[8] Voltar ao Menu Principal");
-
-                        selecaoOpcoes = sc.nextInt();
-                        sc.nextLine();
-
-                        switch (selecaoOpcoes) {
-                            case 1: {
-                                //TODO Endereços
-                                break;
-                            }
-                            case 2: {
-                                //TODO Contatos
-                                break;
-                            }
-                            case 3: {
-                                //TODO Escola
-                                break;
-                            }
-                            case 4: {
-                                int selecaoCertificados = 0;
-                                do {
-                                    System.out.println("Menu Certificados\n" +
-                                            "[1] Listar certificados\n" +
-                                            "[2] Listar ultimo certificado adquirido\n" +
-                                            "[3] Voltar ao menu opções");
-
-                                    selecaoCertificados = sc.nextInt();
-
-                                    switch (selecaoCertificados) {
-                                        case 1: {
-                                            //TODO Listar certificados
-                                            break;
-                                        }
-                                        case 2: {
-                                            //TODO Listar ultimo certificado adquirido
-                                            break;
-                                        }
-                                        case 3: {
-                                            System.out.println("Voltar ao menu opções.");
-                                            break;
-                                        }
-                                        default: {
-                                            System.out.println("Opção Inválida!");
-                                        }
-                                    }
-
-                                } while (selecaoCertificados != 3);
-                                break;
-                            }
-                            case 5: {
-                                //TODO Mostrar dados do usuário
-                                break;
-                            }
-                            case 6: {
-                                int selecaoEscolas = 0;
-                                do {
-                                    System.out.println("Menu Escolas\n" +
-                                            "[1] Listar Escolas\n" +
-                                            "[2] Cadastrar em uma escola\n" +
-                                            "[3] Voltar ao menu principal");
-
-                                    selecaoEscolas = sc.nextInt();
-                                    switch (selecaoEscolas) {
-                                        case 1: {
-                                            break;
-                                        }
-                                        case 2: {
-                                            //TODO Cadastrar uma escola
-                                            break;
-                                        }
-                                        case 3: {
-                                            System.out.println("Voltar ao menu principal");
-                                            break;
-                                        }
-                                        default: {
-                                            System.out.println("Opção Inválida!");
-                                        }
-                                    }
-                                } while (selecaoEscolas != 3);
-                                break;
-                            }
-                            case 7: {
-                                //TODO Listar empresas cadastradas
-                                break;
-                            }
-                            case 8: {
-                                System.out.println("Retornar ao Menu Principal");
-                                break;
-                            }
-                            default: {
-                                System.out.println("Opção Inválida!");
-                            }
+                //RANKING
+                case 2: {
+                    menu.menuRanking();
+                    opcao = sc.nextInt();
+                    switch (opcao) {
+                        case 1: {
+                            System.out.println();
+                            System.out.println("Sua pontuação é de: " + usuario.getPontuacao());
+                            break;
                         }
-                    } while (selecaoOpcoes != 8);
+                        case 2: {
+                            //TODO Posicao geral
+                            break;
+                        }
+                        case 3: {
+                            System.out.println("Retornar ao Menu Principal");
+                            break;
+                        }
+                        default: {
+                            System.out.println("Opção Inválida!");
+                        }
+                    }
+                }
+                break;
+                //OPÇÕES
+                case 3: {
+                    menu.menuOpcoes();
+                    System.out.print("Opção: ");
+                    opcao = sc.nextInt();
+
+                    switch (opcao) {
+                        case 1: {
+                            //TODO Endereços
+                            break;
+                        }
+                        case 2: {
+                            //TODO Contatos
+                            break;
+                        }
+                        case 3: {
+                            //TODO Escola
+                            break;
+                        }
+                        case 4: {
+                            int selecaoCertificados = 0;
+                            do {
+                                System.out.println("Menu Certificados\n" +
+                                        "[1] Listar certificados\n" +
+                                        "[2] Listar ultimo certificado adquirido\n" +
+                                        "[3] Voltar ao menu opções");
+
+                                selecaoCertificados = sc.nextInt();
+
+                                switch (selecaoCertificados) {
+                                    case 1: {
+                                        //TODO Listar certificados
+                                        break;
+                                    }
+                                    case 2: {
+                                        //TODO Listar ultimo certificado adquirido
+                                        break;
+                                    }
+                                    case 3: {
+                                        System.out.println("Voltar ao menu opções.");
+                                        break;
+                                    }
+                                    default: {
+                                        System.out.println("Opção Inválida!");
+                                    }
+                                }
+
+                            } while (selecaoCertificados != 3);
+                            break;
+                        }
+                        case 5: {
+                            //TODO Mostrar dados do usuário
+                            break;
+                        }
+                        case 6: {
+                            int selecaoEscolas = 0;
+                            do {
+                                System.out.println("Menu Escolas\n" +
+                                        "[1] Listar Escolas\n" +
+                                        "[2] Cadastrar em uma escola\n" +
+                                        "[3] Voltar ao menu principal");
+
+                                selecaoEscolas = sc.nextInt();
+                                switch (selecaoEscolas) {
+                                    case 1: {
+                                        break;
+                                    }
+                                    case 2: {
+                                        //TODO Cadastrar uma escola
+                                        break;
+                                    }
+                                    case 3: {
+                                        System.out.println("Voltar ao menu principal");
+                                        break;
+                                    }
+                                    default: {
+                                        System.out.println("Opção Inválida!");
+                                    }
+                                }
+                            } while (selecaoEscolas != 3);
+                            break;
+                        }
+                        case 7: {
+                            //TODO Listar empresas cadastradas
+                            break;
+                        }
+                        case 8: {
+                            System.out.println("Retornar ao Menu Principal");
+                            break;
+                        }
+                        default: {
+                            System.out.println("Opção Inválida!");
+                        }
+                    }
 
                     break;
                 }
@@ -231,6 +212,7 @@ public class Main {
                 default: {
                     System.out.println("Opção Inválida!");
                 }
+                break;
             }
             break;
         }
