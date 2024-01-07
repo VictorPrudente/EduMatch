@@ -1,66 +1,44 @@
 package entities;
 
-import entities.enums.Dificuldades;
+public class Game {
+    public int pontos;
+    public String modalidade;
+    public int dificuldade;
+    public int vitorias;
+    public int derrotas;
 
-import java.util.Objects;
-
-public abstract class Game{
-
-    protected int id;
-
-    protected Dificuldades dificuldade;
-    protected String questao;
-    protected String opcaoCerta;
-    protected int pontos;
-    public Game(){
-
+    public void escolherModalidade(String modalidade){
+        this.modalidade= modalidade;
+    }
+    public void escolherDificuldade(int diff){
+        this.dificuldade = diff;
     }
 
-    public Game(int id, Dificuldades dificuldade, String questao, String opcaoCerta, int pontos) {
-        this.id = id;
-        this.dificuldade = dificuldade;
-        this.questao = questao;
-        this.opcaoCerta = opcaoCerta;
-        this.pontos = pontos;
+    public void comecarJogo (){
+        System.out.println("O jogo começou!");
     }
 
-    public Dificuldades getDificuldade() {
-        return dificuldade;
+    public void ganharJogo(){
+        System.out.println("Parabéns! Você venceu!");
+        pontos += 15 * dificuldade;
+        vitorias ++;
     }
 
-    public void setDificuldade(Dificuldades dificuldade) {
-        this.dificuldade = dificuldade;
+    public void desistir (){
+        System.out.println("Você desistiu dessa partida!");
+        derrotas ++;
+        pontos -= 5;
     }
 
-    public String getQuestao() {
-        return questao;
+    public void perderJogo(){
+        System.out.println("Poxa, infelizmente você perdeu! ");
+        derrotas++;
+        pontos -=5;
+    }
+    public void semErros(){
+        System.out.println("Parabéns, você não errou nada!");
+        pontos += 10;
     }
 
-    public void setQuestao(String questao) {
-        this.questao = questao;
-    }
 
-    public String getOpcaoCerta() {
-        return opcaoCerta;
-    }
-
-    public void setOpcaoCerta(String opcaoCerta) {
-        this.opcaoCerta = opcaoCerta;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getPontos() {
-        return pontos;
-    }
-
-    public void setPontos(int pontos) {
-        this.pontos = pontos;
-    }
 }
