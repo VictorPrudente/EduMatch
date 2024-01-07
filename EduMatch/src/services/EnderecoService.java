@@ -1,9 +1,11 @@
 package services;
 
 import entities.Endereco;
+import entities.Escola;
 import interfaces.Service;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -32,9 +34,12 @@ public class EnderecoService implements Service<Endereco> {
     public boolean salvar(Endereco enderecoNovo){
         for(Endereco endereco : enderecos){
             if(enderecoNovo.equals(endereco)){
+                System.out.printf("Endereço já cadastrado!\n");
                 return false;
             }
         }
+        enderecoNovo.setId(COUNTER.incrementAndGet());
+        System.out.printf("Endereço cadastrado com sucesso!\n");
         return enderecos.add(enderecoNovo);
     }
     @Override
@@ -42,6 +47,14 @@ public class EnderecoService implements Service<Endereco> {
         for (Endereco endereco : enderecos){
             System.out.println(endereco.toString());
         }
+    }
+
+    public Endereco listarPorId(int id) {
+        for(Endereco endereco : enderecos){
+            if (endereco.getId() == id){
+                return endereco;
+            }
+        } throw new NoSuchElementException("Endereço com o id " + id + " não encontrada.");
     }
 
     @Override
