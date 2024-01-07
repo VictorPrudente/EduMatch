@@ -78,11 +78,9 @@ public class Usuario {
     @Override
     public String toString() {
         return String.format("""
-                -=-=-=-=-=-=-=-=-=-
-                ID: %d
                 Nome: %s %s
                 Idade: %d
-                Pontucação: %d""", id, nome, sobrenome, idade, pontuacao);
+                Pontucação: %d""", nome, sobrenome, idade, pontuacao);
     }
 
     @Override

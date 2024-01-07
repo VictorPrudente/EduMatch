@@ -107,12 +107,14 @@ public class PortuguesService {
     }
 
     //TODO implementar retorno de mensagem caso não encontre uma questão;
-    public void listarPelaDificuldade(Dificuldades dificuldade){
+    public List<Portugues> listarPelaDificuldade(Dificuldades dificuldade){
+        ArrayList<Portugues> questoes = new ArrayList<>();
         for (Portugues questao : listaQuestesPortugues){
             if (questao.getDificuldade() == dificuldade){
-                System.out.println(questao.toString());
+                questoes.add(questao);
             }
         }
+        return questoes;
     }
 
     public void atualizar(int id, String textoAtualizado, String opcaoCorreta){

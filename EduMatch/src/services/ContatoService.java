@@ -3,7 +3,7 @@ package services;
 import entities.Contato;
 import entities.Empresa;
 import entities.Usuario;
-import enums.TipoDeContato;
+import entities.enums.TipoDeContato;
 import interfaces.Service;
 
 import java.util.ArrayList;

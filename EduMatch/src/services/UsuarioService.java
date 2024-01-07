@@ -57,6 +57,7 @@ public class UsuarioService implements Service<Usuario> {
                 return false;
             }
         }
+        usuario.setId(COUNTER.incrementAndGet());
         usuarios.add(usuario);
         System.out.println("Usuário salvo com sucesso");
         return true;
@@ -75,8 +76,13 @@ public class UsuarioService implements Service<Usuario> {
                 .filter(usuario -> usuario.getPontuacao() != null)
                 .sorted(Comparator.comparing(Usuario::getPontuacao).reversed())
                 .collect(Collectors.toCollection(ArrayList::new));
+        int i = 0;
         for (Usuario jogadores : rankingDeJogadores){
-            System.out.println(jogadores.toString());
+            System.out.printf("""
+                
+                -=-=-=-=-=-=-=-=-=-
+                %d° Lugar
+                %s""", ++i,  jogadores.toString());
         }
     }
 

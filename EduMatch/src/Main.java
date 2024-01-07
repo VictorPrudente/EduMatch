@@ -1,3 +1,5 @@
+import entities.Matematica;
+import entities.Portugues;
 import entities.SoftSkill;
 import entities.Usuario;
 import entities.enums.Dificuldades;
@@ -6,6 +8,7 @@ import utils.Menu;
 
 import java.awt.*;
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -17,9 +20,13 @@ public class Main {
         EnderecoService enderecoService = new EnderecoService();
         EmpresaService empresaService = new EmpresaService();
         ContatoService contatoService = new ContatoService();
+        PortuguesService portuguesService = new PortuguesService();
+        MatematicaService matematicaService = new MatematicaService();
+        Random random = new Random();
         Menu menu = new Menu();
         Scanner sc = new Scanner(System.in);
         int opcao = 0;
+        boolean execucao = true;
         String opcaoQuestao;
 
 
@@ -39,7 +46,7 @@ public class Main {
         System.out.println();
         System.out.println();
 
-        while (true) {
+        while (execucao) {
             menu.menuPrincipal();
             System.out.print("Digite sua opção: ");
             opcao = sc.nextInt();
@@ -56,11 +63,33 @@ public class Main {
                     switch (opcao) {
                         case 1: {
                             for (int i = 0; i<3; i++){
+                                Portugues questao = portuguesService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(random.nextInt(0, 2));
+                                System.out.println(questao);
 
+                                System.out.print("Opção: ");
+                                opcaoQuestao = sc.nextLine().toUpperCase().trim();
+                                if (opcaoQuestao.equals(questao.getOpcaoCerta())) {
+                                    usuario.setPontuacao(questao.getPontos());
+                                    System.out.println("Opção correta! Isso ai :D");
+                                } else {
+                                    System.out.println("Opção errada, preste mais atenção!");
+                                }
                             }
                             break;
                         }
                         case 2: {
+                            for(int i = 0; i < 3; i++) {
+                                Matematica questao = matematicaService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(random.nextInt(0, 2));
+                                System.out.println(questao);
+                                System.out.print("Opção: ");
+                                opcaoQuestao = sc.nextLine().toUpperCase().trim();
+                                if (opcaoQuestao.equals(questao.getOpcaoCerta())) {
+                                    usuario.setPontuacao(questao.getPontos());
+                                    System.out.println("Opção correta! Isso ai :D");
+                                } else {
+                                    System.out.println("Opção errada, preste mais atenção!");
+                                }
+                            }
                             break;
                         }
                         case 3: {
@@ -82,25 +111,27 @@ public class Main {
                             break;
                         }
                     }
-                    break;
+                    continue;
                 }
                 //RANKING
                 case 2: {
                     menu.menuRanking();
+                    System.out.print("Opção: ");
                     opcao = sc.nextInt();
                     switch (opcao) {
                         case 1: {
                             System.out.println();
                             System.out.println("Sua pontuação é de: " + usuario.getPontuacao());
-                            break;
+                            continue;
                         }
                         case 2: {
-                            //TODO Posicao geral
-                            break;
+                            usuarioService.rankearUsuarios();
+                            System.out.println();
+                            continue;
                         }
                         case 3: {
-                            System.out.println("Retornar ao Menu Principal");
-                            break;
+                            System.out.println("Retornando ao Menu Principal");
+                            continue;
                         }
                         default: {
                             System.out.println("Opção Inválida!");
@@ -116,8 +147,29 @@ public class Main {
 
                     switch (opcao) {
                         case 1: {
-                            //TODO Endereços
-                            break;
+                            menu.menuEndereco();
+                            System.out.print("Opção: ");
+                            opcao = sc.nextInt();
+                            switch (opcao){
+                                case 1:{
+                                    //TODO Usuario Endereço
+                                    continue;
+                                }
+                                case 2:{
+                                    //CADASTRAR NOVO ENDEREÇO
+                                    continue;
+                                }
+                                case 3:{
+                                    //ATUALIZAR UM ENDEREÇO
+                                }
+                                case 4:{
+                                    //DELETAR UM ENDEREÇO
+                                }
+                                case 5:{
+                                    continue;
+                                }
+                            }
+                            continue;
                         }
                         case 2: {
                             //TODO Contatos
@@ -205,8 +257,9 @@ public class Main {
 
                     break;
                 }
-                case 6: {
-                    System.out.println("Sair do jogo");
+                case 4: {
+                    System.out.println("Finalizando a aplicação. Até logo!");
+                    execucao = false;
                     break;
                 }
                 default: {
@@ -214,9 +267,7 @@ public class Main {
                 }
                 break;
             }
-            break;
         }
-        sc.close();
     }
 }
 
