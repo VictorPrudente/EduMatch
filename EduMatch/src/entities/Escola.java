@@ -15,6 +15,12 @@ public class Escola {
         this.cnpj = cnpj;
     }
 
+    public Escola(String nome, TipoEscola tipo){
+        this.nome = nome;
+        this.tipo = tipo;
+    }
+
+
     public int getId() {
         return Id;
     }

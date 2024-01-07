@@ -16,9 +16,7 @@ public class Main {
         EscolaService escolaService = new EscolaService();
         UsuarioService usuarioService = new UsuarioService();
         SoftSkillService softSkillService = new SoftSkillService();
-        EnderecoService enderecoService = new EnderecoService();
         EmpresaService empresaService = new EmpresaService();
-        ContatoService contatoService = new ContatoService();
         PortuguesService portuguesService = new PortuguesService();
         MatematicaService matematicaService = new MatematicaService();
         Cadastro cadastro = new Cadastro();
@@ -31,7 +29,6 @@ public class Main {
 
 
         System.out.println("BEM VINDOS AO EDUMATCH");
-
 
         Usuario usuario = cadastro.cadastrarUsuario(sc);
         usuarioService.salvar(usuario);
@@ -134,10 +131,14 @@ public class Main {
                             sc.nextLine();
                             switch (opcao){
                                 case 1:{
-                                    System.out.println();
-                                    System.out.println("ENDEREÇOS CADASTRADOS");
-                                    System.out.println(usuario.getEnderecos());
-                                    System.out.println();
+                                    if(!usuario.getEnderecos().isEmpty()) {
+                                        System.out.println("ENDEREÇOS CADASTRADOS");
+                                        for (Endereco endereco : usuario.getEnderecos()) {
+                                            System.out.println("\n" + endereco + "\n");
+                                        }
+                                    } else {
+                                        System.out.println("\nNenhum endereço cadastrado.\n");
+                                    }
                                     continue;
                                 }
                                 case 2:{
@@ -146,30 +147,41 @@ public class Main {
                                     System.out.println("CADASTRO DE UM NOVO ENDEREÇO");
                                     Endereco endereco = cadastro.cadastrarEndereco(sc);
                                     usuario.addEnderecos(endereco);
-                                    enderecoService.salvar(endereco);
+                                    System.out.println("Endereço cadastrado com sucesso!\n");
 
                                     continue;
                                 }
                                 case 3:{
                                     //ATUALIZAR UM ENDEREÇO
+                                    int i = 0;
                                     System.out.println("ATUALIZAR UM ENDEREÇO");
-                                    System.out.println(usuario.getEnderecos());
+                                    for (Endereco endereco : usuario.getEnderecos()) {
+                                        System.out.printf("[%d]", ++i);
+                                        System.out.println(endereco + "\n");
+                                    }
                                     System.out.print("Escolha um endereço pelo seu ID: ");
                                     int id = sc.nextInt();
                                     sc.nextLine();
-                                    Endereco endereco = cadastro.cadastrarEndereco(sc);
-                                    enderecoService.atualizar(id, endereco);
+                                    Endereco enderecoAtualizado = cadastro.cadastrarEndereco(sc);
+                                    Endereco enderecoAntigo = usuario.getEnderecos().get(id-1);
+                                    usuario.addEnderecos(enderecoAtualizado);
+                                    usuario.getEnderecos().remove(enderecoAntigo);
+                                    System.out.println("Endereço atualizado com sucesso!\n");
                                     break;
                                 }
                                 case 4:{
                                     //DELETAR UM ENDEREÇO
+                                    int i = 0;
                                     System.out.println("DELETAR UM ENDEREÇO");
-                                    System.out.println(usuario.getEnderecos());
+                                    for (Endereco endereco : usuario.getEnderecos()) {
+                                        System.out.printf("[%d] ", ++i);
+                                        System.out.println(endereco + "\n");
+                                    }
                                     System.out.print("Escolha um endereço pelo seu ID: ");
                                     int id = sc.nextInt();
-                                    Endereco endereco = enderecoService.listarPorId(id);
-                                    enderecoService.deletar(endereco);
+                                    Endereco endereco = usuario.getEnderecos().get(id-1);
                                     usuario.getEnderecos().remove(endereco);
+                                    System.out.println("Endereço deletado com sucesso!\n");
                                     break;
                                 }
                                 case 5:{
@@ -187,39 +199,53 @@ public class Main {
 
                             switch (opcao){
                                 case 1:{
-                                    System.out.println();
+                                    if(!usuario.getContatos().isEmpty()){
                                     System.out.println("CONTATOS CADASTRADOS");
-                                    System.out.println(usuario.getContatos());
-                                    System.out.println();
+                                    for(Contato contato : usuario.getContatos()){
+                                        System.out.println(contato);
+                                    }
+                                    }else {
+                                        System.out.println("\nNenhum contato cadastrado.\n");
+                                    }
                                     continue;
                                 }
                                 case 2:{
                                     Contato contato = cadastro.cadastrarContato(sc);
                                     usuario.addContatos(contato);
-                                    contatoService.salvar(contato);
+                                    System.out.println("Contato cadastrado com sucesso!");
                                     break;
                                 }
                                 case 3:{
                                     System.out.println("Escolha o ID do contato a ser atualizado: ");
-                                    System.out.println(usuario.getContatos());
-                                    System.out.print("Opção: ");
-                                    opcao = sc.nextInt();
-                                    sc.nextLine();
-                                    Contato contato = contatoService.listarPorId(opcao);
-                                    Contato contatoAtualizado = cadastro.cadastrarContato(sc);
-                                    contatoService.atualizar(opcao, contato);
-                                    usuario.getContatos().remove(contato);
-                                    usuario.addContatos(contatoAtualizado);
+                                    int i = 0;
+                                    if (!usuario.getContatos().isEmpty()) {
+                                        for (Contato contato : usuario.getContatos()) {
+                                            System.out.printf("[%d] ", ++i);
+                                            System.out.print(contato);
+                                            System.out.println();
+                                        }
+                                        System.out.print("Opção: ");
+                                        opcao = sc.nextInt();
+                                        sc.nextLine();
+                                        Contato contato = usuario.getContatos().get(opcao-1);
+                                        Contato contatoAtualizado = cadastro.cadastrarContato(sc);
+                                        usuario.addContatos(contatoAtualizado);
+                                        usuario.getContatos().remove(contato);
+                                    } else
+                                        System.out.println("Lista de contatos vazia.");
                                     break;
                                 }
                                 case 4:{
+                                    int i = 0;
                                     System.out.println("Escolha o ID do contato a ser deletado: ");
-                                    System.out.println(usuario.getContatos());
+                                    for(Contato contato : usuario.getContatos()){
+                                        System.out.printf("[%d] ", ++i);
+                                        System.out.println(contato);
+                                    }
                                     System.out.print("Opção: ");
                                     opcao = sc.nextInt();
-                                    Contato contato = contatoService.listarPorId(opcao);
+                                    Contato contato = usuario.getContatos().get(opcao-1);
                                     usuario.getContatos().remove(contato);
-                                    contatoService.deletar(contato);
                                 }
                                 case 5:{
                                     continue;
@@ -241,13 +267,22 @@ public class Main {
                                 }
                                 case 2:{
                                     escolaService.listarTodos();
-                                    System.out.print("Escolha o ID de uma escola para se cadastrar: ");
-                                    Escola escola = escolaService.listarPorId(sc.nextInt());
-                                    usuario.setEscola(escola);
-                                    System.out.println("Escola cadastrada com sucesso.");
+                                    System.out.print("Escolha o ID de uma escola para se cadastrar (0 caso não tenha na lista): ");
+                                    opcao = sc.nextInt();
+                                    sc.nextLine();
+                                    if (opcao == 0){
+                                        Escola escola = cadastro.cadastrarEscola(sc);
+                                        escolaService.salvar(escola);
+                                        usuario.setEscola(escola);
+                                    } else {
+                                        Escola escola = escolaService.listarPorId(opcao);
+                                        usuario.setEscola(escola);
+                                    }
                                     continue;
                                 }
                                 case 3:{
+                                }
+                                case 4:{
                                     System.out.println("Voltando ao menu principal.");
                                     continue;
                                 }
