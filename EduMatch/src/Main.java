@@ -241,13 +241,22 @@ public class Main {
                                 }
                                 case 2:{
                                     escolaService.listarTodos();
-                                    System.out.print("Escolha o ID de uma escola para se cadastrar: ");
-                                    Escola escola = escolaService.listarPorId(sc.nextInt());
-                                    usuario.setEscola(escola);
-                                    System.out.println("Escola cadastrada com sucesso.");
+                                    System.out.print("Escolha o ID de uma escola para se cadastrar (0 caso não tenha na lista): ");
+                                    opcao = sc.nextInt();
+                                    sc.nextLine();
+                                    if (opcao == 0){
+                                        Escola escola = cadastro.cadastrarEscola(sc);
+                                        escolaService.salvar(escola);
+                                        usuario.setEscola(escola);
+                                    } else {
+                                        Escola escola = escolaService.listarPorId(opcao);
+                                        usuario.setEscola(escola);
+                                    }
                                     continue;
                                 }
                                 case 3:{
+                                }
+                                case 4:{
                                     System.out.println("Voltando ao menu principal.");
                                     continue;
                                 }

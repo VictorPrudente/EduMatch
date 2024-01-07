@@ -46,6 +46,7 @@ public class EscolaService implements Service<Escola> {
             }
 
         }
+        escola.setId(COUNTER.incrementAndGet());
         escolas.add(escola);
         System.out.println("Escola cadastrada com sucesso!");
         return true;

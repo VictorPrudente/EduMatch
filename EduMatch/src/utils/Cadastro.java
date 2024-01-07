@@ -2,8 +2,10 @@ package utils;
 
 import entities.Contato;
 import entities.Endereco;
+import entities.Escola;
 import entities.Usuario;
 import entities.enums.TipoDeContato;
+import entities.enums.TipoEscola;
 
 import java.util.Scanner;
 
@@ -71,5 +73,20 @@ public class Cadastro {
         String pais = sc.nextLine();
 
         return new Endereco(rua, numero, compl, cep,cidade, estado, pais);
+    }
+
+    public Escola cadastrarEscola(Scanner sc){
+
+        System.out.print("Digite o nome da escola: ");
+        String nome = sc.nextLine();
+
+        System.out.print("Tipo de escola\n" +
+                "[1] Privada\n" +
+                "[2] Publica\n" +
+                "[3] Técnica\n");
+        System.out.print("Opção: ");
+        int tipo = sc.nextInt();
+
+        return new Escola(nome, TipoEscola.valueOf(tipo));
     }
 }
