@@ -1,7 +1,9 @@
 package services;
+import entities.Contato;
 import entities.Empresa;
 import entities.Endereco;
 import entities.Usuario;
+import interfaces.Service;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -9,7 +11,7 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class EmpresaService {
+public class EmpresaService implements Service<Empresa> {
 
     private AtomicInteger COUNTER = new AtomicInteger();
     Integer id = COUNTER.incrementAndGet();
@@ -20,22 +22,23 @@ public class EmpresaService {
         inicializarLista();
     }
 
-    private void inicializarLista(){
+    private void inicializarLista() {
 
-        empresas.add(new Empresa("Pedro", "Brown", "123123", "Alimentício",  id));
-        empresas.add(new Empresa( "Lucio", "Blue", "123", "Alimentício", id));
-        empresas.add(new Empresa( "Marcos", "Yellow", "123","Alimentício", id));
-        empresas.add(new Empresa( "Lucia", "White", "123","Alimentício", id));
-        empresas.add(new Empresa( "Maria", "Black", "123","Alimentício", id));
-        empresas.add(new Empresa( "Yolanda", "Red", "123","Alimentício", id));
-        empresas.add(new Empresa( "Josefina", "Purple", "123","Alimentício", id));
-        empresas.add(new Empresa( "Carlas", "Gold", "123","Alimentício", id));
-        empresas.add(new Empresa( "Leslie", "Pink", "123","Alimentício", id));
+        empresas.add(new Empresa("Pedro", "Brown", "123123", "Alimentício", id));
+        empresas.add(new Empresa("Lucio", "Blue", "123", "Alimentício", id));
+        empresas.add(new Empresa("Marcos", "Yellow", "123", "Alimentício", id));
+        empresas.add(new Empresa("Lucia", "White", "123", "Alimentício", id));
+        empresas.add(new Empresa("Maria", "Black", "123", "Alimentício", id));
+        empresas.add(new Empresa("Yolanda", "Red", "123", "Alimentício", id));
+        empresas.add(new Empresa("Josefina", "Purple", "123", "Alimentício", id));
+        empresas.add(new Empresa("Carlas", "Gold", "123", "Alimentício", id));
+        empresas.add(new Empresa("Leslie", "Pink", "123", "Alimentício", id));
 
     }
 
     // CREATE
-    public boolean salvar (Empresa empresa){
+    @Override
+    public boolean salvar(Empresa empresa) {
         for (Empresa empresaNaLista : empresas) {
             if (empresaNaLista.getCnpj().equals(empresa.getCnpj())) {
                 System.out.println("O CNPJ deve ser único");
@@ -48,15 +51,16 @@ public class EmpresaService {
     }
 
     // READ
-    public void listarTodos(){
-        for (Empresa empresa : empresas){
+    @Override
+    public void listarTodos() {
+        for (Empresa empresa : empresas) {
             System.out.println(empresa.toString());
         }
     }
 
-    public Empresa listarPorId(int Id) throws Exception{
-        for (Empresa empresa : empresas){
-            if (empresa.getId() == Id){
+    public Empresa listarPorId(int Id) throws Exception {
+        for (Empresa empresa : empresas) {
+            if (empresa.getId() == Id) {
                 return empresa;
             }
         }
@@ -71,27 +75,28 @@ public class EmpresaService {
         }
         throw new Exception("A empresa com o CNPJ " + CNPJ + " não encontrado.");
     }
-    // UPDATE
-    public void atualizar(int id, String nome, String setor, String areaDeAtuacao){
-        Optional<Empresa> empresa = empresas.stream().filter(empresa1 -> empresa1.getId() == id).findFirst();
 
-        empresa.ifPresent(usuario1 -> {
-            usuario1.setNome(nome);
-            usuario1.setSetor(setor);
-            usuario1.setAreaDeAtuacao(areaDeAtuacao);
-        });
-        System.out.println("Usuario atualizado com sucesso!");
+    // UPDATE
+    @Override
+    public boolean atualizar(int id, Empresa empresa) {
+
+        for (Empresa empresaAtualizar : empresas) {
+            if (empresaAtualizar.getId() == id) {
+                empresaAtualizar.setAreaDeAtuacao(empresa.getAreaDeAtuacao());
+                empresaAtualizar.setSetor(empresa.getSetor());
+                empresaAtualizar.setNome(empresa.getNome());
+                empresaAtualizar.setEndereco(empresa.getEndereco());
+                return true;
+            }
+        }
+        return false;
+
     }
 
     // DELETE
-    public void deletar (int Id, Empresa empresa){
-        for (Empresa empresaADeletar : empresas){
-            if (empresaADeletar.getId() == Id){
-                empresas.remove(empresaADeletar);
-            } else {
-                throw new NoSuchElementException("Empresa com o ID " + Id + "não encontrado.");
-            }
-        }
+    @Override
+    public boolean deletar(Empresa empresa) {
+        return this.empresas.remove(empresa);
     }
 }
 
