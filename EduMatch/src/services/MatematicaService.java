@@ -36,11 +36,11 @@ public class MatematicaService implements Service<Matematica> {
                 Ana esta de aniversário, ela convidou 17 meninos e 27 meninas.
                 Quantos convidados vai ter no total da festa?
 
-                A) 44
+                A) 40
                 B) 34
                 C) 42
                 D) 37
-                ""","A",1));
+                E) 44""","A",1));
 
         perguntas.add(new Matematica(COUNTER.incrementAndGet(), Dificuldades.FACIL, """
                 
@@ -62,7 +62,7 @@ public class MatematicaService implements Service<Matematica> {
                 B) 60
                 C) 51
                 D) 54
-                ""","D",3));
+                E) 55""","E",3));
         perguntas.add(new Matematica(COUNTER.incrementAndGet(), Dificuldades.MEDIO, """
                 
                 Quanto é 963 divido por 3?
@@ -137,7 +137,7 @@ public class MatematicaService implements Service<Matematica> {
         ArrayList<Matematica> questoes = new ArrayList<>();
         for (Matematica questao : perguntas){
             if (questao.getDificuldade() == dificuldade){
-               questoes.add(questao);
+                questoes.add(questao);
             }
         }
         return questoes;
