@@ -2,7 +2,7 @@ package services;
 
 import entities.Empresa;
 import entities.Escola;
-import enums.TipoEscola;
+import entities.enums.TipoEscola;
 import interfaces.Service;
 
 

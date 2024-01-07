@@ -5,6 +5,7 @@ import services.*;
 
 import java.awt.*;
 import java.util.InputMismatchException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
@@ -72,7 +73,7 @@ public class Main {
                             System.out.println(questao);
 
                             System.out.print("Opção: ");
-                            opcaoQuestao = sc.nextLine();
+                            opcaoQuestao = sc.nextLine().toUpperCase();
 
                             if (opcaoQuestao.equals(questao.getOpcaoCerta())){
                                 usuario.setPontuacao(questao.getPontos());
