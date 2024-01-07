@@ -1,12 +1,13 @@
 package services;
 
 import entities.Usuario;
+import interfaces.Service;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-public class UsuarioService {
+public class UsuarioService implements Service<Usuario> {
 
     private AtomicInteger COUNTER = new AtomicInteger();
     Random random = new Random();
@@ -48,6 +49,7 @@ public class UsuarioService {
         usuario.setId(COUNTER.incrementAndGet());
         usuarios.add(usuario);
     }
+    @Override
     public boolean salvar(Usuario usuario){
         for (Usuario usuarioNaLista : usuarios){
             if (usuarioNaLista.getCPF().equals(usuario.getCPF())){
@@ -60,6 +62,7 @@ public class UsuarioService {
         return true;
     }
 
+    @Override
     public void listarTodos(){
         for (Usuario usuario : usuarios){
             System.out.println(usuario.toString());
@@ -93,21 +96,23 @@ public class UsuarioService {
         }
         throw new Exception("Usuário com o CPF " + CPF + " não encontrado.");
     }
+  
+    @Override
+    public boolean atualizar(int id,Usuario usuarioAtualizado){
+        for (Usuario usuarioAtualizar : usuarios){
+            if (usuarioAtualizar.getId() == id){
+                usuarioAtualizar.setCPF(usuarioAtualizado.getCPF());
+                usuarioAtualizar.setIdade(usuarioAtualizado.getIdade());
+                usuarioAtualizar.setNome(usuarioAtualizado.getNome());
+                return true;
 
-    public void atualizar(int id, String nome, String sobrenome){
-        Optional<Usuario> usuario = usuarios.stream().filter(usuario1 -> usuario1.getId() == id).findFirst();
-
-        usuario.ifPresent(usuario1 -> {
-            usuario1.setNome(nome);
-            usuario1.setSobrenome(sobrenome);});
-        System.out.println("Usuario atualizado com sucesso!");
-    }
-
-    public void deletar(int id){
-        for (Usuario usuarioADeletar : usuarios){
-            if (usuarioADeletar.getId() == id){
-                usuarios.remove(usuarioADeletar);
             }
         }
+        return false;
+
+    }
+    @Override
+    public boolean deletar(Usuario usuario){
+        return usuarios.remove(usuario);
     }
 }

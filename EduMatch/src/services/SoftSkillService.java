@@ -49,14 +49,14 @@ public class SoftSkillService {
                 B) Não tem necessidade de falar com os colegas
                 C) Ajuda em épocas de crise e no trabalho em equipe
                 D) Não precisar pedir ajuda, quando estiver com dúvida
-                E) Não leva em consideração o sentimento dos colegas""", "A", 3));
+                E) Não leva em consideração o sentimento dos colegas""", "C", 3));
         listaQuestesSoftSkill.add(new SoftSkill(COUNTER.incrementAndGet(), Dificuldades.MEDIO, """
                 O que é resiliência no ambiente profissional?
                 A) Não enfrentar os desafios
                 B) Habilidade de se adaptar a mudanças e superar dificuldades
                 C) Evitar qualquer tipo de risco
                 D) Saber dizer “não”
-                E) Fazer qualquer coisa que é solicitado""", "A", 3));
+                E) Fazer qualquer coisa que é solicitado""", "B", 3));
         listaQuestesSoftSkill.add(new SoftSkill(COUNTER.incrementAndGet(), Dificuldades.MEDIO, """
                 O que é empatia e como ela melhora o ambiente de trabalho?
                 A) Dar presentes aos colegas
@@ -64,14 +64,14 @@ public class SoftSkillService {
                 C) Expressar apenas emoções positivas para manter um ambiente agradável
                 D) Falar somente o que o colega quer ouvir
                 E) Somente dar feedback positivo
-                """, "A", 3));
+                """, "B", 3));
         listaQuestesSoftSkill.add(new SoftSkill(COUNTER.incrementAndGet(), Dificuldades.DIFICIL, """
                 Por que a gestão do tempo é essencial no ambiente profissional?
                 A)  Para todos os colegas saberem quando deve ser feito a entrega
                 B) Gestão do tempo é essencial, somente em equipes grandes
                 C) Maximizar a produtividade e a eficiência
                 D) Não precisar controlar os prazos
-                E) Priorizar somente grandes projetos""", "A", 5));
+                E) Priorizar somente grandes projetos""", "C", 5));
 
         listaQuestesSoftSkill.add(new SoftSkill(COUNTER.incrementAndGet(), Dificuldades.DIFICIL, """
                 Qual é a importância da inclusão no local de trabalho?
@@ -79,14 +79,14 @@ public class SoftSkillService {
                 B) Reduzir a criatividade
                 C) Ampliar perspectivas e promover um ambiente mais inclusivo
                 D) Aumentar a competição entre os funcionários
-                E) Evitar diferentes opiniões""", "A", 5));
+                E) Evitar diferentes opiniões""", "C", 5));
         listaQuestesSoftSkill.add(new SoftSkill(COUNTER.incrementAndGet(), Dificuldades.DIFICIL, """
                 Como a resolução de problemas desafiadores contribui para o crescimento profissional?\s
                 A) Reduzindo a capacidade analítica
                 B) Diminuindo o aprendizado
                 C) Desenvolvendo habilidades de resolução de problemas
                 D) Diminuindo a adaptabilidade
-                E) Diminuindo a empatia""", "A", 5));
+                E) Diminuindo a empatia""", "C", 5));
     }
 
     public boolean salvar(SoftSkill novaQuestao) {
