@@ -5,6 +5,9 @@ import utils.Cadastro;
 import utils.Menu;
 
 import java.util.Random;
+import java.awt.*;
+import java.util.InputMismatchException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
@@ -81,6 +84,7 @@ public class Main {
 
                                 System.out.print("Opção: ");
                                 opcaoQuestao = sc.nextLine().toUpperCase().trim();
+
 
                                 menu.validarQuestao(opcaoQuestao, questao, usuario);
                             }
