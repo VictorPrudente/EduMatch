@@ -1,12 +1,7 @@
 package utils;
 
-import entities.Contato;
-import entities.Endereco;
 import entities.Game;
 import entities.Usuario;
-import entities.enums.TipoDeContato;
-
-import java.util.Scanner;
 
 public class Menu {
 

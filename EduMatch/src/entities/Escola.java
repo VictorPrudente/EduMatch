@@ -55,12 +55,10 @@ public class Escola {
 
     @Override
     public String toString() {
-        return "Escola{" +
-                "Id=" + Id +
-                ", nome='" + nome + '\'' +
-                ", tipo=" + tipo +
-                ", cnpj='" + cnpj + '\'' +
-                '}';
+        return String.format("""
+                Id: %d
+                Nome: %s
+                Tipo: %s""", Id,  nome, tipo.name());
     }
 
 }

@@ -87,6 +87,6 @@ public class Cadastro {
         System.out.print("Opção: ");
         int tipo = sc.nextInt();
 
-        return new Escola(nome, TipoEscola.valueOf(tipo));
+        return new Escola(nome, TipoEscola.valueOf(tipo-1));
     }
 }

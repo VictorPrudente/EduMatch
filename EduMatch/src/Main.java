@@ -209,7 +209,7 @@ public class Main {
                                     if(!usuario.getContatos().isEmpty()){
                                     System.out.println("CONTATOS CADASTRADOS");
                                     for(Contato contato : usuario.getContatos()){
-                                        System.out.println(contato);
+                                        System.out.println(contato + "\n");
                                     }
                                     }else {
                                         System.out.println("\nNenhum contato cadastrado.\n");
@@ -219,7 +219,7 @@ public class Main {
                                 case 2:{
                                     Contato contato = cadastro.cadastrarContato(sc);
                                     usuario.addContatos(contato);
-                                    System.out.println("Contato cadastrado com sucesso!");
+                                    System.out.println("Contato cadastrado com sucesso!\n");
                                     break;
                                 }
                                 case 3:{
@@ -294,7 +294,7 @@ public class Main {
                                 case 3:{
                                 }
                                 case 4:{
-                                    System.out.println("Voltando ao menu principal.");
+                                    System.out.println("Voltando ao menu principal.\n");
                                     continue;
                                 }
 
