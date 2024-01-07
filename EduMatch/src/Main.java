@@ -256,16 +256,7 @@ public class Main {
                             continue;
                         }
                         case 4: {
-                            int selecaoCertificados = 0;
-                            do {
-                                System.out.println("Menu Certificados\n" +
-                                        "[1] Listar certificados\n" +
-                                        "[2] Listar ultimo certificado adquirido\n" +
-                                        "[3] Voltar ao menu opções");
-
-                                selecaoCertificados = sc.nextInt();
-
-                                switch (selecaoCertificados) {
+                                switch (opcao) {
                                     case 1: {
                                         //TODO Listar certificados
                                         break;
@@ -279,11 +270,9 @@ public class Main {
                                         break;
                                     }
                                     default: {
-                                        System.out.println("Opção Inválida!");
+                                        System.out.println("Opção não implementada! Aguarde futuras atualizações :)");
                                     }
                                 }
-
-                            } while (selecaoCertificados != 3);
                             break;
                         }
                         case 5: {

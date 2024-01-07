@@ -57,15 +57,17 @@ public class ContatoService implements Service<Contato> {
                 contatoAtualizar.setDescricao(contato.getDescricao());
                 contatoAtualizar.setTipo(contato.getTipo());
                 contatoAtualizar.setTelefone(contato.getTelefone());
-
+                System.out.println("Contato atualizado com sucesso!\n");
                 return true;
             }
         }
+        System.out.println("Contato não atualizado.\n");
         return false;
     }
     //DELETE
     @Override
     public boolean deletar (Contato contato){
+        System.out.println("Contato deletado com sucesso!\n");
         return contatos.remove(contato);
     }
 

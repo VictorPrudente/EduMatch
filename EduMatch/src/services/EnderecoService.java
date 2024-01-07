@@ -68,9 +68,11 @@ public class EnderecoService implements Service<Endereco> {
                 enderecoAtualizar.setLogradouro(endereco.getLogradouro());
                 enderecoAtualizar.setPais(endereco.getPais());
                 enderecoAtualizar.setNumero(endereco.getNumero());
+                System.out.println("Endereço atualizado com sucesso!\n");
                 return true;
             }
         }
+        System.out.println("Endereço não atualizado.\n");
         return false;
     }
 
