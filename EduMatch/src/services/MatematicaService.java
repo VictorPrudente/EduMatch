@@ -40,7 +40,7 @@ public class MatematicaService implements Service<Matematica> {
                 B) 34
                 C) 42
                 D) 37
-                E) 44""","A",1));
+                E) 44""","E",1));
 
         perguntas.add(new Matematica(COUNTER.incrementAndGet(), Dificuldades.FACIL, """
                 
