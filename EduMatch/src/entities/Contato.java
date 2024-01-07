@@ -6,7 +6,7 @@ public class Contato {
     private String descricao;
     private String telefone;
     private TipoDeContato tipo;
-    private int Id;
+    private int id;
 
     public String getDescricao() {
         return descricao;
@@ -28,29 +28,33 @@ public class Contato {
 
     }
     public int getId() {
-        return Id;
+        return id;
     }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Contato contato = (Contato) o;
-        return Id == contato.Id;
+        return id == contato.id;
     }
     public Contato(String descricao, String telefone, TipoDeContato tipo) {
         this.descricao = descricao;
         this.telefone = telefone;
         this.tipo = tipo;
-        Id = ULTIMO_ID;
+        id = ULTIMO_ID;
         Contato.ULTIMO_ID++;
     }
 
     public Contato (int id){
-        Id=id;
+        id=id;
     }
-    public void imprimir (){
-        System.out.println("Descrição: " + getDescricao());
-        System.out.println("Telefone: " + getTelefone());
-        System.out.println("Tipo: " + getTipo());
+
+    @Override
+    public String toString(){
+        return String.format("""
+                ID: %d
+                Número: %s
+                Descrição: %s
+                Tipo: %s""", id,  telefone, descricao, tipo.name());
     }
 }

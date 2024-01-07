@@ -28,8 +28,12 @@ public class EscolaService implements Service<Escola> {
     }
 
 
-    public ArrayList<Escola> listar() {
-        return escolas;
+    public Escola listarPorId(int id) {
+        for(Escola escola : escolas){
+            if (escola.getId() == id){
+                return escola;
+            }
+        } throw new NoSuchElementException("Escola com o id " + id + " não encontrada.");
     }
 
     //CREATED

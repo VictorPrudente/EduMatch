@@ -21,6 +21,7 @@ public class ContatoService implements Service<Contato> {
     //CREATE
     public boolean salvar (Contato contato){
         contatos.add(contato);
+        System.out.println("Contato salvo com sucesso!\n");
         return true;
     }
     //READ
@@ -56,6 +57,7 @@ public class ContatoService implements Service<Contato> {
                 contatoAtualizar.setDescricao(contato.getDescricao());
                 contatoAtualizar.setTipo(contato.getTipo());
                 contatoAtualizar.setTelefone(contato.getTelefone());
+
                 return true;
             }
         }

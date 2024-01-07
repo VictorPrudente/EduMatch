@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,6 +13,9 @@ public class Usuario {
     private String CPF;
     private Integer idade;
     private Integer pontuacao;
+    private List<Endereco> enderecos = new ArrayList<>();
+    private List<Contato> contatos = new ArrayList<>();
+    private Escola escola;
     public Usuario() {
     }
 
@@ -28,11 +32,35 @@ public class Usuario {
         return false;
     }
 
+    public Escola getEscola() {
+        return escola;
+    }
+
+    public void setEscola(Escola escola) {
+        this.escola = escola;
+    }
+
+    public List<Endereco> getEnderecos() {
+        return enderecos;
+    }
+
+    public void addEnderecos(Endereco endereco) {
+        this.enderecos.add(endereco);
+    }
+
+    public List<Contato> getContatos() {
+        return contatos;
+    }
+
+    public void addContatos(Contato contato) {
+        this.contatos.add(contato);
+    }
+
     public Integer getId() {
         return id;
     }
 
-    public void setId(int id){
+    public void setId(Integer id){
         this.id = id;
     }
 
@@ -72,7 +100,7 @@ public class Usuario {
         return pontuacao;
     }
 
-    public void setPontuacao(int pontuacao){
+    public void setPontuacao(Integer pontuacao){
         this.pontuacao += pontuacao;
     }
     @Override

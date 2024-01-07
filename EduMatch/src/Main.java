@@ -1,13 +1,9 @@
-import entities.Matematica;
-import entities.Portugues;
-import entities.SoftSkill;
-import entities.Usuario;
+import entities.*;
 import entities.enums.Dificuldades;
 import services.*;
+import utils.Cadastro;
 import utils.Menu;
 
-import java.awt.*;
-import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -22,6 +18,7 @@ public class Main {
         ContatoService contatoService = new ContatoService();
         PortuguesService portuguesService = new PortuguesService();
         MatematicaService matematicaService = new MatematicaService();
+        Cadastro cadastro = new Cadastro();
         Random random = new Random();
         Menu menu = new Menu();
         Scanner sc = new Scanner(System.in);
@@ -31,16 +28,9 @@ public class Main {
 
 
         System.out.println("BEM VINDOS AO EDUMATCH");
-        System.out.print("Por favor, digite seu nome: ");
-        String nome = sc.nextLine();
-        System.out.print("Por favor, digite Sobrenome: ");
-        String sobrenome = sc.nextLine();
-        System.out.print("Agora, digite seu CPF: ");
-        String cpf = sc.nextLine();
-        System.out.print("Por favor, Digite sua idade: ");
-        int idade = sc.nextInt();
-        sc.nextLine();
-        Usuario usuario = new Usuario(nome, sobrenome, cpf, idade, 0);
+
+
+        Usuario usuario = cadastro.cadastrarUsuario(sc);
         usuarioService.salvar(usuario);
 
         System.out.println();
@@ -68,12 +58,7 @@ public class Main {
 
                                 System.out.print("Opção: ");
                                 opcaoQuestao = sc.nextLine().toUpperCase().trim();
-                                if (opcaoQuestao.equals(questao.getOpcaoCerta())) {
-                                    usuario.setPontuacao(questao.getPontos());
-                                    System.out.println("Opção correta! Isso ai :D");
-                                } else {
-                                    System.out.println("Opção errada, preste mais atenção!");
-                                }
+                                menu.validarQuestao(opcaoQuestao, questao, usuario);
                             }
                             break;
                         }
@@ -83,12 +68,8 @@ public class Main {
                                 System.out.println(questao);
                                 System.out.print("Opção: ");
                                 opcaoQuestao = sc.nextLine().toUpperCase().trim();
-                                if (opcaoQuestao.equals(questao.getOpcaoCerta())) {
-                                    usuario.setPontuacao(questao.getPontos());
-                                    System.out.println("Opção correta! Isso ai :D");
-                                } else {
-                                    System.out.println("Opção errada, preste mais atenção!");
-                                }
+
+                                menu.validarQuestao(opcaoQuestao, questao, usuario);
                             }
                             break;
                         }
@@ -99,14 +80,9 @@ public class Main {
                                 System.out.println(questao);
 
                                 System.out.print("Opção: ");
-                                opcaoQuestao = sc.nextLine();
+                                opcaoQuestao = sc.nextLine().toUpperCase().trim();
 
-                                if (opcaoQuestao.equals(questao.getOpcaoCerta())) {
-                                    usuario.setPontuacao(questao.getPontos());
-                                    System.out.println("Opção correta! Isso ai :D");
-                                } else {
-                                    System.out.println("Opção errada, preste mais atenção!");
-                                }
+                                menu.validarQuestao(opcaoQuestao, questao, usuario);
                             }
                             break;
                         }
@@ -144,26 +120,52 @@ public class Main {
                     menu.menuOpcoes();
                     System.out.print("Opção: ");
                     opcao = sc.nextInt();
+                    sc.nextLine();
 
                     switch (opcao) {
                         case 1: {
                             menu.menuEndereco();
                             System.out.print("Opção: ");
                             opcao = sc.nextInt();
+                            sc.nextLine();
                             switch (opcao){
                                 case 1:{
-                                    //TODO Usuario Endereço
+                                    System.out.println();
+                                    System.out.println("ENDEREÇOS CADASTRADOS");
+                                    System.out.println(usuario.getEnderecos());
+                                    System.out.println();
                                     continue;
                                 }
                                 case 2:{
-                                    //CADASTRAR NOVO ENDEREÇO
+                                    System.out.println();
+
+                                    System.out.println("CADASTRO DE UM NOVO ENDEREÇO");
+                                    Endereco endereco = cadastro.cadastrarEndereco(sc);
+                                    usuario.addEnderecos(endereco);
+                                    enderecoService.salvar(endereco);
+
                                     continue;
                                 }
                                 case 3:{
                                     //ATUALIZAR UM ENDEREÇO
+                                    System.out.println("ATUALIZAR UM ENDEREÇO");
+                                    System.out.println(usuario.getEnderecos());
+                                    System.out.print("Escolha um endereço pelo seu ID: ");
+                                    int id = sc.nextInt();
+                                    Endereco endereco = cadastro.cadastrarEndereco(sc);
+                                    enderecoService.atualizar(id, endereco);
+                                    break;
                                 }
                                 case 4:{
                                     //DELETAR UM ENDEREÇO
+                                    System.out.println("DELETAR UM ENDEREÇO");
+                                    System.out.println(usuario.getEnderecos());
+                                    System.out.print("Escolha um endereço pelo seu ID: ");
+                                    int id = sc.nextInt();
+                                    Endereco endereco = enderecoService.listarPorId(id);
+                                    enderecoService.deletar(endereco);
+                                    usuario.getEnderecos().remove(endereco);
+                                    break;
                                 }
                                 case 5:{
                                     continue;
@@ -173,11 +175,76 @@ public class Main {
                         }
                         case 2: {
                             //TODO Contatos
-                            break;
+                            menu.menuContato();
+                            System.out.print("Opção: ");
+                            opcao = sc.nextInt();
+                            sc.nextLine();
+
+                            switch (opcao){
+                                case 1:{
+                                    System.out.println();
+                                    System.out.println("CONTATOS CADASTRADOS");
+                                    System.out.println(usuario.getContatos());
+                                    System.out.println();
+                                    continue;
+                                }
+                                case 2:{
+                                    Contato contato = cadastro.cadastrarContato(sc);
+                                    usuario.addContatos(contato);
+                                    contatoService.salvar(contato);
+                                    break;
+                                }
+                                case 3:{
+                                    System.out.println("Escolha o ID do contato a ser atualizado: ");
+                                    System.out.println(usuario.getContatos());
+                                    System.out.print("Opção: ");
+                                    opcao = sc.nextInt();
+                                    Contato contato = contatoService.listarPorId(opcao);
+                                    Contato contatoAtualizado = cadastro.cadastrarContato(sc);
+                                    contatoService.atualizar(opcao, contato);
+                                    break;
+                                }
+                                case 4:{
+                                    System.out.println("Escolha o ID do contato a ser deletado: ");
+                                    System.out.println(usuario.getContatos());
+                                    System.out.print("Opção: ");
+                                    opcao = sc.nextInt();
+                                    Contato contato = contatoService.listarPorId(opcao);
+                                    contatoService.deletar(contato);
+                                }
+                                case 5:{
+                                    continue;
+                                }
+                                default:
+                                    System.out.println("Opção inválida.");
+                            }
+                            continue;
                         }
                         case 3: {
-                            //TODO Escola
-                            break;
+                            menu.menuEscola();
+                            System.out.print("Opção: ");
+                            opcao = sc.nextInt();
+                            sc.nextLine();
+                            switch (opcao){
+                                case 1:{
+                                    escolaService.listarTodos();
+                                    continue;
+                                }
+                                case 2:{
+                                    escolaService.listarTodos();
+                                    System.out.print("Escolha o ID de uma escola para se cadastrar: ");
+                                    Escola escola = escolaService.listarPorId(sc.nextInt());
+                                    usuario.setEscola(escola);
+                                    System.out.println("Escola cadastrada com sucesso.");
+                                    continue;
+                                }
+                                case 3:{
+                                    System.out.println("Voltando ao menu principal.");
+                                    continue;
+                                }
+
+                            }
+                            continue;
                         }
                         case 4: {
                             int selecaoCertificados = 0;
@@ -211,8 +278,8 @@ public class Main {
                             break;
                         }
                         case 5: {
-                            //TODO Mostrar dados do usuário
-                            break;
+                            System.out.println(usuario.toString());
+                            continue;
                         }
                         case 6: {
                             int selecaoEscolas = 0;
@@ -270,61 +337,3 @@ public class Main {
         }
     }
 }
-
-
-
-
-        /*
-        *
-        *
-        *
-        * Menu de boas vindas
-Cadastro do usuario -> Validar CPF?
-
-Menu novo jogo (opcao 1)
-
-
-Menu questões:
-(validar se o usuário já respondeu alguma questão para não repeti-la / caso retorne ao menu principal, retornar a ultima questão ao voltar.)
-~Corpo da questão~
-[1] Corpo da letra A
-[2] Corpo da letra B
-[3] Corpo da letra C
-[4] Corpo da letra D
-[5] Corpo da letra E
-[6] Retornar ao menu principal
-
-(Repete x vezes)
-(Imprime resultado)
-(emite certificado)
-(retorna ao menu principal)
--------------------------------
-
-
-Menu Endereço
-[1] Listar Endereços cadastrados
-[2] Cadastrar novo endereço
-[3] Atualizar um endereço
-[4] Deletar um endereço
-[5] Retornar ao menu opções
-
-Menu Contatos
-[1] Listar Contatos cadastrados
-[2] Listar contatos por tipo > [1] Celulares / [2] Residenciais / [3] Comerciais
-[3] Cadastrar novo contato
-[4] Atualizar um endereço
-[5] Deletar um endereço
-[6] Retornar ao menu opções
-
-Menu Escolas
-[1] Listar Escolas
-[2] Cadastrar em uma escola
-[3] Voltar ao menu principal
-
-
-
---------------------------------------
-
--------------------------------------
-        *
-        * */
