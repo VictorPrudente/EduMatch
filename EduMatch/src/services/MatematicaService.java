@@ -18,7 +18,7 @@ public class MatematicaService implements Service<Matematica> {
     }
 
     private void inicializarListas() {
-      
+
         perguntas.add(new Matematica(COUNTER.incrementAndGet(), Dificuldades.FACIL, """
                 
                 Para a excursão da escola, a escola alugou um ônibus que tem 29 lugares.
@@ -73,7 +73,7 @@ public class MatematicaService implements Service<Matematica> {
                 D) 421
                 E) 325""", "A", 3));
 
-         
+
         perguntas.add(new Matematica(COUNTER.incrementAndGet(), Dificuldades.MEDIO, """
                 
                 Qual é o triplo de 562?
