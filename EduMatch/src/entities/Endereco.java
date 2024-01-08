@@ -1,20 +1,94 @@
 package entities;
 
 public class Endereco {
-    String logradouro;
-    Integer numero;
-    String complemento;
-    String cep;
-    String cidade;
-    String estado;
-    String pais;
 
-    public void imprimirEndereco(){
-        System.out.println("Endereço: " + this.logradouro + "," + this.numero);
-        System.out.println("Complemento: " + this.complemento);
-        System.out.println("CEP: " + this.cep);
-        System.out.println("Cidade" + this.cidade);
-        System.out.println("Estado: " + this.estado);
-        System.out.println("País: " + this.pais);
+    private String logradouro;
+    private Integer numero;
+    private String complemento;
+    private String cep;
+    private String cidade;
+    private String estado;
+    private String pais;
+
+    public Endereco(){}
+
+
+    public Endereco(String logradouro, Integer numero, String complemento, String cep, String cidade, String estado, String pais){
+        this.logradouro = logradouro;
+        this.numero = numero;
+        this.complemento = complemento;
+        this.cep = cep;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.pais = pais;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("""
+                -=-=-=-=-=-=-=-=-=-=-=
+                Logradouro: %s
+                Número: %d
+                Complemento: %s
+                CEP: %s
+                Cidade: %s
+                Estado: %s
+                País: %s""", logradouro, numero, complemento, cep, cidade, estado, pais);
+    }
+
+    public String getLogradouro(){
+        return logradouro;
+    }
+
+    public void setLogradouro(String logradouro){
+        this.logradouro = logradouro;
+    }
+
+    public Integer getNumero(){
+        return numero;
+    }
+
+    public void setNumero(Integer numero){
+        this.numero = numero;
+    }
+
+    public String getComplemento(){
+        return complemento;
+    }
+
+    public void setComplemento(String complemento){
+        this.complemento = complemento;
+    }
+
+    public String getCep(){
+        return cep;
+    }
+
+    public void setCep(String cep){
+        this.cep = cep;
+    }
+
+    public String getCidade(){
+        return cidade;
+    }
+
+    public void setCidade(String cidade){
+        this.cidade = cidade;
+    }
+
+    public String getEstado(){
+        return estado;
+    }
+
+    public void setEstado(String estado){
+        this.estado = estado;
+    }
+
+    public String getPais(){
+        return pais;
+    }
+
+    public void setPais(String pais){
+        this.pais = pais;
     }
 }
