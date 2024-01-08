@@ -47,7 +47,7 @@ public class Cadastro {
         String telefone = "";
         String descricao = "";
         try {
-            while (telefone.isBlank()) {
+            while (telefone.isBlank() || !telefone.matches("^[0-9]+$")) {
                 System.out.print("Número para contato: ");
                 telefone = sc.nextLine();
             }
@@ -90,19 +90,19 @@ public class Cadastro {
                     System.out.print("Complemento: ");
                     complemento = sc.nextLine();
                 }
-                while (CEP.isBlank()) {
+                while (CEP.isBlank() || CEP.matches(".*[a-zA-Z].*")) {
                     System.out.print("CEP: ");
                     CEP = sc.nextLine();
                 }
-                while (cidade.isBlank()) {
+                while (cidade.isBlank() || cidade.matches(".*\\d.*")) {
                     System.out.print("Cidade: ");
                     cidade = sc.nextLine();
                 }
-                while (estado.isBlank()) {
+                while (estado.isBlank() || estado.matches(".*\\d.*")) {
                     System.out.print("Estado: ");
                     estado = sc.nextLine();
                 }
-                while (pais.isBlank()) {
+                while (pais.isBlank() || pais.matches(".*\\d.*")) {
                     System.out.print("País: ");
                     pais = sc.nextLine();
                 }
