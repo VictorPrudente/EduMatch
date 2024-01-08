@@ -3,7 +3,7 @@
 
 ![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=CONCLUÍDO&color=GREEN&style=for-the-badge)
 
-## :information_source: Sobre o projeto
+## Sobre o projeto
 O EduMatch é um aplicativo em desenvolvimento que visa promover a educação inclusiva, equitativa e de qualidade. O objetivo principal é auxiliar os usuários na entrada em instituições de ensino técnico e superior, além de desenvolver conhecimentos relevantes em diversas áreas de atuação.
 
 [:information_source: Saiba mais](https://github.com/VictorPrudente/vs13-squad9-EduMatch/blob/main/ApresentacaoPDF/EduTech%20-%20Vem%20Ser.pdf)
@@ -11,29 +11,29 @@ O EduMatch é um aplicativo em desenvolvimento que visa promover a educação in
 ### Integrantes & Branches
 
 - **Arthur Schroder**
-    - [feat/classe-game](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/refactor/classe-game)
-    - [feat/classe-softskills](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-softskills)
+    - [feature/classe-game](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/refactor/classe-game)
+    - [feature/classe-softskills](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-softskills)
 
 - **Brayan Benet**
-    - [feat/classe-endereco](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-endereco)
+    - [feature/classe-endereco](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-endereco)
+    - [feature/classe-portugues](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-portugues)
     - [*README*](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/README)
-    - [feat/classe-portugues](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-portugues)
 
 - **Camila Bauer**
-    - [feat/classe-contato](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/)
-    - [feat/menu](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/menu)
+    - [feature/classe-contato](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/)
+    - [feature/menu](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/menu)
 
 - **Carlos Estrela**
-    - [feat/classe-certificado](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-certificado)
-    - [feat/classe-game](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/refactor/classe-game)
+    - [feature/classe-certificado](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-certificado)
+    - [feature/classe-game](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/refactor/classe-game)
 
 - **Débora Hickmann**
-    - [feat/classe-softskills](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-softskills)
-    - [feat/classe-escola](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-escola)
+    - [feature/classe-softskills](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-softskills)
+    - [feature/classe-escola](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-escola)
 
 - **Vinícius Félix**
-    - [feat/classe-matematica](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-matematica)
-    - [feat/classe-empresa](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-Empresa)
+    - [feature/classe-matematica](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-matematica)
+    - [feature/classe-empresa](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-Empresa)
 
 
 - **Jaíne Rodrigues** - [FrontEnd](https://vs13-squad9-edu-match.vercel.app/)
@@ -43,10 +43,10 @@ O EduMatch é um aplicativo em desenvolvimento que visa promover a educação in
 
 
 - **Victor Prudente**
-    - [feat/softskills](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-softskills)
-    - [feat/classe-usuario](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-usuario)
-    - [feat/classe-game](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/refactor/classe-game)
-    - [feat/menu](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/menu)
+    - [feature/softskills](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-softskills)
+    - [feature/classe-usuario](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-usuario)
+    - [feature/classe-game](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/refactor/classe-game)
+    - [feature/menu](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/menu)
 
 ## Estrutura de Desenvolvimento
 
@@ -71,41 +71,42 @@ Acompanhe o progresso das tarefas no [Trello](https://trello.com/b/okeu5gWa/educ
 2. [**Develop**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/Develop)
     - Ambiente de consolidação para contribuições das equipes antes de ser integrada à `main`.
 
-3. [**feat/game**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/refactor/classe-game)
-    - Criação da classe game, base comum para todos os jogos.
+3. [**feature/game**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/refactor/classe-game)
+    - Criação da classe abstrata game, base comum para todos os jogos.
 
-4. [**feat/matematica**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-matematica)
-    - Criação da classe matemática que extende da classe game, tendo questões de nível fácil, médio e díficil.
+4. [**feature/matematica**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-matematica)
+    - Criação da classe matemática/matematicaService que extende da classe game, tendo questões de nível fácil, médio e díficil.
 
-5. [**feat/portugues**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-portugues)
-    - Criação da classe português que extende da classe game, tendo questões de nível fácil, médio e díficil.
+5. [**feature/portugues**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-portugues)
+    - Criação da classe português/portuguesService que extende da classe game, tendo questões de nível fácil, médio e díficil.
 
-6. [**feat/softskills**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-sofskills)
-    - Criação da classe SoftSkills que extende da classe game, tendo questões de nível fácil, médio e díficil.
+6. [**feature/softskills**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-sofskills)
+    - Criação da classe SoftSkills/SoftSkillsService que extende da classe game, tendo questões de nível fácil, médio e díficil.
 
-7. [**feat/usuario**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-usuario)
-    - Criação da classe usuario para criar instâncias de usuários no sistema do jogo.
+7. [**feature/usuario**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-usuario)
+    - Criação da classe usuario/usuarioService para criar instâncias de usuários no sistema do jogo.
 
-8. [**feat/escola**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-escola)
-    - Criação da classe escola que representa uma instituição educacional no sistema do jogo.
+8. [**feature/escola**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-escola)
+    - Criação da classe escola/escolaService que representa uma instituição educacional no sistema do jogo.
 
-9. [**feat/endereco**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-endereco)
-    - Criação da classe endereço que representa informações sobre o endereço de uma entidade no sistema do jogo.
+9. [**feature/endereco**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-endereco)
+    - Criação da classe endereço/enderecoService que representa informações sobre o endereço de uma entidade no sistema do jogo.
 
-10. [**feat/empresa**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-Empresa)
-    - Criação da classe empresa que representa uma empresa no sistema do jogo.
+10. [**feature/empresa**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-Empresa)
+    - Criação da classe empresa/empresaService que representa uma empresa no sistema do jogo.
 
-11. [**feat/contato**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-Contato)
-    - Criação da classe contato que representa informações de contato no sistema do jogo.
+11. [**feature/contato**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-Contato)
+    - Criação da classe contato/contatoService que representa informações de contato no sistema do jogo.
 
-12. [**feat/certificado**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-certificado)
-    - Criação da classe certificado que representa um certificado de conclusão no sistema do jogo.
-13. [**feat/menu**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/menu)
-    - Criação da classe menu onde roda toda interface do jogo e usamos todas funções da aplicação.
+12. [**feature/certificado**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/classe-certificado)
+    - Criação da classe certificado/certificadoService que representa um certificado de conclusão no sistema do jogo.
+13. [**feature/menu**](https://github.com/VictorPrudente/vs13-squad9-EduMatch/tree/feature/menu)
+    - Criação da classe menu/menuService onde roda toda interface do jogo e usamos todas funções da aplicação.
 
 
-## Linguagem utilizada
-  <img align="center" alt="Rafa-Java" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg">
+## Tecnologias utilizadas
+  <img align="center" alt="Rafa-Java" height="40" width="60" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg"> 
+  <img align="center" alt="INTELLIJ" height="40" width="60" src="https://media.licdn.com/dms/image/C5607AQEHmg94dM0LuA/group-logo_image-shrink_92x92/0/1630999991585?e=1705280400&v=beta&t=zvl-vS3VMSYDHUWZ3Ot32Jcwx5zddSbBG0B3e-vrbdM">  
 
 ####
 ## Autores do Projeto
@@ -115,11 +116,28 @@ Acompanhe o progresso das tarefas no [Trello](https://trello.com/b/okeu5gWa/educ
 | [Arthur Schroder](https://github.com/ArthurSchroder) <br> BackEnd | [Brayan Benet](https://github.com/brayanbenet) <br> QA | [Camila Bauer](https://github.com/CamilaBauer) <br> QA | [Carlos Estrela](https://github.com/carlosalbertoestrela) <br> QA | [Débora Hickmann](https://github.com/Deboraaahickmann) <br> QA | [Vinícius Félix](https://github.com/galego-vinicius) <br> BackEnd | [Jaíne Rodrigues](https://github.com/jaineRodrigues) <br> FrontEnd | [Pablo Leão](https://github.com/pablo-leao) <br> FrontEnd | [Victor Prudente](https://github.com/VictorPrudente) <br> BackEnd |
 
 ####
+## Testes de Bugs
+
+| <img src="https://avatars.githubusercontent.com/u/112354608?v=4" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/69488591?v=4" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/101061552?v=4" width="100" height="100"> |
+| :---: | :---: | :---: |
+| [Camila Bauer](https://github.com/CamilaBauer) <br> Menu Do Jogo | [Carlos Estrela](https://github.com/carlosalbertoestrela) <br> Menu Do Jogo | [Débora Hickmann](https://github.com/Deboraaahickmann) <br> Menu Do Jogo |
+
+####
+## Documentação do Projeto
+
+| <img src="https://avatars.githubusercontent.com/u/63371569?v=4" width="100" height="100"> | <img src="https://avatars.githubusercontent.com/u/143949574?v=4" width="100" height="100"> |
+| :---: | :---: |
+| [Brayan Benet](https://github.com/brayanbenet) <br> README | [Victor Prudente](https://github.com/VictorPrudente) <br> PDF |
+
+####
 ## PO do Projeto
 
 | [<img src="https://media.licdn.com/dms/image/C4D03AQF4Sw88O-xuTg/profile-displayphoto-shrink_800_800/0/1646524748107?e=1710374400&v=beta&t=rk-FKjtsAGK1F6yiTRB6qzobBba4jKRzbK2gmkHDXDc" alt="Rafael Lazzari" width="100" height="100"/>](https://github.com/rflazzari) |
 |:---:|
 | [Rafael Lazzari](https://github.com/rflazzari) <br> BackEnd |
+
 ####
 ## Agradecimento
- <img align="center" alt="DBC-COMPANY" height="100" width="100" src="https://media.licdn.com/dms/image/C4D0BAQFszK2MGQUCUA/company-logo_200_200/0/1668687291660?e=1712793600&v=beta&t=lCZTO8Oys0B71J1Yt4Hc66uam-3_3gJZAyWqooiGUVc">
+| <img align="center" alt="DBC-COMPANY" height="100" width="100" src="https://media.licdn.com/dms/image/C4D0BAQFszK2MGQUCUA/company-logo_200_200/0/1668687291660?e=1712793600&v=beta&t=lCZTO8Oys0B71J1Yt4Hc66uam-3_3gJZAyWqooiGUVc"> |
+|:---:|
+| [DBC Company](https://www.linkedin.com/company/dbc-company/mycompany/) |
