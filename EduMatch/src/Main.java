@@ -1,9 +1,11 @@
 import entities.*;
 import entities.enums.Dificuldades;
+import entities.enums.Games;
 import services.*;
 import utils.Cadastro;
 import utils.Menu;
 
+import java.time.LocalDateTime;
 import java.util.Random;
 import java.awt.*;
 import java.util.InputMismatchException;
@@ -52,46 +54,62 @@ public class Main {
                         sc.nextLine();
                         switch (opcao) {
                             case 1: {
+                                int j = 0;
                                 for (int i = 0; i < 3; i++) {
                                     Portugues questao = portuguesService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(random.nextInt(0, 2));
                                     System.out.println(questao);
 
-                                    while (!opcaoQuestao.equals("A") && !opcaoQuestao.equals("B") && !opcaoQuestao.equals("C") && !opcaoQuestao.equals("D") && !opcaoQuestao.equals("E")) {
+                                    while (!opcaoQuestao.matches("[A-Ea-e]")) {
                                         System.out.print("Opção: ");
                                         opcaoQuestao = sc.nextLine().toUpperCase().trim();
                                     }
-                                        menu.validarQuestao(opcaoQuestao, questao, usuario);
+                                        j += menu.validarQuestao(opcaoQuestao, questao, usuario);
                                         opcaoQuestao = "";
+                                } if (j >= 2){
+                                    Certificado certificado =new Certificado(Games.SOFT_SKILLS, LocalDateTime.now(), usuario);
+                                    usuario.getCertificados().add(certificado);
+                                    System.out.println("Parabéns pelo seu certificado!");
                                 }
                                 break;
                             }
                             case 2: {
+                                int j = 0;
                                 for (int i = 0; i < 3; i++) {
                                     Matematica questao = matematicaService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(random.nextInt(0, 2));
                                     System.out.println(questao);
 
-                                    while (!opcaoQuestao.equals("A") && !opcaoQuestao.equals("B") && !opcaoQuestao.equals("C") && !opcaoQuestao.equals("D") && !opcaoQuestao.equals("E")) {
+                                    while (!opcaoQuestao.matches("[A-Ea-e]")) {
                                         System.out.print("Opção: ");
                                         opcaoQuestao = sc.nextLine().toUpperCase().trim();
                                     }
-                                        menu.validarQuestao(opcaoQuestao, questao, usuario);
+                                         j += menu.validarQuestao(opcaoQuestao, questao, usuario);
                                         opcaoQuestao = "";
+                                }
+                                if (j >= 2){
+                                    Certificado certificado =new Certificado(Games.SOFT_SKILLS, LocalDateTime.now(), usuario);
+                                    usuario.getCertificados().add(certificado);
+                                    System.out.println("Parabéns pelo seu certificado!");
                                 }
                                 break;
                             }
                             case 3: {
                                 System.out.println();
+                                    int j = 0;
                                 for (int i = 0; i < 3; i++) {
                                     SoftSkill questao = softSkillService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(i);
                                     System.out.println(questao);
 
-                                    while (!opcaoQuestao.equals("A") && !opcaoQuestao.equals("B") && !opcaoQuestao.equals("C") && !opcaoQuestao.equals("D") && !opcaoQuestao.equals("E")) {
+                                    while (!opcaoQuestao.matches("[A-Ea-e]")) {
                                         System.out.print("Opção: ");
                                         opcaoQuestao = sc.nextLine().toUpperCase().trim();
                                     }
-                                        menu.validarQuestao(opcaoQuestao, questao, usuario);
+                                       j += menu.validarQuestao(opcaoQuestao, questao, usuario);
                                         opcaoQuestao = "";
-
+                                }
+                                if (j >= 2){
+                                    Certificado certificado =new Certificado(Games.SOFT_SKILLS, LocalDateTime.now(), usuario);
+                                    usuario.getCertificados().add(certificado);
+                                    System.out.println("Parabéns pelo seu certificado!\n");
                                 }
                                 break;
                             } default:
@@ -306,19 +324,27 @@ public class Main {
                                     case 3: {
                                     }
                                     default: {
-                                        System.out.println("\nOpção não implementada! Aguarde futuras atualizações :)\n");
+                                        System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
                                         continue;
                                     }
                                 }
                             }
                             case 4: {
+                                menu.menuCertificado();
+                                System.out.print("Opção: ");
+                                opcao = sc.nextInt();
+                                sc.nextLine();
                                 switch (opcao) {
                                     case 1: {
-                                        //TODO Listar certificados
+                                        System.out.println("\nCertificados adquiridos: \n");
+                                        for (Certificado certificado : usuario.getCertificados()){
+                                            System.out.println(certificado.toString() + "\n");
+                                        }
                                         break;
                                     }
                                     case 2: {
-                                        //TODO Listar ultimo certificado adquirido
+                                        System.out.println("\nUltimo certificado adquirido: \n");
+                                        System.out.println(usuario.getCertificados().get(usuario.getCertificados().size()-1) + "\n");
                                         break;
                                     }
                                     case 3: {
@@ -326,7 +352,7 @@ public class Main {
                                         break;
                                     }
                                     default: {
-                                        System.out.println("\nOpção não implementada! Aguarde futuras atualizações :)\n");
+                                        System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
                                     }
                                 }
                                 break;
