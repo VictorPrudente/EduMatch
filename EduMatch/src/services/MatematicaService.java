@@ -96,7 +96,8 @@ public class MatematicaService implements Service<Matematica> {
 
 
         perguntas.add(new Matematica(COUNTER.incrementAndGet(), Dificuldades.DIFICIL, """
-                2 – Qual é o sucessor do número 101, dividido por 3?
+                
+                Qual é o sucessor do número 101, dividido por 3?
                 A) 34
                 B) 52
                 C) 36
