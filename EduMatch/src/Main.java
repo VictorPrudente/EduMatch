@@ -25,7 +25,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         int opcao = 0;
         boolean execucao = true;
-        String opcaoQuestao;
+        String opcaoQuestao = "";
 
 
         System.out.println("BEM VINDOS AO EDUMATCH");
@@ -56,9 +56,12 @@ public class Main {
                                     Portugues questao = portuguesService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(random.nextInt(0, 2));
                                     System.out.println(questao);
 
-                                    System.out.print("Opção: ");
-                                    opcaoQuestao = sc.nextLine().toUpperCase().trim();
-                                    menu.validarQuestao(opcaoQuestao, questao, usuario);
+                                    while (!opcaoQuestao.equals("A") && !opcaoQuestao.equals("B") && !opcaoQuestao.equals("C") && !opcaoQuestao.equals("D") && !opcaoQuestao.equals("E")) {
+                                        System.out.print("Opção: ");
+                                        opcaoQuestao = sc.nextLine().toUpperCase().trim();
+                                    }
+                                        menu.validarQuestao(opcaoQuestao, questao, usuario);
+                                        opcaoQuestao = "";
                                 }
                                 break;
                             }
@@ -66,10 +69,13 @@ public class Main {
                                 for (int i = 0; i < 3; i++) {
                                     Matematica questao = matematicaService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(random.nextInt(0, 2));
                                     System.out.println(questao);
-                                    System.out.print("Opção: ");
-                                    opcaoQuestao = sc.nextLine().toUpperCase().trim();
 
-                                    menu.validarQuestao(opcaoQuestao, questao, usuario);
+                                    while (!opcaoQuestao.equals("A") && !opcaoQuestao.equals("B") && !opcaoQuestao.equals("C") && !opcaoQuestao.equals("D") && !opcaoQuestao.equals("E")) {
+                                        System.out.print("Opção: ");
+                                        opcaoQuestao = sc.nextLine().toUpperCase().trim();
+                                    }
+                                        menu.validarQuestao(opcaoQuestao, questao, usuario);
+                                        opcaoQuestao = "";
                                 }
                                 break;
                             }
@@ -79,15 +85,17 @@ public class Main {
                                     SoftSkill questao = softSkillService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(i);
                                     System.out.println(questao);
 
-                                    System.out.print("Opção: ");
-                                    opcaoQuestao = sc.nextLine().toUpperCase().trim();
+                                    while (!opcaoQuestao.equals("A") && !opcaoQuestao.equals("B") && !opcaoQuestao.equals("C") && !opcaoQuestao.equals("D") && !opcaoQuestao.equals("E")) {
+                                        System.out.print("Opção: ");
+                                        opcaoQuestao = sc.nextLine().toUpperCase().trim();
+                                    }
+                                        menu.validarQuestao(opcaoQuestao, questao, usuario);
+                                        opcaoQuestao = "";
 
-
-                                    menu.validarQuestao(opcaoQuestao, questao, usuario);
                                 }
                                 break;
                             } default:
-                                System.out.println("\nOpção Inválida. Retornando ao menu principal.\n");
+                                System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
                                 break;
                         }
                         break;
@@ -99,8 +107,7 @@ public class Main {
                         opcao = sc.nextInt();
                         switch (opcao) {
                             case 1: {
-                                System.out.println();
-                                System.out.println("Sua pontuação é de: " + usuario.getPontuacao());
+                                System.out.println("\nSua pontuação é de: " + usuario.getPontuacao() + "\n");
                                 continue;
                             }
                             case 2: {
@@ -114,7 +121,7 @@ public class Main {
                                 continue;
                             }
                             default: {
-                                System.out.println("\nOpção Inválida. Retornando ao menu principal.\n");
+                                System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
                             }
                         }
                     }
@@ -229,12 +236,12 @@ public class Main {
                                     case 3: {
                                         int i = 0;
                                         if (!usuario.getContatos().isEmpty()) {
-                                            System.out.println("Escolha o ID do contato a ser atualizado: ");
                                             for (Contato contato : usuario.getContatos()) {
                                                 System.out.printf("[%d] ", ++i);
                                                 System.out.print(contato);
                                                 System.out.println();
                                             }
+                                            System.out.println("Escolha o ID do contato a ser atualizado: ");
                                             System.out.print("Opção: ");
                                             opcao = sc.nextInt();
                                             sc.nextLine();
@@ -249,11 +256,11 @@ public class Main {
                                     case 4: {
                                         int i = 0;
                                         if (!usuario.getContatos().isEmpty()) {
-                                            System.out.println("Escolha o ID do contato a ser deletado: ");
                                             for (Contato contato : usuario.getContatos()) {
                                                 System.out.printf("[%d] ", ++i);
                                                 System.out.println(contato);
                                             }
+                                            System.out.println("Escolha o ID do contato a ser deletado: ");
                                             System.out.print("Opção: ");
                                             opcao = sc.nextInt();
                                             Contato contato = usuario.getContatos().get(opcao - 1);
@@ -266,7 +273,7 @@ public class Main {
                                         continue;
                                     }
                                     default:
-                                        System.out.println("Opção inválida.");
+                                        System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
                                 }
                                 continue;
                             }
@@ -298,13 +305,11 @@ public class Main {
                                     }
                                     case 3: {
                                     }
-                                    case 4: {
-                                        System.out.println("Voltando ao menu principal.\n");
+                                    default: {
+                                        System.out.println("\nOpção não implementada! Aguarde futuras atualizações :)\n");
                                         continue;
                                     }
-
                                 }
-                                continue;
                             }
                             case 4: {
                                 switch (opcao) {
@@ -339,22 +344,22 @@ public class Main {
                                 break;
                             }
                             default: {
-                                System.out.println("\nOpção Inválida. Retornando ao menu principal.\n");
+                                System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
                             }
                         }
 
                         break;
                     }
                     case 4: {
-                        System.out.println("Finalizando a aplicação. Até logo!");
+                        System.out.println("\nFinalizando a aplicação. Até logo!");
                         execucao = false;
                         break;
                     }
                     default:
-                        System.out.println("\nOpção inválida.\n");
+                        System.out.println("\n\u001B[31mOpção Inválida. Tente novamente.\u001B[0m\n");
                 }
             } catch (RuntimeException e) {
-                System.out.println("\nPor favor, digite uma opção válida. Retornando ao menu principal.\n");
+                System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
                 sc.nextLine();
             }
         }
