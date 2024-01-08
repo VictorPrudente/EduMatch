@@ -13,17 +13,23 @@ public class Cadastro {
 
     public Usuario cadastrarUsuario(Scanner sc){
     while (true) {
+    String nome = "";
+    String sobrenome = "";
+    String cpf = "";
 
-        try {
+        try{
+            while (nome.isBlank()){
             System.out.print("Por favor, digite seu nome: ");
-            String nome = sc.nextLine();
-
+                nome = sc.nextLine();
+            }
+            while (sobrenome.isBlank()) {
             System.out.print("Por favor, digite Sobrenome: ");
-            String sobrenome = sc.nextLine();
-
+                sobrenome = sc.nextLine();
+            }
+            while (cpf.isBlank()) {
             System.out.print("Agora, digite seu CPF: ");
-            String cpf = sc.nextLine();
-
+                cpf = sc.nextLine();
+            }
             System.out.print("Por favor, Digite sua idade: ");
             int idade = sc.nextInt();
             sc.nextLine();
@@ -38,13 +44,17 @@ public class Cadastro {
 
     public Contato cadastrarContato(Scanner sc){
     while (true){
+        String telefone = "";
+        String descricao = "";
         try {
-            System.out.print("\nNúmero para contato: ");
-            String telefone = sc.nextLine();
-
-            System.out.print("Descrição: ");
-            String descricao = sc.nextLine();
-
+            while (telefone.isBlank()) {
+                System.out.print("Número para contato: ");
+                telefone = sc.nextLine();
+            }
+            while (descricao.isBlank()) {
+                System.out.print("Descrição: ");
+                descricao = sc.nextLine();
+            }
             System.out.print("Tipo de contato\n" +
                     "[1] Celular\n" +
                     "[2] Residencial\n" +
@@ -62,30 +72,41 @@ public class Cadastro {
 
     public Endereco cadastrarEndereco(Scanner sc){
         while (true){
+            String rua = "";
+            String complemento = "";
+            String CEP = "";
+            String cidade = "";
+            String estado = "";
+            String pais = "";
             try{
-            System.out.print("Rua: ");
-            String rua = sc.nextLine();
-
-            System.out.print("Número: ");
-            int numero = sc.nextInt();
-            sc.nextLine();
-
-            System.out.print("Complemento: ");
-            String compl = sc.nextLine();
-
-            System.out.print("CEP: ");
-            String cep = sc.nextLine();
-
-            System.out.print("Cidade: ");
-            String cidade = sc.nextLine();
-
-            System.out.print("Estado: ");
-            String estado = sc.nextLine();
-
-            System.out.print("País: ");
-            String pais = sc.nextLine();
-
-            return new Endereco(rua, numero, compl, cep,cidade, estado, pais);
+                while (rua.isBlank()) {
+                    System.out.print("Rua: ");
+                    rua = sc.nextLine();
+                }
+                System.out.print("Número: ");
+                int numero = sc.nextInt();
+                sc.nextLine();
+                while (complemento.isBlank()) {
+                    System.out.print("Complemento: ");
+                    complemento = sc.nextLine();
+                }
+                while (CEP.isBlank()) {
+                    System.out.print("CEP: ");
+                    CEP = sc.nextLine();
+                }
+                while (cidade.isBlank()) {
+                    System.out.print("Cidade: ");
+                    cidade = sc.nextLine();
+                }
+                while (estado.isBlank()) {
+                    System.out.print("Estado: ");
+                    estado = sc.nextLine();
+                }
+                while (pais.isBlank()) {
+                    System.out.print("País: ");
+                    pais = sc.nextLine();
+                }
+            return new Endereco(rua, numero, complemento, CEP, cidade, estado, pais);
         } catch (RuntimeException e){
             System.out.println("Erro ao ler os dados. Por favor, tente novamente.");
             sc.nextLine();
@@ -95,10 +116,12 @@ public class Cadastro {
 
     public Escola cadastrarEscola(Scanner sc){
     while (true) {
+        String nome = "";
         try {
-            System.out.print("Digite o nome da escola: ");
-            String nome = sc.nextLine();
-
+            while (nome.isBlank()) {
+                System.out.print("Digite o nome da escola: ");
+                nome = sc.nextLine();
+            }
             System.out.print("Tipo de escola\n" +
                     "[1] Privada\n" +
                     "[2] Publica\n" +
