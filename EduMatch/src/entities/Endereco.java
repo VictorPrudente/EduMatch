@@ -1,7 +1,7 @@
 package entities;
 
 public class Endereco {
-    private int id;
+
     private String logradouro;
     private Integer numero;
     private String complemento;
@@ -12,16 +12,6 @@ public class Endereco {
 
     public Endereco(){}
 
-    public Endereco(int id,String logradouro, Integer numero, String complemento, String cep, String cidade, String estado, String pais){
-        this.id = id;
-        this.logradouro = logradouro;
-        this.numero = numero;
-        this.complemento = complemento;
-        this.cep = cep;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.pais = pais;
-    }
 
     public Endereco(String logradouro, Integer numero, String complemento, String cep, String cidade, String estado, String pais){
         this.logradouro = logradouro;
@@ -37,22 +27,13 @@ public class Endereco {
     public String toString() {
         return String.format("""
                 -=-=-=-=-=-=-=-=-=-=-=
-                ID: %d
                 Logradouro: %s
                 Número: %d
                 Complemento: %s
                 CEP: %s
                 Cidade: %s
                 Estado: %s
-                País: %s""", id, logradouro, numero, complemento, cep, cidade, estado, pais);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+                País: %s""", logradouro, numero, complemento, cep, cidade, estado, pais);
     }
 
     public String getLogradouro(){

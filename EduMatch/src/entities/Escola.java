@@ -15,6 +15,12 @@ public class Escola {
         this.cnpj = cnpj;
     }
 
+    public Escola(String nome, TipoEscola tipo){
+        this.nome = nome;
+        this.tipo = tipo;
+    }
+
+
     public int getId() {
         return Id;
     }
@@ -48,12 +54,11 @@ public class Escola {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("""
                 Id: %d
-                Nome: %S
-                Tipo: %s
-                CNPJ: %S """, Id,  nome, tipo.name(), cnpj);
+                Nome: %s
+                Tipo: %s""", Id,  nome, tipo.name());
 
     }
 

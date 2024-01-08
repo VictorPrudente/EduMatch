@@ -40,14 +40,15 @@ public class EscolaService implements Service<Escola> {
     @Override
     public boolean salvar(Escola escola) {
         for (Escola escola1 : escolas) {
-            if (escola1.getCnpj().equals(escola.getCnpj())) {
-                System.out.println("O CNPJ " + escola.getCnpj() + "já foi cadastrada!");
+            if (escola1.getNome().equals(escola.getNome())) {
+                System.out.println("A escola " + escola.getNome() + " já foi cadastrada!");
                 return false;
             }
 
         }
+        escola.setId(COUNTER.incrementAndGet());
         escolas.add(escola);
-        System.out.println("Escola cadastrada com sucesso!");
+        System.out.println("Escola cadastrada com sucesso!\n");
         return true;
     }
 
@@ -55,7 +56,7 @@ public class EscolaService implements Service<Escola> {
     @Override
     public void listarTodos(){
         for (Escola escola : escolas){
-            System.out.println(escola.toString());
+            System.out.println("\n" + escola.toString());
         }
     }
 
