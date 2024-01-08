@@ -34,7 +34,6 @@ public class Main {
         usuarioService.salvar(usuario);
 
         System.out.println();
-        System.out.println();
 
         while (execucao) {
             menu.menuPrincipal();
@@ -87,9 +86,11 @@ public class Main {
                                     menu.validarQuestao(opcaoQuestao, questao, usuario);
                                 }
                                 break;
-                            }
+                            } default:
+                                System.out.println("\nOpção Inválida. Retornando ao menu principal.\n");
+                                break;
                         }
-                        continue;
+                        break;
                     }
                     //RANKING
                     case 2: {
@@ -105,14 +106,15 @@ public class Main {
                             case 2: {
                                 usuarioService.rankearUsuarios();
                                 System.out.println();
+                                System.out.println();
                                 continue;
                             }
                             case 3: {
-                                System.out.println("Retornando ao Menu Principal");
+                                System.out.println("\nRetornando ao Menu Principal");
                                 continue;
                             }
                             default: {
-                                System.out.println("Opção Inválida!");
+                                System.out.println("\nOpção Inválida. Retornando ao menu principal.\n");
                             }
                         }
                     }
@@ -275,6 +277,7 @@ public class Main {
                                 sc.nextLine();
                                 switch (opcao) {
                                     case 1: {
+                                        System.out.println();
                                         escolaService.listarTodos();
                                         continue;
                                     }
@@ -318,13 +321,13 @@ public class Main {
                                         break;
                                     }
                                     default: {
-                                        System.out.println("Opção não implementada! Aguarde futuras atualizações :)");
+                                        System.out.println("\nOpção não implementada! Aguarde futuras atualizações :)\n");
                                     }
                                 }
                                 break;
                             }
                             case 5: {
-                                System.out.println(usuario.imprimirDados());
+                                System.out.println("\n" + usuario.imprimirDados() + "\n");
                                 continue;
                             }
                             case 6: {
@@ -336,7 +339,7 @@ public class Main {
                                 break;
                             }
                             default: {
-                                System.out.println("Opção Inválida!");
+                                System.out.println("\nOpção Inválida. Retornando ao menu principal.\n");
                             }
                         }
 
@@ -347,13 +350,11 @@ public class Main {
                         execucao = false;
                         break;
                     }
-                    default: {
-                        System.out.println("Opção Inválida!");
-                    }
-                    break;
+                    default:
+                        System.out.println("\nOpção inválida.\n");
                 }
             } catch (RuntimeException e) {
-                System.out.println("Por favor, digite uma opção válida.\n");
+                System.out.println("\nPor favor, digite uma opção válida. Retornando ao menu principal.\n");
                 sc.nextLine();
             }
         }

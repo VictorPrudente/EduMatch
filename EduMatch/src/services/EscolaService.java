@@ -56,7 +56,7 @@ public class EscolaService implements Service<Escola> {
     @Override
     public void listarTodos(){
         for (Escola escola : escolas){
-            System.out.println("\n" + escola.toString());
+            System.out.println(escola.toString() + "\n");
         }
     }
 

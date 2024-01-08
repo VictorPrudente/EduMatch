@@ -49,14 +49,12 @@ public class Empresa {
 
     @Override
     public String toString() {
-        return "Empresa{" +
-                "usuario=" + usuario +
-                ", nome='" + nome + '\'' +
-                ", setor='" + setor + '\'' +
-                ", cnpj='" + cnpj + '\'' +
-                ", areaDeAtuacao='" + areaDeAtuacao + '\'' +
-                ", endereco=" + endereco +
-                ", Id=" + Id +
-                '}';
+        return String.format("""
+                ID: %d
+                Nome: %s
+                Setor: %s
+                Area de Atuação: %s
+                Endereço: %s
+                """, Id, nome, setor, areaDeAtuacao, endereco);
     }
 }

@@ -23,21 +23,27 @@ public class PortuguesService implements Service<Portugues> {
 
     private void inicializarListas() {
         perguntas.add(new Portugues(COUNTER.incrementAndGet(), Dificuldades.FACIL, """
+                
                 Qual é o sinônimo da palavra "rápido"?
+                
                 A) Devagar
                 B) Lento
                 C) Ágil 
                 D) Manso
                 E) Estático""", "C", 1));
         perguntas.add(new Portugues(COUNTER.incrementAndGet(), Dificuldades.FACIL, """
+                
                 Qual é o antônimo da palavra "alegre"?
+                
                 A) Triste 
                 B) Feliz
                 C) Radiante
                 D) Contente
                 E) Jubiloso""", "A", 1));
         perguntas.add(new Portugues(COUNTER.incrementAndGet(), Dificuldades.FACIL, """
+                
                 Qual é o sinônimo da palavra "grande"?
+                
                 A) Pequeno
                 B) Gigante 
                 C) Largo
@@ -45,21 +51,27 @@ public class PortuguesService implements Service<Portugues> {
                 E) Curto""", "B", 1));
 
         perguntas.add(new Portugues(COUNTER.incrementAndGet(), Dificuldades.MEDIO, """
+                
                 Qual é o plural correto de "cidadão"?
+                
                 A) Cidadãos 
                 B) Cidadãoes
                 C) Cidadõeis
                 D) Cidadões
                 E) Cidadães""", "A", 3));
         perguntas.add(new Portugues(COUNTER.incrementAndGet(), Dificuldades.MEDIO, """
+                
                 Qual é o significado da expressão "a gota d'água"?
+                
                 A) Algo pequeno e irrelevante 
                 B) Uma grande conquista
                 C) Uma chuva intensa
                 D) Uma expressão de alegria
                 E) Uma demonstração de coragem""", "A", 3));
         perguntas.add(new Portugues(COUNTER.incrementAndGet(), Dificuldades.MEDIO, """
+                
                 Qual é o autor da obra "Dom Casmurro"?
+                
                 A) Machado de Assis 
                 B) José de Alencar
                 C) Lima Barreto
@@ -67,7 +79,9 @@ public class PortuguesService implements Service<Portugues> {
                 E) Monteiro Lobato
                 """, "A", 3));
         perguntas.add(new Portugues(COUNTER.incrementAndGet(), Dificuldades.DIFICIL, """
+                
                 Na frase "Aquele gesto revelou uma benevolência incomum", o que significa "benevolência"?
+                
                 A) Maldade
                 B) Crueldade
                 C) Bondade 
