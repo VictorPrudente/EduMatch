@@ -24,15 +24,15 @@ public class EmpresaService implements Service<Empresa> {
 
     private void inicializarLista() {
 
-        empresas.add(new Empresa("Pedro", "Brown", "123123", "Alimentício", id));
-        empresas.add(new Empresa("Lucio", "Blue", "123", "Alimentício", id));
-        empresas.add(new Empresa("Marcos", "Yellow", "123", "Alimentício", id));
-        empresas.add(new Empresa("Lucia", "White", "123", "Alimentício", id));
-        empresas.add(new Empresa("Maria", "Black", "123", "Alimentício", id));
-        empresas.add(new Empresa("Yolanda", "Red", "123", "Alimentício", id));
-        empresas.add(new Empresa("Josefina", "Purple", "123", "Alimentício", id));
-        empresas.add(new Empresa("Carlas", "Gold", "123", "Alimentício", id));
-        empresas.add(new Empresa("Leslie", "Pink", "123", "Alimentício", id));
+        empresas.add(new Empresa("TechSol","Tecnologia","123456789000101","Desenvolvimento de software e soluções tecnológicas", id));
+        empresas.add(new Empresa("EcoBio","Meio Ambiente","987654321000102","Reciclagem e preservação ambiental", id));
+        empresas.add(new Empresa("SaúdeVital","Saúde","789012345000103","Serviços de saúde e cuidados médicos", id));
+        empresas.add(new Empresa("AgroTech","Agricultura","345678901000104","Desenvolvimento de tecnologias para a agricultura", id));
+        empresas.add(new Empresa("ConstruPrime","Construção","012345678000105","Construção civil e infraestrutura", id));
+        empresas.add(new Empresa("ModaStyle","Moda","567890123000106","Comércio de roupas e acessórios de moda", id));
+        empresas.add(new Empresa("EducaTech","Educação","234567890000107","Tecnologias educacionais e cursos online", id));
+        empresas.add(new Empresa("EnergiSolar","Energia","890123456000108","Energia solar e soluções sustentáveis", id));
+        empresas.add(new Empresa("TransLog","Logística","456789012000109","Serviços de logística e transporte", id));
 
     }
 
