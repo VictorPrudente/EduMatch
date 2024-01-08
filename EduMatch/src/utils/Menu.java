@@ -1,22 +1,23 @@
 package utils;
 
-import entities.Contato;
-import entities.Endereco;
 import entities.Game;
 import entities.Usuario;
-import entities.enums.TipoDeContato;
 
 import java.util.Scanner;
 
 public class Menu {
 
 
+    public void validarEntrada(int opcao){
+
+    }
+
     public void validarQuestao(String opcaoRespondida, Game questao, Usuario usuario){
         if (opcaoRespondida.equals(questao.getOpcaoCerta())) {
             usuario.setPontuacao(questao.getPontos());
-            System.out.println("Opção correta! Isso ai :D");
+            System.out.println("Opção correta! Isso ai :D\n");
         } else {
-            System.out.println("Opção errada, preste mais atenção!");
+            System.out.println("Opção errada, preste mais atenção!\n");
         }
     }
 

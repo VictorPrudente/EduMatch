@@ -24,71 +24,71 @@ public class PortuguesService implements Service<Portugues> {
     private void inicializarListas() {
         perguntas.add(new Portugues(COUNTER.incrementAndGet(), Dificuldades.FACIL, """
                 Qual é o sinônimo da palavra "rápido"?
-                a) Devagar
-                b) Lento
-                c) Ágil 
-                d) Manso
-                e) Estático""", "C", 1));
+                A) Devagar
+                B) Lento
+                C) Ágil 
+                D) Manso
+                E) Estático""", "C", 1));
         perguntas.add(new Portugues(COUNTER.incrementAndGet(), Dificuldades.FACIL, """
                 Qual é o antônimo da palavra "alegre"?
-                a) Triste 
-                b) Feliz
-                c) Radiante
-                d) Contente
-                e) Jubiloso""", "A", 1));
+                A) Triste 
+                B) Feliz
+                C) Radiante
+                D) Contente
+                E) Jubiloso""", "A", 1));
         perguntas.add(new Portugues(COUNTER.incrementAndGet(), Dificuldades.FACIL, """
                 Qual é o sinônimo da palavra "grande"?
-                a) Pequeno
-                b) Gigante 
-                c) Largo
-                d) Longo
-                e) Curto""", "B", 1));
+                A) Pequeno
+                B) Gigante 
+                C) Largo
+                D) Longo
+                E) Curto""", "B", 1));
 
         perguntas.add(new Portugues(COUNTER.incrementAndGet(), Dificuldades.MEDIO, """
                 Qual é o plural correto de "cidadão"?
-                a) Cidadãos 
-                b) Cidadãoes
-                c) Cidadõeis
-                d) Cidadões
-                e) Cidadães""", "A", 3));
+                A) Cidadãos 
+                B) Cidadãoes
+                C) Cidadõeis
+                D) Cidadões
+                E) Cidadães""", "A", 3));
         perguntas.add(new Portugues(COUNTER.incrementAndGet(), Dificuldades.MEDIO, """
                 Qual é o significado da expressão "a gota d'água"?
-                a) Algo pequeno e irrelevante 
-                b) Uma grande conquista
-                c) Uma chuva intensa
-                d) Uma expressão de alegria
-                e) Uma demonstração de coragem""", "A", 3));
+                A) Algo pequeno e irrelevante 
+                B) Uma grande conquista
+                C) Uma chuva intensa
+                D) Uma expressão de alegria
+                E) Uma demonstração de coragem""", "A", 3));
         perguntas.add(new Portugues(COUNTER.incrementAndGet(), Dificuldades.MEDIO, """
                 Qual é o autor da obra "Dom Casmurro"?
-                a) Machado de Assis 
-                b) José de Alencar
-                c) Lima Barreto
-                d) Graciliano Ramos
-                e) Monteiro Lobato
+                A) Machado de Assis 
+                B) José de Alencar
+                C) Lima Barreto
+                D) Graciliano Ramos
+                E) Monteiro Lobato
                 """, "A", 3));
         perguntas.add(new Portugues(COUNTER.incrementAndGet(), Dificuldades.DIFICIL, """
                 Na frase "Aquele gesto revelou uma benevolência incomum", o que significa "benevolência"?
-                a) Maldade
-                b) Crueldade
-                c) Bondade 
-                d) Arrogância
-                e) Desprezo
+                A) Maldade
+                B) Crueldade
+                C) Bondade 
+                D) Arrogância
+                E) Desprezo
                 """, "C", 5));
 
         perguntas.add(new Portugues(COUNTER.incrementAndGet(), Dificuldades.DIFICIL, """
                 Na frase "A tessitura da trama era intricada", o que significa "tessitura"?
-                a) Textura 
-                b) Espessura
-                c) Altura
-                d) Largura
-                e) Densidade""", "A", 5));
+                A) Textura 
+                B) Espessura
+                C) Altura
+                D) Largura
+                E) Densidade""", "A", 5));
         perguntas.add(new Portugues(COUNTER.incrementAndGet(), Dificuldades.DIFICIL, """
                 Qual é o significado da expressão "chover no molhado"?
-                a) Discutir algo desnecessário 
-                b) Lidar com um problema difícil
-                c) Estar sempre ocupado
-                d) Conseguir algo com facilidade
-                e) Chorar por algo perdido""", "A", 5));
+                A) Discutir algo desnecessário 
+                B) Lidar com um problema difícil
+                C) Estar sempre ocupado
+                D) Conseguir algo com facilidade
+                E) Chorar por algo perdido""", "A", 5));
     }
     @Override
     public boolean salvar(Portugues novaQuestao) {
