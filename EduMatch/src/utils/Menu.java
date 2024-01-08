@@ -12,13 +12,16 @@ public class Menu {
 
     }
 
-    public void validarQuestao(String opcaoRespondida, Game questao, Usuario usuario){
+    public int validarQuestao(String opcaoRespondida, Game questao, Usuario usuario){
+        int j = 0;
         if (opcaoRespondida.equals(questao.getOpcaoCerta())) {
             usuario.setPontuacao(questao.getPontos());
-            System.out.println("Opção correta! Isso ai :D\n");
+            System.out.println("\nOpção correta! Isso ai :D\n");
+            j++;
         } else {
-            System.out.println("Opção errada, preste mais atenção!\n");
+            System.out.println("\nOpção errada, preste mais atenção!\n");
         }
+        return j;
     }
 
     public void menuPrincipal(){

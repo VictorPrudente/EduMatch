@@ -15,7 +15,9 @@ public class Usuario {
     private Integer pontuacao;
     private List<Endereco> enderecos = new ArrayList<>();
     private List<Contato> contatos = new ArrayList<>();
+    private List<Certificado> certificados = new ArrayList<>();
     private Escola escola;
+
     public Usuario() {
     }
 
@@ -103,6 +105,15 @@ public class Usuario {
     public void setPontuacao(Integer pontuacao){
         this.pontuacao += pontuacao;
     }
+
+    public List<Certificado> getCertificados() {
+        return certificados;
+    }
+
+    public void setCertificados(List<Certificado> certificados) {
+        this.certificados = certificados;
+    }
+
     @Override
     public String toString() {
         return String.format("""
