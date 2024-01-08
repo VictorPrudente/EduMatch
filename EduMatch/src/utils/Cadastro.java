@@ -18,15 +18,15 @@ public class Cadastro {
     String cpf = "";
 
         try{
-            while (nome.isBlank()){
-            System.out.print("Por favor, digite seu nome: ");
+            while (nome.isBlank() || nome.matches(".*\\d.*")) {
+                System.out.print("Por favor, digite seu nome: ");
                 nome = sc.nextLine();
             }
-            while (sobrenome.isBlank()) {
+            while (sobrenome.isBlank() || sobrenome.matches(".*\\d.*")) {
             System.out.print("Por favor, digite Sobrenome: ");
                 sobrenome = sc.nextLine();
             }
-            while (cpf.isBlank()) {
+            while (cpf.isBlank() || !cpf.matches("\\b(?:\\d{3}\\.?){3}\\d{2}\\b")) {
             System.out.print("Agora, digite seu CPF: ");
                 cpf = sc.nextLine();
             }
@@ -35,7 +35,7 @@ public class Cadastro {
             sc.nextLine();
             return new Usuario(nome, sobrenome, cpf, idade, 0);
             } catch (RuntimeException e) {
-            System.out.println("Erro ao ler os dados. Por favor, tente novamente.\n");
+            System.out.println("\n\u001B[31mErro ao ler os dados. Por favor, tente novamente.\u001B[0m\n");
             sc.nextLine();
             }
 
@@ -64,7 +64,7 @@ public class Cadastro {
             sc.nextLine();
         return new Contato(descricao, telefone, TipoDeContato.valueOf(opcao-1));
         } catch (RuntimeException e){
-            System.out.println("Erro ao ler os dados. Por favor, tente novamente.");
+            System.out.println("\n\u001B[31mErro ao ler os dados. Por favor, tente novamente.\u001B[0m");
             sc.nextLine();
         }
         }
@@ -108,7 +108,7 @@ public class Cadastro {
                 }
             return new Endereco(rua, numero, complemento, CEP, cidade, estado, pais);
         } catch (RuntimeException e){
-            System.out.println("Erro ao ler os dados. Por favor, tente novamente.");
+            System.out.println("\n\u001B[31mErro ao ler os dados. Por favor, tente novamente.\u001B[0m");
             sc.nextLine();
             }
         }
@@ -132,7 +132,7 @@ public class Cadastro {
 
             return new Escola(nome, TipoEscola.valueOf(tipo - 1));
         } catch (RuntimeException e){
-            System.out.println("Erro ao ler os dados. Por favor, tente novamente.");
+            System.out.println("\n\u001B[31mErro ao ler os dados. Por favor, tente novamente.\u001B[0m");
             sc.nextLine();
         }
     }
