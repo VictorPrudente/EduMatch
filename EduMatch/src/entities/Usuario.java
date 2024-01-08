@@ -15,7 +15,9 @@ public class Usuario {
     private Integer pontuacao;
     private List<Endereco> enderecos = new ArrayList<>();
     private List<Contato> contatos = new ArrayList<>();
+    private List<Certificado> certificados = new ArrayList<>();
     private Escola escola;
+
     public Usuario() {
     }
 
