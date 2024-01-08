@@ -59,6 +59,7 @@ public class Escola {
                 Id: %d
                 Nome: %s
                 Tipo: %s""", Id,  nome, tipo.name());
+
     }
 
 }
