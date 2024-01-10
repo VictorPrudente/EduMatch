@@ -105,8 +105,7 @@ Acompanhe o progresso das tarefas no [Trello](https://trello.com/b/okeu5gWa/educ
 
 
 ## Tecnologias utilizadas
-  <img align="center" alt="Rafa-Java" height="40" width="60" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg"> 
-  <img align="center" alt="INTELLIJ" height="40" width="60" src="https://media.licdn.com/dms/image/C5607AQEHmg94dM0LuA/group-logo_image-shrink_92x92/0/1630999991585?e=1705280400&v=beta&t=zvl-vS3VMSYDHUWZ3Ot32Jcwx5zddSbBG0B3e-vrbdM">  
+  <img align="center" alt="Rafa-Java" height="40" width="60" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg">  <img align="center" alt="INTELLIJ" height="40" width="60" src="https://media.licdn.com/dms/image/C5607AQEHmg94dM0LuA/group-logo_image-shrink_92x92/0/1630999991585?e=1705280400&v=beta&t=zvl-vS3VMSYDHUWZ3Ot32Jcwx5zddSbBG0B3e-vrbdM">  
 
 ####
 ## Autores do Projeto
