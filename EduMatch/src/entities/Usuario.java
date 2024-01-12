@@ -13,16 +13,17 @@ public class Usuario {
     private String CPF;
     private Integer idade;
     private Integer pontuacao;
+    private Integer empresa;
     private List<Endereco> enderecos = new ArrayList<>();
     private List<Contato> contatos = new ArrayList<>();
     private List<Certificado> certificados = new ArrayList<>();
-    private Escola escola;
+    private Integer escola;
 
     public Usuario() {
     }
 
     public Usuario(String nome, String sobrenome, String CPF,
-                   Integer idade, Integer pontuacao) {
+                    Integer idade, Integer pontuacao) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.CPF = CPF;
@@ -34,12 +35,12 @@ public class Usuario {
         return false;
     }
 
-    public Escola getEscola() {
+    public Integer getEscola() {
         return escola;
     }
 
     public void setEscola(Escola escola) {
-        this.escola = escola;
+        this.escola = escola.getId();
     }
 
     public List<Endereco> getEnderecos() {
@@ -104,6 +105,14 @@ public class Usuario {
 
     public void setPontuacao(Integer pontuacao){
         this.pontuacao += pontuacao;
+    }
+
+    public Integer getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa.getId();
     }
 
     public List<Certificado> getCertificados() {
