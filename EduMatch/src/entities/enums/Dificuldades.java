@@ -3,16 +3,23 @@ package entities.enums;
 public enum Dificuldades {
 
 
-    FACIL(0),
-    MEDIO(1),
-    DIFICIL(2);
+    FACIL(0, "FACIL"),
+    MEDIO(1, "MEDIO"),
+    DIFICIL(2, "DIFICIL");
 
 
     private int nivel;
+    private String descricao;
+
+    public String getDescricao() {
+        return descricao;
+    }
 
     public int getNivel() {
         return nivel;
     }
+
+
     public static Dificuldades valueOf(int nivel){
         for (Dificuldades dificuldade : Dificuldades.values()){
             if (dificuldade.ordinal() == nivel){
@@ -22,6 +29,15 @@ public enum Dificuldades {
         throw new IllegalStateException("Nível de dificuldade não encontrado.");
     }
 
-    Dificuldades(int i) {
+    public static String getDificuldade(int nivel){
+        for (Dificuldades dificuldade : Dificuldades.values()){
+            if (dificuldade.ordinal() == nivel){
+                return dificuldade.getDescricao();
+            }
+        }
+        throw new IllegalStateException("Nível de dificuldade não encontrado.");
+    }
+
+    Dificuldades(int nivel, String descricao) {
     }
 }

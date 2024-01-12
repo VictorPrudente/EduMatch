@@ -15,4 +15,5 @@ public class SoftSkill extends Game{
     public String toString() {
         return getQuestao();
     }
+
 }
