@@ -10,9 +10,9 @@ public class ConexaoBancoDeDadosLocal {
     private static final String DATABASE = "xe";
 
     // Configuração dos parâmetros de autenticação
-    private static final String USER = "system";
+    private static final String USER = "VS_13_EQUIPE_9";
     private static final String PASS = "oracle";
-    private static final String SCHEMA = "VEM_SER";
+    private static final String SCHEMA = "VS_13_EQUIPE_9";
 
     public static Connection getConnection() throws SQLException {
         String url = "jdbc:oracle:thin:@" + SERVER + ":" + PORT + ":" + DATABASE;
