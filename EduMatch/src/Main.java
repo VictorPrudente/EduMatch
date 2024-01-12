@@ -6,10 +6,8 @@ import utils.Cadastro;
 import utils.Menu;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Random;
-import java.awt.*;
-import java.util.InputMismatchException;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
@@ -56,7 +54,9 @@ public class Main {
                             case 1: {
                                 int j = 0;
                                 for (int i = 0; i < 3; i++) {
-                                    Portugues questao = portuguesService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(random.nextInt(0, 2));
+                                    List<Portugues> questoes = portuguesService.listarPelaDificuldade(Dificuldades.valueOf(i));
+
+                                    Portugues questao = questoes.get(random.nextInt(questoes.size()));
                                     System.out.println(questao);
 
                                     while (!opcaoQuestao.matches("[A-Ea-e]")) {
@@ -66,7 +66,7 @@ public class Main {
                                         j += menu.validarQuestao(opcaoQuestao, questao, usuario);
                                         opcaoQuestao = "";
                                 } if (j >= 2){
-                                    Certificado certificado =new Certificado(Games.SOFT_SKILLS, LocalDateTime.now(), usuario);
+                                    Certificado certificado =new Certificado(Games.PORTUGUES, LocalDateTime.now(), usuario);
                                     usuario.getCertificados().add(certificado);
                                     System.out.println("Parabéns pelo seu certificado!");
                                 }
@@ -75,7 +75,9 @@ public class Main {
                             case 2: {
                                 int j = 0;
                                 for (int i = 0; i < 3; i++) {
-                                    Matematica questao = matematicaService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(random.nextInt(0, 2));
+                                    List<Matematica> questoes = matematicaService.listarPelaDificuldade(Dificuldades.valueOf(i));
+
+                                    Matematica questao = questoes.get(random.nextInt(questoes.size()));
                                     System.out.println(questao);
 
                                     while (!opcaoQuestao.matches("[A-Ea-e]")) {
@@ -86,7 +88,7 @@ public class Main {
                                         opcaoQuestao = "";
                                 }
                                 if (j >= 2){
-                                    Certificado certificado =new Certificado(Games.SOFT_SKILLS, LocalDateTime.now(), usuario);
+                                    Certificado certificado =new Certificado(Games.MATEMATICA, LocalDateTime.now(), usuario);
                                     usuario.getCertificados().add(certificado);
                                     System.out.println("Parabéns pelo seu certificado!");
                                 }
@@ -96,7 +98,9 @@ public class Main {
                                 System.out.println();
                                     int j = 0;
                                 for (int i = 0; i < 3; i++) {
-                                    SoftSkill questao = softSkillService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(i);
+                                    List<SoftSkill> questoes = softSkillService.listarPelaDificuldade(Dificuldades.valueOf(i));
+
+                                    SoftSkill questao = questoes.get(random.nextInt(questoes.size()));
                                     System.out.println(questao);
 
                                     while (!opcaoQuestao.matches("[A-Ea-e]")) {
