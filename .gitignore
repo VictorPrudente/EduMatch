@@ -1,9 +1,20 @@
 ### IntelliJ IDEA ###
+# Arquivos de configuração do IntelliJ IDEA
+.idea/
 out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-.idea/workspace.xml
-/.idea/
+target/
+build/
+*.iml
+*.ipr
+*.iws
+.idea/
+*.class
+*.iml
+*.iws
+# Logs
+*.log
+bin/
+.settings/
 .idea/
 
 ### Eclipse ###
