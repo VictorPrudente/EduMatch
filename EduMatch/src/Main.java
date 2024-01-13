@@ -6,10 +6,8 @@ import utils.Cadastro;
 import utils.Menu;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Random;
-import java.awt.*;
-import java.util.InputMismatchException;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
@@ -54,59 +52,71 @@ public class Main {
                         sc.nextLine();
                         switch (opcao) {
                             case 1: {
-                                int j = 0;
+                                int acertos = 0;
+                                int totalQuestoes = 0;
                                 for (int i = 0; i < 3; i++) {
-                                    Portugues questao = portuguesService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(random.nextInt(0, 2));
+
+                                    List<Portugues> questoes = portuguesService.listarPelaDificuldade(Dificuldades.valueOf(i));
+                                    totalQuestoes = questoes.size();
+                                    Portugues questao = questoes.get(random.nextInt(totalQuestoes));
                                     System.out.println(questao);
 
                                     while (!opcaoQuestao.matches("[A-Ea-e]")) {
                                         System.out.print("Opção: ");
                                         opcaoQuestao = sc.nextLine().toUpperCase().trim();
                                     }
-                                        j += menu.validarQuestao(opcaoQuestao, questao, usuario);
-                                        opcaoQuestao = "";
-                                } if (j >= 2){
-                                    Certificado certificado =new Certificado(Games.SOFT_SKILLS, LocalDateTime.now(), usuario);
+                                    acertos += menu.validarQuestao(opcaoQuestao, questao, usuario);
+                                    opcaoQuestao = "";
+                                }
+                                if ((double) ((acertos * 100)/totalQuestoes) >= 66){
+                                    Certificado certificado =new Certificado(Games.PORTUGUES, LocalDateTime.now(), usuario);
                                     usuario.getCertificados().add(certificado);
-                                    System.out.println("Parabéns pelo seu certificado!");
+                                    System.out.println("Parabéns pelo seu certificado!\n");
                                 }
                                 break;
                             }
                             case 2: {
-                                int j = 0;
+                                int acertos = 0;
+                                int totalQuestoes = 0;
                                 for (int i = 0; i < 3; i++) {
-                                    Matematica questao = matematicaService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(random.nextInt(0, 2));
+
+                                    List<Matematica> questoes = matematicaService.listarPelaDificuldade(Dificuldades.valueOf(i));
+                                    totalQuestoes = questoes.size();
+                                    Matematica questao = questoes.get(random.nextInt(totalQuestoes));
                                     System.out.println(questao);
 
                                     while (!opcaoQuestao.matches("[A-Ea-e]")) {
                                         System.out.print("Opção: ");
                                         opcaoQuestao = sc.nextLine().toUpperCase().trim();
                                     }
-                                         j += menu.validarQuestao(opcaoQuestao, questao, usuario);
-                                        opcaoQuestao = "";
+                                    acertos += menu.validarQuestao(opcaoQuestao, questao, usuario);
+                                    opcaoQuestao = "";
                                 }
-                                if (j >= 2){
-                                    Certificado certificado =new Certificado(Games.SOFT_SKILLS, LocalDateTime.now(), usuario);
+                                if ((double) ((acertos * 100)/totalQuestoes) >= 66){
+                                    Certificado certificado =new Certificado(Games.MATEMATICA, LocalDateTime.now(), usuario);
                                     usuario.getCertificados().add(certificado);
-                                    System.out.println("Parabéns pelo seu certificado!");
+                                    System.out.println("Parabéns pelo seu certificado!\n");
                                 }
                                 break;
                             }
                             case 3: {
-                                System.out.println();
-                                    int j = 0;
+                                    int acertos = 0;
+                                    int totalQuestoes = 0;
                                 for (int i = 0; i < 3; i++) {
-                                    SoftSkill questao = softSkillService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(i);
+
+                                    List<SoftSkill> questoes = softSkillService.listarPelaDificuldade(Dificuldades.valueOf(i));
+                                    totalQuestoes = questoes.size();
+                                    SoftSkill questao = questoes.get(random.nextInt(totalQuestoes));
                                     System.out.println(questao);
 
                                     while (!opcaoQuestao.matches("[A-Ea-e]")) {
                                         System.out.print("Opção: ");
                                         opcaoQuestao = sc.nextLine().toUpperCase().trim();
                                     }
-                                       j += menu.validarQuestao(opcaoQuestao, questao, usuario);
+                                       acertos += menu.validarQuestao(opcaoQuestao, questao, usuario);
                                         opcaoQuestao = "";
                                 }
-                                if (j >= 2){
+                                if ((double) ((acertos * 100)/totalQuestoes) >= 66){
                                     Certificado certificado =new Certificado(Games.SOFT_SKILLS, LocalDateTime.now(), usuario);
                                     usuario.getCertificados().add(certificado);
                                     System.out.println("Parabéns pelo seu certificado!\n");

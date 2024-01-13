@@ -8,20 +8,16 @@ import java.util.Scanner;
 public class Menu {
 
 
-    public void validarEntrada(int opcao){
-
-    }
-
     public int validarQuestao(String opcaoRespondida, Game questao, Usuario usuario){
-        int j = 0;
+        int acerto = 0;
         if (opcaoRespondida.equals(questao.getOpcaoCerta())) {
             usuario.setPontuacao(questao.getPontos());
             System.out.println("\nOpção correta! Isso ai :D\n");
-            j++;
+            acerto++;
         } else {
             System.out.println("\nOpção errada, preste mais atenção!\n");
         }
-        return j;
+        return acerto;
     }
 
     public void menuPrincipal(){
