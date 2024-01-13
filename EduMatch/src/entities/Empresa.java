@@ -3,22 +3,23 @@ package entities;
 import java.util.ArrayList;
 
 public class Empresa {
-    private Usuario usuario;
-    private String nome;
-    private String setor;
-    private String cnpj;
-    private String areaDeAtuacao;
-    private Endereco endereco;
     private int Id;
+    private String nome;
+    private String cnpj;
+    private String setor;
+    private String areaDeAtuacao;
+    private int tipo;
+    private Usuario usuario;
+    private Endereco endereco;
 
     public Empresa (){}
-    public Empresa(String nome, String setor, String cnpj, String areaDeAtuacao,
-                   int Id){
-        this.nome = nome;
-        this.setor = setor;
-        this.cnpj = cnpj;
-        this.areaDeAtuacao = areaDeAtuacao;
+    public Empresa(int Id, String nome, String cnpj, String setor, String areaDeAtuacao, int tipo){
         this.Id = Id;
+        this.nome = nome;
+        this.cnpj = cnpj;
+        this.setor = setor;
+        this.areaDeAtuacao = areaDeAtuacao;
+        this.tipo = tipo;
     }
 
     public String getNome() {return nome;}
@@ -35,6 +36,9 @@ public class Empresa {
     public void setUsuario(Usuario usuario) {this.usuario = usuario;}
     public int getId() {return Id;}
     public void setId(int id) {this.Id = id;}
+    public void setTipo(int Tipo){this.tipo = tipo;}
+    public int getTipo(){return tipo;}
+
 
     //METHODS
     public void apoiarUmAluno(Usuario usuario){
