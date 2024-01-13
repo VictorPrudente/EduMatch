@@ -2,10 +2,41 @@ package entities;
 import entities.enums.TipoDeContato;
 
 public class Contato {
+    private Integer id_contato;
     private String descricao;
     private String telefone;
     private TipoDeContato tipo;
+    private Integer id_usuario;
+    private Integer id_empresa;
+    private Integer id_escola;
 
+    public Contato(){}
+
+    public Integer getId_empresa() {
+        return id_empresa;
+    }
+    public void setId_empresa(Integer id_empresa) {
+        this.id_empresa = id_empresa;
+    }
+    public Integer getId_escola() {
+        return id_escola;
+    }
+    public void setId_escola(Integer id_escola) {
+        this.id_escola = id_escola;
+    }
+    public Integer getId_usuario() {
+        return id_usuario;
+    }
+    public void setId_usuario(Integer id_usuario) {
+        this.id_usuario = id_usuario;
+    }
+
+    public Integer getId_contato() {
+        return id_contato;
+    }
+    public void setId_contato(Integer id_contato) {
+        this.id_contato = id_contato;
+    }
     public String getDescricao() {
         return descricao;
     }
@@ -36,8 +67,9 @@ public class Contato {
     public String toString(){
         return String.format("""
                 -=-=-=-=-=-=-=-=-=-=-=
+                Id: %d
                 Número: %s
                 Descrição: %s
-                Tipo: %s""",  telefone, descricao, tipo.name());
+                Tipo: %s""",  id_contato, telefone, descricao, tipo.name());
     }
 }
