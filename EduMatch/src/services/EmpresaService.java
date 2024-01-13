@@ -1,102 +1,60 @@
 package services;
-import entities.Contato;
 import entities.Empresa;
-import entities.Endereco;
-import entities.Usuario;
-import interfaces.Service;
+import repository.EmpresaRepository;
+import exceptions.BancoDeDadosException;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class EmpresaService implements Service<Empresa> {
+public class EmpresaService {
+    private EmpresaRepository empresaRepository;
 
-    private AtomicInteger COUNTER = new AtomicInteger();
-    Integer id = COUNTER.incrementAndGet();
-    Random random = new Random();
-    private ArrayList<Empresa> empresas = new ArrayList<>();
+    // criação de um objeto
+    public void adicionarEmpresa(Empresa empresa) {
+        try {
 
-    public EmpresaService() {
-        inicializarLista();
-    }
-
-    private void inicializarLista() {
-
-        empresas.add(new Empresa("TechSol","Tecnologia","123456789000101","Desenvolvimento de software e soluções tecnológicas", id));
-        empresas.add(new Empresa("EcoBio","Meio Ambiente","987654321000102","Reciclagem e preservação ambiental", id));
-        empresas.add(new Empresa("SaúdeVital","Saúde","789012345000103","Serviços de saúde e cuidados médicos", id));
-        empresas.add(new Empresa("AgroTech","Agricultura","345678901000104","Desenvolvimento de tecnologias para a agricultura", id));
-        empresas.add(new Empresa("ConstruPrime","Construção","012345678000105","Construção civil e infraestrutura", id));
-        empresas.add(new Empresa("ModaStyle","Moda","567890123000106","Comércio de roupas e acessórios de moda", id));
-        empresas.add(new Empresa("EducaTech","Educação","234567890000107","Tecnologias educacionais e cursos online", id));
-        empresas.add(new Empresa("EnergiSolar","Energia","890123456000108","Energia solar e soluções sustentáveis", id));
-        empresas.add(new Empresa("TransLog","Logística","456789012000109","Serviços de logística e transporte", id));
-
-    }
-
-    // CREATE
-    @Override
-    public boolean salvar(Empresa empresa) {
-        for (Empresa empresaNaLista : empresas) {
-            if (empresaNaLista.getCnpj().equals(empresa.getCnpj())) {
-                System.out.println("O CNPJ deve ser único");
-                return false;
+            if (empresa.getCnpj().length() != 14) {
+                throw new Exception("CNPJ Invalido!");
             }
-        }
-        empresas.add(empresa);
-        System.out.println("Empresa salva com sucesso!");
-        return true;
-    }
 
-    // READ
-    @Override
-    public void listarTodos() {
-        for (Empresa empresa : empresas) {
-            System.out.println(empresa.toString());
+            Empresa empresaAdicionada = empresaRepository.adicionar(empresa);
+            System.out.println("empresa adicinada com sucesso! " + empresaAdicionada);
+        } catch (BancoDeDadosException e) {
+            System.out.println("ERRO: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("ERRO: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    public Empresa listarPorId(int Id) throws Exception {
-        for (Empresa empresa : empresas) {
-            if (empresa.getId() == Id) {
-                return empresa;
-            }
+    // remoção
+    public void removerEmpresa(Integer id) {
+        try {
+            boolean conseguiuRemover = empresaRepository.remover(id);
+            System.out.println("empresa removida? " + conseguiuRemover + "| com id=" + id);
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
         }
-        throw new Exception("Empresa com o ID " + Id + "não encontrado.");
     }
 
-    public Empresa listarPorCNPJ(String CNPJ) throws Exception {
-        for (Empresa empresa : empresas) {
-            if (empresa.getCnpj().equals(CNPJ)) {
-                return empresa;
-            }
+    // atualização de um objeto
+    public void editarEmpresa(Integer id, Empresa empresa) {
+        try {
+            boolean conseguiuEditar = empresaRepository.editar(id, empresa);
+            System.out.println("empresa editada? " + conseguiuEditar + "| com id=" + id);
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
         }
-        throw new Exception("A empresa com o CNPJ " + CNPJ + " não encontrado.");
     }
 
-    // UPDATE
-    @Override
-    public boolean atualizar(int id, Empresa empresa) {
-
-        for (Empresa empresaAtualizar : empresas) {
-            if (empresaAtualizar.getId() == id) {
-                empresaAtualizar.setAreaDeAtuacao(empresa.getAreaDeAtuacao());
-                empresaAtualizar.setSetor(empresa.getSetor());
-                empresaAtualizar.setNome(empresa.getNome());
-                empresaAtualizar.setEndereco(empresa.getEndereco());
-                return true;
-            }
+    // leitura
+    public void listarEmpresas() {
+        try {
+            List<Empresa> listar = empresaRepository.listar();
+            listar.forEach(System.out::println);
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
         }
-        return false;
-
-    }
-
-    // DELETE
-    @Override
-    public boolean deletar(Empresa empresa) {
-        return this.empresas.remove(empresa);
     }
 }
 
