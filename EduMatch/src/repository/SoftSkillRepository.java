@@ -1,6 +1,5 @@
 package repository;
 
-import entities.Matematica;
 import entities.SoftSkill;
 import entities.enums.Dificuldades;
 import exceptions.BancoDeDadosException;
