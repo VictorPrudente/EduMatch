@@ -2,6 +2,7 @@ package entities;
 
 public class Endereco {
 
+    private Integer id_endereco;
     private String logradouro;
     private Integer numero;
     private String complemento;
@@ -27,13 +28,22 @@ public class Endereco {
     public String toString() {
         return String.format("""
                 -=-=-=-=-=-=-=-=-=-=-=
+                Id: %d
                 Logradouro: %s
                 Número: %d
                 Complemento: %s
                 CEP: %s
                 Cidade: %s
                 Estado: %s
-                País: %s""", logradouro, numero, complemento, cep, cidade, estado, pais);
+                País: %s""", id_endereco, logradouro, numero, complemento, cep, cidade, estado, pais);
+    }
+
+    public Integer getId_endereco() {
+        return id_endereco;
+    }
+
+    public void setId_endereco(Integer id_endereco) {
+        this.id_endereco = id_endereco;
     }
 
     public String getLogradouro(){
