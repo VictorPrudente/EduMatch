@@ -64,34 +64,34 @@ VALUES (SEQ_EMPRESA.NEXTVAL, 'TransLog','Logística','45678901200010','Serviços
 
 -- Insert Escola
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Escola Davi Canabarro', 1, 12345678901234);
+VALUES (SEQ_ESCOLA.NEXTVAL,'Escola Davi Canabarro', 1, 12345678901234);
 
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Esola Estacio', 0, 11236589871236);
+VALUES (SEQ_ESCOLA.NEXTVAL,'Esola Estacio', 0, 11236589871236);
 
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Escola Educação', 0, 98756987456932);
+VALUES (SEQ_ESCOLA.NEXTVAL,'Escola Educação', 0, 98756987456932);
 
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Escola Manoel Garcia', 0, 98745632589874);
+VALUES (SEQ_ESCOLA.NEXTVAL,'Escola Manoel Garcia', 0, 98745632589874);
 
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Escola São José', 1, 99987986932156);
+VALUES (SEQ_ESCOLA.NEXTVAL,'Escola São José', 1, 99987986932156);
 
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Escola Ensinando', 1, 98789878523654);
+VALUES (SEQ_ESCOLA.NEXTVAL,'Escola Ensinando', 1, 98789878523654);
 
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Escola Aprendendo mais', 0, 32659878596321);
+VALUES (SEQ_ESCOLA.NEXTVAL,'Escola Aprendendo mais', 0, 32659878596321);
 
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Escola Garcia Oliveira', 1, 98789875987458);
+VALUES (SEQ_ESCOLA.NEXTVAL,'Escola Garcia Oliveira', 1, 98789875987458);
 
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Escola João Alves', 1, 99653698569875);
+VALUES (SEQ_ESCOLA.NEXTVAL,'Escola João Alves', 1, 99653698569875);
 
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Escola do Bom Fim', 0, 99874589651523);
+VALUES (SEQ_ESCOLA.NEXTVAL,'Escola do Bom Fim', 0, 99874589651523);
 
    
 -- Insert Usuário
@@ -128,95 +128,275 @@ VALUES (SEQ_USUARIO.nextval, 'John', 'Silver', '43830463049', 17, 40, 10, 10);
 
 --Insert Matematica
 INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (1, 1, C, 0);
+VALUES (SEQ_MATEMATICA.nextval, 'Para a excursão da escola, a escola alugou um ônibus que tem 29 lugares.
+Somente 18 adolescentes confirmaram que irão na viagem. 
+Quantos lugasres irão sobrar?
+
+A) 10
+B) 9
+C) 11
+D) 12
+E) 8', 1, 'C', 0);
 
 INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (2, 1, E, 0);
+VALUES (SEQ_MATEMATICA.nextval, 'Ana esta de aniversário, ela convidou 17 meninos e 27 meninas.
+Quantos convidados vai ter no total da festa?
+
+A) 40
+B) 34
+C) 42
+D) 37
+E) 44', 1, 'E', 0);
 
 INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (3, 1, B, 0);
+VALUES (SEQ_MATEMATICA.nextval, 'Joao precisa de 15 cadernos. 
+Seu pai lhe deu 7 e sua mãe deu 6 cadernos. 
+Faltou quantos cadernos para o João?
+
+A) 1
+B) 2
+C) 4
+D) 3
+E) 5', 1, 'B', 0);
 
 INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (4, 3, E, 1);
+VALUES (SEQ_MATEMATICA.nextval, 'Um triângulo retângulo tem as seguintes medidas:
+Lado A: 6 cm
+Lado B: 8 cm
+Qual é o comprimento da hipotenusa (lado C) desse triângulo?
+
+A) 10 cm
+B) 12
+C) 14
+D) 15
+E) 18', 1, 'B', 0);
+
 
 INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (5, 3, A, 1);
+VALUES (SEQ_MATEMATICA.nextval, 'Qual é o dobro de 27,5?
+
+A) 61
+B) 60
+C) 51
+D) 54
+E) 55', 3, 'E', 1);
 
 INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (6, 3, B, 1);
+VALUES (SEQ_MATEMATICA.nextval, 'Quanto é 963 divido por 3?
+
+A) 321
+B) 431
+C) 323
+D) 421
+E) 325', 3, 'A', 1);
 
 INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (7, 5, A, 2);
+VALUES (SEQ_MATEMATICA.nextval, 'Qual é o triplo de 562?
+
+A) 1684
+B) 1686
+C) 1124
+D) 1844
+E) 1680', 3, 'B', 1);
 
 INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (8, 5, A, 2);
+VALUES (SEQ_MATEMATICA.nextval, 'Qual é o antecessor do número 81, multiplicado por 2?
+
+A) 160
+B) 162
+C) 180
+D) 145
+E) 161', 5, 'A', 2);
 
 INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (9, 5, A, 2);
+VALUES (SEQ_MATEMATICA.nextval, 'Qual é o sucessor do número 101, dividido por 3?
+A) 34
+B) 52
+C) 36
+D) 50
+E) 32', 5, 'A', 2);
 
 INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (10, 1, C, 0);
+VALUES (SEQ_MATEMATICA.nextval, 'Qual a soma dos lados de 6 triangulos?
+
+A) 18
+B) 9
+C) 16
+D) 6
+E) 3', 5, 'A', 2);
 
 
 --Insert Português
 INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (1, 1, C, 0);
+VALUES (SEQ_PORTUGUES.nextval, 'Qual é o sinônimo da palavra "rápido"?
+
+A) Devagar
+B) Lento
+C) Ágil 
+D) Manso
+E) Estático', 1, 'C', 0);
 
 INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (2, 1, A, 0);
+VALUES (SEQ_PORTUGUES.nextval, 'Qual é o antônimo da palavra "alegre"?
+
+A) Triste 
+B) Feliz
+C) Radiante
+D) Contente
+E) Jubiloso', 1, 'A', 0);
 
 INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (3, 1, A, 0);
+VALUES (SEQ_PORTUGUES.nextval, 'Qual é o sinônimo da palavra "grande"?
+
+A) Pequeno
+B) Gigante 
+C) Largo
+D) Longo
+E) Curto', 1, 'B', 0);
 
 INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (4, 3, A, 1);
+VALUES (SEQ_PORTUGUES.nextval, 'Qual é o plural correto de "cidadão"?
+
+A) Cidadãos 
+B) Cidadãoes
+C) Cidadõeis
+D) Cidadões
+E) Cidadães', 3, 'A', 1);
 
 INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (5, 3, A, 1);
+VALUES (SEQ_PORTUGUES.nextval, 'Qual é o significado da expressão "a gota dágua"?
+
+A) Algo pequeno e irrelevante 
+B) Uma grande conquista
+C) Uma chuva intensa
+D) Uma expressão de alegria
+E) Uma demonstração de coragem', 3, 'A', 1);
 
 INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (6, 3, A, 1);
+VALUES (SEQ_PORTUGUES.nextval, 'Qual é o autor da obra "Dom Casmurro"?
+
+A) Machado de Assis 
+B) José de Alencar
+C) Lima Barreto
+D) Graciliano Ramos
+E) Monteiro Lobato', 3, 'A', 1);
 
 INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (7, 5, C, 2);
+VALUES (SEQ_PORTUGUES.nextval, 'Na frase "Aquele gesto revelou uma benevolência incomum", o que significa "benevolência"?
+
+A) Maldade
+B) Crueldade
+C) Bondade 
+D) Arrogância
+E) Desprezo', 5, 'C', 2);
 
 INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (8, 5, A, 2);
+VALUES (SEQ_PORTUGUES.nextval, 'Na frase "A tessitura da trama era intricada", o que significa "tessitura"?
+
+A) Textura 
+B) Espessura
+C) Altura
+D) Largura
+E) Densidade', 5, 'A', 2);
 
 INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (9, 5, A, 2);
+VALUES (SEQ_PORTUGUES.nextval, 'Qual é o significado da expressão "chover no molhado"?
+A) Conseguir algo com facilidade 
+B) Lidar com um problema difícil
+C) Estar sempre ocupado
+D) Discutir algo desnecessário
+E) Chorar por algo perdido', 5, 'D', 2);  
 
 INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (10, 1, A, 0);
+VALUES (SEQ_PORTUGUES.nextval, 'Identifique a alternativa em que o uso da vírgula está correto:
+            
+a) O carro novo é, bonito.
+b) Na festa, encontramos amigos.
+c) Ela comprou um, celular novo.
+d) Eles foram ao cinema, ontem.
+e) Gostamos de pizza, com bastante queijo.', 5, 'B', 2);
 
 
 --Insert SoftSkills
-INSERT INTO VS_13_EQUIPE_9.SOFTSKILLS (id_softskills, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (1, 1, E, 0);
+INSERT INTO SOFTSKILLS (ID_SOFTSKILLS, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (SEQ_SOFTSKILLS.NEXTVAL,'Qual habilidades é fundamental para um bom trabalho em equipe? 
+A) Falar alto
+B) Chegar no horário
+C) Ter mais conhecimento que o líder
+D) Falar várias línguas
+E) Empatia', 1, 'E', 0);
 
-INSERT INTO VS_13_EQUIPE_9.SOFTSKILLS (id_softskills, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (2, 1, B, 0);
+INSERT INTO SOFTSKILLS (ID_SOFTSKILLS, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (SEQ_SOFTSKILLS.NEXTVAL,'Como ser proativo no trabalho? 
+A) Fazer somente quando é solicitado
+B) Tomar ações preventivas e antecipar problemas
+C) Fazer o trabalho do colega
+D) Não se propor a aprender novas funções
+E) Realizar apenas tarefas fáceis
+', 1, 'B', 0);
 
-INSERT INTO VS_13_EQUIPE_9.SOFTSKILLS (id_softskills, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (3, 1, B, 0);
+INSERT INTO SOFTSKILLS (ID_SOFTSKILLS, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (SEQ_SOFTSKILLS.NEXTVAL,'Qual habilidade é fundamental para uma boa comunicação? 
+A) Falar alto para ser ouvido por todos
+B) Escutar ativamente
+C) Utilizar vocabulário técnico
+D) Falar o tempo todo para garantir que todos saibam que você está presente
+E) Evitar contato visual para se concentrar nas palavras
+', 1, 'B', 0);
 
-INSERT INTO VS_13_EQUIPE_9.SOFTSKILLS (id_softskills, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (4, 3, C, 1);
+INSERT INTO SOFTSKILLS (ID_SOFTSKILLS, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (SEQ_SOFTSKILLS.NEXTVAL,'Como a inteligência emocional agrega no ambiente profissional? 
+A) Fazer o trabalho rápido 
+B) Não tem necessidade de falar com os colegas
+C) Ajuda em épocas de crise e no trabalho em equipe 
+D) Não precisar pedir ajuda, quando estiver com dúvida 
+E) Não leva em consideração o sentimento dos colegas ', 3, 'C', 1);
 
-INSERT INTO VS_13_EQUIPE_9.SOFTSKILLS (id_softskills, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (5, 3, B, 1);
+INSERT INTO SOFTSKILLS (ID_SOFTSKILLS, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (SEQ_SOFTSKILLS.NEXTVAL,'Qual soft skill é essencial para a capacidade de aceitar feedback construtivo e aplicá-lo para o aprimoramento pessoal e profissional?
+A) Comunicação eficaz
+B) Adaptabilidade
+C) Empatia
+D) Resolução de problemas
+E) Inteligência emocional', 3, 'B', 1);
 
-INSERT INTO VS_13_EQUIPE_9.SOFTSKILLS (id_softskills, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (6, 3, B, 1);
+INSERT INTO SOFTSKILLS (ID_SOFTSKILLS, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (SEQ_SOFTSKILLS.NEXTVAL,'O que é resiliência no ambiente profissional? 
+A) Não enfrentar os desafios 
+B) Habilidade de se adaptar a mudanças e superar dificuldades 
+C) Evitar qualquer tipo de risco 
+D) Saber dizer “não” 
+E) Fazer qualquer coisa que é solicitado ', 3, 'B', 1);
 
-INSERT INTO VS_13_EQUIPE_9.SOFTSKILLS (id_softskills, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (7, 5, C, 2);
+INSERT INTO SOFTSKILLS (ID_SOFTSKILLS, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (SEQ_SOFTSKILLS.NEXTVAL,'O que é empatia e como ela melhora o ambiente de trabalho? 
+A) Dar presentes aos colegas
+B) Capacidade de compreender e se colocar no lugar do outro
+C) Expressar apenas emoções positivas para manter um ambiente agradável 
+D) Falar somente o que o colega quer ouvir 
+E) Somente dar feedback positivo', 3, 'B', 1);
 
-INSERT INTO VS_13_EQUIPE_9.SOFTSKILLS (id_softskills, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (8, 5, C, 2);
+INSERT INTO SOFTSKILLS (ID_SOFTSKILLS, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (SEQ_SOFTSKILLS.NEXTVAL,'Por que a gestão do tempo é essencial no ambiente profissional? 
+A)  Para todos os colegas saberem quando deve ser feito a entrega
+B) Gestão do tempo é essencial, somente em equipes grandes
+C) Maximizar a produtividade e a eficiência
+D) Não precisar controlar os prazos
+E) Priorizar somente grandes projetos', 5, 'C', 2);
 
-INSERT INTO VS_13_EQUIPE_9.SOFTSKILLS (id_softskills, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (9, 5, C, 2);
+INSERT INTO SOFTSKILLS (ID_SOFTSKILLS, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (SEQ_SOFTSKILLS.NEXTVAL,'Qual é a importância da inclusão no local de trabalho? 
+A)  Reduzir a inovação
+B) Reduzir a criatividade
+C) Ampliar perspectivas e promover um ambiente mais inclusivo 
+D) Aumentar a competição entre os funcionários 
+E) Evitar diferentes opiniões 
+', 5, 'C', 2);
 
-INSERT INTO VS_13_EQUIPE_9.SOFTSKILLS (id_softskills, pergunta, pontos, opcao_correta, dificuldade)
-VALUES (10, 1, C, 0);
+INSERT INTO SOFTSKILLS (ID_SOFTSKILLS, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (SEQ_SOFTSKILLS.NEXTVAL,'Como a resolução de problemas desafiadores contribui para o crescimento profissional? 
+A) Reduzindo a capacidade analítica 
+B) Diminuindo o aprendizado 
+C) Desenvolvendo habilidades de resolução de problemas
+D) Diminuindo a adaptabilidade 
+E) Diminuindo a empatia', 5, 'C', 2);
