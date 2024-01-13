@@ -59,3 +59,131 @@ VALUES (SEQ_EMPRESA.NEXTVAL, 'EnergiSolar','Energia','89012345600011','Energia s
 
 INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
 VALUES (SEQ_EMPRESA.NEXTVAL, 'TransLog','Logística','45678901200010','Serviços de logística', 'PUBLICA');
+
+--ESCOLA
+
+INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
+VALUES ('Escola Davi Canabarro', 'PRIVADA', 12345678901234);
+
+INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
+VALUES ('Esola Estacio', 'PUBLICA', 11236589871236);
+
+INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
+VALUES ('Escola Educação', 'PUBLICA', 98756987456932);
+
+INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
+VALUES ('Escola Manoel Garcia', 'PUBLICA', 98745632589874);
+
+INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
+VALUES ('Escola São José', 'PRIVADA', 99987986932156);
+
+INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
+VALUES ('Escola Ensinando', 'PRIVADA', 98789878523654);
+
+INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
+VALUES ('Escola Aprendendo mais', 'PUBLICA', 32659878596321);
+
+INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
+VALUES ('Escola Garcia Oliveira', 'PRIVADA', 98789875987458);
+
+INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
+VALUES ('Escola João Alves', 'PRIVADA', 99653698569875);
+
+INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
+VALUES ('Escola do Bom Fim', 'PUBLICA', 99874589651523);
+
+--MATEMATICA
+
+INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (1, 1, C, FACIL);
+
+INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (2, 1, E, FACIL);
+
+INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (3, 1, B, FACIL);
+
+INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (4, 3, E, MEDIO);
+
+INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (5, 3, A, MEDIO);
+
+INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (6, 3, B, MEDIO);
+
+INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (7, 5, A, DIFICIL);
+
+INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (8, 5, A, DIFICIL);
+
+INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (9, 5, A, DIFICIL);
+
+INSERT INTO VS_13_EQUIPE_9.MATEMATICA (id_matematica, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (10, 1, C, FACIL);
+
+--PORTUGUES
+
+INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (1, 1, C, FACIL);
+
+INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (2, 1, A, FACIL);
+
+INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (3, 1, A, FACIL);
+
+INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (4, 3, A, MEDIO);
+
+INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (5, 3, A, MEDIO);
+
+INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (6, 3, A, MEDIO);
+
+INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (7, 5, C, DIFICIL);
+
+INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (8, 5, A, DIFICIL);
+
+INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (9, 5, A, DIFICIL);
+
+INSERT INTO VS_13_EQUIPE_9.PORTUGUES (id_portugues, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (10, 1, A, FACIL);
+
+--SOFTSKILLS
+
+INSERT INTO VS_13_EQUIPE_9.SOFT_SKILLS (id_soft_skills, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (1, 1, E, FACIL);
+
+INSERT INTO VS_13_EQUIPE_9.SOFT_SKILLS (id_soft_skills, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (2, 1, B, FACIL);
+
+INSERT INTO VS_13_EQUIPE_9.SOFT_SKILLS (id_soft_skills, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (3, 1, B, FACIL);
+
+INSERT INTO VS_13_EQUIPE_9.SOFT_SKILLS (id_soft_skills, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (4, 3, C, MEDIO);
+
+INSERT INTO VS_13_EQUIPE_9.SOFT_SKILLS (id_soft_skills, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (5, 3, B, MEDIO);
+
+INSERT INTO VS_13_EQUIPE_9.SOFT_SKILLS (id_soft_skills, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (6, 3, B, MEDIO);
+
+INSERT INTO VS_13_EQUIPE_9.SOFT_SKILLS (id_soft_skills, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (7, 5, C, DIFICIL);
+
+INSERT INTO VS_13_EQUIPE_9.SOFT_SKILLS (id_soft_skills, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (8, 5, C, DIFICIL);
+
+INSERT INTO VS_13_EQUIPE_9.SOFT_SKILLS (id_soft_skills, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (9, 5, C, DIFICIL);
+
+INSERT INTO VS_13_EQUIPE_9.SOFT_SKILLS (id_soft_skills, pergunta, pontos, opcao_correta, dificuldade)
+VALUES (10, 1, C, FACIL);
