@@ -64,34 +64,34 @@ VALUES (SEQ_EMPRESA.NEXTVAL, 'TransLog','Logística','45678901200010','Serviços
 
 -- Insert Escola
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Escola Davi Canabarro', 1, 12345678901234);
+VALUES (SEQ_ESCOLA.NEXTVAL, 'Escola Davi Canabarro', 1, 12345678901234);
 
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Esola Estacio', 0, 11236589871236);
+VALUES (SEQ_ESCOLA.NEXTVAL, 'Esola Estacio', 0, 11236589871236);
 
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Escola Educação', 0, 98756987456932);
+VALUES (SEQ_ESCOLA.NEXTVAL, 'Escola Educação', 0, 98756987456932);
 
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Escola Manoel Garcia', 0, 98745632589874);
+VALUES (SEQ_ESCOLA.NEXTVAL, 'Escola Manoel Garcia', 0, 98745632589874);
 
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Escola São José', 1, 99987986932156);
+VALUES (SEQ_ESCOLA.NEXTVAL, 'Escola São José', 1, 99987986932156);
 
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Escola Ensinando', 1, 98789878523654);
+VALUES (SEQ_ESCOLA.NEXTVAL, 'Escola Ensinando', 1, 98789878523654);
 
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Escola Aprendendo mais', 0, 32659878596321);
+VALUES (SEQ_ESCOLA.NEXTVAL, 'Escola Aprendendo mais', 0, 32659878596321);
 
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Escola Garcia Oliveira', 1, 98789875987458);
+VALUES (SEQ_ESCOLA.NEXTVAL, 'Escola Garcia Oliveira', 1, 98789875987458);
 
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Escola João Alves', 1, 99653698569875);
+VALUES (SEQ_ESCOLA.NEXTVAL, 'Escola João Alves', 1, 99653698569875);
 
 INSERT INTO VS_13_EQUIPE_9.ESCOLA (id_escola, nome, tipo, cnpj)
-VALUES ('Escola do Bom Fim', 0, 99874589651523);
+VALUES (SEQ_ESCOLA.NEXTVAL, 'Escola do Bom Fim', 0, 99874589651523);
 
    
 -- Insert Usuário
@@ -220,3 +220,104 @@ VALUES (9, 5, C, 2);
 
 INSERT INTO VS_13_EQUIPE_9.SOFTSKILLS (id_softskills, pergunta, pontos, opcao_correta, dificuldade)
 VALUES (10, 1, C, 0);
+
+-- Insert Contatos
+
+--Contatos Empresa
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL,'Administrativo','513262-1298', 0, NULL, 1, NULL);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Vendas', '513262-2345', 1, NULL, 2, NULL);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Suporte', '513262-3456', 2, NULL, 3, NULL);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Informações', '513262-4567', 0, NULL, 4, NULL);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Emergência', '513262-5678', 1, NULL, 5, NULL);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Financeiro', '513262-6789', 2, NULL, 6, NULL);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Atendimento', '513262-7890', 0, NULL, 7, NULL);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Recursos Humanos', '513262-8901', 1, NULL, 8, NULL);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Compras', '513262-9012', 2, NULL, 9, NULL);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Marketing', '513262-0123', 0, NULL, 10, NULL);
+
+--Contatos Usuario
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Casa', '5198956-0457', 2, 1, NULL,NULL);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Casa', '5199874-7896', 0, 2, NULL,NULL);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Trabalho', '5198765-4321', 1, 3, NULL,NULL);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Celular', '5196543-2109', 2, 4, NULL,NULL);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Whatsapp', '5198765-0987', 0, 5, NULL,NULL);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Casa', '5196543-5678', 1, 6, NULL,NULL);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Celular', '5197654-3210', 2, 7, NULL,NULL);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Trabalho', '5198765-4321', 0, 8, NULL,NULL);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Casa', '5196543-2109', 1, 9, NULL,NULL);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Whatsapp', '5198765-0987', 2, 10, NULL,NULL);
+
+--Contatos Escola
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Whatsapp', '5198765-0987', 2, NULL, NULL,1);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Whatsapp', '5198765-0987', 0, NULL, NULL, 2);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Telefone', '5191234-5678', 1, NULL, NULL, 3);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Celular', '5187654-3210', 2, NULL, NULL, 4);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Telefone', '5198456-9876', 0, NULL, NULL, 5);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Celular', '5198754-5674', 1, NULL, NULL, 6);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Whatsapp', '5199293-9981', 2, NULL, NULL, 7);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Whatsapp', '5198234-5469', 0, NULL, NULL, 8);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Telefone', '5198127-0119', 1, NULL, NULL, 9);
+
+INSERT INTO CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
+VALUES (SEQ_CONTATO.NEXTVAL, 'Celular', '5198289-5689', 2, NULL, NULL, 10);
+
+
+
+
+
+
