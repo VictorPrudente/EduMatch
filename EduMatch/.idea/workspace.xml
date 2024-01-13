@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="c8179b08-3b39-48be-bdf2-e846942f5a54" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/SoftSkills.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/SoftSkillsService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entities/Escola.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entities/Escola.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/EscolaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/EscolaService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,23 +60,26 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2aUGS3PIMzttAfSyXI37oATuiu7" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "feature/creating-soft-skill-and-service",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/EduMatch",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/creating-soft-skill-and-service&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/EduMatch&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
