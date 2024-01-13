@@ -54,6 +54,6 @@ public class Certificado {
                 Reconhecemos que o(a) usuário(a): %s %s 
                 Com o CPF: %s
                 Adquiriu o certificado no dia e hora %s
-                Da trilha %s""", usuario.getNome(), usuario.getSobrenome(), usuario.getCPF(), dtf.format(conclusao), trilha.name());
+                Da trilha %s""", usuario.getNome(), usuario.getSobrenome(), usuario.getCPF(), dtf.format(conclusao), trilha.name().replace("_", " "));
     }
 }

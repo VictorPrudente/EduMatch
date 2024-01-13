@@ -1,15 +1,16 @@
 package utils;
 
-import entities.Contato;
-import entities.Endereco;
-import entities.Escola;
-import entities.Usuario;
+import entities.*;
+import entities.enums.Games;
 import entities.enums.TipoDeContato;
 import entities.enums.TipoEscola;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class Cadastro {
+
+
 
     public Usuario cadastrarUsuario(Scanner sc){
     while (true) {
