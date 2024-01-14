@@ -497,3 +497,4 @@ VALUES (SEQ_CONTATO.NEXTVAL, 'Telefone', '51981270119', 1, NULL, NULL, 9);
 INSERT INTO VS_13_EQUIPE_9.CONTATO (id_contato, descricao, telefone, tipo_contato, id_usuario, id_empresa, id_escola)
 VALUES (SEQ_CONTATO.NEXTVAL, 'Celular', '51982895689', 2, NULL, NULL, 10);
 
+SELECT * FROM USUARIO;
