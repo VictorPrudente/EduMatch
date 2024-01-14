@@ -1,6 +1,8 @@
 package repository;
 
+import entities.Contato;
 import entities.Endereco;
+import entities.enums.TipoDeContato;
 import exceptions.BancoDeDadosException;
 import interfaces.Repositorio;
 
@@ -30,7 +32,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             con = ConexaoBancoDeDadosLocal.getConnection();
 
             Integer proximoId = this.getProximoId(con);
-            endereco.setId_endereco(proximoId);
+            endereco.setId(proximoId);
 
             String sql = "INSERT INTO ENDERECO\n" +
                     "(id_endereco, logradouro, numero, complemento, cep, cidade, estado, pais)\n" +
@@ -38,7 +40,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setInt(1, endereco.getId_endereco());
+            stmt.setInt(1, endereco.getId());
             stmt.setString(2, endereco.getLogradouro());
             stmt.setInt(3, endereco.getNumero());
             stmt.setString(4, endereco.getComplemento());
@@ -154,7 +156,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
 
             while (res.next()) {
                 Endereco endereco = new Endereco();
-                endereco.setId_endereco(res.getInt("id_endereco"));
+                endereco.setId(res.getInt("id_endereco"));
                 endereco.setLogradouro(res.getString("logradouro"));
                 endereco.setNumero(res.getInt("numero"));
                 endereco.setComplemento(res.getString("complemento"));
@@ -176,5 +178,67 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             }
         }
         return enderecos;
+    }
+
+
+    public Endereco listarPorDono(int id) throws BancoDeDadosException {
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+            String sql = """
+                SELECT end.id_endereco, end.logradouro, end.numero, end.complemento, end.cep, end.cidade, end.estado, end.pais, end.id_usuario, end._id_escola, end.id_empresa
+                FROM ENDERECO end
+                LEFT JOIN USUARIO u ON u.ID_USUARIO = end.ID_USUARIO
+                LEFT JOIN EMPRESA emp ON emp.ID_EMPRESA = end.ID_EMPRESA
+                LEFT JOIN ESCOLA esc ON esc.ID_ESCOLA = end.ID_ESCOLA
+                WHERE end.id_usuario = ? OR end.id_empresa = ? OR end.id_escola = ?""";
+
+            try (PreparedStatement stmt = con.prepareStatement(sql)) {
+                stmt.setInt(1, id);
+                stmt.setInt(2, id);
+                stmt.setInt(3, id);
+
+                try (ResultSet res = stmt.executeQuery()) {
+                    while (res.next()) {
+                        Endereco endereco = new Endereco();
+                        endereco.setId(res.getInt("id_endereco"));
+                        endereco.setLogradouro(res.getString("logradouro"));
+                        endereco.setNumero(res.getInt("numero"));
+                        endereco.setComplemento(res.getString("complemento"));
+                        endereco.setCep(res.getString("cep"));
+                        endereco.setCidade(res.getString("cidade"));
+                        endereco.setEstado(res.getString("estado"));
+                        endereco.setPais(res.getString("pais"));
+
+                        int idUsuario = res.getInt("id_usuario");
+                        int idEmpresa = res.getInt("id_empresa");
+                        int idEscola = res.getInt("id_escola");
+
+                        if (!res.wasNull()) {
+                            if (idUsuario != 0) {
+                                endereco.setId_usuario(idUsuario);
+                            } else if (idEmpresa != 0) {
+                                endereco.setId_empresa(idEmpresa);
+                            } else if (idEscola != 0) {
+                                endereco.setId_escola(idEscola);
+                            }
+
+                            return endereco;
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }
