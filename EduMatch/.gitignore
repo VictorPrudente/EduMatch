@@ -16,6 +16,7 @@ build/
 bin/
 .settings/
 .idea/
+*.xml
 
 ### Eclipse ###
 .apt_generated

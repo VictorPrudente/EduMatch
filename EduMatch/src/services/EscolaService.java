@@ -1,6 +1,5 @@
 package services;
 
-import entities.Empresa;
 import entities.Escola;
 import entities.enums.TipoEscola;
 import interfaces.Service;
@@ -12,21 +11,6 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class EscolaService implements Service<Escola> {
-
-    private AtomicInteger COUNTER = new AtomicInteger();
-    Random random = new Random();
-
-    ArrayList<Escola> escolas = new ArrayList<>();
-    public EscolaService(){
-        inicializarLista();
-    }
-
-    public void inicializarLista(){
-        Escola escola = new Escola("Garibaldi", TipoEscola.PRIVADA, "123456");
-        escola.setId(COUNTER.incrementAndGet());
-        escolas.add(escola);
-    }
-
 
     public Escola listarPorId(int id) {
         for(Escola escola : escolas){
@@ -68,7 +52,7 @@ public class EscolaService implements Service<Escola> {
         for (Escola EscolaAtualizar : escolas) {
             if (EscolaAtualizar.getId() == id) {
                 EscolaAtualizar.setNome(escola.getNome());
-                EscolaAtualizar.setTipo(TipoEscola.valueOf(escola.getTipo()));
+                EscolaAtualizar.setTipo(escola.getTipo());
                 return true;
             }
         }

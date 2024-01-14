@@ -17,7 +17,7 @@ public class EnderecoService {
         enderecoRepository = new EnderecoRepository();
     }
 
-    public void salvarEndereco(Endereco enderecoNovo) {
+    public void salvar(Endereco enderecoNovo) {
         try {
             if (enderecoNovo.getCep().length() != 9) {
                 throw new Exception("CEP Invalido!");
@@ -33,7 +33,7 @@ public class EnderecoService {
         }
     }
 
-    public void listarTodosEnderecos() {
+    public void listarTodos() {
         try {
             List<Endereco> listar = enderecoRepository.listar();
             listar.forEach(System.out::println);
@@ -42,7 +42,7 @@ public class EnderecoService {
         }
     }
 
-    public void atualizarEndereco(Integer id, Endereco endereco) {
+    public void atualizar(Integer id, Endereco endereco) {
         try {
             boolean editado = enderecoRepository.editar(id, endereco);
             System.out.println("Endereço editado? " + editado + "| com id=" + id);
@@ -51,7 +51,7 @@ public class EnderecoService {
         }
     }
 
-    public void deletarEndereco(Integer id) {
+    public void deletar(Integer id) {
         try {
             boolean deletado = enderecoRepository.remover(id);
             System.out.println("Endereço deletado? " + deletado + "| com id=" + id);
