@@ -14,27 +14,30 @@ import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class EscolaService {
+public class EscolaService implements Service<Escola>{
     private EscolaRepository escolaRepository;
 
     public EscolaService(){
         escolaRepository = new EscolaRepository();
     }
 
-    public void listarPorId(int id) {
+    public Escola listarPorId(int id) throws Exception {
         try {
-            List<Escola> listar = escolaRepository.listar();
-            listar.forEach(System.out::println);
+            Escola escola = escolaRepository.listarPorId(id);
+            return escola;
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
+        System.out.printf("Escola com o ID:%d não econtrada.", id);
+        return null;
     }
 
     //CREATED
-    public void salvar(Escola escolaNova) {
+    public boolean salvar(Escola escola) {
         try {
-            Escola escolaAdicionada = escolaRepository.adicionar(escolaNova);
-            System.out.println("Escola adicinada com sucesso! " + escolaAdicionada);
+            escolaRepository.adicionar(escola);
+            System.out.println("Escola adicinada com sucesso! " + escola);
+            return true;
         } catch (BancoDeDadosException e) {
             System.out.println("ERRO: " + e.getMessage());
             e.printStackTrace();
@@ -42,6 +45,8 @@ public class EscolaService {
             System.out.println("ERRO: " + e.getMessage());
             e.printStackTrace();
         }
+        System.out.println("Escola não cadastrada. Tente novamente.");
+        return false;
     }
 
     //READ
@@ -54,24 +59,28 @@ public class EscolaService {
         }
     }
 
-
-
-    //UPDATED
-    public void atualizar(int id, Escola escola) {
+    public boolean atualizar(int id, Escola escola) {
         try {
-            boolean editado = escolaRepository.editar(id, escola);
-            System.out.println("Escola editada? " + editado + "| com id=" + id);
+            escolaRepository.editar(id, escola);
+            System.out.printf("Escola com o ID %d atualizada.", id);
+            return true;
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
+        System.out.println("Escola não atualizada.");
+        return false;
     }
     //Remove
-    public void deletar(Integer id) {
+    public boolean deletar(Escola escola) {
+        int id = escola.getId();
         try {
-            boolean deletado = escolaRepository.remover(id);
-            System.out.println("Escola deletada? " + deletado + "| com id=" + id);
+            escolaRepository.remover(id);
+            System.out.println("Escola com o id %d removida com sucesso.");
+            return true;
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
+        System.out.println("Escola não removida.");
+        return false;
     }
 }

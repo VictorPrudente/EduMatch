@@ -111,7 +111,6 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
                 StringBuilder sql = new StringBuilder();
                 sql.append("UPDATE EMPRESA SET ");
                 sql.append(" nome = ?,");
-                sql.append(" cnpj = ?,");
                 sql.append(" setor = ? ");
                 sql.append(" areaDeAtuacao = ? ");
                 sql.append(" tipo = ? ");
@@ -120,11 +119,10 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
                 PreparedStatement stmt = con.prepareStatement(sql.toString());
 
                 stmt.setString(1, empresa.getNome());
-                stmt.setString(2, empresa.getCnpj());
-                stmt.setString(3, empresa.getSetor());
-                stmt.setString(4, empresa.getAreaDeAtuacao());
-                stmt.setInt(5, empresa.getTipo());
-                stmt.setInt(6, id);
+                stmt.setString(2, empresa.getSetor());
+                stmt.setString(3, empresa.getAreaDeAtuacao());
+                stmt.setInt(4, empresa.getTipo());
+                stmt.setInt(5, id);
 
                 // Executa-se a consulta
                 int res = stmt.executeUpdate();
@@ -154,7 +152,6 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
 
                 String sql = "SELECT * FROM EMPRESA";
 
-                // Executa-se a consulta
                 ResultSet res = stmt.executeQuery(sql);
 
                 while (res.next()) {
