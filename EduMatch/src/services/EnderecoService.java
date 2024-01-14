@@ -2,28 +2,25 @@ package services;
 
 import entities.Endereco;
 import exceptions.BancoDeDadosException;
+import interfaces.Repositorio;
+import interfaces.Service;
 import repository.EnderecoRepository;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class EnderecoService {
+public class EnderecoService implements Service<Endereco> {
 
     private EnderecoRepository enderecoRepository;
 
-    public EnderecoService(){
+    public EnderecoService() {
         enderecoRepository = new EnderecoRepository();
     }
 
-    public void salvar(Endereco enderecoNovo) {
+    @Override
+    public boolean salvar(Endereco endereco) {
         try {
-            if (enderecoNovo.getCep().length() != 9) {
-                throw new Exception("CEP Invalido!");
-            }
-            Endereco enderecoAdicionado = enderecoRepository.adicionar(enderecoNovo);
-            System.out.println("Endereço adicinado com sucesso! " + enderecoAdicionado);
+            Endereco enderecoAdicionado = enderecoRepository.adicionar(endereco);
+            System.out.println("Endereco adicinado com sucesso! " + enderecoAdicionado);
+            return true;
         } catch (BancoDeDadosException e) {
             System.out.println("ERRO: " + e.getMessage());
             e.printStackTrace();
@@ -31,8 +28,37 @@ public class EnderecoService {
             System.out.println("ERRO: " + e.getMessage());
             e.printStackTrace();
         }
+        System.out.println("Endereco não cadastrado. Tente novamente");
+        return false;
     }
 
+    @Override
+    public boolean deletar(Endereco endereco) {
+        int id = endereco.getId();
+        try {
+            enderecoRepository.remover(id);
+            System.out.printf("Endereco com o id %d removido com sucesso.", id);
+            return true;
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Endereco não removido.");
+        return false;
+    }
+
+    @Override
+    public boolean atualizar(int id, Endereco endereco) {
+        try {
+            enderecoRepository.editar(id, endereco);
+            System.out.printf("Endereco com o ID %d atualizado.", id);
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Endereco não atualizado.");
+        return false;
+    }
+
+    @Override
     public void listarTodos() {
         try {
             List<Endereco> listar = enderecoRepository.listar();
@@ -42,21 +68,15 @@ public class EnderecoService {
         }
     }
 
-    public void atualizar(Integer id, Endereco endereco) {
+    public Endereco listarPorDono(int id) {
+        //este id vem da entidade que estiver chamando o seu endereco. Por exemplo, usuario.getId();
         try {
-            boolean editado = enderecoRepository.editar(id, endereco);
-            System.out.println("Endereço editado? " + editado + "| com id=" + id);
+            return enderecoRepository.listarPorDono(id);
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
+        System.out.println("Endereco não encontrado.");
+        return null;
     }
 
-    public void deletar(Integer id) {
-        try {
-            boolean deletado = enderecoRepository.remover(id);
-            System.out.println("Endereço deletado? " + deletado + "| com id=" + id);
-        } catch (BancoDeDadosException e) {
-            e.printStackTrace();
-        }
-    }
 }

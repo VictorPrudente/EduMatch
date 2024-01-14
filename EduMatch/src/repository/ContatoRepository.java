@@ -31,7 +31,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             con = ConexaoBancoDeDados.getConnection();
 
             Integer proximoId = this.getProximoId(con);
-            contato.setId_contato(proximoId);
+            contato.setId(proximoId);
 
             String sql = "INSERT INTO CONTATO\n" +
                     "(ID_CONTATO, DESCRICAO, TELEFONE, TIPO_CONTATO, ID_USUARIO, ID_EMPRESA, ID_ESCOLA) \n" +
@@ -39,7 +39,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setInt(1, contato.getId_contato());
+            stmt.setInt(1, contato.getId());
             stmt.setString(2, contato.getDescricao());
             stmt.setString(3, contato.getTelefone());
             stmt.setInt(4, contato.getTipo().ordinal());
@@ -143,7 +143,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
 
             while (res.next()) {
                 Contato contato = new Contato();
-                contato.setId_contato(res.getInt("id_contato"));
+                contato.setId(res.getInt("id_contato"));
                 contato.setDescricao(res.getString("descricao"));
                 contato.setTipo(TipoDeContato.valueOf(res.getInt("tipo_contato")));
                 contato.setId_usuario(res.getInt("id_usuario"));
@@ -183,9 +183,9 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
                 stmt.setInt(3, id);
 
                 try (ResultSet res = stmt.executeQuery()) {
-                    if (res.next()) {
+                    while (res.next()) {
                         Contato contato = new Contato();
-                        contato.setId_contato(res.getInt("id_contato"));
+                        contato.setId(res.getInt("id_contato"));
                         contato.setTelefone(res.getString("telefone"));
                         contato.setTipo(TipoDeContato.valueOf(res.getInt("tipo_contato")));
                         contato.setDescricao(res.getString("descricao"));
