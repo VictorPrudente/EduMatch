@@ -1,124 +1,99 @@
 package services;
 
 import entities.Usuario;
+import exceptions.BancoDeDadosException;
 import interfaces.Service;
+import repository.UsuarioRepository;
 
+import java.nio.channels.ScatteringByteChannel;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 public class UsuarioService implements Service<Usuario> {
 
-    private AtomicInteger COUNTER = new AtomicInteger();
-    Random random = new Random();
-    private static ArrayList<Usuario> usuarios = new ArrayList<>();
-
+    private UsuarioRepository usuarioRepository;
 
     public UsuarioService() {
-        inicializarLista();
+        usuarioRepository = new UsuarioRepository();
     }
 
-    private void inicializarLista(){
-        Usuario usuario = new Usuario("Pedro", "Brown", "123123", random.nextInt(15, 50), random.nextInt(30));
-        usuario.setId(COUNTER.incrementAndGet());
-        usuarios.add(usuario);
-
-        usuario = new Usuario("Lucio", "Blue", "123", random.nextInt(15, 50), random.nextInt(30));
-        usuario.setId(COUNTER.incrementAndGet());
-        usuarios.add(usuario);
-
-        usuario = new Usuario("Marcos", "Yellow", "123", random.nextInt(15, 50), random.nextInt(30));
-        usuario.setId(COUNTER.incrementAndGet());
-        usuarios.add(usuario);
-        usuario = new Usuario("Lucia", "White", "123", random.nextInt(15, 50), random.nextInt(30));
-        usuario.setId(COUNTER.incrementAndGet());
-        usuarios.add(usuario);
-        usuario = new Usuario("Maria", "Black", "123", random.nextInt(15, 50), random.nextInt(30));
-        usuario.setId(COUNTER.incrementAndGet());
-        usuarios.add(usuario);
-        usuario = new Usuario("Yolanda", "Red", "123", random.nextInt(15, 50), random.nextInt(30));
-        usuario.setId(COUNTER.incrementAndGet());
-        usuarios.add(usuario);
-        usuario = new Usuario("Josefina", "Purple", "123", random.nextInt(15, 50), random.nextInt(30));
-        usuario.setId(COUNTER.incrementAndGet());
-        usuarios.add(usuario);
-        usuario = new Usuario("Carlas", "Gold", "123", random.nextInt(15, 50), random.nextInt(30));
-        usuario.setId(COUNTER.incrementAndGet());
-        usuarios.add(usuario);
-        usuario = new Usuario("Leslie", "Pink", "123", random.nextInt(15, 50), random.nextInt(30));
-        usuario.setId(COUNTER.incrementAndGet());
-        usuarios.add(usuario);
-    }
     @Override
     public boolean salvar(Usuario usuario){
-        for (Usuario usuarioNaLista : usuarios){
-            if (usuarioNaLista.getCPF().equals(usuario.getCPF())){
-                System.out.println("O CPF deve ser único.");
-                return false;
+        try {
+            if(usuario.getCPF().length() != 11){
+                throw new Exception("CPF Inválido.");
             }
+            Usuario user = usuarioRepository.adicionar(usuario);
+            System.out.println("Usuário cadastrado com sucesso: " + user);
+            return true;
+        } catch (BancoDeDadosException e){
+            System.out.println("ERRO: " + e.getMessage());
+        } catch (Exception e){
+            System.out.println("ERRO: " + e.getMessage());
         }
-        usuario.setId(COUNTER.incrementAndGet());
-        usuarios.add(usuario);
-        System.out.println("Usuário salvo com sucesso");
-        return true;
+        return false;
     }
 
     @Override
     public void listarTodos(){
-        for (Usuario usuario : usuarios){
-            System.out.println(usuario.toString());
+        try {
+            List<Usuario> usuarios = usuarioRepository.listar();
+            usuarios.forEach(System.out::println);
+        } catch (BancoDeDadosException e){
+            e.printStackTrace();
         }
     }
 
     public void rankearUsuarios(){
-        List<Usuario> rankingDeJogadores = usuarios
-                .stream()
-                .filter(usuario -> usuario.getPontuacao() != null)
-                .sorted(Comparator.comparing(Usuario::getPontuacao).reversed())
-                .collect(Collectors.toCollection(ArrayList::new));
-        int i = 0;
-        for (Usuario jogadores : rankingDeJogadores){
-            System.out.printf("""
-                
-                -=-=-=-=-=-=-=-=-=-
-                %d° Lugar
-                %s""", ++i,  jogadores.toString());
+        try {
+            List<Usuario> usuarios = usuarioRepository.rankearJogadores();
+            int i = 0;
+            for (Usuario usuario : usuarios) {
+                System.out.printf("""
+                                      
+                        -=-=-=-=-=-=-=-=-=-
+                        %d° Lugar
+                        %s""", ++i, usuario.toString());
+            }
+        } catch (BancoDeDadosException e){
+            e.printStackTrace();
         }
     }
 
     public Usuario listarPorId(int id) throws Exception {
-        for (Usuario usuario : usuarios) {
-            if (usuario.getId() == id) {
-                return usuario;
-            }
+        try {
+            Usuario usuario = usuarioRepository.listarPorId(id);
+            return usuario;
+        } catch (BancoDeDadosException e){
+            e.printStackTrace();
         }
-        throw new Exception("Usuário com o ID " + id + " não encontrado.");
-    }
-    public Usuario listarPorCPF(String CPF) throws Exception {
-        for (Usuario usuario : usuarios) {
-            if (usuario.getCPF().equals(CPF)) {
-                return usuario;
-            }
-        }
-        throw new Exception("Usuário com o CPF " + CPF + " não encontrado.");
+        return null;
     }
   
     @Override
     public boolean atualizar(int id,Usuario usuarioAtualizado){
-        for (Usuario usuarioAtualizar : usuarios){
-            if (usuarioAtualizar.getId() == id){
-                usuarioAtualizar.setCPF(usuarioAtualizado.getCPF());
-                usuarioAtualizar.setIdade(usuarioAtualizado.getIdade());
-                usuarioAtualizar.setNome(usuarioAtualizado.getNome());
-                return true;
-
-            }
+        try {
+            usuarioRepository.editar(id, usuarioAtualizado);
+            System.out.printf("Usuário com o ID %d atualizado.", id);
+            return true;
+        } catch (BancoDeDadosException e){
+            e.printStackTrace();
         }
+        System.out.println("Usuário não atualizado.");
         return false;
-
     }
     @Override
     public boolean deletar(Usuario usuario){
-        return usuarios.remove(usuario);
+        int id = usuario.getId();
+        try {
+            usuarioRepository.remover(id);
+            System.out.printf("Usuário com o id %d removido com sucesso.");
+            return true;
+        } catch (BancoDeDadosException e){
+            e.printStackTrace();
+        }
+        System.out.println("Usuário não removido.");
+        return false;
     }
 }

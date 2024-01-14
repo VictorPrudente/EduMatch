@@ -9,6 +9,8 @@ public class Escola {
     private TipoEscola tipo;
     private String cnpj;
 
+    public Escola(){};
+
     public Escola(String nome, TipoEscola tipo, String cnpj) {
         this.nome = nome;
         this.tipo = tipo;
