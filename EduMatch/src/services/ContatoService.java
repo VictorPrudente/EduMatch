@@ -66,4 +66,15 @@ public class ContatoService implements Service<Contato> {
             e.printStackTrace();
         }
     }
+
+    public Contato listarPorDono(int id) {
+        //este id vem da entidade que estiver chamando o seu contato. Por exemplo, usuario.getId();
+        try {
+            return contatoRepository.listarPorDono(id);
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Contato não encontrado.");
+        return null;
+    }
 }
