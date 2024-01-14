@@ -372,7 +372,7 @@ public class Main {
                                 continue;
                             }
                             case 6: {
-                                empresaService.listarTodos();
+                                empresaService.listarEmpresas();
                                 break;
                             }
                             case 7: {
