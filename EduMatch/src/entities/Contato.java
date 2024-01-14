@@ -2,7 +2,7 @@ package entities;
 import entities.enums.TipoDeContato;
 
 public class Contato {
-    private Integer id_contato;
+    private Integer id;
     private String descricao;
     private String telefone;
     private TipoDeContato tipo;
@@ -31,11 +31,11 @@ public class Contato {
         this.id_usuario = id_usuario;
     }
 
-    public Integer getId_contato() {
-        return id_contato;
+    public Integer getId() {
+        return id;
     }
-    public void setId_contato(Integer id_contato) {
-        this.id_contato = id_contato;
+    public void setId(Integer id_) {
+        this.id = id;
     }
     public String getDescricao() {
         return descricao;
@@ -70,6 +70,6 @@ public class Contato {
                 Id: %d
                 Número: %s
                 Descrição: %s
-                Tipo: %s""",  id_contato, telefone, descricao, tipo.name());
+                Tipo: %s""",  id, telefone, descricao, tipo.name());
     }
 }

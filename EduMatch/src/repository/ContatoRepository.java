@@ -34,7 +34,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             contato.setId_contato(proximoId);
 
             String sql = "INSERT INTO CONTATO\n" +
-                    "(ID_CONTATO, DESCRICAO, TELEFONE, TIPO_CONTATO, ID_USUARIO, ID_EMPRESA, ID_ESCOLA)\n" +
+                    "(ID_CONTATO, DESCRICAO, TELEFONE, TIPO_CONTATO, ID_USUARIO, ID_EMPRESA, ID_ESCOLA) \n" +
                     "VALUES(?, ?, ?, ?, ?, ?, ?)\n";
 
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -43,9 +43,9 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             stmt.setString(2, contato.getDescricao());
             stmt.setString(3, contato.getTelefone());
             stmt.setInt(4, contato.getTipo().ordinal());
-            stmt.setInt(1, contato.getId_usuario());
-            stmt.setInt(1, contato.getId_empresa());
-            stmt.setInt(1, contato.getId_escola());
+            stmt.setInt(5, contato.getId_usuario());
+            stmt.setInt(6, contato.getId_empresa());
+            stmt.setInt(7, contato.getId_escola());
 
             int res = stmt.executeUpdate();
             System.out.println("adicionarContato.res=" + res);
@@ -75,7 +75,6 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
 
             stmt.setInt(1, id);
 
-            // Executa-se a consulta
             int res = stmt.executeUpdate();
             System.out.println("removerContatoPorId.res=" + res);
 
@@ -113,7 +112,6 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             stmt.setInt(3, contato.getTipo().ordinal());
             stmt.setInt(4, id);
 
-            // Executa-se a consulta
             int res = stmt.executeUpdate();
             System.out.println("editarContato.res=" + res);
 
@@ -141,7 +139,6 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
 
             String sql = "SELECT * FROM CONTATO";
 
-            // Executa-se a consulta
             ResultSet res = stmt.executeQuery(sql);
 
             while (res.next()) {
@@ -166,5 +163,62 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             }
         }
         return contatos;
+    }
+
+    public Contato listarPorDono(int id) throws BancoDeDadosException {
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+            String sql = """
+                SELECT c.id_contato, c.telefone, c.tipo_contato, c.descricao, c.id_usuario, c.id_empresa, c.id_escola
+                FROM CONTATO c
+                LEFT JOIN USUARIO u ON u.ID_USUARIO = c.ID_USUARIO
+                LEFT JOIN EMPRESA emp ON emp.ID_EMPRESA = c.ID_EMPRESA
+                LEFT JOIN ESCOLA esc ON esc.ID_ESCOLA = c.ID_ESCOLA
+                WHERE c.id_usuario = ? OR c.id_empresa = ? OR c.id_escola = ?""";
+
+            try (PreparedStatement stmt = con.prepareStatement(sql)) {
+                stmt.setInt(1, id);
+                stmt.setInt(2, id);
+                stmt.setInt(3, id);
+
+                try (ResultSet res = stmt.executeQuery()) {
+                    if (res.next()) {
+                        Contato contato = new Contato();
+                        contato.setId_contato(res.getInt("id_contato"));
+                        contato.setTelefone(res.getString("telefone"));
+                        contato.setTipo(TipoDeContato.valueOf(res.getInt("tipo_contato")));
+                        contato.setDescricao(res.getString("descricao"));
+
+                        int idUsuario = res.getInt("id_usuario");
+                        int idEmpresa = res.getInt("id_empresa");
+                        int idEscola = res.getInt("id_escola");
+
+                        if (!res.wasNull()) {
+                            if (idUsuario != 0) {
+                                contato.setId_usuario(idUsuario);
+                            } else if (idEmpresa != 0) {
+                                contato.setId_empresa(idEmpresa);
+                            } else if (idEscola != 0) {
+                                contato.setId_escola(idEscola);
+                            }
+
+                            return contato;
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }
