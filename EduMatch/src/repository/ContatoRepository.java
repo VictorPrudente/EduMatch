@@ -42,7 +42,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             stmt.setInt(1, contato.getId_contato());
             stmt.setString(2, contato.getDescricao());
             stmt.setString(3, contato.getTelefone());
-            stmt.setObject(4, contato.getTipo());
+            stmt.setInt(4, contato.getTipo().ordinal());
             stmt.setInt(1, contato.getId_usuario());
             stmt.setInt(1, contato.getId_empresa());
             stmt.setInt(1, contato.getId_escola());
@@ -110,7 +110,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
 
             stmt.setString(1, contato.getDescricao());
             stmt.setString(2, contato.getTelefone());
-            stmt.setObject(3, contato.getTipo());
+            stmt.setInt(3, contato.getTipo().ordinal());
             stmt.setInt(4, id);
 
             // Executa-se a consulta
@@ -148,8 +148,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
                 Contato contato = new Contato();
                 contato.setId_contato(res.getInt("id_contato"));
                 contato.setDescricao(res.getString("descricao"));
-                String tipoContatoStr = res.getString("tipo_contato");
-                TipoDeContato tipoContato = TipoDeContato.valueOf(TipoDeContato.class, tipoContatoStr);
+                contato.setTipo(TipoDeContato.valueOf(res.getInt("tipo_contato")));
                 contato.setId_usuario(res.getInt("id_usuario"));
                 contato.setId_empresa(res.getInt("id_empresa"));
                 contato.setId_escola(res.getInt("id_escola"));
