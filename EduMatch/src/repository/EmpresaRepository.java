@@ -12,12 +12,12 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
         @Override
         public Integer getProximoId(Connection connection) throws BancoDeDadosException {
             try{
-                String sql = "SELECT seq_empresa.nextval AS mysequence from DUAL";
+                String sql = "SELECT VS_13_EQUIPE_9.seq_empresa.nextval AS mysequence from DUAL";
                 Statement stmt = connection.createStatement();
                 ResultSet res = stmt.executeQuery(sql);
 
                 if(res.next()){
-                    return res.getInt("SEQ_EMPRESA");
+                    return res.getInt("mysequence");
                 }
 
                 return null;
@@ -78,7 +78,7 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
             try {
                 con = ConexaoBancoDeDadosLocal.getConnection();
 
-                String sql = "DELETE FROM EMPRESA WHERE id_empresa = ?";
+                String sql = "DELETE FROM VS_13_EQUIPE_9.EMPRESA WHERE id_empresa = ?";
 
                 PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -109,7 +109,7 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
                 con = ConexaoBancoDeDadosLocal.getConnection();
 
                 StringBuilder sql = new StringBuilder();
-                sql.append("UPDATE EMPRESA SET ");
+                sql.append("UPDATE VS_13_EQUIPE_9.EMPRESA SET ");
                 sql.append(" nome = ?,");
                 sql.append(" setor = ? ");
                 sql.append(" areaDeAtuacao = ? ");
@@ -150,7 +150,7 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
                 con = ConexaoBancoDeDadosLocal.getConnection();
                 Statement stmt = con.createStatement();
 
-                String sql = "SELECT * FROM EMPRESA";
+                String sql = "SELECT * FROM VS_13_EQUIPE_9.EMPRESA";
 
                 ResultSet res = stmt.executeQuery(sql);
 

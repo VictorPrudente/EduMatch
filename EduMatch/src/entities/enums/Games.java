@@ -16,7 +16,7 @@ public enum Games {
         return tipo;
     }
 
-    public static Games trilhas(int tipo){
+    public static Games valueOf(int tipo){
         for (Games trilha : Games.values()){
             if (trilha.ordinal() == tipo){
                 return trilha;

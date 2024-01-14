@@ -14,14 +14,14 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
 
         try {
-            String sql = "SELECT seq_certificado.nextval mysequence FROM DUAL";
+            String sql = "SELECT VS_13_EQUIPE_9.seq_certificado.nextval AS mysequence FROM DUAL";
 
             Statement st = connection.createStatement();
 
             ResultSet res = st.executeQuery(sql);
 
             if (res.next()){
-                return res.getInt("seq_certificado");
+                return res.getInt("mysequence");
             }
             return null;
         } catch (SQLException e) {
@@ -75,7 +75,7 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
         try {
             con = ConexaoBancoDeDadosLocal.getConnection();
 
-            String sql = "DELETE FROM CERTIFICADO WHERE id_certificado = ?";
+            String sql = "DELETE FROM VS_13_EQUIPE_9.CERTIFICADO WHERE id_certificado = ?";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -114,8 +114,8 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
             con = ConexaoBancoDeDadosLocal.getConnection();
             Statement st = con.createStatement();
 
-            String sql = "SELECT * FROM CERTIFICADO c\n" +
-                    "RIGHT JOIN USUARIO u ON u.ID_USUARIO = c.ID_CERTIFICADO";
+            String sql = "SELECT * FROM VS_13_EQUIPE_9.CERTIFICADO c\n" +
+                    "RIGHT JOIN VS_13_EQUIPE_9.USUARIO u ON u.ID_USUARIO = c.ID_CERTIFICADO";
 
 
             ResultSet res = st.executeQuery(sql);
@@ -148,8 +148,8 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
             try {
                 con = ConexaoBancoDeDadosLocal.getConnection();
 
-                String sql = "SELECT * FROM CERTIFICADO c\n" +
-                        "RIGHT JOIN USUARIO u ON u.ID_USUARIO = c.ID_CERTIFICADO \n" +
+                String sql = "SELECT * FROM VS_13_EQUIPE_9.CERTIFICADO c\n" +
+                        "RIGHT JOIN VS_13_EQUIPE_9.USUARIO u ON u.ID_USUARIO = c.ID_CERTIFICADO \n" +
                         "WHERE ID_USUARIO = ?";
 
                 PreparedStatement stmt = con.prepareStatement(sql);
@@ -187,8 +187,8 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
 
             String sql = """
                     SELECT *
-                    FROM CERTIFICADO c
-                    RIGHT JOIN USUARIO u ON u.ID_USUARIO = c.ID_USUARIO
+                    FROM VS_13_EQUIPE_9.CERTIFICADO c
+                    RIGHT JOIN VS_13_EQUIPE_9.USUARIO u ON u.ID_USUARIO = c.ID_USUARIO
                     WHERE u.ID_USUARIO = ?
                     ORDER BY c.data_emitida DESC
                     LIMIT 1;""";

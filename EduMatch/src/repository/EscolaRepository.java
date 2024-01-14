@@ -14,12 +14,12 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
     @Override
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
         try{
-            String sql = "SELECT seq_escola.nextval AS mysequence from DUAL";
+            String sql = "SELECT VS_13_EQUIPE_9.seq_escola.nextval AS mysequence from DUAL";
             Statement stmt = connection.createStatement();
             ResultSet res = stmt.executeQuery(sql);
 
             if(res.next()){
-                return res.getInt("SEQ_ESCOLA");
+                return res.getInt("mysequence");
             }
 
             return null;
@@ -78,7 +78,7 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
         try {
             con = ConexaoBancoDeDadosLocal.getConnection();
 
-            String sql = "DELETE FROM ESCOLA WHERE id_escola = ?";
+            String sql = "DELETE FROM VS_13_EQUIPE_9.ESCOLA WHERE id_escola = ?";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -108,7 +108,7 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
             con = ConexaoBancoDeDadosLocal.getConnection();
 
             StringBuilder sql = new StringBuilder();
-            sql.append("UPDATE ESCOLA SET ");
+            sql.append("UPDATE VS_13_EQUIPE_9.ESCOLA SET ");
             sql.append(" nome = ?,");
             sql.append(" tipo = ? ");
             sql.append(" WHERE id_escola = ? ");
@@ -144,7 +144,7 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
             con = ConexaoBancoDeDadosLocal.getConnection();
             Statement stmt = con.createStatement();
 
-            String sql = "SELECT * FROM ESCOLA";
+            String sql = "SELECT * FROM VS_13_EQUIPE_9.ESCOLA";
 
             ResultSet res = stmt.executeQuery(sql);
 
@@ -175,7 +175,7 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
         try {
             con = ConexaoBancoDeDadosLocal.getConnection();
 
-            String sql = "SELECT * FROM ESCOLA WHERE ID_ESCOLA = ? ";
+            String sql = "SELECT * FROM VS_13_EQUIPE_9.ESCOLA WHERE ID_ESCOLA = ? ";
 
             PreparedStatement st = con.prepareStatement(sql);
             st.setInt(1, id);

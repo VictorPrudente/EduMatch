@@ -33,7 +33,7 @@ public class PortuguesService{
     }
 
 
-    public List<Portugues> listarPelaDificuldade(int i){
+    public Portugues listarPelaDificuldade(int i){
         try {
             return portuguesRepository.listarPorDificuldade(i);
         } catch (BancoDeDadosException e){

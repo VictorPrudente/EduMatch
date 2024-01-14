@@ -34,14 +34,14 @@ public class SoftSkillService{
     }
 
 
-    public List<SoftSkill> listarPelaDificuldade(Dificuldades dificuldade){
-        ArrayList<SoftSkill> questoes = new ArrayList<>();
+    public SoftSkill listarPelaDificuldade(int i){
+        SoftSkill questao = new SoftSkill();
         try {
-            questoes.addAll(softSkillRepository.listarPorDificuldade(dificuldade.ordinal()));
+            return softSkillRepository.listarPorDificuldade(i);
         } catch (BancoDeDadosException e){
             e.printStackTrace();
         }
-        return questoes;
+        return null;
     }
 
 

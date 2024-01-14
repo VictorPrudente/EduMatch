@@ -15,7 +15,7 @@ public class MatematicaRepository implements Repositorio<Integer, Matematica> {
     @Override
     public Integer getProximoId(Connection connection) throws SQLException {
         try {
-            String sql = "SELECT SEQ_MATEMATICA.nextval AS mysequence from DUAL";
+            String sql = "SELECT VS_13_EQUIPE_9.SEQ_MATEMATICA.nextval AS mysequence from DUAL";
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
@@ -38,7 +38,7 @@ public class MatematicaRepository implements Repositorio<Integer, Matematica> {
             Integer nextid = this.getProximoId(con);
             questao.setId(nextid);
 
-            String sql = "INSERT INTO MATEMATICA\n" +
+            String sql = "INSERT INTO VS_13_EQUIPE_9.MATEMATICA\n" +
                     "(id_matematica, pergunta, pontos, opcao_correta, dificuldade)\n" +
                     "VALUES(?, ?, ?, ?, ?)\n";
 
@@ -72,7 +72,7 @@ public class MatematicaRepository implements Repositorio<Integer, Matematica> {
         try {
             con = ConexaoBancoDeDadosLocal.getConnection();
 
-            String sql = "DELETE FROM MATEMATICA WHERE id_matematica = ?";
+            String sql = "DELETE FROM VS_13_EQUIPE_9.MATEMATICA WHERE id_matematica = ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -103,7 +103,7 @@ public class MatematicaRepository implements Repositorio<Integer, Matematica> {
 
             StringBuilder sql = new StringBuilder();
 
-            sql.append("UPDATE MATEMATICA SET \n");
+            sql.append("UPDATE VS_13_EQUIPE_9.MATEMATICA SET \n");
             sql.append(" questao = ?,");
             sql.append(" pontos = ?,");
             sql.append(" opcao_correta = ?,");
@@ -141,7 +141,7 @@ public class MatematicaRepository implements Repositorio<Integer, Matematica> {
             con = ConexaoBancoDeDadosLocal.getConnection();
             Statement ps = con.createStatement();
 
-            String sql = "SELECT * FROM MATEMATICA";
+            String sql = "SELECT * FROM VS_13_EQUIPE_9.MATEMATICA";
 
             ResultSet res = ps.executeQuery(sql);
 
@@ -169,13 +169,13 @@ public class MatematicaRepository implements Repositorio<Integer, Matematica> {
     return questoes;
     }
 
-    public List<Matematica> listarPorDificuldade(int dificuldade) throws BancoDeDadosException {
-        List<Matematica> questoes = new ArrayList<>();
+    public Matematica listarPorDificuldade(int dificuldade) throws BancoDeDadosException {
+        Matematica questao = new Matematica();
         Connection con = null;
         try {
             con = ConexaoBancoDeDadosLocal.getConnection();
 
-            String sql = "SELECT * FROM MATEMATICA WHERE DIFICULDADE = ? ";
+            String sql = "SELECT * FROM VS_13_EQUIPE_9.MATEMATICA WHERE DIFICULDADE = ? ORDER BY DBMS_RANDOM.VALUE";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -183,15 +183,12 @@ public class MatematicaRepository implements Repositorio<Integer, Matematica> {
 
             ResultSet res = ps.executeQuery();
 
-            while (res.next()){
-                Matematica questao = new Matematica();
+            if (res.next()){
                 questao.setId(res.getInt("id_matematica"));
                 questao.setQuestao(res.getString("pergunta"));
                 questao.setPontos(res.getInt("pontos"));
                 questao.setOpcaoCerta(res.getString("opcao_correta"));
                 questao.setDificuldade(Dificuldades.valueOf(res.getInt("dificuldade")));
-
-                questoes.add(questao);
             }
         } catch (SQLException e){
             throw new BancoDeDadosException(e.getCause());
@@ -204,7 +201,7 @@ public class MatematicaRepository implements Repositorio<Integer, Matematica> {
                 e.printStackTrace();
             }
         }
-        return questoes;
+        return questao;
     }
 }
 

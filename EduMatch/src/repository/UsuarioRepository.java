@@ -14,7 +14,7 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
     @Override
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
         try{
-            String sql = "SELECT SEQ_USUARIO.nextval AS mysequence from DUAL";
+            String sql = "SELECT VS_13_EQUIPE_9.SEQ_USUARIO.nextval AS mysequence from DUAL";
             Statement stmt = connection.createStatement();
             ResultSet res = stmt.executeQuery(sql);
 
