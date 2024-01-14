@@ -169,13 +169,13 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
         return questoes;
     }
 
-    public List<Portugues> listarPorDificuldade(int i) throws BancoDeDadosException {
-        List<Portugues> questoes = new ArrayList<>();
+    public Portugues listarPorDificuldade(int i) throws BancoDeDadosException {
+        Portugues questao = new Portugues();
         Connection con = null;
         try {
             con = ConexaoBancoDeDadosLocal.getConnection();
 
-            String sql = "SELECT * FROM VS_13_EQUIPE_9.PORTUGUES WHERE DIFICULDADE = ?";
+            String sql = "SELECT * FROM VS_13_EQUIPE_9.PORTUGUES WHERE DIFICULDADE = ? ORDER BY DBMS_RANDOM.VALUE";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -183,14 +183,12 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
 
             ResultSet res = ps.executeQuery();
 
-            while (res.next()){
-                Portugues questao = new Portugues();
+            if (res.next()){
                 questao.setId(res.getInt("id_portugues"));
                 questao.setQuestao(res.getString("pergunta"));
                 questao.setPontos(res.getInt("pontos"));
                 questao.setOpcaoCerta(res.getString("opcao_correta"));
                 questao.setDificuldade(Dificuldades.valueOf(res.getInt("dificuldade")));
-                questoes.add(questao);
             }
         } catch (SQLException e){
             throw new BancoDeDadosException(e.getCause());
@@ -203,7 +201,7 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
                 e.printStackTrace();
             }
         }
-        return questoes;
+        return questao;
     }
 }
 

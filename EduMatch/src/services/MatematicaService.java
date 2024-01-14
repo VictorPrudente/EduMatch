@@ -33,14 +33,13 @@ public class MatematicaService{
     }
 
 
-    public List<Matematica> listarPelaDificuldade(Dificuldades dificuldade){
-        ArrayList<Matematica> questoes = new ArrayList<>();
+    public Matematica listarPelaDificuldade(int i){
         try {
-            questoes.addAll(matematicaRepository.listarPorDificuldade(dificuldade.ordinal()));
+            return matematicaRepository.listarPorDificuldade(i);
         } catch (BancoDeDadosException e){
             e.printStackTrace();
         }
-        return questoes;
+        return null;
     }
 
 

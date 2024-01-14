@@ -168,13 +168,13 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
         return questoes;
     }
 
-    public List<SoftSkill> listarPorDificuldade(int dificuldade) throws BancoDeDadosException {
-        List<SoftSkill> questoes = new ArrayList<>();
+    public SoftSkill listarPorDificuldade(int dificuldade) throws BancoDeDadosException {
+        SoftSkill questao = new SoftSkill();
         Connection con = null;
         try {
             con = ConexaoBancoDeDadosLocal.getConnection();
 
-            String sql = "SELECT * FROM SOFTSKILL WHERE DIFICULDADE = ? ";
+            String sql = "SELECT * FROM VS_13_EQUIPE_9.SOFTSKILL WHERE DIFICULDADE = ? ORDER BY DBMS_RANDOM.VALUE";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -182,15 +182,12 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
 
             ResultSet res = ps.executeQuery();
 
-            while (res.next()){
-                SoftSkill questao = new SoftSkill();
+            if (res.next()){
                 questao.setId(res.getInt("id_softskill"));
                 questao.setQuestao(res.getString("pergunta"));
                 questao.setPontos(res.getInt("pontos"));
                 questao.setOpcaoCerta(res.getString("opcao_correta"));
                 questao.setDificuldade(Dificuldades.valueOf(res.getInt("dificuldade")));
-
-                questoes.add(questao);
             }
         } catch (SQLException e){
             throw new BancoDeDadosException(e.getCause());
@@ -203,7 +200,7 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
                 e.printStackTrace();
             }
         }
-        return questoes;
+        return questao;
     }
 }
 

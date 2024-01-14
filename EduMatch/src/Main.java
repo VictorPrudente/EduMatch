@@ -55,75 +55,60 @@ public class Main {
                         sc.nextLine();
                         switch (opcao) {
                             case 1: {
+                                int trilha = 0;
                                 int acertos = 0;
                                 int totalQuestoes = 0;
                                 for (int i = 0; i < 3; i++) {
-                                    System.out.println("dificuldade: " + Dificuldades.valueOf(i));
-                                    List<Portugues> questoes = portuguesService.listarPelaDificuldade(i);
-                                    totalQuestoes = questoes.size();
-                                    Portugues questao = questoes.get(random.nextInt(totalQuestoes));
+                                    Portugues questao = portuguesService.listarPelaDificuldade(i);
+                                    totalQuestoes++;
                                     System.out.println(questao);
                                     while (!opcaoQuestao.matches("[A-Ea-e]")) {
                                         System.out.print("Opção: ");
                                         opcaoQuestao = sc.nextLine().toUpperCase().trim();
                                     }
 
-                                    acertos += menu.validarQuestao(opcaoQuestao, questao, usuario);
-                                    opcaoQuestao = "z";
-                                }
-                                if ((double) ((acertos * 100) / totalQuestoes) >= 66) {
-                                    Certificado certificado = new Certificado(Games.PORTUGUES, LocalDateTime.now(), usuario);
-                                    usuario.getCertificados().add(certificado);
-                                    System.out.println("Parabéns pelo seu certificado!\n");
-                                }
-                                break;
-                            }
-                            case 2: {
-                                int acertos = 0;
-                                int totalQuestoes = 0;
-                                for (int i = 0; i < 3; i++) {
-
-                                    List<Matematica> questoes = matematicaService.listarPelaDificuldade(Dificuldades.valueOf(i));
-                                    totalQuestoes = questoes.size();
-                                    Matematica questao = questoes.get(random.nextInt(totalQuestoes));
-                                    System.out.println(questao);
-
-                                    while (!opcaoQuestao.matches("[A-Ea-e]")) {
-                                        System.out.print("Opção: ");
-                                        opcaoQuestao = sc.nextLine().toUpperCase().trim();
-                                    }
                                     acertos += menu.validarQuestao(opcaoQuestao, questao, usuario);
                                     opcaoQuestao = "";
                                 }
-                                if ((double) ((acertos * 100) / totalQuestoes) >= 66) {
-                                    Certificado certificado = new Certificado(Games.MATEMATICA, LocalDateTime.now(), usuario);
-                                    usuario.getCertificados().add(certificado);
-                                    System.out.println("Parabéns pelo seu certificado!\n");
+                                cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
+                                break;
+                            }
+                            case 2: {
+                                int trilha = 1;
+                                int acertos = 0;
+                                int totalQuestoes = 0;
+                                for (int i = 0; i < 3; i++) {
+                                    Matematica questao = matematicaService.listarPelaDificuldade(i);
+                                    totalQuestoes++;
+                                    System.out.println(questao);
+                                    while (!opcaoQuestao.matches("[A-Ea-e]")) {
+                                        System.out.print("Opção: ");
+                                        opcaoQuestao = sc.nextLine().toUpperCase().trim();
+                                    }
+
+                                    acertos += menu.validarQuestao(opcaoQuestao, questao, usuario);
+                                    opcaoQuestao = "";
                                 }
+                                cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
                                 break;
                             }
                             case 3: {
                                 int acertos = 0;
                                 int totalQuestoes = 0;
+                                int trilha = 2;
                                 for (int i = 0; i < 3; i++) {
-
-                                    List<SoftSkill> questoes = softSkillService.listarPelaDificuldade(Dificuldades.valueOf(i));
-                                    totalQuestoes = questoes.size();
-                                    SoftSkill questao = questoes.get(random.nextInt(totalQuestoes));
+                                    SoftSkill questao = softSkillService.listarPelaDificuldade(i);
+                                    totalQuestoes++;
                                     System.out.println(questao);
-
                                     while (!opcaoQuestao.matches("[A-Ea-e]")) {
                                         System.out.print("Opção: ");
                                         opcaoQuestao = sc.nextLine().toUpperCase().trim();
                                     }
+
                                     acertos += menu.validarQuestao(opcaoQuestao, questao, usuario);
                                     opcaoQuestao = "";
                                 }
-                                if ((double) ((acertos * 100) / totalQuestoes) >= 66) {
-                                    Certificado certificado = new Certificado(Games.SOFT_SKILLS, LocalDateTime.now(), usuario);
-                                    usuario.getCertificados().add(certificado);
-                                    System.out.println("Parabéns pelo seu certificado!\n");
-                                }
+                                cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
                                 break;
                             }
                             default:
