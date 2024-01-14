@@ -14,12 +14,14 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
     @Override
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
         try{
-            String sql = "SELECT SEQ_USUARIO.nextval mysequence from DUAL";
+            String sql = "SELECT VS_13_EQUIPE_9.SEQ_USUARIO.nextval AS mysequence from DUAL";
             Statement stmt = connection.createStatement();
             ResultSet res = stmt.executeQuery(sql);
 
             if(res.next()){
-                return res.getInt("SEQ_USUARIO");
+                int id = res.getInt("mysequence");
+                System.out.println(id);
+                return id;
             }
 
             return null;
@@ -41,8 +43,8 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
 
             String sql = """
                             INSERT INTO VS_13_EQUIPE_9.USUARIO
-                            (id_usuario, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
-                            VALUES(?,?,?,?,?,?,?,?)
+                            (id_usuario, nome, sobrenome, cpf, idade, pontuacao)
+                            VALUES(?,?,?,?,?,?)
                             """;
 
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -53,8 +55,6 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
             stmt.setString(4,usuario.getCPF());
             stmt.setInt(5,usuario.getIdade());
             stmt.setInt(6,usuario.getPontuacao());
-            stmt.setInt(6,usuario.getEmpresa());
-            stmt.setInt(7, usuario.getEscola());
 
             int res = stmt.executeUpdate();
             System.out.println("adicionarUsuario.res= "+ res);
@@ -80,7 +80,7 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
     public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
             String sql = "DELETE FROM USUARIO WHERE id_usuario = ? ";
 
             PreparedStatement ps = con.prepareStatement(sql);
@@ -107,7 +107,7 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
     public boolean editar(Integer id, Usuario usuario) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
 
             String sql = """
                     UPDATE USUARIO SET 
@@ -144,7 +144,7 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
 
             String sql = "SELECT * FROM USUARIO WHERE ID = ? ";
 
@@ -182,7 +182,7 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
             Statement st = con.createStatement();
 
             String sql = "SELECT * FROM USUARIO";
@@ -220,10 +220,10 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
             Statement st = con.createStatement();
 
-            String sql = "SELECT * FROM USUARIO ORDER BY pontuacao DESC";
+            String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO ORDER BY pontuacao DESC";
 
             ResultSet res = st.executeQuery(sql);
 

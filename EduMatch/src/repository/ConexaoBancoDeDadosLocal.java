@@ -10,11 +10,13 @@ public class ConexaoBancoDeDadosLocal {
     private static final String DATABASE = "xe";
 
     // Configuração dos parâmetros de autenticação
-    private static final String USER = "VS_13_EQUIPE_9";
+    private static final String USER = "system";
     private static final String PASS = "oracle";
     private static final String SCHEMA = "VS_13_EQUIPE_9";
 
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection() {
+            try{
+
         String url = "jdbc:oracle:thin:@" + SERVER + ":" + PORT + ":" + DATABASE;
         // jdbc:oracle:thin:@localhost:1521:xe
 
@@ -25,6 +27,9 @@ public class ConexaoBancoDeDadosLocal {
         con.createStatement().execute("alter session set current_schema=" + SCHEMA);
 
         return con;
+    } catch (SQLException e){
+                e.printStackTrace();
+                throw new RuntimeException("Erro ao conectar-se ao banco de dados.", e);
+            }
     }
-
 }

@@ -34,7 +34,7 @@ public class Cadastro {
             System.out.print("Por favor, Digite sua idade: ");
             int idade = sc.nextInt();
             sc.nextLine();
-            return new Usuario(nome, sobrenome, cpf, idade, 0);
+            return new Usuario(nome, sobrenome, cpf, idade);
             } catch (RuntimeException e) {
             System.out.println("\n\u001B[31mErro ao ler os dados. Por favor, tente novamente.\u001B[0m\n");
             sc.nextLine();

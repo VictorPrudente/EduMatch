@@ -147,7 +147,7 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
             List<Empresa> empresas = new ArrayList<>();
             Connection con = null;
             try {
-                con = ConexaoBancoDeDados.getConnection();
+                con = ConexaoBancoDeDadosLocal.getConnection();
                 Statement stmt = con.createStatement();
 
                 String sql = "SELECT * FROM EMPRESA";

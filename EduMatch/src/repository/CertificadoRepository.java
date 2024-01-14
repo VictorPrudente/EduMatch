@@ -1,13 +1,10 @@
 package repository;
 
 import entities.Certificado;
-import entities.Empresa;
-import entities.Usuario;
 import entities.enums.Games;
 import exceptions.BancoDeDadosException;
 import interfaces.Repositorio;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -114,7 +111,7 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
         List<Certificado> certificados = new ArrayList<>();
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
             Statement st = con.createStatement();
 
             String sql = "SELECT * FROM CERTIFICADO c\n" +
@@ -149,7 +146,7 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
             List<Certificado> certificados = new ArrayList<>();
             Connection con = null;
             try {
-                con = ConexaoBancoDeDados.getConnection();
+                con = ConexaoBancoDeDadosLocal.getConnection();
 
                 String sql = "SELECT * FROM CERTIFICADO c\n" +
                         "RIGHT JOIN USUARIO u ON u.ID_USUARIO = c.ID_CERTIFICADO \n" +
@@ -186,7 +183,7 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
     public Certificado listarUltimo(int id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
 
             String sql = """
                     SELECT *

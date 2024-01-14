@@ -141,7 +141,7 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
         List<Escola> escolas = new ArrayList<>();
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
             Statement stmt = con.createStatement();
 
             String sql = "SELECT * FROM ESCOLA";
@@ -173,7 +173,7 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
     public Escola listarPorId(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
 
             String sql = "SELECT * FROM ESCOLA WHERE ID_ESCOLA = ? ";
 
