@@ -1,23 +1,25 @@
 package services;
 
 import entities.Contato;
+import interfaces.Service;
 import repository.ContatoRepository;
 import exceptions.BancoDeDadosException;
 
 import java.util.List;
 
-public class ContatoService {
+public class ContatoService implements Service<Contato> {
     private ContatoRepository contatoRepository;
 
     public ContatoService() {
         contatoRepository = new ContatoRepository();
     }
 
-    // criação de um objeto
-    public void adicionar(Contato contato) {
+    @Override
+    public boolean salvar(Contato contato) {
         try {
             Contato contatoAdicionado = contatoRepository.adicionar(contato);
             System.out.println("Contato adicinado com sucesso! " + contatoAdicionado);
+            return true;
         } catch (BancoDeDadosException e) {
             System.out.println("ERRO: " + e.getMessage());
             e.printStackTrace();
@@ -25,30 +27,38 @@ public class ContatoService {
             System.out.println("ERRO: " + e.getMessage());
             e.printStackTrace();
         }
+        System.out.println("Contato não cadastrado. Tente novamente");
+        return false;
     }
 
-    // remoção
-    public void remover(Integer id) {
+    @Override
+    public boolean deletar(Contato contato) {
+        int id = contato.getId();
         try {
-            boolean conseguiuRemover = contatoRepository.remover(id);
-            System.out.println("Contato removido? " + conseguiuRemover + "| com id=" + id);
+            contatoRepository.remover(id);
+            System.out.printf("Contato com o id %d removido com sucesso.", id);
+            return true;
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
+        System.out.println("Contato não removido.");
+        return false;
     }
 
-    // atualização de um objeto
-    public void editar(Integer id, Contato contato) {
+    @Override
+    public boolean atualizar(int id, Contato contato) {
         try {
-            boolean conseguiuEditar = contatoRepository.editar(id, contato);
-            System.out.println("Contato editado? " + conseguiuEditar + "| com id=" + id);
+            contatoRepository.editar(id, contato);
+            System.out.printf("Contato com o ID %d atualizado.", id);
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
+        System.out.println("Contato não atualizado.");
+        return false;
     }
 
-    // leitura
-    public void listar() {
+    @Override
+    public void listarTodos() {
         try {
             List<Contato> listar = contatoRepository.listar();
             listar.forEach(System.out::println);

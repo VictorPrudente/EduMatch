@@ -86,7 +86,7 @@ public class UsuarioService implements Service<Usuario> {
         int id = usuario.getId();
         try {
             usuarioRepository.remover(id);
-            System.out.printf("Usuário com o id %d removido com sucesso.");
+            System.out.printf("Usuário com o id %d removido com sucesso.", id);
             return true;
         } catch (BancoDeDadosException e){
             e.printStackTrace();
