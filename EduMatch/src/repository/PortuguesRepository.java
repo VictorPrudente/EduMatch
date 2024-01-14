@@ -13,9 +13,9 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
 
 
     @Override
-    public Integer getProximoId(Connection connection) throws SQLException {
+    public Integer getProximoId(Connection connection) throws BancoDeDadosException {
         try {
-            String sql = "SELECT SEQ_PORTUGUES.nextval mysequence from DUAL";
+            String sql = "SELECT SEQ_PORTUGUES.nextval AS mysequence from DUAL";
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
@@ -38,7 +38,7 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
             Integer nextid = this.getProximoId(con);
             questao.setId(nextid);
 
-            String sql = "INSERT INTO PORTUGUES\n" +
+            String sql = "INSERT INTO VS_13_EQUIPE_9.PORTUGUES\n" +
                     "(id_portugues, pergunta, pontos, opcao_correta, dificuldade)\n" +
                     "VALUES(?, ?, ?, ?, ?)\n";
 
@@ -72,7 +72,7 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
         try {
             con = ConexaoBancoDeDadosLocal.getConnection();
 
-            String sql = "DELETE FROM PORTUGUES WHERE id_portugues = ?";
+            String sql = "DELETE FROM VS_13_EQUIPE_9.PORTUGUES WHERE id_portugues = ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -103,7 +103,7 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
 
             StringBuilder sql = new StringBuilder();
 
-            sql.append("UPDATE PORTUGUES SET \n");
+            sql.append("UPDATE VS_13_EQUIPE_9.PORTUGUES SET \n");
             sql.append(" questao = ?,");
             sql.append(" pontos = ?,");
             sql.append(" opcao_correta = ?,");
@@ -141,7 +141,7 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
             con = ConexaoBancoDeDadosLocal.getConnection();
             Statement ps = con.createStatement();
 
-            String sql = "SELECT * FROM PORTUGUES";
+            String sql = "SELECT * FROM VS_13_EQUIPE_9.PORTUGUES";
 
             ResultSet res = ps.executeQuery(sql);
 
@@ -169,19 +169,19 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
         return questoes;
     }
 
-    public List<Portugues> listarPorDificuldade(int dificuldade) throws BancoDeDadosException {
+    public List<Portugues> listarPorDificuldade(int i) throws BancoDeDadosException {
         List<Portugues> questoes = new ArrayList<>();
         Connection con = null;
         try {
             con = ConexaoBancoDeDadosLocal.getConnection();
 
-            String sql = "SELECT * FROM PORTUGUES WHERE DIFICULDADE = ? ";
+            String sql = "SELECT * FROM VS_13_EQUIPE_9.PORTUGUES WHERE DIFICULDADE = ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
-            ps.setInt(1, dificuldade);
+            ps.setInt(1, i);
 
-            ResultSet res = ps.executeQuery(sql);
+            ResultSet res = ps.executeQuery();
 
             while (res.next()){
                 Portugues questao = new Portugues();
@@ -190,7 +190,6 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
                 questao.setPontos(res.getInt("pontos"));
                 questao.setOpcaoCerta(res.getString("opcao_correta"));
                 questao.setDificuldade(Dificuldades.valueOf(res.getInt("dificuldade")));
-
                 questoes.add(questao);
             }
         } catch (SQLException e){

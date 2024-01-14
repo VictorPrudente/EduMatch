@@ -14,7 +14,7 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
     @Override
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
         try{
-            String sql = "SELECT seq_escola.nextval mysequence from DUAL";
+            String sql = "SELECT seq_escola.nextval AS mysequence from DUAL";
             Statement stmt = connection.createStatement();
             ResultSet res = stmt.executeQuery(sql);
 

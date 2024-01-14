@@ -33,14 +33,13 @@ public class PortuguesService{
     }
 
 
-    public List<Portugues> listarPelaDificuldade(Dificuldades dificuldade){
-        ArrayList<Portugues> questoes = new ArrayList<>();
+    public List<Portugues> listarPelaDificuldade(int i){
         try {
-            questoes.addAll(portuguesRepository.listarPorDificuldade(dificuldade.ordinal()));
+            return portuguesRepository.listarPorDificuldade(i);
         } catch (BancoDeDadosException e){
             e.printStackTrace();
         }
-        return questoes;
+        return null;
     }
 
 

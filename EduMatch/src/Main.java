@@ -58,18 +58,18 @@ public class Main {
                                 int acertos = 0;
                                 int totalQuestoes = 0;
                                 for (int i = 0; i < 3; i++) {
-
-                                    List<Portugues> questoes = portuguesService.listarPelaDificuldade(Dificuldades.valueOf(i));
+                                    System.out.println("dificuldade: " + Dificuldades.valueOf(i));
+                                    List<Portugues> questoes = portuguesService.listarPelaDificuldade(i);
                                     totalQuestoes = questoes.size();
                                     Portugues questao = questoes.get(random.nextInt(totalQuestoes));
                                     System.out.println(questao);
-
                                     while (!opcaoQuestao.matches("[A-Ea-e]")) {
                                         System.out.print("Opção: ");
                                         opcaoQuestao = sc.nextLine().toUpperCase().trim();
                                     }
+
                                     acertos += menu.validarQuestao(opcaoQuestao, questao, usuario);
-                                    opcaoQuestao = "";
+                                    opcaoQuestao = "z";
                                 }
                                 if ((double) ((acertos * 100) / totalQuestoes) >= 66) {
                                     Certificado certificado = new Certificado(Games.PORTUGUES, LocalDateTime.now(), usuario);
@@ -369,6 +369,7 @@ public class Main {
                 }
             } catch (RuntimeException e) {
                 System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
+                e.printStackTrace();
                 sc.nextLine();
             }
         }

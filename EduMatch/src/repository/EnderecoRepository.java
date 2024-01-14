@@ -11,7 +11,7 @@ import java.util.List;
 public class EnderecoRepository implements Repositorio<Integer, Endereco> {
     @Override
     public Integer getProximoId(Connection connection) throws SQLException {
-        String sql = "SELECT SEQ_ENDERECO.nextval mysequence from DUAL";
+        String sql = "SELECT SEQ_ENDERECO.nextval AS mysequence from DUAL";
 
         Statement stmt = connection.createStatement();
         ResultSet res = stmt.executeQuery(sql);

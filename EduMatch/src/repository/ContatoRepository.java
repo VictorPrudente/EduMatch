@@ -13,7 +13,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
 
     @Override
     public Integer getProximoId(Connection connection) throws SQLException {
-        String sql = "SELECT SEQ_CONTATO.nextval mysequence from DUAL";
+        String sql = "SELECT SEQ_CONTATO.nextval AS mysequence from DUAL";
 
         Statement stmt = connection.createStatement();
         ResultSet res = stmt.executeQuery(sql);
