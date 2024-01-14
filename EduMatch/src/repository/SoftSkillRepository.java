@@ -33,7 +33,7 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
 
             Integer nextid = this.getProximoId(con);
             questao.setId(nextid);
@@ -70,7 +70,7 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
     public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
 
             String sql = "DELETE FROM SOFTSKILL WHERE id_softskill = ?";
 
@@ -99,7 +99,7 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
     public boolean editar(Integer id, SoftSkill softskill) throws BancoDeDadosException {
         Connection con = null;
         try{
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
 
             StringBuilder sql = new StringBuilder();
 
@@ -137,7 +137,7 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
         List<SoftSkill> questoes = new ArrayList<>();
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
             Statement ps = con.createStatement();
 
             String sql = "SELECT * FROM SOFTSKILL";
@@ -172,7 +172,7 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
         List<SoftSkill> questoes = new ArrayList<>();
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
 
             String sql = "SELECT * FROM SOFTSKILL WHERE DIFICULDADE = ? ";
 

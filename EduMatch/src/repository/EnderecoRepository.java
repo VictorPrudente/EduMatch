@@ -1,8 +1,6 @@
 package repository;
 
-import entities.Contato;
 import entities.Endereco;
-import entities.enums.TipoDeContato;
 import exceptions.BancoDeDadosException;
 import interfaces.Repositorio;
 
@@ -184,7 +182,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
     public Endereco listarPorDono(int id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
             String sql = """
                 SELECT end.id_endereco, end.logradouro, end.numero, end.complemento, end.cep, end.cidade, end.estado, end.pais, end.id_usuario, end._id_escola, end.id_empresa
                 FROM ENDERECO end

@@ -33,7 +33,7 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
 
             Integer nextid = this.getProximoId(con);
             questao.setId(nextid);
@@ -70,7 +70,7 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
     public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
 
             String sql = "DELETE FROM PORTUGUES WHERE id_portugues = ?";
 
@@ -99,7 +99,7 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
     public boolean editar(Integer id, Portugues portugues) throws BancoDeDadosException {
         Connection con = null;
         try{
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
 
             StringBuilder sql = new StringBuilder();
 
@@ -138,7 +138,7 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
         List<Portugues> questoes = new ArrayList<>();
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
             Statement ps = con.createStatement();
 
             String sql = "SELECT * FROM PORTUGUES";
@@ -173,7 +173,7 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
         List<Portugues> questoes = new ArrayList<>();
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
 
             String sql = "SELECT * FROM PORTUGUES WHERE DIFICULDADE = ? ";
 

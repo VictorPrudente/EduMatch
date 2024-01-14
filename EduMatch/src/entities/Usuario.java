@@ -13,50 +13,46 @@ public class Usuario {
     private String CPF;
     private Integer idade;
     private Integer pontuacao;
-    private Integer empresa;
-    private List<Endereco> enderecos = new ArrayList<>();
-    private List<Contato> contatos = new ArrayList<>();
+    private Endereco endereco;
+    private Contato contato;
     private List<Certificado> certificados = new ArrayList<>();
-    private Integer escola;
+    private Integer id_escola;
+    private Integer id_empresa;
 
     public Usuario() {
+        this.pontuacao = 0;
+        this.id_empresa = null;
+        this.id_escola = null;
     }
 
     public Usuario(String nome, String sobrenome, String CPF,
-                    Integer idade, Integer pontuacao) {
+                    Integer idade) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.CPF = CPF;
         this.idade = idade;
-        this.pontuacao = pontuacao;
+        this.pontuacao = 0;
     }
 
-    public boolean temAutorizacaoDosPais(){
-        return false;
+
+
+
+
+
+    public Endereco getEndereco() {
+        return endereco;
     }
 
-    public Integer getEscola() {
-        return escola;
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
-    public void setEscola(Escola escola) {
-        this.escola = escola.getId();
+    public Contato getContato() {
+        return contato;
     }
 
-    public List<Endereco> getEnderecos() {
-        return enderecos;
-    }
-
-    public void addEnderecos(Endereco endereco) {
-        this.enderecos.add(endereco);
-    }
-
-    public List<Contato> getContatos() {
-        return contatos;
-    }
-
-    public void addContatos(Contato contato) {
-        this.contatos.add(contato);
+    public void setContato(Contato contato) {
+        this.contato = contato;
     }
 
     public Integer getId() {
@@ -107,12 +103,20 @@ public class Usuario {
         this.pontuacao += pontuacao;
     }
 
-    public Integer getEmpresa() {
-        return empresa;
+    public Integer getId_escola() {
+        return id_escola;
     }
 
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa.getId();
+    public void setId_escola(Integer id_escola) {
+        this.id_escola = id_escola;
+    }
+
+    public Integer getId_empresa() {
+        return id_empresa;
+    }
+
+    public void setId_empresa(Integer id_empresa) {
+        this.id_empresa = id_empresa;
     }
 
     public List<Certificado> getCertificados() {
@@ -136,8 +140,7 @@ public class Usuario {
                 Nome: %s %s
                 CPF: %s
                 Idade: %d
-                Escola: %s
-                Pontuação: %d""", nome, sobrenome, CPF, idade, escola, pontuacao);
+                Pontuação: %d""", nome, sobrenome, CPF, idade, pontuacao);
     }
     @Override
     public boolean equals(Object o) {

@@ -43,20 +43,14 @@ public class UsuarioService implements Service<Usuario> {
         }
     }
 
-    public void rankearUsuarios(){
+    public List<Usuario> rankearUsuarios(){
         try {
-            List<Usuario> usuarios = usuarioRepository.rankearJogadores();
-            int i = 0;
-            for (Usuario usuario : usuarios) {
-                System.out.printf("""
-                                      
-                        -=-=-=-=-=-=-=-=-=-
-                        %d° Lugar
-                        %s""", ++i, usuario.toString());
-            }
+            return usuarioRepository.rankearJogadores();
         } catch (BancoDeDadosException e){
             e.printStackTrace();
         }
+        System.out.println("Algo deu errado.");
+        return null;
     }
 
     public Usuario listarPorId(int id) throws Exception {
