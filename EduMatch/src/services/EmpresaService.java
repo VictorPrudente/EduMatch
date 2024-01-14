@@ -1,23 +1,25 @@
 package services;
 import entities.Empresa;
-import repository.EmpresaRepository;
+import interfaces.Service;
 import exceptions.BancoDeDadosException;
+import repository.EmpresaRepository;
+
 import java.util.*;
 
 
-public class EmpresaService {
+public class EmpresaService implements Service<Empresa> {
+
     private EmpresaRepository empresaRepository;
 
-    // criação de um objeto
-    public void adicionarEmpresa(Empresa empresa) {
+    public boolean salvar(Empresa empresa) {
         try {
-
             if (empresa.getCnpj().length() != 14) {
                 throw new Exception("CNPJ Invalido!");
             }
 
             Empresa empresaAdicionada = empresaRepository.adicionar(empresa);
             System.out.println("empresa adicinada com sucesso! " + empresaAdicionada);
+            return true;
         } catch (BancoDeDadosException e) {
             System.out.println("ERRO: " + e.getMessage());
             e.printStackTrace();
@@ -25,30 +27,36 @@ public class EmpresaService {
             System.out.println("ERRO: " + e.getMessage());
             e.printStackTrace();
         }
+        System.out.println("Empresa não cadastrado. Tente novamente.");
+        return false;
     }
 
-    // remoção
-    public void removerEmpresa(Integer id) {
+    public boolean deletar(Empresa empresa) {
+        int id = empresa.getId();
         try {
-            boolean conseguiuRemover = empresaRepository.remover(id);
-            System.out.println("empresa removida? " + conseguiuRemover + "| com id=" + id);
+            empresaRepository.remover(id);
+            System.out.printf("Empresa com o ID %d removida com sucesso.", id);
+            return true;
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
+        System.out.printf("Empresa com o ID %d não foi removida.");
+        return false;
     }
 
-    // atualização de um objeto
-    public void editarEmpresa(Integer id, Empresa empresa) {
+    public boolean atualizar(int id, Empresa empresa) {
         try {
-            boolean conseguiuEditar = empresaRepository.editar(id, empresa);
-            System.out.println("empresa editada? " + conseguiuEditar + "| com id=" + id);
+            empresaRepository.editar(id, empresa);
+            System.out.printf("Empresa com o ID %d atualizada.", id);
+            return true;
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
+        System.out.println("Empresa não atualizada.");
+        return false;
     }
 
-    // leitura
-    public void listarEmpresas() {
+    public void listarTodos() {
         try {
             List<Empresa> listar = empresaRepository.listar();
             listar.forEach(System.out::println);

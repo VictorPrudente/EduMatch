@@ -29,6 +29,7 @@ public class UsuarioService implements Service<Usuario> {
         } catch (Exception e){
             System.out.println("ERRO: " + e.getMessage());
         }
+        System.out.println("Usuário não cadastrado. Tente novamente");
         return false;
     }
 
@@ -69,9 +70,9 @@ public class UsuarioService implements Service<Usuario> {
     }
 
     @Override
-    public boolean atualizar(int id,Usuario usuarioAtualizado){
+    public boolean atualizar(int id,Usuario usuario){
         try {
-            usuarioRepository.editar(id, usuarioAtualizado);
+            usuarioRepository.editar(id, usuario);
             System.out.printf("Usuário com o ID %d atualizado.", id);
             return true;
         } catch (BancoDeDadosException e){

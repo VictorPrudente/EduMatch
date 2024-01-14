@@ -84,7 +84,6 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
 
             stmt.setInt(1, id);
 
-            // Executa-se a consulta
             int res = stmt.executeUpdate();
             System.out.println("removerEscolaPorId.res=" + res);
 
@@ -112,17 +111,14 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
             sql.append("UPDATE ESCOLA SET ");
             sql.append(" nome = ?,");
             sql.append(" tipo = ? ");
-            sql.append(" cnpj = ? ");
             sql.append(" WHERE id_escola = ? ");
 
             PreparedStatement stmt = con.prepareStatement(sql.toString());
 
             stmt.setString(1, escola.getNome());
             stmt.setInt(2, escola.getTipo().ordinal());
-            stmt.setString(3, escola.getCnpj());
-            stmt.setInt(4, id);
+            stmt.setInt(3, id);
 
-            // Executa-se a consulta
             int res = stmt.executeUpdate();
             System.out.println("editarEscola.res=" + res);
 
@@ -150,7 +146,6 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
 
             String sql = "SELECT * FROM ESCOLA";
 
-            // Executa-se a consulta
             ResultSet res = stmt.executeQuery(sql);
 
             while (res.next()) {
@@ -175,26 +170,27 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
         return escolas;
     }
 
-    public List<Escola> listarPorId(Integer id) throws BancoDeDadosException {
-        List<Escola> escolas = new ArrayList<>();
+    public Escola listarPorId(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
-            Statement stmt = con.createStatement();
 
-            String sql = "SELECT * FROM ESCOLA WHERE ID_ESCOLA = " + id;
+            String sql = "SELECT * FROM ESCOLA WHERE ID_ESCOLA = ? ";
 
-            // Executa-se a consulta
-            ResultSet res = stmt.executeQuery(sql);
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, id);
 
-            while (res.next()) {
+            ResultSet res = st.executeQuery();
+
+            if (res.next()) {
                 Escola escola = new Escola();
                 escola.setId(res.getInt("id_escola"));
                 escola.setNome(res.getString("nome"));
                 escola.setTipo(TipoEscola.valueOf(res.getInt("tipo")));
                 escola.setCnpj(res.getString("cnpj"));
-                escolas.add(escola);
+                return escola;
             }
+            return null;
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {
@@ -206,6 +202,5 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
                 e.printStackTrace();
             }
         }
-        return escolas;
     }
 }
