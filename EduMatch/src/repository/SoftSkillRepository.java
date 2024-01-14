@@ -15,7 +15,7 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
     @Override
     public Integer getProximoId(Connection connection) throws SQLException {
         try {
-            String sql = "SELECT SEQ_SOFTSKILL.nextval mysequence from DUAL";
+            String sql = "SELECT SEQ_SOFTSKILL.nextval AS mysequence from DUAL";
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
@@ -180,7 +180,7 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
 
             ps.setInt(1, dificuldade);
 
-            ResultSet res = ps.executeQuery(sql);
+            ResultSet res = ps.executeQuery();
 
             while (res.next()){
                 SoftSkill questao = new SoftSkill();

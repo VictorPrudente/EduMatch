@@ -15,7 +15,7 @@ public class MatematicaRepository implements Repositorio<Integer, Matematica> {
     @Override
     public Integer getProximoId(Connection connection) throws SQLException {
         try {
-            String sql = "SELECT SEQ_MATEMATICA.nextval mysequence from DUAL";
+            String sql = "SELECT SEQ_MATEMATICA.nextval AS mysequence from DUAL";
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
@@ -181,7 +181,7 @@ public class MatematicaRepository implements Repositorio<Integer, Matematica> {
 
             ps.setInt(1, dificuldade);
 
-            ResultSet res = ps.executeQuery(sql);
+            ResultSet res = ps.executeQuery();
 
             while (res.next()){
                 Matematica questao = new Matematica();
