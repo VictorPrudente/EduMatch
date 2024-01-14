@@ -174,4 +174,38 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
         }
         return escolas;
     }
+
+    public List<Escola> listarPorId(Integer id) throws BancoDeDadosException {
+        List<Escola> escolas = new ArrayList<>();
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+            Statement stmt = con.createStatement();
+
+            String sql = "SELECT * FROM ESCOLA WHERE ID_ESCOLA = " + id;
+
+            // Executa-se a consulta
+            ResultSet res = stmt.executeQuery(sql);
+
+            while (res.next()) {
+                Escola escola = new Escola();
+                escola.setId(res.getInt("id_escola"));
+                escola.setNome(res.getString("nome"));
+                escola.setTipo(TipoEscola.valueOf(res.getInt("tipo")));
+                escola.setCnpj(res.getString("cnpj"));
+                escolas.add(escola);
+            }
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return escolas;
+    }
 }
