@@ -7,6 +7,7 @@ import entities.enums.Games;
 import exceptions.BancoDeDadosException;
 import interfaces.Repositorio;
 
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -104,10 +105,47 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
 
     @Override
     public boolean editar(Integer id, Certificado certificado) throws BancoDeDadosException {
+        //certificado não deve ser alterado depois de emitido.
         return false;
         }
 
-    public List<Certificado> listar(Integer id, Usuario usuario) throws BancoDeDadosException {
+    @Override
+    public List<Certificado> listar() throws BancoDeDadosException {
+        List<Certificado> certificados = new ArrayList<>();
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+            Statement st = con.createStatement();
+
+            String sql = "SELECT * FROM CERTIFICADO c\n" +
+                    "RIGHT JOIN USUARIO u ON u.ID_USUARIO = c.ID_CERTIFICADO";
+
+
+            ResultSet res = st.executeQuery(sql);
+
+            while (res.next()) {
+                Certificado certificado = new Certificado();
+                certificado.setId(res.getInt("id_certificado"));
+                certificado.setGame(Games.valueOf(res.getString("nome")));
+                Timestamp ts = res.getTimestamp("data_emitida");
+                certificado.setConclusao(ts.toLocalDateTime());
+                certificados.add(certificado);
+            }
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return certificados;
+    }
+
+    public List<Certificado> listarPorUsuario(Integer id) throws BancoDeDadosException {
             List<Certificado> certificados = new ArrayList<>();
             Connection con = null;
             try {
@@ -145,7 +183,42 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
             return certificados;
     }
 
-    public Certificado listarUltimo() throws BancoDeDadosException {
+    public Certificado listarUltimo(int id) throws BancoDeDadosException {
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
 
+            String sql = """
+                    SELECT *
+                    FROM CERTIFICADO c
+                    RIGHT JOIN USUARIO u ON u.ID_USUARIO = c.ID_USUARIO
+                    WHERE u.ID_USUARIO = ?
+                    ORDER BY c.data_emitida DESC
+                    LIMIT 1;""";
+
+            PreparedStatement st = con.prepareStatement(sql);
+
+            ResultSet res = st.executeQuery(sql);
+
+            if (res.next()) {
+                Certificado certificado = new Certificado();
+                certificado.setId(res.getInt("id_certificado"));
+                certificado.setGame(Games.valueOf(res.getString("nome")));
+                Timestamp ts = res.getTimestamp("data_emitida");
+                certificado.setConclusao(ts.toLocalDateTime());
+                return certificado;
+            }
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }
