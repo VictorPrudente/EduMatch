@@ -15,7 +15,7 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
     @Override
     public Integer getProximoId(Connection connection) throws SQLException {
         try {
-            String sql = "SELECT SEQ_SOFTSKILL.nextval AS mysequence from DUAL";
+            String sql = "SELECT VS_13_EQUIPE_9.SEQ_SOFTSKILL.nextval AS mysequence from DUAL";
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
@@ -38,7 +38,7 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
             Integer nextid = this.getProximoId(con);
             questao.setId(nextid);
 
-            String sql = "INSERT INTO SOFTSKILL\n" +
+            String sql = "INSERT INTO VS_13_EQUIPE_9.SOFTSKILL\n" +
                     "(id_softskill, pergunta, pontos, opcao_correta, dificuldade)\n" +
                     "VALUES(?, ?, ?, ?, ?)\n";
 
@@ -72,7 +72,7 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
         try {
             con = ConexaoBancoDeDadosLocal.getConnection();
 
-            String sql = "DELETE FROM SOFTSKILL WHERE id_softskill = ?";
+            String sql = "DELETE FROM VS_13_EQUIPE_9.SOFTSKILL WHERE id_softskill = ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -103,7 +103,7 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
 
             StringBuilder sql = new StringBuilder();
 
-            sql.append("UPDATE SOFTSKILL SET \n");
+            sql.append("UPDATE VS_13_EQUIPE_9.SOFTSKILL SET \n");
             sql.append(" questao = ?,");
             sql.append(" pontos = ?,");
             sql.append(" opcao_correta = ?,");
@@ -140,7 +140,7 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
             con = ConexaoBancoDeDadosLocal.getConnection();
             Statement ps = con.createStatement();
 
-            String sql = "SELECT * FROM SOFTSKILL";
+            String sql = "SELECT * FROM VS_13_EQUIPE_9.SOFTSKILL";
 
             ResultSet res = ps.executeQuery(sql);
 

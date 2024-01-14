@@ -13,7 +13,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
 
     @Override
     public Integer getProximoId(Connection connection) throws SQLException {
-        String sql = "SELECT SEQ_CONTATO.nextval AS mysequence from DUAL";
+        String sql = "SELECT VS_13_EQUIPE_9.SEQ_CONTATO.nextval AS mysequence from DUAL";
 
         Statement stmt = connection.createStatement();
         ResultSet res = stmt.executeQuery(sql);
@@ -33,7 +33,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             Integer proximoId = this.getProximoId(con);
             contato.setId(proximoId);
 
-            String sql = "INSERT INTO CONTATO\n" +
+            String sql = "INSERT INTO VS_13_EQUIPE_9.CONTATO\n" +
                     "(ID_CONTATO, DESCRICAO, TELEFONE, TIPO_CONTATO, ID_USUARIO, ID_EMPRESA, ID_ESCOLA) \n" +
                     "VALUES(?, ?, ?, ?, ?, ?, ?)\n";
 
@@ -69,7 +69,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
         try {
             con = ConexaoBancoDeDadosLocal.getConnection();
 
-            String sql = "DELETE FROM CONTATO WHERE id_contato = ?";
+            String sql = "DELETE FROM VS_13_EQUIPE_9.CONTATO WHERE id_contato = ?";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -99,7 +99,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             con = ConexaoBancoDeDadosLocal.getConnection();
 
             StringBuilder sql = new StringBuilder();
-            sql.append("UPDATE CONTATO SET ");
+            sql.append("UPDATE VS_13_EQUIPE_9.CONTATO SET ");
             sql.append(" descricao = ?,");
             sql.append(" telefone = ? ");
             sql.append(" tipo_contato = ? ");
@@ -137,7 +137,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             con = ConexaoBancoDeDadosLocal.getConnection();
             Statement stmt = con.createStatement();
 
-            String sql = "SELECT * FROM CONTATO";
+            String sql = "SELECT * FROM VS_13_EQUIPE_9.CONTATO";
 
             ResultSet res = stmt.executeQuery(sql);
 
@@ -171,10 +171,10 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             con = ConexaoBancoDeDadosLocal.getConnection();
             String sql = """
                 SELECT c.id_contato, c.telefone, c.tipo_contato, c.descricao, c.id_usuario, c.id_empresa, c.id_escola
-                FROM CONTATO c
-                LEFT JOIN USUARIO u ON u.ID_USUARIO = c.ID_USUARIO
-                LEFT JOIN EMPRESA emp ON emp.ID_EMPRESA = c.ID_EMPRESA
-                LEFT JOIN ESCOLA esc ON esc.ID_ESCOLA = c.ID_ESCOLA
+                FROM VS_13_EQUIPE_9.CONTATO c
+                LEFT JOIN VS_13_EQUIPE_9.USUARIO u ON u.ID_USUARIO = c.ID_USUARIO
+                LEFT JOIN VS_13_EQUIPE_9.EMPRESA emp ON emp.ID_EMPRESA = c.ID_EMPRESA
+                LEFT JOIN VS_13_EQUIPE_9.ESCOLA esc ON esc.ID_ESCOLA = c.ID_ESCOLA
                 WHERE c.id_usuario = ? OR c.id_empresa = ? OR c.id_escola = ?""";
 
             try (PreparedStatement stmt = con.prepareStatement(sql)) {

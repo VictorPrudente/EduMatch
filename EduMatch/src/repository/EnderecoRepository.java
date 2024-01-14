@@ -11,7 +11,7 @@ import java.util.List;
 public class EnderecoRepository implements Repositorio<Integer, Endereco> {
     @Override
     public Integer getProximoId(Connection connection) throws SQLException {
-        String sql = "SELECT SEQ_ENDERECO.nextval AS mysequence from DUAL";
+        String sql = "SELECT VS_13_EQUIPE_9.SEQ_ENDERECO.nextval AS mysequence from DUAL";
 
         Statement stmt = connection.createStatement();
         ResultSet res = stmt.executeQuery(sql);
@@ -32,7 +32,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             Integer proximoId = this.getProximoId(con);
             endereco.setId(proximoId);
 
-            String sql = "INSERT INTO ENDERECO\n" +
+            String sql = "INSERT INTO VS_13_EQUIPE_9.ENDERECO\n" +
                     "(id_endereco, logradouro, numero, complemento, cep, cidade, estado, pais)\n" +
                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?)\n";
 
@@ -69,7 +69,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
         try {
             con = ConexaoBancoDeDadosLocal.getConnection();
 
-            String sql = "DELETE FROM ENDERECO WHERE id_endereco = ?";
+            String sql = "DELETE FROM VS_13_EQUIPE_9.ENDERECO WHERE id_endereco = ?";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -147,7 +147,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             con = ConexaoBancoDeDadosLocal.getConnection();
             Statement stmt = con.createStatement();
 
-            String sql = "SELECT * FROM ENDERECO";
+            String sql = "SELECT * FROM VS_13_EQUIPE_9.ENDERECO";
 
             // Executa-se a consulta
             ResultSet res = stmt.executeQuery(sql);
@@ -185,10 +185,10 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             con = ConexaoBancoDeDadosLocal.getConnection();
             String sql = """
                 SELECT end.id_endereco, end.logradouro, end.numero, end.complemento, end.cep, end.cidade, end.estado, end.pais, end.id_usuario, end._id_escola, end.id_empresa
-                FROM ENDERECO end
-                LEFT JOIN USUARIO u ON u.ID_USUARIO = end.ID_USUARIO
-                LEFT JOIN EMPRESA emp ON emp.ID_EMPRESA = end.ID_EMPRESA
-                LEFT JOIN ESCOLA esc ON esc.ID_ESCOLA = end.ID_ESCOLA
+                FROM VS_13_EQUIPE_9.ENDERECO end
+                LEFT JOIN VS_13_EQUIPE_9.USUARIO u ON u.ID_USUARIO = end.ID_USUARIO
+                LEFT JOIN VS_13_EQUIPE_9.EMPRESA emp ON emp.ID_EMPRESA = end.ID_EMPRESA
+                LEFT JOIN VS_13_EQUIPE_9.ESCOLA esc ON esc.ID_ESCOLA = end.ID_ESCOLA
                 WHERE end.id_usuario = ? OR end.id_empresa = ? OR end.id_escola = ?""";
 
             try (PreparedStatement stmt = con.prepareStatement(sql)) {

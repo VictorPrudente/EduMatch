@@ -15,7 +15,7 @@ public class MatematicaRepository implements Repositorio<Integer, Matematica> {
     @Override
     public Integer getProximoId(Connection connection) throws SQLException {
         try {
-            String sql = "SELECT SEQ_MATEMATICA.nextval AS mysequence from DUAL";
+            String sql = "SELECT VS_13_EQUIPE_9.SEQ_MATEMATICA.nextval AS mysequence from DUAL";
             Statement st = connection.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
@@ -38,7 +38,7 @@ public class MatematicaRepository implements Repositorio<Integer, Matematica> {
             Integer nextid = this.getProximoId(con);
             questao.setId(nextid);
 
-            String sql = "INSERT INTO MATEMATICA\n" +
+            String sql = "INSERT INTO VS_13_EQUIPE_9.MATEMATICA\n" +
                     "(id_matematica, pergunta, pontos, opcao_correta, dificuldade)\n" +
                     "VALUES(?, ?, ?, ?, ?)\n";
 
@@ -72,7 +72,7 @@ public class MatematicaRepository implements Repositorio<Integer, Matematica> {
         try {
             con = ConexaoBancoDeDadosLocal.getConnection();
 
-            String sql = "DELETE FROM MATEMATICA WHERE id_matematica = ?";
+            String sql = "DELETE FROM VS_13_EQUIPE_9.MATEMATICA WHERE id_matematica = ?";
 
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -103,7 +103,7 @@ public class MatematicaRepository implements Repositorio<Integer, Matematica> {
 
             StringBuilder sql = new StringBuilder();
 
-            sql.append("UPDATE MATEMATICA SET \n");
+            sql.append("UPDATE VS_13_EQUIPE_9.MATEMATICA SET \n");
             sql.append(" questao = ?,");
             sql.append(" pontos = ?,");
             sql.append(" opcao_correta = ?,");
@@ -141,7 +141,7 @@ public class MatematicaRepository implements Repositorio<Integer, Matematica> {
             con = ConexaoBancoDeDadosLocal.getConnection();
             Statement ps = con.createStatement();
 
-            String sql = "SELECT * FROM MATEMATICA";
+            String sql = "SELECT * FROM VS_13_EQUIPE_9.MATEMATICA";
 
             ResultSet res = ps.executeQuery(sql);
 
