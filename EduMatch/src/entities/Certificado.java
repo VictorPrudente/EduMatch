@@ -15,13 +15,16 @@ public class Certificado {
 
     private Usuario usuario;
 
+    private Integer id;
+
     public Certificado() {
     }
 
-    public Certificado(Games trilha, LocalDateTime conclusao, Usuario usuario) {
+    public Certificado(Games trilha, LocalDateTime conclusao, Usuario usuario, Integer id) {
         this.trilha = trilha;
         this.conclusao = conclusao;
         this.usuario = usuario;
+        this.id = id;
     }
 
     public Games getGame() {
@@ -48,12 +51,21 @@ public class Certificado {
         this.usuario = usuario;
     }
 
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return String.format("""
                 Reconhecemos que o(a) usuário(a): %s %s 
                 Com o CPF: %s
+                e ID: %s
                 Adquiriu o certificado no dia e hora %s
-                Da trilha %s""", usuario.getNome(), usuario.getSobrenome(), usuario.getCPF(), dtf.format(conclusao), trilha.name().replace("_", " "));
+                Da trilha %s""", usuario.getNome(), usuario.getSobrenome(), usuario.getCPF(), usuario.getId(), dtf.format(conclusao), trilha.name().replace("_", " "));
     }
+
 }
