@@ -5,6 +5,7 @@ import exceptions.BancoDeDadosException;
 import interfaces.Repositorio;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioRepository implements Repositorio<Integer, Usuario> {
@@ -13,7 +14,7 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
     @Override
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
         try{
-            String sql = "SELECT seq_contato.nextval mysequence from DUAL";
+            String sql = "SELECT SEQ_USUARIO.nextval mysequence from DUAL";
             Statement stmt = connection.createStatement();
             ResultSet res = stmt.executeQuery(sql);
 
@@ -40,7 +41,7 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
 
             String sql = """
                             INSERT INTO VS_13_EQUIPE_9.USUARIO
-                            (id_usuario, nome, sobrenome, cpf, idade, pontuacao, id_empresa,id_escola)
+                            (id_usuario, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
                             VALUES(?,?,?,?,?,?,?,?)
                             """;
 
@@ -62,7 +63,7 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
         } catch (SQLException e){
             throw new BancoDeDadosException(e.getCause());
         }
-            finally {
+        finally {
             try {
                 if(con!=null){
                     con.close();
@@ -77,16 +78,177 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
 
     @Override
     public boolean remover(Integer id) throws BancoDeDadosException {
-        return false;
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+            String sql = "DELETE FROM USUARIO WHERE id_usuario = ? ";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            int res = ps.executeUpdate();
+            System.out.println("Remover pessoa por id res: " + res);
+
+            return res > 0;
+        } catch (SQLException e){
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null){
+                    con.close();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public boolean editar(Integer id, Usuario usuario) throws BancoDeDadosException {
-        return false;
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+
+            String sql = """
+                    UPDATE USUARIO SET 
+                    nome = ?, 
+                    sobrenome = ?, 
+                    idade = ?, 
+                    pontuacao = ?, 
+                    WHERE id_usuario = ?""";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, usuario.getNome());
+            ps.setString(2, usuario.getSobrenome());
+            ps.setInt(3, usuario.getIdade());
+            ps.setInt(4, usuario.getPontuacao());
+            ps.setInt(5, usuario.getId());
+
+            int res = ps.executeUpdate();
+            System.out.println("Editar usuário res: " + res);
+
+            return res > 0;
+        } catch (SQLException e){
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null){
+                    con.close();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public Usuario listarPorId(int id) throws BancoDeDadosException {
+        Connection con = null;
+
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+
+            String sql = "SELECT * FROM USUARIO WHERE ID = ? ";
+
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, id);
+
+            ResultSet res = st.executeQuery();
+            if (res.next()){
+                Usuario usuario = new Usuario();
+                usuario.setId(res.getInt("id_usuario"));
+                usuario.setNome(res.getString("nome"));
+                usuario.setSobrenome(res.getString("sobrenome"));
+                usuario.setCPF(res.getString("cpf"));
+                usuario.setIdade(res.getInt("idade"));
+                usuario.setPontuacao(res.getInt("pontuacao"));
+                return usuario;
+            }
+            return null;
+        } catch (SQLException e){
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null){
+                    con.close();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public List<Usuario> listar() throws BancoDeDadosException {
-        return null;
+        List<Usuario> usuarios = new ArrayList<>();
+        Connection con = null;
+
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+            Statement st = con.createStatement();
+
+            String sql = "SELECT * FROM USUARIO";
+
+            ResultSet res = st.executeQuery(sql);
+
+            while (res.next()){
+                Usuario usuario = new Usuario();
+                usuario.setId(res.getInt("id_usuario"));
+                usuario.setNome(res.getString("nome"));
+                usuario.setSobrenome(res.getString("sobrenome"));
+                usuario.setCPF(res.getString("cpf"));
+                usuario.setIdade(res.getInt("idade"));
+                usuario.setPontuacao(res.getInt("pontuacao"));
+
+                usuarios.add(usuario);
+            }
+        } catch (SQLException e){
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null){
+                    con.close();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return usuarios;
+    }
+
+
+    public List<Usuario> rankearJogadores() throws BancoDeDadosException{
+        List<Usuario> usuarios = new ArrayList<>();
+        Connection con = null;
+
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+            Statement st = con.createStatement();
+
+            String sql = "SELECT * FROM USUARIO ORDER BY pontuacao DESC";
+
+            ResultSet res = st.executeQuery(sql);
+
+            while (res.next()){
+                Usuario usuario = new Usuario();
+                usuario.setId(res.getInt("id_usuario"));
+                usuario.setNome(res.getString("nome"));
+                usuario.setSobrenome(res.getString("sobrenome"));
+                usuario.setCPF(res.getString("cpf"));
+                usuario.setIdade(res.getInt("idade"));
+                usuario.setPontuacao(res.getInt("pontuacao"));
+
+                usuarios.add(usuario);
+            }
+        } catch (SQLException e){
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null){
+                    con.close();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return usuarios;
     }
 }
