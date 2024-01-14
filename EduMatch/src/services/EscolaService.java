@@ -21,7 +21,7 @@ public class EscolaService implements Service<Escola>{
         escolaRepository = new EscolaRepository();
     }
 
-    public Escola listarPorId(int id) throws Exception {
+    public Escola listarPorId(int id) {
         try {
             Escola escola = escolaRepository.listarPorId(id);
             return escola;

@@ -20,11 +20,10 @@ public class Certificado {
     public Certificado() {
     }
 
-    public Certificado(Games trilha, LocalDateTime conclusao, Usuario usuario, Integer id) {
+    public Certificado(Games trilha, LocalDateTime conclusao, Usuario usuario) {
         this.trilha = trilha;
         this.conclusao = conclusao;
         this.usuario = usuario;
-        this.id = id;
     }
 
     public Games getGame() {

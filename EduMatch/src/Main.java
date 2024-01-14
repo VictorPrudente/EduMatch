@@ -13,10 +13,13 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
+        EnderecoService enderecoService = new EnderecoService();
+        ContatoService contatoService = new ContatoService();
+        CertificadoService certificadoService = new CertificadoService();
         EscolaService escolaService = new EscolaService();
+        EmpresaService empresaService = new EmpresaService();
         UsuarioService usuarioService = new UsuarioService();
         SoftSkillService softSkillService = new SoftSkillService();
-        EmpresaService empresaService = new EmpresaService();
         PortuguesService portuguesService = new PortuguesService();
         MatematicaService matematicaService = new MatematicaService();
         Cadastro cadastro = new Cadastro();
@@ -69,7 +72,7 @@ public class Main {
                                     opcaoQuestao = "";
                                 }
                                 if ((double) ((acertos * 100)/totalQuestoes) >= 66){
-                                    Certificado certificado =new Certificado(Games.PORTUGUES, LocalDateTime.now(), usuario);
+                                    Certificado certificado = new Certificado(Games.PORTUGUES, LocalDateTime.now(), usuario);
                                     usuario.getCertificados().add(certificado);
                                     System.out.println("Parabéns pelo seu certificado!\n");
                                 }
@@ -372,7 +375,7 @@ public class Main {
                                 continue;
                             }
                             case 6: {
-                                empresaService.listarEmpresas();
+                                empresaService.listarTodos();
                                 break;
                             }
                             case 7: {
