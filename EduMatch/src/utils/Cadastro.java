@@ -40,6 +40,8 @@ public class Cadastro {
             Usuario usuario = usuarioRepository.listarPorEmail(email);
             String senhaHasheada = hashPassword(senha);
             if (senhaHasheada.equals(usuario.getSenha())) {
+                //adicionar contato ao usuario
+                //adicionar endereço ao usuario
                 return usuario;
             } else {
                 System.out.println("Senha inválida.");
