@@ -75,9 +75,7 @@ public class Main {
                         }
 
                     }
-                    System.out.println(usuario.getIdade());
                     if(usuario.getIdade() != 0){
-                        System.out.println("-04-4-095-43-09534=-593");
                         break;
                     }
                 }
