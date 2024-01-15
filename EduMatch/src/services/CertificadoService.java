@@ -19,7 +19,7 @@ public class CertificadoService implements Service<Certificado> {
     @Override
     public boolean salvar(Certificado certificado) {
         try {
-            Certificado cert = certificadoRepository.adicionar(certificado);
+            certificadoRepository.adicionar(certificado);
             System.out.println("Parabéns pelo seu certificado!\n");
             return true;
         } catch (BancoDeDadosException e) {

@@ -3,8 +3,6 @@ package utils;
 import entities.Game;
 import entities.Usuario;
 
-import java.util.Scanner;
-
 public class Menu {
 
 
@@ -113,7 +111,7 @@ public class Menu {
 
         System.out.println(sb);
     }
-    public void menuLoguin(){
+    public void menuLogin(){
 
         StringBuilder sb = new StringBuilder();
         sb.append("\nMENU LOGIN\n");

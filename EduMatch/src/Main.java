@@ -1,16 +1,12 @@
 import entities.*;
-import entities.enums.Dificuldades;
-import entities.enums.Games;
 import exceptions.BancoDeDadosException;
 import services.*;
 import utils.Cadastro;
 import utils.Login;
 import utils.Menu;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -30,58 +26,25 @@ public class Main {
         Login login = new Login();
         Scanner sc = new Scanner(System.in);
         Usuario usuario = new Usuario();
-        Optional<Usuario> podeLogar;
         int opcao = 0;
-        boolean execucao = false;
+        boolean execucao = true;
         String opcaoQuestao = "";
 
 
         System.out.println("BEM VINDOS AO EDUMATCH");
 
-        menu.menuLoguin();
+        menu.menuLogin();
         opcao = sc.nextInt();
         sc.nextLine();
         switch (opcao){
             case 1:
-                do{
+                    System.out.print("Digite seu email: ");
+                    String email = sc.nextLine();
 
-                    System.out.println("Digite seu CPF");
-                    podeLogar = login.Loguin(sc.nextLine());
+                    System.out.print("Digite sua senha: ");
+                    String senha = sc.nextLine();
+                    usuario = cadastro.Login(email, senha);
 
-                    if(!podeLogar.isEmpty()) {
-                        execucao = true;
-                        usuario = new Usuario(podeLogar.get().getNome(),
-                                podeLogar.get().getSobrenome(),
-                                podeLogar.get().getCPF(),
-                                podeLogar.get().getIdade());
-                        System.out.printf("Bem vindo %s\n", podeLogar.get().getNome());
-                        break;
-                    }
-                    else{
-                        menu.menuCadastro();
-                        opcao = sc.nextInt();
-                        sc.nextLine();
-                        switch (opcao) {
-                            case 1:
-                                usuario = cadastro.cadastrarUsuario(sc);
-                                usuarioService.salvar(usuario);
-                                execucao = true;
-                                break;
-
-                            case 2:
-                                System.out.println("\nFinalizando a aplicação. Até logo!");
-                                execucao = false;
-                                break;
-
-                        }
-
-                    }
-
-                    if(podeLogar.isEmpty()){
-                        break;
-                    }
-                }
-                while (true);
                 break;
             case 2:
                 usuario = cadastro.cadastrarUsuario(sc);
@@ -94,9 +57,6 @@ public class Main {
                 execucao = false;
                 break;
         }
-
-
-
 
         while (execucao) {
             menu.menuPrincipal();
