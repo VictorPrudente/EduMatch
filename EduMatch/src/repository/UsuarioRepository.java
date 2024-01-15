@@ -233,6 +233,7 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
                 Usuario usuario = new Usuario();
                 usuario.setId(res.getInt("id_usuario"));
                 usuario.setNome(res.getString("nome"));
+                usuario.setIdade(res.getInt("idade"));
                 usuario.setSobrenome(res.getString("sobrenome"));
                 usuario.setPontuacao(res.getInt("pontuacao"));
 

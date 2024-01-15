@@ -1,6 +1,7 @@
 package repository;
 
 import entities.Certificado;
+import entities.Usuario;
 import entities.enums.Games;
 import exceptions.BancoDeDadosException;
 import interfaces.Repositorio;
@@ -142,29 +143,31 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
         return certificados;
     }
 
-    public List<Certificado> listarPorUsuario(Integer id) throws BancoDeDadosException {
+    public List<Certificado> listarPorUsuario(Usuario usuario) throws BancoDeDadosException {
             List<Certificado> certificados = new ArrayList<>();
             Connection con = null;
             try {
                 con = ConexaoBancoDeDadosLocal.getConnection();
 
-                String sql = "SELECT * FROM VS_13_EQUIPE_9.CERTIFICADO c\n" +
-                        "RIGHT JOIN VS_13_EQUIPE_9.USUARIO u ON u.ID_USUARIO = c.ID_CERTIFICADO \n" +
-                        "WHERE ID_USUARIO = ?";
+                String sql = """
+                        SELECT c.id_certificado, c.trilha, c.data_emitida
+                        FROM VS_13_EQUIPE_9.CERTIFICADO c
+                        WHERE ID_USUARIO = ?""";
 
                 PreparedStatement stmt = con.prepareStatement(sql);
 
-                stmt.setInt(1, id);
+                stmt.setInt(1, usuario.getId());
 
-                ResultSet res = stmt.executeQuery(sql);
+                ResultSet res = stmt.executeQuery();
 
                 while (res.next()) {
                     Certificado certificado = new Certificado();
                     certificado.setId(res.getInt("id_certificado"));
-                    certificado.setGame(Games.valueOf(res.getString("nome")));
+                    certificado.setGame(Games.valueOf(res.getInt("trilha")));
                     Timestamp ts = res.getTimestamp("data_emitida");
                     certificado.setConclusao(ts.toLocalDateTime());
                     certificados.add(certificado);
+                    certificado.setUsuario(usuario);
                 }
             } catch (SQLException e) {
                 throw new BancoDeDadosException(e.getCause());
@@ -180,29 +183,30 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
             return certificados;
     }
 
-    public Certificado listarUltimo(int id) throws BancoDeDadosException {
+    public Certificado listarUltimo(Usuario usuario) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDadosLocal.getConnection();
 
             String sql = """
-                    SELECT *
+                    SELECT c.id_certificado, c.trilha, c.data_emitida
                     FROM VS_13_EQUIPE_9.CERTIFICADO c
-                    RIGHT JOIN VS_13_EQUIPE_9.USUARIO u ON u.ID_USUARIO = c.ID_USUARIO
-                    WHERE u.ID_USUARIO = ?
-                    ORDER BY c.data_emitida DESC
-                    LIMIT 1;""";
+                    WHERE ID_USUARIO = ?
+                    ORDER BY c.data_emitida DESC""";
 
-            PreparedStatement st = con.prepareStatement(sql);
+            PreparedStatement stmt = con.prepareStatement(sql);
 
-            ResultSet res = st.executeQuery(sql);
+            stmt.setInt(1, usuario.getId());
+
+            ResultSet res = stmt.executeQuery();
 
             if (res.next()) {
                 Certificado certificado = new Certificado();
                 certificado.setId(res.getInt("id_certificado"));
-                certificado.setGame(Games.valueOf(res.getString("nome")));
+                certificado.setGame(Games.valueOf(res.getInt("trilha")));
                 Timestamp ts = res.getTimestamp("data_emitida");
                 certificado.setConclusao(ts.toLocalDateTime());
+                certificado.setUsuario(usuario);
                 return certificado;
             }
         } catch (SQLException e) {

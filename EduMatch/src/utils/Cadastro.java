@@ -12,12 +12,11 @@ public class Cadastro {
 
 
 
-    public void validarCertificado(int acertos, int totalQuestoes, Usuario usuario, int i) {
+    public Certificado validarCertificado(int acertos, int totalQuestoes, Usuario usuario, int i) {
         if ((double) ((acertos * 100) / totalQuestoes) >= 66) {
-            Certificado certificado = new Certificado(Games.valueOf(i), LocalDateTime.now(), usuario);
-            usuario.getCertificados().add(certificado);
-            System.out.println("Parabéns pelo seu certificado!\n");
+            return new Certificado(Games.valueOf(i), LocalDateTime.now(), usuario);
         }
+        return null;
     }
 
     public Usuario cadastrarUsuario(Scanner sc){
