@@ -1,82 +1,86 @@
 package services;
 
-import entities.Empresa;
+import entities.Endereco;
 import entities.Escola;
 import entities.enums.TipoEscola;
+import exceptions.BancoDeDadosException;
 import interfaces.Service;
+import repository.EscolaRepository;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class EscolaService implements Service<Escola> {
+public class EscolaService implements Service<Escola>{
+    private EscolaRepository escolaRepository;
 
-    private AtomicInteger COUNTER = new AtomicInteger();
-    Random random = new Random();
-
-    ArrayList<Escola> escolas = new ArrayList<>();
     public EscolaService(){
-        inicializarLista();
+        escolaRepository = new EscolaRepository();
     }
-
-    public void inicializarLista(){
-        Escola escola = new Escola("Garibaldi", TipoEscola.PRIVADA, "123456");
-        escola.setId(COUNTER.incrementAndGet());
-        escolas.add(escola);
-    }
-
 
     public Escola listarPorId(int id) {
-        for(Escola escola : escolas){
-            if (escola.getId() == id){
-                return escola;
-            }
-        } throw new NoSuchElementException("Escola com o id " + id + " não encontrada.");
+        try {
+            Escola escola = escolaRepository.listarPorId(id);
+            return escola;
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
+        }
+        System.out.printf("Escola com o ID:%d não econtrada.", id);
+        return null;
     }
 
     //CREATED
-    @Override
     public boolean salvar(Escola escola) {
-        for (Escola escola1 : escolas) {
-            if (escola1.getNome().equals(escola.getNome())) {
-                System.out.println("A escola " + escola.getNome() + " já foi cadastrada!");
-                return false;
-            }
-
+        try {
+            escolaRepository.adicionar(escola);
+            System.out.println("Escola adicinada com sucesso! " + escola);
+            return true;
+        } catch (BancoDeDadosException e) {
+            System.out.println("ERRO: " + e.getMessage());
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("ERRO: " + e.getMessage());
+            e.printStackTrace();
         }
-        escola.setId(COUNTER.incrementAndGet());
-        escolas.add(escola);
-        System.out.println("Escola cadastrada com sucesso!\n");
-        return true;
+        System.out.println("Escola não cadastrada. Tente novamente.");
+        return false;
     }
 
     //READ
-    @Override
     public void listarTodos(){
-        for (Escola escola : escolas){
-            System.out.println(escola.toString() + "\n");
+        try {
+            List<Escola> listar = escolaRepository.listar();
+            listar.forEach(System.out::println);
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
         }
     }
 
-
-
-    //UPDATED
-    @Override
     public boolean atualizar(int id, Escola escola) {
-        for (Escola EscolaAtualizar : escolas) {
-            if (EscolaAtualizar.getId() == id) {
-                EscolaAtualizar.setNome(escola.getNome());
-                EscolaAtualizar.setTipo(TipoEscola.valueOf(escola.getTipo()));
-                return true;
-            }
+        try {
+            escolaRepository.editar(id, escola);
+            System.out.printf("Escola com o ID %d atualizada.", id);
+            return true;
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
         }
+        System.out.println("Escola não atualizada.");
         return false;
     }
-    //DELETED
-    @Override
+    //Remove
     public boolean deletar(Escola escola) {
-        return escolas.remove(escola);
+        int id = escola.getId();
+        try {
+            escolaRepository.remover(id);
+            System.out.println("Escola com o id %d removida com sucesso.");
+            return true;
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Escola não removida.");
+        return false;
     }
 }

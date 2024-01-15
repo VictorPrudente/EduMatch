@@ -9,6 +9,8 @@ public class Escola {
     private TipoEscola tipo;
     private String cnpj;
 
+    public Escola (){}
+
     public Escola(String nome, TipoEscola tipo, String cnpj) {
         this.nome = nome;
         this.tipo = tipo;
@@ -37,8 +39,8 @@ public class Escola {
         this.nome = nome;
     }
 
-    public String getTipo() {
-        return tipo.name();
+    public TipoEscola getTipo() {
+        return tipo;
     }
 
     public void setTipo(TipoEscola tipo) {
@@ -58,8 +60,7 @@ public class Escola {
         return String.format("""
                 Id: %d
                 Nome: %s
-                Tipo: %s""", Id,  nome, tipo.name());
+                Tipo: %s""", Id,  nome, tipo);
 
     }
-
 }

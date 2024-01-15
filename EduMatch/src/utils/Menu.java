@@ -3,32 +3,26 @@ package utils;
 import entities.Game;
 import entities.Usuario;
 
-import java.util.Scanner;
-
 public class Menu {
 
 
-    public void validarEntrada(int opcao){
-
-    }
-
     public int validarQuestao(String opcaoRespondida, Game questao, Usuario usuario){
-        int j = 0;
+        int acerto = 0;
         if (opcaoRespondida.equals(questao.getOpcaoCerta())) {
             usuario.setPontuacao(questao.getPontos());
             System.out.println("\nOpção correta! Isso ai :D\n");
-            j++;
+            acerto++;
         } else {
             System.out.println("\nOpção errada, preste mais atenção!\n");
         }
-        return j;
+        return acerto;
     }
 
     public void menuPrincipal(){
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("MENU PRINCIPAL\n");
+        sb.append("\nMENU PRINCIPAL\n");
         sb.append("[1] Novo jogo\n");
         sb.append("[2] Ranking\n");
         sb.append("[3] Opções\n");
@@ -91,9 +85,8 @@ public class Menu {
 
         StringBuilder sb = new StringBuilder();
         sb.append("\nMENU ESCOLA\n");
-        sb.append("[1] Listar Escolas\n");
-        sb.append("[2] Registrar-se em uma escola\n");
-        sb.append("[3] Voltar ao menu principal");
+        sb.append("[1] Registrar-se em uma escola\n");
+        sb.append("[2] Voltar ao menu principal");
         System.out.println(sb);
     }
 
@@ -115,6 +108,25 @@ public class Menu {
         sb.append("[1] Minha pontuação\n");
         sb.append("[2] Posição geral\n");
         sb.append("[3] Voltar ao menu principal");
+
+        System.out.println(sb);
+    }
+    public void menuLogin(){
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nMENU LOGIN\n");
+        sb.append("[1] Efetuar login\n");
+        sb.append("[2] Efetuar cadastro\n");
+        sb.append("[3] Sair da aplicação");
+
+        System.out.println(sb);
+    }
+    public void menuCadastro(){
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nCPF não encontrado, Deseja se cadastrar?\n");
+        sb.append("[1] Sim\n");
+        sb.append("[2] Sair da aplicação");
 
         System.out.println(sb);
     }

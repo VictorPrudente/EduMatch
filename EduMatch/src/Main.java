@@ -1,30 +1,29 @@
 import entities.*;
-import entities.enums.Dificuldades;
-import entities.enums.Games;
+import exceptions.BancoDeDadosException;
 import services.*;
 import utils.Cadastro;
 import utils.Menu;
 
-import java.time.LocalDateTime;
-import java.util.Random;
-import java.awt.*;
-import java.util.InputMismatchException;
-import java.util.Locale;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BancoDeDadosException {
 
+        EnderecoService enderecoService = new EnderecoService();
+        ContatoService contatoService = new ContatoService();
+        CertificadoService certificadoService = new CertificadoService();
         EscolaService escolaService = new EscolaService();
+        EmpresaService empresaService = new EmpresaService();
         UsuarioService usuarioService = new UsuarioService();
         SoftSkillService softSkillService = new SoftSkillService();
-        EmpresaService empresaService = new EmpresaService();
         PortuguesService portuguesService = new PortuguesService();
         MatematicaService matematicaService = new MatematicaService();
         Cadastro cadastro = new Cadastro();
-        Random random = new Random();
         Menu menu = new Menu();
         Scanner sc = new Scanner(System.in);
+        Usuario usuario = new Usuario();
         int opcao = 0;
         boolean execucao = true;
         String opcaoQuestao = "";
@@ -32,10 +31,40 @@ public class Main {
 
         System.out.println("BEM VINDOS AO EDUMATCH");
 
-        Usuario usuario = cadastro.cadastrarUsuario(sc);
-        usuarioService.salvar(usuario);
+        menu.menuLogin();
+        System.out.print("Digite sua opção: ");
+        opcao = sc.nextInt();
+        sc.nextLine();
+        switch (opcao){
+            case 1:
+                    System.out.print("Digite seu email: ");
+                    String email = sc.nextLine();
 
-        System.out.println();
+                    System.out.print("Digite sua senha: ");
+                    String senha = sc.nextLine();
+                    usuario = cadastro.Login(email, senha);
+                    Endereco endereco = enderecoService.listarPorDono(usuario.getId());
+                    if(endereco != null){
+                      usuario.setEndereco(endereco);
+                    } 
+                    Contato contato = contatoService.listarPorDono(usuario.getId());
+                    if(contato != null){
+                      usuario.setContato(contato);
+                    }
+                    
+
+                break;
+            case 2:
+                usuario = cadastro.cadastrarUsuario(sc);
+                usuarioService.salvar(usuario);
+                System.out.println();
+
+                break;
+            case 3:
+                System.out.println("\nFinalizando a aplicação. Até logo!");
+                execucao = false;
+                break;
+        }
 
         while (execucao) {
             menu.menuPrincipal();
@@ -54,66 +83,83 @@ public class Main {
                         sc.nextLine();
                         switch (opcao) {
                             case 1: {
-                                int j = 0;
+                                int trilha = opcao-1;
+                                int acertos = 0;
+                                int totalQuestoes = 0;
                                 for (int i = 0; i < 3; i++) {
-                                    Portugues questao = portuguesService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(random.nextInt(0, 2));
+                                    Portugues questao = portuguesService.listarPelaDificuldade(i);
+                                    totalQuestoes++;
                                     System.out.println(questao);
-
                                     while (!opcaoQuestao.matches("[A-Ea-e]")) {
                                         System.out.print("Opção: ");
                                         opcaoQuestao = sc.nextLine().toUpperCase().trim();
                                     }
-                                        j += menu.validarQuestao(opcaoQuestao, questao, usuario);
-                                        opcaoQuestao = "";
-                                } if (j >= 2){
-                                    Certificado certificado =new Certificado(Games.SOFT_SKILLS, LocalDateTime.now(), usuario);
-                                    usuario.getCertificados().add(certificado);
-                                    System.out.println("Parabéns pelo seu certificado!");
+
+                                    acertos += menu.validarQuestao(opcaoQuestao, questao, usuario);
+                                    opcaoQuestao = "";
                                 }
+                                Certificado certificado = cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
+                                if (certificado != null) {
+                                    certificadoService.salvar(certificado);
+                                } else {
+                                    System.out.println("Você não conseguiu seu certificado desta vez. Acerte mais questões para conseguir!");
+                                }
+                                usuarioService.atualizar(usuario.getId(), usuario);
                                 break;
                             }
                             case 2: {
-                                int j = 0;
+                                int trilha = opcao-1;
+                                int acertos = 0;
+                                int totalQuestoes = 0;
                                 for (int i = 0; i < 3; i++) {
-                                    Matematica questao = matematicaService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(random.nextInt(0, 2));
+                                    Matematica questao = matematicaService.listarPelaDificuldade(i);
+                                    totalQuestoes++;
                                     System.out.println(questao);
-
                                     while (!opcaoQuestao.matches("[A-Ea-e]")) {
                                         System.out.print("Opção: ");
                                         opcaoQuestao = sc.nextLine().toUpperCase().trim();
                                     }
-                                         j += menu.validarQuestao(opcaoQuestao, questao, usuario);
-                                        opcaoQuestao = "";
+
+                                    acertos += menu.validarQuestao(opcaoQuestao, questao, usuario);
+                                    opcaoQuestao = "";
                                 }
-                                if (j >= 2){
-                                    Certificado certificado =new Certificado(Games.SOFT_SKILLS, LocalDateTime.now(), usuario);
-                                    usuario.getCertificados().add(certificado);
-                                    System.out.println("Parabéns pelo seu certificado!");
+                                Certificado certificado = cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
+                                if (certificado != null) {
+                                    certificadoService.salvar(certificado);
+                                } else {
+                                    System.out.println("Você não conseguiu seu certificado desta vez. Acerte mais questões para conseguir!");
                                 }
+                                usuarioService.atualizar(usuario.getId(), usuario);
+
                                 break;
                             }
                             case 3: {
-                                System.out.println();
-                                    int j = 0;
+                                int acertos = 0;
+                                int totalQuestoes = 0;
+                                int trilha = opcao-1;
                                 for (int i = 0; i < 3; i++) {
-                                    SoftSkill questao = softSkillService.listarPelaDificuldade(Dificuldades.valueOf(i)).get(i);
+                                    SoftSkill questao = softSkillService.listarPelaDificuldade(i);
+                                    totalQuestoes++;
                                     System.out.println(questao);
-
                                     while (!opcaoQuestao.matches("[A-Ea-e]")) {
                                         System.out.print("Opção: ");
                                         opcaoQuestao = sc.nextLine().toUpperCase().trim();
                                     }
-                                       j += menu.validarQuestao(opcaoQuestao, questao, usuario);
-                                        opcaoQuestao = "";
+
+                                    acertos += menu.validarQuestao(opcaoQuestao, questao, usuario);
+                                    opcaoQuestao = "";
                                 }
-                                if (j >= 2){
-                                    Certificado certificado =new Certificado(Games.SOFT_SKILLS, LocalDateTime.now(), usuario);
-                                    usuario.getCertificados().add(certificado);
-                                    System.out.println("Parabéns pelo seu certificado!\n");
+                                Certificado certificado = cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
+                                if (certificado != null) {
+                                    certificadoService.salvar(certificado);
+                                } else {
+                                    System.out.println("Você não conseguiu seu certificado desta vez. Acerte mais questões para conseguir!");
                                 }
+                                usuarioService.atualizar(usuario.getId(), usuario);
                                 break;
-                            } default:
-                                System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
+                            }
+                            default:
+                                System.out.println("\nRetornando ao menu principal.\n");
                                 break;
                         }
                         break;
@@ -129,7 +175,8 @@ public class Main {
                                 continue;
                             }
                             case 2: {
-                                usuarioService.rankearUsuarios();
+                                List<Usuario> ranking = usuarioService.rankearUsuarios();
+                                ranking.forEach(System.out::println);
                                 System.out.println();
                                 System.out.println();
                                 continue;
@@ -142,8 +189,8 @@ public class Main {
                                 System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
                             }
                         }
+                        break;
                     }
-                    break;
                     //OPÇÕES
                     case 3: {
                         menu.menuOpcoes();
@@ -159,11 +206,9 @@ public class Main {
                                 sc.nextLine();
                                 switch (opcao) {
                                     case 1: {
-                                        if (!usuario.getEnderecos().isEmpty()) {
-                                            System.out.println("ENDEREÇOS CADASTRADOS");
-                                            for (Endereco endereco : usuario.getEnderecos()) {
-                                                System.out.println("\n" + endereco + "\n");
-                                            }
+                                        if (usuario.getEndereco() != null) {
+                                            System.out.println("ENDEREÇO CADASTRADO");
+                                            System.out.println(usuario.getEndereco());
                                         } else {
                                             System.out.println("\nNenhum endereço cadastrado.\n");
                                         }
@@ -174,7 +219,8 @@ public class Main {
 
                                         System.out.println("CADASTRO DE UM NOVO ENDEREÇO");
                                         Endereco endereco = cadastro.cadastrarEndereco(sc);
-                                        usuario.addEnderecos(endereco);
+                                        endereco.setId_usuario(usuario.getId());
+                                        enderecoService.salvar(endereco);
                                         System.out.println("Endereço cadastrado com sucesso!\n");
 
                                         continue;
@@ -182,19 +228,14 @@ public class Main {
                                     case 3: {
                                         //ATUALIZAR UM ENDEREÇO
                                         int i = 0;
-                                        if (!usuario.getEnderecos().isEmpty()) {
-                                            System.out.println("ATUALIZAR UM ENDEREÇO");
-                                            for (Endereco endereco : usuario.getEnderecos()) {
-                                                System.out.printf("[%d]", ++i);
-                                                System.out.println(endereco + "\n");
-                                            }
+                                        if (usuario.getEndereco() != null) {
+                                            System.out.println("ATUALIZAR O ENDEREÇO");
+                                            enderecoService.listarPorDono(usuario.getId());
                                             System.out.print("Escolha um endereço pelo seu ID: ");
                                             int id = sc.nextInt();
                                             sc.nextLine();
                                             Endereco enderecoAtualizado = cadastro.cadastrarEndereco(sc);
-                                            Endereco enderecoAntigo = usuario.getEnderecos().get(id - 1);
-                                            usuario.addEnderecos(enderecoAtualizado);
-                                            usuario.getEnderecos().remove(enderecoAntigo);
+                                            enderecoService.atualizar(id, enderecoAtualizado);
                                             System.out.println("Endereço atualizado com sucesso!\n");
                                         } else {
                                             System.out.println("Você não tem nenhum endereço cadastrado.\n");
@@ -204,16 +245,13 @@ public class Main {
                                     case 4: {
                                         //DELETAR UM ENDEREÇO
                                         int i = 0;
-                                        if (!usuario.getEnderecos().isEmpty()) {
-                                            System.out.println("DELETAR UM ENDEREÇO");
-                                            for (Endereco endereco : usuario.getEnderecos()) {
-                                                System.out.printf("[%d] ", ++i);
-                                                System.out.println(endereco + "\n");
-                                            }
-                                            System.out.print("Escolha um endereço pelo seu ID: ");
+                                        if (usuario.getEndereco() != null) {
+                                            System.out.println("DELETAR ENDEREÇO");
+                                            enderecoService.listarPorDono(usuario.getId());
+                                            System.out.print("Escolha o id do seu endereço: ");
                                             int id = sc.nextInt();
-                                            Endereco endereco = usuario.getEnderecos().get(id - 1);
-                                            usuario.getEnderecos().remove(endereco);
+                                            Endereco endereco = enderecoService.listarPorDono(id);
+                                            enderecoService.deletar(endereco);
                                             System.out.println("Endereço deletado com sucesso!\n");
                                         } else {
                                             System.out.println("Você não tem nenhum endereço cadastrado.\n");
@@ -235,11 +273,9 @@ public class Main {
 
                                 switch (opcao) {
                                     case 1: {
-                                        if (!usuario.getContatos().isEmpty()) {
-                                            System.out.println("CONTATOS CADASTRADOS");
-                                            for (Contato contato : usuario.getContatos()) {
-                                                System.out.println(contato + "\n");
-                                            }
+                                        usuario.setContato(contatoService.listarPorDono(usuario.getId()));
+                                        if (usuario.getContato() != null) {
+                                            System.out.println("CONTATO CADASTRADO");
                                         } else {
                                             System.out.println("\nNenhum contato cadastrado.\n");
                                         }
@@ -247,53 +283,35 @@ public class Main {
                                     }
                                     case 2: {
                                         Contato contato = cadastro.cadastrarContato(sc);
-                                        usuario.addContatos(contato);
                                         System.out.println("Contato cadastrado com sucesso!\n");
-                                        break;
+                                        continue;
                                     }
                                     case 3: {
                                         int i = 0;
-                                        if (!usuario.getContatos().isEmpty()) {
-                                            for (Contato contato : usuario.getContatos()) {
-                                                System.out.printf("[%d] ", ++i);
-                                                System.out.print(contato);
-                                                System.out.println();
-                                            }
-                                            System.out.println("Escolha o ID do contato a ser atualizado: ");
-                                            System.out.print("Opção: ");
-                                            opcao = sc.nextInt();
-                                            sc.nextLine();
-                                            Contato contato = usuario.getContatos().get(opcao - 1);
-                                            Contato contatoAtualizado = cadastro.cadastrarContato(sc);
-                                            usuario.addContatos(contatoAtualizado);
-                                            usuario.getContatos().remove(contato);
-                                        } else
-                                            System.out.println("Lista de contatos vazia.\n");
+
+                                        System.out.println("Escolha o ID do contato a ser atualizado: ");
+                                        System.out.print("Opção: ");
+                                        opcao = sc.nextInt();
+                                        sc.nextLine();
+                                        Contato contatoAtualizado = cadastro.cadastrarContato(sc);
                                         break;
                                     }
                                     case 4: {
                                         int i = 0;
-                                        if (!usuario.getContatos().isEmpty()) {
-                                            for (Contato contato : usuario.getContatos()) {
-                                                System.out.printf("[%d] ", ++i);
-                                                System.out.println(contato);
-                                            }
-                                            System.out.println("Escolha o ID do contato a ser deletado: ");
-                                            System.out.print("Opção: ");
-                                            opcao = sc.nextInt();
-                                            Contato contato = usuario.getContatos().get(opcao - 1);
-                                            usuario.getContatos().remove(contato);
-                                        } else {
-                                            System.out.println("Lista de contatos vazia.\n");
-                                        }
+
+                                        System.out.println("Escolha o ID do contato a ser deletado: ");
+                                        System.out.print("Opção: ");
+                                        opcao = sc.nextInt();
+
                                     }
                                     case 5: {
                                         continue;
                                     }
-                                    default:
+                                    default: {
                                         System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
+                                        continue;
+                                    }
                                 }
-                                continue;
                             }
                             case 3: {
                                 menu.menuEscola();
@@ -302,11 +320,6 @@ public class Main {
                                 sc.nextLine();
                                 switch (opcao) {
                                     case 1: {
-                                        System.out.println();
-                                        escolaService.listarTodos();
-                                        continue;
-                                    }
-                                    case 2: {
                                         escolaService.listarTodos();
                                         System.out.print("Escolha o ID de uma escola para se cadastrar (Digite o número 0 caso não tenha na lista): ");
                                         opcao = sc.nextInt();
@@ -314,14 +327,17 @@ public class Main {
                                         if (opcao == 0) {
                                             Escola escola = cadastro.cadastrarEscola(sc);
                                             escolaService.salvar(escola);
-                                            usuario.setEscola(escola);
+                                            usuario.setId_escola(escola.getId());
+                                            usuarioService.atualizar(usuario.getId(), usuario);
                                         } else {
-                                            Escola escola = escolaService.listarPorId(opcao);
-                                            usuario.setEscola(escola);
+                                            int escola_id = escolaService.listarPorId(opcao).getId();
+                                            usuario.setId_escola(escola_id);
+                                            usuarioService.atualizar(usuario.getId(), usuario);
                                         }
                                         continue;
                                     }
                                     case 3: {
+                                        continue;
                                     }
                                     default: {
                                         System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
@@ -337,14 +353,13 @@ public class Main {
                                 switch (opcao) {
                                     case 1: {
                                         System.out.println("\nCertificados adquiridos: \n");
-                                        for (Certificado certificado : usuario.getCertificados()){
-                                            System.out.println(certificado.toString() + "\n");
-                                        }
+                                        certificadoService.listarPorUsuario(usuario);
+
                                         break;
                                     }
                                     case 2: {
-                                        System.out.println("\nUltimo certificado adquirido: \n");
-                                        System.out.println(usuario.getCertificados().get(usuario.getCertificados().size()-1) + "\n");
+                                        System.out.println("\nUltimo certificado adquirido:");
+                                        System.out.println(certificadoService.listarUltimo(usuario));
                                         break;
                                     }
                                     case 3: {
@@ -366,7 +381,7 @@ public class Main {
                                 break;
                             }
                             case 7: {
-                                System.out.println("Retornar ao Menu Principal");
+                                System.out.println("\nRetornar ao Menu Principal\n");
                                 break;
                             }
                             default: {
@@ -386,6 +401,7 @@ public class Main {
                 }
             } catch (RuntimeException e) {
                 System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
+                e.printStackTrace();
                 sc.nextLine();
             }
         }
