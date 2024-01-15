@@ -334,7 +334,7 @@ public class Main {
                                 break;
                             }
                             case 7: {
-                                System.out.println("Retornar ao Menu Principal");
+                                System.out.println("\nRetornar ao Menu Principal\n");
                                 break;
                             }
                             default: {
