@@ -26,7 +26,6 @@ public class Main {
         PortuguesService portuguesService = new PortuguesService();
         MatematicaService matematicaService = new MatematicaService();
         Cadastro cadastro = new Cadastro();
-        Random random = new Random();
         Menu menu = new Menu();
         Login login = new Login();
         Scanner sc = new Scanner(System.in);
@@ -130,7 +129,8 @@ public class Main {
                                     acertos += menu.validarQuestao(opcaoQuestao, questao, usuario);
                                     opcaoQuestao = "";
                                 }
-                                cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
+                                Certificado certificado = cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
+                                certificadoService.salvar(certificado);
                                 break;
                             }
                             case 2: {
@@ -149,7 +149,8 @@ public class Main {
                                     acertos += menu.validarQuestao(opcaoQuestao, questao, usuario);
                                     opcaoQuestao = "";
                                 }
-                                cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
+                                Certificado certificado = cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
+                                certificadoService.salvar(certificado);
                                 break;
                             }
                             case 3: {
@@ -168,11 +169,12 @@ public class Main {
                                     acertos += menu.validarQuestao(opcaoQuestao, questao, usuario);
                                     opcaoQuestao = "";
                                 }
-                                cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
+                                Certificado certificado = cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
+                                certificadoService.salvar(certificado);
                                 break;
                             }
                             default:
-                                System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
+                                System.out.println("\nRetornando ao menu principal.\n");
                                 break;
                         }
                         break;
@@ -332,11 +334,6 @@ public class Main {
                                 sc.nextLine();
                                 switch (opcao) {
                                     case 1: {
-                                        System.out.println();
-                                        escolaService.listarTodos();
-                                        continue;
-                                    }
-                                    case 2: {
                                         escolaService.listarTodos();
                                         System.out.print("Escolha o ID de uma escola para se cadastrar (Digite o número 0 caso não tenha na lista): ");
                                         opcao = sc.nextInt();
@@ -344,8 +341,12 @@ public class Main {
                                         if (opcao == 0) {
                                             Escola escola = cadastro.cadastrarEscola(sc);
                                             escolaService.salvar(escola);
+                                            usuario.setId_escola(escola.getId());
+                                            usuarioService.atualizar(usuario.getId(), usuario);
                                         } else {
-                                            Escola escola = escolaService.listarPorId(opcao);
+                                            int escola_id = escolaService.listarPorId(opcao).getId();
+                                            usuario.setId_escola(escola_id);
+                                            usuarioService.atualizar(usuario.getId(), usuario);
                                         }
                                         continue;
                                     }
@@ -365,14 +366,13 @@ public class Main {
                                 switch (opcao) {
                                     case 1: {
                                         System.out.println("\nCertificados adquiridos: \n");
-                                        for (Certificado certificado : usuario.getCertificados()) {
-                                            System.out.println(certificado.toString() + "\n");
-                                        }
+                                        certificadoService.listarPorUsuario(usuario);
+
                                         break;
                                     }
                                     case 2: {
-                                        System.out.println("\nUltimo certificado adquirido: \n");
-                                        System.out.println(usuario.getCertificados().get(usuario.getCertificados().size() - 1) + "\n");
+                                        System.out.println("\nUltimo certificado adquirido:");
+                                        System.out.println(certificadoService.listarUltimo(usuario));
                                         break;
                                     }
                                     case 3: {
@@ -394,7 +394,7 @@ public class Main {
                                 break;
                             }
                             case 7: {
-                                System.out.println("Retornar ao Menu Principal");
+                                System.out.println("\nRetornar ao Menu Principal\n");
                                 break;
                             }
                             default: {

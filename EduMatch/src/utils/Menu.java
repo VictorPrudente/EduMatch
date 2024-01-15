@@ -87,9 +87,8 @@ public class Menu {
 
         StringBuilder sb = new StringBuilder();
         sb.append("\nMENU ESCOLA\n");
-        sb.append("[1] Listar Escolas\n");
-        sb.append("[2] Registrar-se em uma escola\n");
-        sb.append("[3] Voltar ao menu principal");
+        sb.append("[1] Registrar-se em uma escola\n");
+        sb.append("[2] Voltar ao menu principal");
         System.out.println(sb);
     }
 

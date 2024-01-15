@@ -182,7 +182,7 @@ CREATE TABLE ESCOLA (
                         id_escola NUMBER(38,0) NOT NULL,
                         nome VARCHAR2(50) NOT NULL,
                         tipo NUMBER(1) NOT NULL CHECK (tipo IN (0,1)),
-                        cnpj VARCHAR2(14) NOT NULL UNIQUE,
+                        cnpj VARCHAR2(14) UNIQUE,
                         PRIMARY KEY ( id_escola )
 );
 
@@ -285,7 +285,7 @@ CREATE SEQUENCE SEQ_ENDERECO
 CREATE TABLE CERTIFICADO (
                              id_certificado NUMBER(38,0) NOT NULL,
                              trilha NUMBER(1) NOT NULL CHECK (trilha IN (0,1,2)),
-                             conclusao DATE NOT NULL,
+                             data_emitida DATE NOT NULL,
                              id_usuario NUMBER(38,0) NOT NULL,
                              PRIMARY KEY ( id_certificado ),
                              CONSTRAINT FK_CERTIFICADO_USUARIO FOREIGN KEY ( id_usuario ) REFERENCES USUARIO ( id_usuario )

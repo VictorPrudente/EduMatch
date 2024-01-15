@@ -11,6 +11,10 @@ public class EmpresaService implements Service<Empresa> {
 
     private EmpresaRepository empresaRepository;
 
+    public EmpresaService(){
+        empresaRepository = new EmpresaRepository();
+    }
+
     public boolean salvar(Empresa empresa) {
         try {
             if (empresa.getCnpj().length() != 14) {
@@ -56,6 +60,7 @@ public class EmpresaService implements Service<Empresa> {
         return false;
     }
 
+    @Override
     public void listarTodos() {
         try {
             List<Empresa> listar = empresaRepository.listar();
