@@ -95,35 +95,35 @@ VALUES (SEQ_ESCOLA.NEXTVAL, 'Escola do Bom Fim', 0, 99874589651523);
 
 
 -- Insert Usuário
-INSERT INTO USUARIO(id_usuario, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
-VALUES (SEQ_USUARIO.nextval, 'Pedro', 'Brown', '66337423046', 17, 18, 1, 1);
+INSERT INTO USUARIO(id_usuario, email, senha, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
+VALUES (SEQ_USUARIO.nextval, 'pedro@email.com', '7a8b2f91e4d56c0f3a2e8b1c09874d3e7890123456789abcdeffedcba9876543', 'Pedro', 'Brown', '66337423046', 17, 18, 1, 1);
 
-INSERT INTO USUARIO(id_usuario, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
-VALUES (SEQ_USUARIO.nextval, 'Lucio', 'Blue', '13395182010', 16, 35, 2, 2);
+INSERT INTO USUARIO(id_usuario, email, senha, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
+VALUES (SEQ_USUARIO.nextval, 'lucio@email.com', 'c6543210fedcba9876543210abcdef0123456789abcdef0123456789abcdef01', 'Lucio', 'Blue', '13395182010', 16, 35, 2, 2);
 
-INSERT INTO USUARIO(id_usuario, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
-VALUES (SEQ_USUARIO.nextval, 'Marcos', 'Yellow', '04590223007', 17, 28, 3, 3);
+INSERT INTO USUARIO(id_usuario, email, senha, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
+VALUES (SEQ_USUARIO.nextval, 'marcos@email.com', '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0', 'Marcos', 'Yellow', '04590223007', 17, 28, 3, 3);
 
-INSERT INTO USUARIO(id_usuario, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
-VALUES (SEQ_USUARIO.nextval, 'Lucia', 'White', '02103473094', 19, 16, 4, 4);
+INSERT INTO USUARIO(id_usuario, email, senha, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
+VALUES (SEQ_USUARIO.nextval, 'lucia@email.com', 'a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2', 'Lucia', 'White', '02103473094', 19, 16, 4, 4);
 
-INSERT INTO USUARIO(id_usuario, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
-VALUES (SEQ_USUARIO.nextval, 'Maria', 'Black', '45966305005', 15, 12, 5, 5);
+INSERT INTO USUARIO(id_usuario, email, senha, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
+VALUES (SEQ_USUARIO.nextval, 'maria@email.com', '9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b987654321098765432109876', 'Maria', 'Black', '45966305005', 15, 12, 5, 5);
 
-INSERT INTO USUARIO(id_usuario, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
-VALUES (SEQ_USUARIO.nextval, 'Yolanda', 'Red', '59631001008', 18, 39, 6, 6);
+INSERT INTO USUARIO(id_usuario, email, senha, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
+VALUES (SEQ_USUARIO.nextval, 'yolanda@email.com', '3e5f7a1b9c2d8f6a0b4c7d3e9f2a5b6c8d0e4f1a7b5c2d9e6f0a8b1c4d7e2f3', 'Yolanda', 'Red', '59631001008', 18, 39, 6, 6);
 
-INSERT INTO USUARIO(id_usuario, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
-VALUES (SEQ_USUARIO.nextval, 'Josefina', 'Purple', '09707645024', 17, 30, 7, 7);
+INSERT INTO USUARIO(id_usuario, email, senha, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
+VALUES (SEQ_USUARIO.nextval, 'josefina@email.com', '4c7a8e2f6b1d9c5a3f0e8b7d4a6f2c9b3e1d7a5b6c8d2f3a0b9e4c1d5', 'Josefina', 'Purple', '09707645024', 17, 30, 7, 7);
 
-INSERT INTO USUARIO(id_usuario, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
-VALUES (SEQ_USUARIO.nextval, 'Carlas', 'Gold', '57995620039', 16, 45, 8, 8);
+INSERT INTO USUARIO(id_usuario, email, senha, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
+VALUES (SEQ_USUARIO.nextval, 'carla@email.com', 'aabbccddeeff00112233445566778899aabbccddeeff00112233445566778899', 'Carla', 'Gold', '57995620039', 16, 45, 8, 8);
 
-INSERT INTO USUARIO(id_usuario, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
-VALUES (SEQ_USUARIO.nextval, 'Leslie', 'Pink', '74140982063', 17, 38, 9, 9);
+INSERT INTO USUARIO(id_usuario, email, senha, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
+VALUES (SEQ_USUARIO.nextval, 'leslie@email.com', 'e2f4a6c8d0b295f173c3e1d7a5b6c8d2f3a0b9e4c1d5', 'Leslie', 'Pink', '74140982063', 17, 38, 9, 9);
 
-INSERT INTO USUARIO(id_usuario, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
-VALUES (SEQ_USUARIO.nextval, 'John', 'Silver', '43830463049', 17, 40, 10, 10);
+INSERT INTO USUARIO(id_usuario, email, senha, nome, sobrenome, cpf, idade, pontuacao, id_empresa, id_escola)
+VALUES (SEQ_USUARIO.nextval, 'john@email.com', '6a4b8c2d7e0f3a5b1c9d4e8f2a6b7c0d1e9f5a3b2c4d6', 'John', 'Silver', '43830463049', 17, 40, 10, 10);
 
 
 --Insert Matematica
@@ -378,7 +378,7 @@ E) Somente dar feedback positivo', 3, 'B', 1);
 
 INSERT INTO SOFTSKILL (ID_SOFTSKILL, pergunta, pontos, opcao_correta, dificuldade)
 VALUES (SEQ_SOFTSKILL.NEXTVAL,'Por que a gestão do tempo é essencial no ambiente profissional?
-A) Para todos os colegas saberem quando deve ser feito a entrega
+A)  Para todos os colegas saberem quando deve ser feito a entrega
 B) Gestão do tempo é essencial, somente em equipes grandes
 C) Maximizar a produtividade e a eficiência
 D) Não precisar controlar os prazos
@@ -386,7 +386,7 @@ E) Priorizar somente grandes projetos', 5, 'C', 2);
 
 INSERT INTO SOFTSKILL (ID_SOFTSKILL, pergunta, pontos, opcao_correta, dificuldade)
 VALUES (SEQ_SOFTSKILL.NEXTVAL,'Qual é a importância da inclusão no local de trabalho?
-A) Reduzir a inovação
+A)  Reduzir a inovação
 B) Reduzir a criatividade
 C) Ampliar perspectivas e promover um ambiente mais inclusivo
 D) Aumentar a competição entre os funcionários

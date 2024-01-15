@@ -2,7 +2,6 @@ import entities.*;
 import exceptions.BancoDeDadosException;
 import services.*;
 import utils.Cadastro;
-import utils.Login;
 import utils.Menu;
 
 import java.util.List;
@@ -23,7 +22,6 @@ public class Main {
         MatematicaService matematicaService = new MatematicaService();
         Cadastro cadastro = new Cadastro();
         Menu menu = new Menu();
-        Login login = new Login();
         Scanner sc = new Scanner(System.in);
         Usuario usuario = new Usuario();
         int opcao = 0;
@@ -92,6 +90,7 @@ public class Main {
                                 }
                                 Certificado certificado = cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
                                 certificadoService.salvar(certificado);
+                                usuarioService.atualizar(usuario.getId(), usuario);
                                 break;
                             }
                             case 2: {
@@ -112,6 +111,7 @@ public class Main {
                                 }
                                 Certificado certificado = cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
                                 certificadoService.salvar(certificado);
+                                usuarioService.atualizar(usuario.getId(), usuario);
                                 break;
                             }
                             case 3: {
@@ -132,6 +132,7 @@ public class Main {
                                 }
                                 Certificado certificado = cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
                                 certificadoService.salvar(certificado);
+                                usuarioService.atualizar(usuario.getId(), usuario);
                                 break;
                             }
                             default:
