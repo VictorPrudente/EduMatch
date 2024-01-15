@@ -152,6 +152,7 @@ public class Usuario {
 
     public String imprimirDados(){
         return String.format("""
+                ----------------
                 Nome: %s %s
                 CPF: %s
                 Idade: %d

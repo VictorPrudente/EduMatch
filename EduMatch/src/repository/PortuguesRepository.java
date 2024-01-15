@@ -51,7 +51,6 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
             ps.setInt(5, questao.getDificuldade().ordinal());
 
             int res = ps.executeUpdate();
-            System.out.println("Adicionada questão " + res);
             return questao;
         } catch (SQLException e){
             throw new BancoDeDadosException(e.getCause());
@@ -79,7 +78,6 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
             ps.setInt(1, id);
 
             int result = ps.executeUpdate();
-            System.out.printf("Remover questão pelo id %d: " + result, id);
 
             return result > 0;
         } catch (SQLException e){
@@ -118,7 +116,6 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
             ps.setInt(4, portugues.getDificuldade().ordinal());
 
             int res = ps.executeUpdate();
-            System.out.println("Editar questão: " + res);
             return res > 0;
         } catch (SQLException e){
             throw new BancoDeDadosException(e.getCause());

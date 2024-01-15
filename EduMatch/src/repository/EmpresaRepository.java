@@ -53,7 +53,6 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
                 stmt.setInt(6,empresa.getTipo());
 
                 int res = stmt.executeUpdate();
-                System.out.println("adicionarEmpresa.res= "+ res);
                 return empresa;
 
             } catch (SQLException e){
@@ -86,7 +85,6 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
 
                 // Executa-se a consulta
                 int res = stmt.executeUpdate();
-                System.out.println("removerEmpresaPorId.res=" + res);
 
                 return res > 0;
             } catch (SQLException e) {
@@ -126,7 +124,6 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
 
                 // Executa-se a consulta
                 int res = stmt.executeUpdate();
-                System.out.println("editarEmpresa.res=" + res);
 
                 return res > 0;
             } catch (SQLException e) {

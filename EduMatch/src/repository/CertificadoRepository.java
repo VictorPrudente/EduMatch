@@ -83,7 +83,6 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
-            System.out.println("removerCertificadoPorId.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {

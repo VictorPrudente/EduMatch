@@ -48,7 +48,6 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             stmt.setString(8, endereco.getPais());
 
             int res = stmt.executeUpdate();
-            System.out.println("adicionarEndereco.res=" + res);
             return endereco;
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
@@ -77,7 +76,6 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
-            System.out.println("removerEnderecoPorId.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {
@@ -123,7 +121,6 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
 
             // Executa-se a consulta
             int res = stmt.executeUpdate();
-            System.out.println("editarEndereco.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {

@@ -53,7 +53,6 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
             stmt.setString(4,escola.getCnpj());
 
             int res = stmt.executeUpdate();
-            System.out.println("adicionarEscola.res= "+ res);
             return escola;
 
         } catch (SQLException e){
@@ -85,7 +84,6 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
             stmt.setInt(1, id);
 
             int res = stmt.executeUpdate();
-            System.out.println("removerEscolaPorId.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {
@@ -120,7 +118,6 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
             stmt.setInt(3, id);
 
             int res = stmt.executeUpdate();
-            System.out.println("editarEscola.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {

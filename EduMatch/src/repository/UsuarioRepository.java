@@ -87,7 +87,6 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
             ps.setInt(1, id);
 
             int res = ps.executeUpdate();
-            System.out.println("Remover pessoa por id res: " + res);
 
             return res > 0;
         } catch (SQLException e){
@@ -126,7 +125,6 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
             ps.setInt(5, usuario.getId());
 
             int res = ps.executeUpdate();
-            System.out.println("Editar usuário res: " + res);
 
             return res > 0;
         } catch (SQLException e){

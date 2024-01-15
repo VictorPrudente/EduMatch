@@ -48,7 +48,6 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             stmt.setInt(7, contato.getId_escola());
 
             int res = stmt.executeUpdate();
-            System.out.println("adicionarContato.res=" + res);
             return contato;
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
@@ -76,7 +75,6 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             stmt.setInt(1, id);
 
             int res = stmt.executeUpdate();
-            System.out.println("removerContatoPorId.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {
@@ -113,7 +111,6 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             stmt.setInt(4, id);
 
             int res = stmt.executeUpdate();
-            System.out.println("editarContato.res=" + res);
 
             return res > 0;
         } catch (SQLException e) {
