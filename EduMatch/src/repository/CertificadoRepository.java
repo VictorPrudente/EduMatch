@@ -54,7 +54,6 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
             stmt.setInt(4, certificado.getUsuario().getId());
 
             int res = stmt.executeUpdate();
-            System.out.println("adicionarCertificado.res= "+ res);
             return certificado;
 
         } catch (SQLException e) {
