@@ -3,8 +3,6 @@ package utils;
 import entities.Game;
 import entities.Usuario;
 
-import java.util.Scanner;
-
 public class Menu {
 
 
@@ -110,6 +108,25 @@ public class Menu {
         sb.append("[1] Minha pontuação\n");
         sb.append("[2] Posição geral\n");
         sb.append("[3] Voltar ao menu principal");
+
+        System.out.println(sb);
+    }
+    public void menuLogin(){
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nMENU LOGIN\n");
+        sb.append("[1] Efetuar login\n");
+        sb.append("[2] Efetuar cadastro\n");
+        sb.append("[3] Sair da aplicação");
+
+        System.out.println(sb);
+    }
+    public void menuCadastro(){
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nCPF não encontrado, Deseja se cadastrar?\n");
+        sb.append("[1] Sim\n");
+        sb.append("[2] Sair da aplicação");
 
         System.out.println(sb);
     }

@@ -1,17 +1,16 @@
 import entities.*;
-import entities.enums.Dificuldades;
-import entities.enums.Games;
+import exceptions.BancoDeDadosException;
 import services.*;
 import utils.Cadastro;
+import utils.Login;
 import utils.Menu;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Random;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BancoDeDadosException {
 
         EnderecoService enderecoService = new EnderecoService();
         ContatoService contatoService = new ContatoService();
@@ -24,7 +23,9 @@ public class Main {
         MatematicaService matematicaService = new MatematicaService();
         Cadastro cadastro = new Cadastro();
         Menu menu = new Menu();
+        Login login = new Login();
         Scanner sc = new Scanner(System.in);
+        Usuario usuario = new Usuario();
         int opcao = 0;
         boolean execucao = true;
         String opcaoQuestao = "";
@@ -32,10 +33,30 @@ public class Main {
 
         System.out.println("BEM VINDOS AO EDUMATCH");
 
-        Usuario usuario = cadastro.cadastrarUsuario(sc);
-        usuarioService.salvar(usuario);
+        menu.menuLogin();
+        opcao = sc.nextInt();
+        sc.nextLine();
+        switch (opcao){
+            case 1:
+                    System.out.print("Digite seu email: ");
+                    String email = sc.nextLine();
 
-        System.out.println();
+                    System.out.print("Digite sua senha: ");
+                    String senha = sc.nextLine();
+                    usuario = cadastro.Login(email, senha);
+
+                break;
+            case 2:
+                usuario = cadastro.cadastrarUsuario(sc);
+                usuarioService.salvar(usuario);
+                System.out.println();
+
+                break;
+            case 3:
+                System.out.println("\nFinalizando a aplicação. Até logo!");
+                execucao = false;
+                break;
+        }
 
         while (execucao) {
             menu.menuPrincipal();

@@ -43,18 +43,20 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
 
             String sql = """
                             INSERT INTO VS_13_EQUIPE_9.USUARIO
-                            (id_usuario, nome, sobrenome, cpf, idade, pontuacao)
-                            VALUES(?,?,?,?,?,?)
+                            (id_usuario, email, senha, nome, sobrenome, cpf, idade, pontuacao)
+                            VALUES(?,?,?,?,?,?,?,?)
                             """;
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setInt(1, usuario.getId());
-            stmt.setString(2,usuario.getNome());
-            stmt.setString(3,usuario.getSobrenome());
-            stmt.setString(4,usuario.getCPF());
-            stmt.setInt(5,usuario.getIdade());
-            stmt.setInt(6,usuario.getPontuacao());
+            stmt.setString(2, usuario.getEmail());
+            stmt.setString(3, usuario.getSenha());
+            stmt.setString(4,usuario.getNome());
+            stmt.setString(5,usuario.getSobrenome());
+            stmt.setString(6,usuario.getCPF());
+            stmt.setInt(7,usuario.getIdade());
+            stmt.setInt(8,usuario.getPontuacao());
 
             int res = stmt.executeUpdate();
             System.out.println("adicionarUsuario.res= "+ res);
@@ -162,6 +164,45 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
                 usuario.setCPF(res.getString("cpf"));
                 usuario.setIdade(res.getInt("idade"));
                 usuario.setPontuacao(res.getInt("pontuacao"));
+                return usuario;
+            }
+            return null;
+        } catch (SQLException e){
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null){
+                    con.close();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public Usuario listarPorEmail(String email) throws BancoDeDadosException {
+        Connection con = null;
+
+        try {
+            con = ConexaoBancoDeDadosLocal.getConnection();
+
+            String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO WHERE email = ? ";
+
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, email);
+
+            ResultSet res = st.executeQuery();
+
+            if (res.next()){
+                Usuario usuario = new Usuario();
+                usuario.setId(res.getInt("id_usuario"));
+                usuario.setNome(res.getString("nome"));
+                usuario.setSobrenome(res.getString("sobrenome"));
+                usuario.setCPF(res.getString("cpf"));
+                usuario.setIdade(res.getInt("idade"));
+                usuario.setPontuacao(res.getInt("pontuacao"));
+                usuario.setEmail(res.getString("email"));
+                usuario.setSenha(res.getString("senha"));
                 return usuario;
             }
             return null;

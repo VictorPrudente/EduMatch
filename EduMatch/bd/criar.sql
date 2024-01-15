@@ -214,6 +214,8 @@ CREATE SEQUENCE SEQ_EMPRESA
 
 CREATE TABLE USUARIO (
                          id_usuario NUMBER(38,0) NOT NULL,
+                         email VARCHAR2(100) NOT NULL UNIQUE,
+                         senha NUMBER(38,0) NOT NULL,
                          nome VARCHAR2(50),
                          sobrenome VARCHAR2(50),
                          cpf VARCHAR2(11) UNIQUE,
