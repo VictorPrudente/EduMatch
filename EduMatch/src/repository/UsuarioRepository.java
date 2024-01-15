@@ -35,7 +35,7 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
         Connection con = null;
 
         try {
-            con =ConexaoBancoDeDadosLocal.getConnection();
+            con =ConexaoBancoDeDados.getConnection();
 
             Integer proximoId = this.getProximoId(con);
             usuario.setId(proximoId);
@@ -80,7 +80,7 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
     public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
             String sql = "DELETE FROM VS_13_EQUIPE_9.USUARIO WHERE id_usuario = ? ";
 
             PreparedStatement ps = con.prepareStatement(sql);
@@ -106,7 +106,7 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
     public boolean editar(Integer id, Usuario usuario) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             String sql = """
                     UPDATE VS_13_EQUIPE_9.USUARIO
@@ -144,7 +144,7 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO WHERE id_usuario = ? ";
 
@@ -180,7 +180,7 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO WHERE email = ? ";
 
@@ -221,7 +221,7 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
             Statement st = con.createStatement();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO";
@@ -259,7 +259,7 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
             Statement st = con.createStatement();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO ORDER BY pontuacao DESC";

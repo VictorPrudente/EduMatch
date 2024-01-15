@@ -28,7 +28,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
     public Contato adicionar(Contato contato) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             Integer proximoId = this.getProximoId(con);
             contato.setId(proximoId);
@@ -66,7 +66,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
     public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             String sql = "DELETE FROM VS_13_EQUIPE_9.CONTATO WHERE id_contato = ?";
 
@@ -94,7 +94,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
     public boolean editar(Integer id, Contato contato) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             StringBuilder sql = new StringBuilder();
             sql.append("UPDATE VS_13_EQUIPE_9.CONTATO SET ");
@@ -131,7 +131,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
         List<Contato> contatos = new ArrayList<>();
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
             Statement stmt = con.createStatement();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.CONTATO";
@@ -165,7 +165,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
     public Contato listarPorDono(int id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
             String sql = """
                 SELECT c.id_contato, c.telefone, c.tipo_contato, c.descricao, c.id_usuario, c.id_empresa, c.id_escola
                 FROM VS_13_EQUIPE_9.CONTATO c

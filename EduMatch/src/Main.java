@@ -337,6 +337,7 @@ public class Main {
                                         continue;
                                     }
                                     case 3: {
+                                        continue;
                                     }
                                     default: {
                                         System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");

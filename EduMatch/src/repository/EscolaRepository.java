@@ -34,7 +34,7 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
         Connection con = null;
 
         try {
-            con =ConexaoBancoDeDadosLocal.getConnection();
+            con =ConexaoBancoDeDados.getConnection();
 
             Integer proximoId = this.getProximoId(con);
             escola.setId(proximoId);
@@ -75,7 +75,7 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
     public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             String sql = "DELETE FROM VS_13_EQUIPE_9.ESCOLA WHERE id_escola = ?";
 
@@ -103,7 +103,7 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
     public boolean editar(Integer id, Escola escola) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             StringBuilder sql = new StringBuilder();
             sql.append("UPDATE VS_13_EQUIPE_9.ESCOLA SET ");
@@ -138,7 +138,7 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
         List<Escola> escolas = new ArrayList<>();
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
             Statement stmt = con.createStatement();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.ESCOLA";
@@ -170,7 +170,7 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
     public Escola listarPorId(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.ESCOLA WHERE ID_ESCOLA = ? ";
 

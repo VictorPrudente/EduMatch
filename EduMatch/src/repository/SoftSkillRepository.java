@@ -33,7 +33,7 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             Integer nextid = this.getProximoId(con);
             questao.setId(nextid);
@@ -69,7 +69,7 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
     public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             String sql = "DELETE FROM VS_13_EQUIPE_9.SOFTSKILL WHERE id_softskill = ?";
 
@@ -97,7 +97,7 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
     public boolean editar(Integer id, SoftSkill softskill) throws BancoDeDadosException {
         Connection con = null;
         try{
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             StringBuilder sql = new StringBuilder();
 
@@ -134,7 +134,7 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
         List<SoftSkill> questoes = new ArrayList<>();
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
             Statement ps = con.createStatement();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.SOFTSKILL";
@@ -169,7 +169,7 @@ public class SoftSkillRepository implements Repositorio<Integer, SoftSkill> {
         SoftSkill questao = new SoftSkill();
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.SOFTSKILL WHERE DIFICULDADE = ? ORDER BY DBMS_RANDOM.VALUE";
 

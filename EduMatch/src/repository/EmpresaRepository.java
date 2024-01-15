@@ -32,7 +32,7 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
             Connection con = null;
 
             try {
-                con =ConexaoBancoDeDadosLocal.getConnection();
+                con =ConexaoBancoDeDados.getConnection();
 
                 Integer proximoId = this.getProximoId(con);
                 empresa.setId(proximoId);
@@ -75,7 +75,7 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
         public boolean remover(Integer id) throws BancoDeDadosException {
             Connection con = null;
             try {
-                con = ConexaoBancoDeDadosLocal.getConnection();
+                con = ConexaoBancoDeDados.getConnection();
 
                 String sql = "DELETE FROM VS_13_EQUIPE_9.EMPRESA WHERE id_empresa = ?";
 
@@ -104,7 +104,7 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
         public boolean editar(Integer id, Empresa empresa) throws BancoDeDadosException {
             Connection con = null;
             try {
-                con = ConexaoBancoDeDadosLocal.getConnection();
+                con = ConexaoBancoDeDados.getConnection();
 
                 StringBuilder sql = new StringBuilder();
                 sql.append("UPDATE VS_13_EQUIPE_9.EMPRESA SET ");
@@ -144,7 +144,7 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
             List<Empresa> empresas = new ArrayList<>();
             Connection con = null;
             try {
-                con = ConexaoBancoDeDadosLocal.getConnection();
+                con = ConexaoBancoDeDados.getConnection();
                 Statement stmt = con.createStatement();
 
                 String sql = "SELECT * FROM VS_13_EQUIPE_9.EMPRESA";

@@ -34,7 +34,7 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
     public Certificado adicionar(Certificado certificado) throws BancoDeDadosException {
         Connection con = null;
         try{
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             Integer proximoId = this.getProximoId(con);
 
@@ -73,7 +73,7 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
     public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             String sql = "DELETE FROM VS_13_EQUIPE_9.CERTIFICADO WHERE id_certificado = ?";
 
@@ -110,7 +110,7 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
         List<Certificado> certificados = new ArrayList<>();
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
             Statement st = con.createStatement();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.CERTIFICADO c\n" +
@@ -145,7 +145,7 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
             List<Certificado> certificados = new ArrayList<>();
             Connection con = null;
             try {
-                con = ConexaoBancoDeDadosLocal.getConnection();
+                con = ConexaoBancoDeDados.getConnection();
 
                 String sql = """
                         SELECT c.id_certificado, c.trilha, c.data_emitida
@@ -184,7 +184,7 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
     public Certificado listarUltimo(Usuario usuario) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             String sql = """
                     SELECT c.id_certificado, c.trilha, c.data_emitida

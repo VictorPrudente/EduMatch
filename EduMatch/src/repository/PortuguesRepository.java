@@ -33,7 +33,7 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             Integer nextid = this.getProximoId(con);
             questao.setId(nextid);
@@ -69,7 +69,7 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
     public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             String sql = "DELETE FROM VS_13_EQUIPE_9.PORTUGUES WHERE id_portugues = ?";
 
@@ -97,7 +97,7 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
     public boolean editar(Integer id, Portugues portugues) throws BancoDeDadosException {
         Connection con = null;
         try{
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             StringBuilder sql = new StringBuilder();
 
@@ -135,7 +135,7 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
         List<Portugues> questoes = new ArrayList<>();
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
             Statement ps = con.createStatement();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.PORTUGUES";
@@ -170,7 +170,7 @@ public class PortuguesRepository implements Repositorio<Integer, Portugues> {
         Portugues questao = new Portugues();
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.PORTUGUES WHERE DIFICULDADE = ? ORDER BY DBMS_RANDOM.VALUE";
 
