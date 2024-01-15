@@ -33,8 +33,8 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             endereco.setId(proximoId);
 
             String sql = "INSERT INTO VS_13_EQUIPE_9.ENDERECO\n" +
-                    "(id_endereco, logradouro, numero, complemento, cep, cidade, estado, pais)\n" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)\n";
+                    "(id_endereco, logradouro, numero, complemento, cep, cidade, estado, pais, id_usuario)\n" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)\n";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -46,6 +46,8 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             stmt.setString(6, endereco.getCidade());
             stmt.setString(7, endereco.getEstado());
             stmt.setString(8, endereco.getPais());
+            stmt.setInt(9, endereco.getId_usuario());
+
 
             int res = stmt.executeUpdate();
             System.out.println("adicionarEndereco.res=" + res);
@@ -184,48 +186,28 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
         try {
             con = ConexaoBancoDeDadosLocal.getConnection();
             String sql = """
-                SELECT end.id_endereco, end.logradouro, end.numero, end.complemento, end.cep, end.cidade, end.estado, end.pais, end.id_usuario, end._id_escola, end.id_empresa
-                FROM VS_13_EQUIPE_9.ENDERECO end
-                LEFT JOIN VS_13_EQUIPE_9.USUARIO u ON u.ID_USUARIO = end.ID_USUARIO
-                LEFT JOIN VS_13_EQUIPE_9.EMPRESA emp ON emp.ID_EMPRESA = end.ID_EMPRESA
-                LEFT JOIN VS_13_EQUIPE_9.ESCOLA esc ON esc.ID_ESCOLA = end.ID_ESCOLA
-                WHERE end.id_usuario = ? OR end.id_empresa = ? OR end.id_escola = ?""";
+                
+                    SELECT end.id_endereco, end.logradouro, end.numero, end.complemento, end.cep, end.cidade, end.estado, end.pais, end.id_usuario
+                    FROM VS_13_EQUIPE_9.ENDERECO end
+                    WHERE end.id_usuario = ?""";
 
-            try (PreparedStatement stmt = con.prepareStatement(sql)) {
+                PreparedStatement stmt = con.prepareStatement(sql);
                 stmt.setInt(1, id);
-                stmt.setInt(2, id);
-                stmt.setInt(3, id);
 
-                try (ResultSet res = stmt.executeQuery()) {
-                    while (res.next()) {
-                        Endereco endereco = new Endereco();
-                        endereco.setId(res.getInt("id_endereco"));
-                        endereco.setLogradouro(res.getString("logradouro"));
-                        endereco.setNumero(res.getInt("numero"));
-                        endereco.setComplemento(res.getString("complemento"));
-                        endereco.setCep(res.getString("cep"));
-                        endereco.setCidade(res.getString("cidade"));
-                        endereco.setEstado(res.getString("estado"));
-                        endereco.setPais(res.getString("pais"));
-
-                        int idUsuario = res.getInt("id_usuario");
-                        int idEmpresa = res.getInt("id_empresa");
-                        int idEscola = res.getInt("id_escola");
-
-                        if (!res.wasNull()) {
-                            if (idUsuario != 0) {
-                                endereco.setId_usuario(idUsuario);
-                            } else if (idEmpresa != 0) {
-                                endereco.setId_empresa(idEmpresa);
-                            } else if (idEscola != 0) {
-                                endereco.setId_escola(idEscola);
-                            }
-
-                            return endereco;
-                        }
-                    }
+                ResultSet res = stmt.executeQuery();
+                if (res.next()) {
+                    Endereco endereco = new Endereco();
+                    endereco.setId(res.getInt("id_endereco"));
+                    endereco.setLogradouro(res.getString("logradouro"));
+                    endereco.setNumero(res.getInt("numero"));
+                    endereco.setComplemento(res.getString("complemento"));
+                    endereco.setCep(res.getString("cep"));
+                    endereco.setCidade(res.getString("cidade"));
+                    endereco.setEstado(res.getString("estado"));
+                    endereco.setPais(res.getString("pais"));
+                    endereco.setId_usuario(res.getInt("id_usuario"));
+                    return endereco;
                 }
-            }
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {

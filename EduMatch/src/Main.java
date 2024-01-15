@@ -42,6 +42,7 @@ public class Main {
                     System.out.print("Digite sua senha: ");
                     String senha = sc.nextLine();
                     usuario = cadastro.Login(email, senha);
+                    usuario.setEndereco(enderecoService.listarPorDono(usuario.getId()));
 
                 break;
             case 2:
@@ -73,7 +74,7 @@ public class Main {
                         sc.nextLine();
                         switch (opcao) {
                             case 1: {
-                                int trilha = 0;
+                                int trilha = opcao-1;
                                 int acertos = 0;
                                 int totalQuestoes = 0;
                                 for (int i = 0; i < 3; i++) {
@@ -89,12 +90,16 @@ public class Main {
                                     opcaoQuestao = "";
                                 }
                                 Certificado certificado = cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
-                                certificadoService.salvar(certificado);
+                                if (certificado != null) {
+                                    certificadoService.salvar(certificado);
+                                } else {
+                                    System.out.println("Você não conseguiu seu certificado desta vez. Acerte mais questões para conseguir!");
+                                }
                                 usuarioService.atualizar(usuario.getId(), usuario);
                                 break;
                             }
                             case 2: {
-                                int trilha = 1;
+                                int trilha = opcao-1;
                                 int acertos = 0;
                                 int totalQuestoes = 0;
                                 for (int i = 0; i < 3; i++) {
@@ -110,14 +115,18 @@ public class Main {
                                     opcaoQuestao = "";
                                 }
                                 Certificado certificado = cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
-                                certificadoService.salvar(certificado);
+                                if (certificado != null) {
+                                    certificadoService.salvar(certificado);
+                                } else {
+                                    System.out.println("Você não conseguiu seu certificado desta vez. Acerte mais questões para conseguir!");
+                                }
                                 usuarioService.atualizar(usuario.getId(), usuario);
                                 break;
                             }
                             case 3: {
                                 int acertos = 0;
                                 int totalQuestoes = 0;
-                                int trilha = 2;
+                                int trilha = opcao-1;
                                 for (int i = 0; i < 3; i++) {
                                     SoftSkill questao = softSkillService.listarPelaDificuldade(i);
                                     totalQuestoes++;
@@ -131,7 +140,11 @@ public class Main {
                                     opcaoQuestao = "";
                                 }
                                 Certificado certificado = cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
-                                certificadoService.salvar(certificado);
+                                if (certificado != null) {
+                                    certificadoService.salvar(certificado);
+                                } else {
+                                    System.out.println("Você não conseguiu seu certificado desta vez. Acerte mais questões para conseguir!");
+                                }
                                 usuarioService.atualizar(usuario.getId(), usuario);
                                 break;
                             }
@@ -196,7 +209,8 @@ public class Main {
 
                                         System.out.println("CADASTRO DE UM NOVO ENDEREÇO");
                                         Endereco endereco = cadastro.cadastrarEndereco(sc);
-                                        usuario.setEndereco(endereco);
+                                        endereco.setId_usuario(usuario.getId());
+                                        enderecoService.salvar(endereco);
                                         System.out.println("Endereço cadastrado com sucesso!\n");
 
                                         continue;
