@@ -32,6 +32,7 @@ public class Main {
         System.out.println("BEM VINDOS AO EDUMATCH");
 
         menu.menuLogin();
+        System.out.print("Digite sua opção: ");
         opcao = sc.nextInt();
         sc.nextLine();
         switch (opcao){
@@ -42,7 +43,15 @@ public class Main {
                     System.out.print("Digite sua senha: ");
                     String senha = sc.nextLine();
                     usuario = cadastro.Login(email, senha);
-                    usuario.setEndereco(enderecoService.listarPorDono(usuario.getId()));
+                    Endereco endereco = enderecoService.listarPorDono(usuario.getId());
+                    if(endereco != null){
+                      usuario.setEndereco(endereco);
+                    } 
+                    Contato contato = contatoService.listarPorDono(usuario.getId());
+                    if(contato != null){
+                      usuario.setContato(contato);
+                    }
+                    
 
                 break;
             case 2:
@@ -121,6 +130,7 @@ public class Main {
                                     System.out.println("Você não conseguiu seu certificado desta vez. Acerte mais questões para conseguir!");
                                 }
                                 usuarioService.atualizar(usuario.getId(), usuario);
+
                                 break;
                             }
                             case 3: {

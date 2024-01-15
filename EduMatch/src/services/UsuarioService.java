@@ -22,7 +22,7 @@ public class UsuarioService implements Service<Usuario> {
                 throw new Exception("CPF Inválido.");
             }
             Usuario user = usuarioRepository.adicionar(usuario);
-            System.out.println("Usuário cadastrado com sucesso: " + user);
+            System.out.println("\nUsuário cadastrado com sucesso!");
             return true;
         } catch (BancoDeDadosException e){
             System.out.println("ERRO: " + e.getMessage());

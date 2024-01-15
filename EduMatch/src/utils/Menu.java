@@ -22,7 +22,7 @@ public class Menu {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("MENU PRINCIPAL\n");
+        sb.append("\nMENU PRINCIPAL\n");
         sb.append("[1] Novo jogo\n");
         sb.append("[2] Ranking\n");
         sb.append("[3] Opções\n");
