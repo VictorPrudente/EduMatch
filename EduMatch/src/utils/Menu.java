@@ -114,6 +114,25 @@ public class Menu {
 
         System.out.println(sb);
     }
+    public void menuLoguin(){
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nMENU LOGIN\n");
+        sb.append("[1] Efetuar login\n");
+        sb.append("[2] Efetuar cadastro\n");
+        sb.append("[3] Sair da aplicação");
+
+        System.out.println(sb);
+    }
+    public void menuCadastro(){
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nCPF não encontrado, Deseja se cadastrar?\n");
+        sb.append("[1] Sim\n");
+        sb.append("[2] Sair da aplicação");
+
+        System.out.println(sb);
+    }
 
 
 }

@@ -1,17 +1,20 @@
 import entities.*;
 import entities.enums.Dificuldades;
 import entities.enums.Games;
+import exceptions.BancoDeDadosException;
 import services.*;
 import utils.Cadastro;
+import utils.Login;
 import utils.Menu;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws BancoDeDadosException {
 
         EnderecoService enderecoService = new EnderecoService();
         ContatoService contatoService = new ContatoService();
@@ -25,18 +28,75 @@ public class Main {
         Cadastro cadastro = new Cadastro();
         Random random = new Random();
         Menu menu = new Menu();
+        Login login = new Login();
         Scanner sc = new Scanner(System.in);
+        Usuario usuario = new Usuario();
+        Optional<Usuario> podeLogar;
         int opcao = 0;
-        boolean execucao = true;
+        boolean execucao = false;
         String opcaoQuestao = "";
 
 
         System.out.println("BEM VINDOS AO EDUMATCH");
 
-        Usuario usuario = cadastro.cadastrarUsuario(sc);
-        usuarioService.salvar(usuario);
+        menu.menuLoguin();
+        opcao = sc.nextInt();
+        sc.nextLine();
+        switch (opcao){
+            case 1:
+                do{
 
-        System.out.println();
+                    System.out.println("Digite seu CPF");
+                    podeLogar = login.Loguin(sc.nextLine());
+
+                    if(!podeLogar.isEmpty()) {
+                        execucao = true;
+                        usuario = new Usuario(podeLogar.get().getNome(),
+                                podeLogar.get().getSobrenome(),
+                                podeLogar.get().getCPF(),
+                                podeLogar.get().getIdade());
+                        break;
+                    }
+                    else{
+                        menu.menuCadastro();
+                        opcao = sc.nextInt();
+                        sc.nextLine();
+                        switch (opcao) {
+                            case 1:
+                                usuario = cadastro.cadastrarUsuario(sc);
+                                usuarioService.salvar(usuario);
+                                execucao = true;
+                                break;
+
+                            case 2:
+                                System.out.println("\nFinalizando a aplicação. Até logo!");
+                                execucao = false;
+                                break;
+
+                        }
+
+                    }
+
+                    if(podeLogar.isEmpty()){
+                        break;
+                    }
+                }
+                while (true);
+                break;
+            case 2:
+                usuario = cadastro.cadastrarUsuario(sc);
+                usuarioService.salvar(usuario);
+                System.out.println();
+
+                break;
+            case 3:
+                System.out.println("\nFinalizando a aplicação. Até logo!");
+                execucao = false;
+                break;
+        }
+
+
+
 
         while (execucao) {
             menu.menuPrincipal();
