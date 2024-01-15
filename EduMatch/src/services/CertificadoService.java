@@ -20,7 +20,7 @@ public class CertificadoService implements Service<Certificado> {
     public boolean salvar(Certificado certificado) {
         try {
             Certificado cert = certificadoRepository.adicionar(certificado);
-            System.out.println("Certificado cadastrado com sucesso: " + cert);
+            System.out.println("Parabéns pelo seu certificado!\n");
             return true;
         } catch (BancoDeDadosException e) {
             System.out.println("ERRO: " + e.getMessage());
@@ -62,14 +62,25 @@ public class CertificadoService implements Service<Certificado> {
     }
 
     public Certificado listarUltimo(Usuario usuario) {
-        int id = usuario.getId();
         try {
-            Certificado certificado = certificadoRepository.listarUltimo(id);
+            Certificado certificado = certificadoRepository.listarUltimo(usuario);
             return certificado;
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
         System.out.println("Nenhum certificado encontrado. Jogue para adquirir seu primeiro!");
         return null;
+    }
+
+    public boolean listarPorUsuario(Usuario usuario) {
+        try {
+            List<Certificado> certificados = certificadoRepository.listarPorUsuario(usuario);
+            certificados.forEach(System.out::println);
+            return true;
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Nenhum certificado encontrado. Jogue para adquirir seu primeiro!");
+        return false;
     }
 }
