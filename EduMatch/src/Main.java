@@ -54,6 +54,7 @@ public class Main {
                                 podeLogar.get().getSobrenome(),
                                 podeLogar.get().getCPF(),
                                 podeLogar.get().getIdade());
+                        System.out.printf("Bem vindo %s\n", podeLogar.get().getNome());
                         break;
                     }
                     else{
