@@ -20,7 +20,6 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
 
             if(res.next()){
                 int id = res.getInt("mysequence");
-                System.out.println(id);
                 return id;
             }
 
@@ -59,7 +58,6 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
             stmt.setInt(8,usuario.getPontuacao());
 
             int res = stmt.executeUpdate();
-            System.out.println("adicionarUsuario.res= "+ res);
             return usuario;
 
         } catch (SQLException e){

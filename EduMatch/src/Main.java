@@ -32,6 +32,7 @@ public class Main {
         System.out.println("BEM VINDOS AO EDUMATCH");
 
         menu.menuLogin();
+        System.out.print("Digite sua opção: ");
         opcao = sc.nextInt();
         sc.nextLine();
         switch (opcao){
@@ -90,7 +91,6 @@ public class Main {
                                 }
                                 Certificado certificado = cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
                                 certificadoService.salvar(certificado);
-                                usuarioService.atualizar(usuario.getId(), usuario);
                                 break;
                             }
                             case 2: {
@@ -111,7 +111,6 @@ public class Main {
                                 }
                                 Certificado certificado = cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
                                 certificadoService.salvar(certificado);
-                                usuarioService.atualizar(usuario.getId(), usuario);
                                 break;
                             }
                             case 3: {
@@ -132,7 +131,6 @@ public class Main {
                                 }
                                 Certificado certificado = cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
                                 certificadoService.salvar(certificado);
-                                usuarioService.atualizar(usuario.getId(), usuario);
                                 break;
                             }
                             default:
