@@ -32,7 +32,7 @@ public class Main {
         Usuario usuario = new Usuario();
         Optional<Usuario> podeLogar;
         int opcao = 0;
-        boolean execucao = false;
+        boolean execucao = true;
         String opcaoQuestao = "";
 
 
@@ -49,11 +49,8 @@ public class Main {
                     podeLogar = login.Loguin(sc.nextLine());
 
                     if(!podeLogar.isEmpty()) {
-                        execucao = true;
-                        usuario = new Usuario(podeLogar.get().getNome(),
-                                podeLogar.get().getSobrenome(),
-                                podeLogar.get().getCPF(),
-                                podeLogar.get().getIdade());
+                        usuario = podeLogar.orElseGet(() -> new Usuario());;
+
                         System.out.printf("Bem vindo %s\n", podeLogar.get().getNome());
                         break;
                     }
@@ -65,10 +62,12 @@ public class Main {
                             case 1:
                                 usuario = cadastro.cadastrarUsuario(sc);
                                 usuarioService.salvar(usuario);
-                                execucao = true;
                                 break;
-
                             case 2:
+
+                                continue;
+
+                            case 3:
                                 System.out.println("\nFinalizando a aplicação. Até logo!");
                                 execucao = false;
                                 break;
@@ -76,8 +75,9 @@ public class Main {
                         }
 
                     }
-
-                    if(podeLogar.isEmpty()){
+                    System.out.println(usuario.getIdade());
+                    if(usuario.getIdade() != 0){
+                        System.out.println("-04-4-095-43-09534=-593");
                         break;
                     }
                 }
