@@ -3,20 +3,10 @@ package utils;
 import entities.Game;
 import entities.Usuario;
 
+import java.util.Scanner;
+
 public class Menu {
 
-
-    public int validarQuestao(String opcaoRespondida, Game questao, Usuario usuario){
-        int acerto = 0;
-        if (opcaoRespondida.equals(questao.getOpcaoCerta())) {
-            usuario.setPontuacao(questao.getPontos());
-            System.out.println("\nOpção correta! Isso ai :D\n");
-            acerto++;
-        } else {
-            System.out.println("\nOpção errada, preste mais atenção!\n");
-        }
-        return acerto;
-    }
 
     public void menuPrincipal(){
 
@@ -121,15 +111,13 @@ public class Menu {
 
         System.out.println(sb);
     }
-    public void menuCadastro(){
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("\nCPF não encontrado, Deseja se cadastrar?\n");
-        sb.append("[1] Sim\n");
-        sb.append("[2] Sair da aplicação");
-
-        System.out.println(sb);
+    public int entradaUsuario(Scanner sc){
+        int opcao;
+        System.out.print("Digite sua opção: ");
+        opcao = sc.nextInt();
+        sc.nextLine();
+        return opcao;
     }
-
 
 }

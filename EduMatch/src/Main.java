@@ -5,7 +5,9 @@ import utils.Jogo;
 import utils.Menu;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args){
@@ -23,14 +25,11 @@ public class Main {
         Usuario usuario = new Usuario();
         int opcao = 0;
         boolean execucao = true;
-        String opcaoQuestao = "";
 
 
         System.out.println("BEM VINDOS AO EDUMATCH");
             menu.menuLogin();
-            System.out.print("Digite sua opção: ");
-            opcao = sc.nextInt();
-            sc.nextLine();
+            opcao = menu.entradaUsuario(sc);
             switch (opcao) {
                 case 1: {
                     usuario = cadastro.Login(sc);
@@ -55,41 +54,37 @@ public class Main {
         }
         while (execucao) {
             menu.menuPrincipal();
-            System.out.print("Digite sua opção: ");
             try {
-                opcao = sc.nextInt();
-                sc.nextLine();
+                opcao = menu.entradaUsuario(sc);
 
                 switch (opcao) {
                     //NOVO JOGO
                     case 1: {
                         System.out.println();
                         menu.menuNovoJogo();
-                        System.out.print("Digite sua opção: ");
-                        opcao = sc.nextInt();
-                        sc.nextLine();
+                        opcao = menu.entradaUsuario(sc);
                         Certificado certificado = jogo.jogo(sc, opcao, usuario);
                         if (certificado != null){
                             certificadoService.salvar(certificado);
-                        }
+                        } else
+                            System.out.println("Você não conseguiu seu certificado desta vez. Acerte mais questões para conseguir!\n");
+
                         usuarioService.atualizar(usuario.getId(), usuario);
                     }
                     break;
                     //RANKING
                     case 2: {
                         menu.menuRanking();
-                        System.out.print("Opção: ");
-                        opcao = sc.nextInt();
+                        opcao = menu.entradaUsuario(sc);
                         switch (opcao) {
                             case 1: {
                                 System.out.println("\nSua pontuação é de: " + usuario.getPontuacao() + "\n");
                                 continue;
                             }
                             case 2: {
-                                List<Usuario> ranking = usuarioService.rankearUsuarios();
-                                ranking.forEach(System.out::println);
-                                System.out.println();
-                                System.out.println();
+                                List<Usuario> usuarios = usuarioService.rankearUsuarios();
+                                Map<Integer, Usuario> ranking = usuarios.stream().collect(Collectors.toMap(usuarios::indexOf, u -> u));
+                                ranking.forEach((i, jogador) -> System.out.printf("%n%d° Posicao:%n%s %n", i, jogador));
                                 continue;
                             }
                             case 3: {
@@ -105,16 +100,12 @@ public class Main {
                     //OPÇÕES
                     case 3: {
                         menu.menuOpcoes();
-                        System.out.print("Opção: ");
-                        opcao = sc.nextInt();
-                        sc.nextLine();
+                        opcao = menu.entradaUsuario(sc);
 
                         switch (opcao) {
                             case 1: {
                                 menu.menuEndereco();
-                                System.out.print("Opção: ");
-                                opcao = sc.nextInt();
-                                sc.nextLine();
+                                opcao = menu.entradaUsuario(sc);
                                 switch (opcao) {
                                     case 1: {
                                         if (usuario.getEndereco() != null) {
@@ -179,10 +170,7 @@ public class Main {
                             case 2: {
                                 //Contatos
                                 menu.menuContato();
-                                System.out.print("Opção: ");
-                                opcao = sc.nextInt();
-                                sc.nextLine();
-
+                                opcao = menu.entradaUsuario(sc);
                                 switch (opcao) {
                                     case 1: {
                                         usuario.setContato(contatoService.listarPorDono(usuario.getId()));
@@ -202,9 +190,7 @@ public class Main {
                                         int i = 0;
 
                                         System.out.println("Escolha o ID do contato a ser atualizado: ");
-                                        System.out.print("Opção: ");
-                                        opcao = sc.nextInt();
-                                        sc.nextLine();
+                                        opcao = menu.entradaUsuario(sc);
                                         Contato contatoAtualizado = cadastro.cadastrarContato(sc);
                                         break;
                                     }
@@ -227,9 +213,7 @@ public class Main {
                             }
                             case 3: {
                                 menu.menuEscola();
-                                System.out.print("Opção: ");
-                                opcao = sc.nextInt();
-                                sc.nextLine();
+                                opcao = menu.entradaUsuario(sc);
                                 switch (opcao) {
                                     case 1: {
                                         escolaService.listarTodos();
@@ -259,9 +243,7 @@ public class Main {
                             }
                             case 4: {
                                 menu.menuCertificado();
-                                System.out.print("Opção: ");
-                                opcao = sc.nextInt();
-                                sc.nextLine();
+                                opcao = menu.entradaUsuario(sc);
                                 switch (opcao) {
                                     case 1: {
                                         System.out.println("\nCertificados adquiridos: \n");

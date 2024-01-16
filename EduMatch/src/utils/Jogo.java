@@ -23,8 +23,9 @@ public class Jogo {
     private Game questao;
 
     public Certificado jogo(Scanner sc, int opcao, Usuario usuario){
-        String respostaUsuario = "";
-        switch (opcao-1){
+        opcao--;
+        String respostaUsuario;
+        switch (opcao){
 
             case 0:
                 for (Dificuldades dificuldade : Dificuldades.values()) {
@@ -52,15 +53,18 @@ public class Jogo {
                     validarResposta(respostaUsuario, usuario);
                 }
                 break;
+            case 3:
+                System.out.println("\nRetornando ao menu principal.");
+                break;
 
             default:
                 System.out.println("Opção inválida. Retornando ao menu principal.");
+                break;
         }
-
 
         if(aprovado()){
             resetarValores();
-            return new Certificado(Games.valueOf(opcao - 1), LocalDateTime.now(), usuario);
+            return new Certificado(Games.valueOf(opcao), LocalDateTime.now(), usuario);
         }
         else {
             resetarValores();
@@ -91,12 +95,7 @@ public class Jogo {
 
     private boolean aprovado() {
         double aprovado = (double) acertos * 100 / totalQuestoes;
-        if (aprovado >= porcentagemValidacao){
-            return true;
-        } else {
-            System.out.println("Você não conseguiu seu certificado desta vez. Acerte mais questões para conseguir!\n");
-            return false;
-        }
+        return aprovado >= porcentagemValidacao;
     }
     private void resetarValores(){
         acertos = 0;

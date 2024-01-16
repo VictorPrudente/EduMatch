@@ -62,13 +62,6 @@ public class Cadastro {
         return usuario;
     }
 
-    public Certificado validarCertificado(int acertos, int totalQuestoes, Usuario usuario, int i) {
-        if ((double) ((acertos * 100) / totalQuestoes) >= 66) {
-            return new Certificado(Games.valueOf(i), LocalDateTime.now(), usuario);
-        }
-        return null;
-    }
-
     public Usuario cadastrarUsuario(Scanner sc){
     while (true) {
         String email = "";
