@@ -19,7 +19,7 @@ public class EnderecoService implements Service<Endereco> {
     public boolean salvar(Endereco endereco) {
         try {
             Endereco enderecoAdicionado = enderecoRepository.adicionar(endereco);
-            System.out.println("Endereco adicinado com sucesso! " + enderecoAdicionado);
+            System.out.println("Endereco adicinado com sucesso! \n" + enderecoAdicionado);
             return true;
         } catch (BancoDeDadosException e) {
             System.out.println("ERRO: " + e.getMessage());

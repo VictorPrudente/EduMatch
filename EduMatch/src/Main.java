@@ -1,6 +1,7 @@
 import entities.*;
 import services.*;
 import utils.Cadastro;
+import utils.EnderecoCRUD;
 import utils.Jogo;
 import utils.Menu;
 
@@ -18,6 +19,7 @@ public class Main {
         EscolaService escolaService = new EscolaService();
         EmpresaService empresaService = new EmpresaService();
         UsuarioService usuarioService = new UsuarioService();
+        EnderecoCRUD enderecoCRUD = new EnderecoCRUD();
         Cadastro cadastro = new Cadastro();
         Jogo jogo = new Jogo();
         Menu menu = new Menu();
@@ -106,69 +108,9 @@ public class Main {
                             case 1: {
                                 menu.menuEndereco();
                                 opcao = menu.entradaUsuario(sc);
-                                switch (opcao) {
-                                    case 1: {
-                                        if (usuario.getEndereco() != null) {
-                                            System.out.println("ENDEREÇO CADASTRADO");
-                                            System.out.println(usuario.getEndereco());
-                                        } else {
-                                            System.out.println("Você não tem nenhum endereço cadastrado.\n");
-                                        }
-                                        continue;
+                                enderecoCRUD.enderecoOpcoes(sc, opcao, usuario);
                                     }
-                                    case 2: {
-                                        System.out.println();
-
-                                        System.out.println("CADASTRO DE UM NOVO ENDEREÇO");
-                                        endereco = cadastro.cadastrarEndereco(sc);
-                                        endereco.setId_usuario(usuario.getId());
-                                        enderecoService.salvar(endereco);
-                                        usuario.setEndereco(endereco);
-                                        System.out.println("Endereço cadastrado com sucesso!\n");
-
-                                        continue;
-                                    }
-                                    case 3: {
-                                        //ATUALIZAR UM ENDEREÇO
-                                        int i = 0;
-                                        if (usuario.getEndereco() != null) {
-                                            System.out.println("ATUALIZAR O ENDEREÇO");
-                                            System.out.println(endereco);
-                                            System.out.print("Escolha um endereço pelo seu ID: ");
-                                            int id = sc.nextInt();
-                                            sc.nextLine();
-                                            Endereco enderecoAtualizado = cadastro.cadastrarEndereco(sc);
-                                            enderecoAtualizado.setId(endereco.getId());
-                                            if(enderecoService.atualizar(id, enderecoAtualizado)){
-                                                usuario.setEndereco(enderecoAtualizado);
-                                            }
-                                        } else {
-                                            System.out.println("\nVocê não tem nenhum endereço cadastrado.");
-                                        }
-                                        break;
-                                    }
-                                    case 4: {
-                                        //DELETAR UM ENDEREÇO
-                                        if (usuario.getEndereco() != null) {
-                                            System.out.println("DELETAR ENDEREÇO");
-                                            System.out.println(usuario.getEndereco());
-                                            System.out.print("Escolha o id do seu endereço: ");
-                                            opcao = sc.nextInt();
-                                            sc.nextLine();
-                                            if (enderecoService.deletar(opcao)){
-                                                usuario.setEndereco(null);
-                                            }
-                                        } else {
-                                            System.out.println("Você não tem nenhum endereço cadastrado.\n");
-                                        }
-                                        break;
-                                    }
-                                    case 5: {
-                                        continue;
-                                    }
-                                }
-                                continue;
-                            }
+                                break;
                             case 2: {
                                 //Contatos
                                 menu.menuContato();
