@@ -77,6 +77,18 @@ public class Jogo {
         return respostaUsuario;
     }
 
+    private void validarResposta(String respostaUsuario, Usuario usuario) {
+        if (respostaUsuario.equals(questao.getOpcaoCerta())) {
+            System.out.println("\nOpção correta! Isso ai :D\n");
+            acertos++;
+            totalQuestoes++;
+            usuario.setPontuacao(questao.getPontos());
+        } else {
+            System.out.println("\nOpção errada, preste mais atenção!\n");
+            totalQuestoes++;
+        }
+    }
+
     private boolean aprovado() {
         double aprovado = (double) acertos * 100 / totalQuestoes;
         if (aprovado >= porcentagemValidacao){
@@ -89,16 +101,5 @@ public class Jogo {
     private void resetarValores(){
         acertos = 0;
         totalQuestoes = 0;
-    }
-    private void validarResposta(String respostaUsuario, Usuario usuario) {
-        if (respostaUsuario.equals(questao.getOpcaoCerta())) {
-            System.out.println("\nOpção correta! Isso ai :D\n");
-            acertos++;
-            totalQuestoes++;
-            usuario.setPontuacao(questao.getPontos());
-        } else {
-            System.out.println("\nOpção errada, preste mais atenção!\n");
-            totalQuestoes++;
-        }
     }
 }
