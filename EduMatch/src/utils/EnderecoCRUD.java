@@ -12,6 +12,8 @@ public class EnderecoCRUD {
 
     private final EnderecoService enderecoService = new EnderecoService();
     private final String erro = "\nVocê não tem nenhum endereço cadastrado.";
+    private final String erroCadastro = "\nVocê já possui um endereço cadastrado.";
+
 
 
     public void enderecoOpcoes(Scanner sc, int opcao, Usuario usuario) {
@@ -106,12 +108,15 @@ public class EnderecoCRUD {
     }
 
     private void salvar(Scanner sc, Usuario usuario){
-        System.out.println("\nCADASTRO DE UM NOVO ENDEREÇO");
-        Endereco novoEndereco = cadastrarEndereco(sc);
-        novoEndereco.setId_usuario(usuario.getId());
-        enderecoService.salvar(novoEndereco);
-        usuario.setEndereco(novoEndereco);
-        System.out.println("Endereço cadastrado com sucesso!\n");
+        if (!temEndereco(usuario)) {
+            System.out.println("\nCADASTRO DE UM NOVO ENDEREÇO");
+            Endereco novoEndereco = cadastrarEndereco(sc);
+            novoEndereco.setId_usuario(usuario.getId());
+            enderecoService.salvar(novoEndereco);
+            usuario.setEndereco(novoEndereco);
+            System.out.println("Endereço cadastrado com sucesso!\n");
+        } else
+            System.out.println(erroCadastro);
     }
 
     private void atualizar(Scanner sc, Usuario usuario){
