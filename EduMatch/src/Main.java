@@ -1,6 +1,7 @@
 import entities.*;
 import services.*;
 import utils.Cadastro;
+import utils.Jogo;
 import utils.Menu;
 
 import java.util.List;
@@ -15,10 +16,8 @@ public class Main {
         EscolaService escolaService = new EscolaService();
         EmpresaService empresaService = new EmpresaService();
         UsuarioService usuarioService = new UsuarioService();
-        SoftSkillService softSkillService = new SoftSkillService();
-        PortuguesService portuguesService = new PortuguesService();
-        MatematicaService matematicaService = new MatematicaService();
         Cadastro cadastro = new Cadastro();
+        Jogo jogo = new Jogo();
         Menu menu = new Menu();
         Scanner sc = new Scanner(System.in);
         Usuario usuario = new Usuario();
@@ -69,89 +68,13 @@ public class Main {
                         System.out.print("Digite sua opção: ");
                         opcao = sc.nextInt();
                         sc.nextLine();
-                        switch (opcao) {
-                            case 1: {
-                                int trilha = opcao-1;
-                                int acertos = 0;
-                                int totalQuestoes = 0;
-                                for (int i = 0; i < 3; i++) {
-                                    Portugues questao = portuguesService.listarPelaDificuldade(i);
-                                    totalQuestoes++;
-                                    System.out.println(questao);
-                                    while (!opcaoQuestao.matches("[A-Ea-e]")) {
-                                        System.out.print("Opção: ");
-                                        opcaoQuestao = sc.nextLine().toUpperCase().trim();
-                                    }
-
-                                    acertos += menu.validarQuestao(opcaoQuestao, questao, usuario);
-                                    opcaoQuestao = "";
-                                }
-                                Certificado certificado = cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
-                                if (certificado != null) {
-                                    certificadoService.salvar(certificado);
-                                } else {
-                                    System.out.println("Você não conseguiu seu certificado desta vez. Acerte mais questões para conseguir!");
-                                }
-                                usuarioService.atualizar(usuario.getId(), usuario);
-                                break;
-                            }
-                            case 2: {
-                                int trilha = opcao-1;
-                                int acertos = 0;
-                                int totalQuestoes = 0;
-                                for (int i = 0; i < 3; i++) {
-                                    Matematica questao = matematicaService.listarPelaDificuldade(i);
-                                    totalQuestoes++;
-                                    System.out.println(questao);
-                                    while (!opcaoQuestao.matches("[A-Ea-e]")) {
-                                        System.out.print("Opção: ");
-                                        opcaoQuestao = sc.nextLine().toUpperCase().trim();
-                                    }
-
-                                    acertos += menu.validarQuestao(opcaoQuestao, questao, usuario);
-                                    opcaoQuestao = "";
-                                }
-                                Certificado certificado = cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
-                                if (certificado != null) {
-                                    certificadoService.salvar(certificado);
-                                } else {
-                                    System.out.println("Você não conseguiu seu certificado desta vez. Acerte mais questões para conseguir!");
-                                }
-                                usuarioService.atualizar(usuario.getId(), usuario);
-
-                                break;
-                            }
-                            case 3: {
-                                int acertos = 0;
-                                int totalQuestoes = 0;
-                                int trilha = opcao-1;
-                                for (int i = 0; i < 3; i++) {
-                                    SoftSkill questao = softSkillService.listarPelaDificuldade(i);
-                                    totalQuestoes++;
-                                    System.out.println(questao);
-                                    while (!opcaoQuestao.matches("[A-Ea-e]")) {
-                                        System.out.print("Opção: ");
-                                        opcaoQuestao = sc.nextLine().toUpperCase().trim();
-                                    }
-
-                                    acertos += menu.validarQuestao(opcaoQuestao, questao, usuario);
-                                    opcaoQuestao = "";
-                                }
-                                Certificado certificado = cadastro.validarCertificado(acertos, totalQuestoes, usuario, trilha);
-                                if (certificado != null) {
-                                    certificadoService.salvar(certificado);
-                                } else {
-                                    System.out.println("Você não conseguiu seu certificado desta vez. Acerte mais questões para conseguir!");
-                                }
-                                usuarioService.atualizar(usuario.getId(), usuario);
-                                break;
-                            }
-                            default:
-                                System.out.println("\nRetornando ao menu principal.\n");
-                                break;
+                        Certificado certificado = jogo.jogo(sc, opcao, usuario);
+                        if (certificado != null){
+                            certificadoService.salvar(certificado);
                         }
-                        break;
+                        usuarioService.atualizar(usuario.getId(), usuario);
                     }
+                    break;
                     //RANKING
                     case 2: {
                         menu.menuRanking();

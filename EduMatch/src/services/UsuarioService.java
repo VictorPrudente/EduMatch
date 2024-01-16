@@ -67,12 +67,12 @@ public class UsuarioService implements Service<Usuario> {
     public boolean atualizar(int id,Usuario usuario){
         try {
             usuarioRepository.editar(id, usuario);
-            System.out.printf("Usuário com o ID %d atualizado.", id);
+            System.out.printf("Usuário com o ID %d atualizado.\n", id);
             return true;
         } catch (BancoDeDadosException e){
             e.printStackTrace();
         }
-        System.out.println("Usuário não atualizado.");
+        System.out.println("Usuário não atualizado.\n");
         return false;
     }
     @Override
