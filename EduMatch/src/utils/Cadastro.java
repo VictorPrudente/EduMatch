@@ -35,22 +35,31 @@ public class Cadastro {
         }
     }
 
-    public Usuario Login(String email, String senha) throws BancoDeDadosException {
-        try {
-            Usuario usuario = usuarioRepository.listarPorEmail(email);
-            String senhaHasheada = hashPassword(senha);
-            if (senhaHasheada.equals(usuario.getSenha())) {
-                //adicionar contato ao usuario
-                //adicionar endereço ao usuario
-                return usuario;
-            } else {
-                System.out.println("Senha inválida.");
+    public Usuario Login(Scanner sc) {
+        Usuario usuario = null;
+        boolean noUser = true;
+        while (noUser){
+            System.out.print("\nDigite seu email de login: ");
+            String email = sc.nextLine();
+            System.out.print("\nDigite sua senha: ");
+            String senha = sc.nextLine();
+            try{
+                usuario = usuarioRepository.listarPorEmail(email);
+
+                if (usuario != null && hashPassword(senha).equals(usuario.getSenha())){
+                    noUser = false;
+                    System.out.println("\nOlá " + usuario.getNome() + " que bom te ver de volta! Vamos aos estudos?!");
+                }
+                else {
+                    System.out.println("Email ou senha inválida. Por favor, tente novamente.\n");
+                }
+            } catch (BancoDeDadosException e){
+                System.out.println("Erro ao acessar o banco de dados.");
+                System.out.println("Erro: " + e.getMessage());
                 return null;
             }
-        } catch (BancoDeDadosException e){
-            System.out.println("Usuario não encontrado.");
-            return null;
         }
+        return usuario;
     }
 
     public Certificado validarCertificado(int acertos, int totalQuestoes, Usuario usuario, int i) {

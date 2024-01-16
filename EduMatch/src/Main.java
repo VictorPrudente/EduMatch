@@ -1,15 +1,13 @@
 import entities.*;
-import exceptions.BancoDeDadosException;
 import services.*;
 import utils.Cadastro;
 import utils.Menu;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws BancoDeDadosException {
+    public static void main(String[] args){
 
         EnderecoService enderecoService = new EnderecoService();
         ContatoService contatoService = new ContatoService();
@@ -30,42 +28,32 @@ public class Main {
 
 
         System.out.println("BEM VINDOS AO EDUMATCH");
-
-        menu.menuLogin();
-        System.out.print("Digite sua opção: ");
-        opcao = sc.nextInt();
-        sc.nextLine();
-        switch (opcao){
-            case 1:
-                    System.out.print("Digite seu email: ");
-                    String email = sc.nextLine();
-
-                    System.out.print("Digite sua senha: ");
-                    String senha = sc.nextLine();
-                    usuario = cadastro.Login(email, senha);
-                    Endereco endereco = enderecoService.listarPorDono(usuario.getId());
-                    if(endereco != null){
-                      usuario.setEndereco(endereco);
-                    } 
-                    Contato contato = contatoService.listarPorDono(usuario.getId());
-                    if(contato != null){
-                      usuario.setContato(contato);
-                    }
-                    
-
-                break;
-            case 2:
-                usuario = cadastro.cadastrarUsuario(sc);
-                usuarioService.salvar(usuario);
-                System.out.println();
-
-                break;
-            case 3:
-                System.out.println("\nFinalizando a aplicação. Até logo!");
-                execucao = false;
-                break;
+            menu.menuLogin();
+            System.out.print("Digite sua opção: ");
+            opcao = sc.nextInt();
+            sc.nextLine();
+            switch (opcao) {
+                case 1: {
+                    usuario = cadastro.Login(sc);
+                    break;
+                }
+                case 2:
+                    usuario = cadastro.cadastrarUsuario(sc);
+                    usuarioService.salvar(usuario);
+                    System.out.println();
+                    break;
+                case 3:
+                    System.out.println("\nFinalizando a aplicação. Até logo!");
+                    break;
+            }
+        Endereco endereco = enderecoService.listarPorDono(usuario.getId());
+        if (endereco != null) {
+            usuario.setEndereco(endereco);
         }
-
+        Contato contato = contatoService.listarPorDono(usuario.getId());
+        if (contato != null) {
+            usuario.setContato(contato);
+        }
         while (execucao) {
             menu.menuPrincipal();
             System.out.print("Digite sua opção: ");
@@ -218,9 +206,10 @@ public class Main {
                                         System.out.println();
 
                                         System.out.println("CADASTRO DE UM NOVO ENDEREÇO");
-                                        Endereco endereco = cadastro.cadastrarEndereco(sc);
+                                        endereco = cadastro.cadastrarEndereco(sc);
                                         endereco.setId_usuario(usuario.getId());
                                         enderecoService.salvar(endereco);
+                                        usuario.setEndereco(endereco);
                                         System.out.println("Endereço cadastrado com sucesso!\n");
 
                                         continue;
@@ -250,7 +239,7 @@ public class Main {
                                             enderecoService.listarPorDono(usuario.getId());
                                             System.out.print("Escolha o id do seu endereço: ");
                                             int id = sc.nextInt();
-                                            Endereco endereco = enderecoService.listarPorDono(id);
+                                            endereco = enderecoService.listarPorDono(id);
                                             enderecoService.deletar(endereco);
                                             System.out.println("Endereço deletado com sucesso!\n");
                                         } else {
@@ -282,7 +271,7 @@ public class Main {
                                         continue;
                                     }
                                     case 2: {
-                                        Contato contato = cadastro.cadastrarContato(sc);
+                                        contato = cadastro.cadastrarContato(sc);
                                         System.out.println("Contato cadastrado com sucesso!\n");
                                         continue;
                                     }
