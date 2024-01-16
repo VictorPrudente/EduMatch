@@ -76,8 +76,7 @@ public class UsuarioService implements Service<Usuario> {
         return false;
     }
     @Override
-    public boolean deletar(Usuario usuario){
-        int id = usuario.getId();
+    public boolean deletar(int id){
         try {
             usuarioRepository.remover(id);
             System.out.printf("Usuário com o id %d removido com sucesso.", id);

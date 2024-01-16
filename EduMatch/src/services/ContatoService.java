@@ -32,8 +32,7 @@ public class ContatoService implements Service<Contato> {
     }
 
     @Override
-    public boolean deletar(Contato contato) {
-        int id = contato.getId();
+    public boolean deletar(int id) {
         try {
             contatoRepository.remover(id);
             System.out.printf("Contato com o id %d removido com sucesso.", id);

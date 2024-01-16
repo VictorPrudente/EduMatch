@@ -33,8 +33,7 @@ public class EnderecoService implements Service<Endereco> {
     }
 
     @Override
-    public boolean deletar(Endereco endereco) {
-        int id = endereco.getId();
+    public boolean deletar(int id) {
         try {
             enderecoRepository.remover(id);
             System.out.printf("Endereco com o id %d removido com sucesso.", id);
@@ -51,6 +50,7 @@ public class EnderecoService implements Service<Endereco> {
         try {
             enderecoRepository.editar(id, endereco);
             System.out.printf("Endereco com o ID %d atualizado.", id);
+            return true;
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }

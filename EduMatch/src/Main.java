@@ -83,7 +83,7 @@ public class Main {
                             }
                             case 2: {
                                 List<Usuario> usuarios = usuarioService.rankearUsuarios();
-                                Map<Integer, Usuario> ranking = usuarios.stream().collect(Collectors.toMap(usuarios::indexOf, u -> u));
+                                Map<Integer, Usuario> ranking = usuarios.stream().collect(Collectors.toMap(usuarios::indexOf, user -> user));
                                 ranking.forEach((i, jogador) -> System.out.printf("%n%d° Posicao:%n%s %n", i, jogador));
                                 continue;
                             }
@@ -112,7 +112,7 @@ public class Main {
                                             System.out.println("ENDEREÇO CADASTRADO");
                                             System.out.println(usuario.getEndereco());
                                         } else {
-                                            System.out.println("\nNenhum endereço cadastrado.\n");
+                                            System.out.println("Você não tem nenhum endereço cadastrado.\n");
                                         }
                                         continue;
                                     }
@@ -133,29 +133,31 @@ public class Main {
                                         int i = 0;
                                         if (usuario.getEndereco() != null) {
                                             System.out.println("ATUALIZAR O ENDEREÇO");
-                                            enderecoService.listarPorDono(usuario.getId());
+                                            System.out.println(endereco);
                                             System.out.print("Escolha um endereço pelo seu ID: ");
                                             int id = sc.nextInt();
                                             sc.nextLine();
                                             Endereco enderecoAtualizado = cadastro.cadastrarEndereco(sc);
-                                            enderecoService.atualizar(id, enderecoAtualizado);
-                                            System.out.println("Endereço atualizado com sucesso!\n");
+                                            enderecoAtualizado.setId(endereco.getId());
+                                            if(enderecoService.atualizar(id, enderecoAtualizado)){
+                                                usuario.setEndereco(enderecoAtualizado);
+                                            }
                                         } else {
-                                            System.out.println("Você não tem nenhum endereço cadastrado.\n");
+                                            System.out.println("\nVocê não tem nenhum endereço cadastrado.");
                                         }
                                         break;
                                     }
                                     case 4: {
                                         //DELETAR UM ENDEREÇO
-                                        int i = 0;
                                         if (usuario.getEndereco() != null) {
                                             System.out.println("DELETAR ENDEREÇO");
-                                            enderecoService.listarPorDono(usuario.getId());
+                                            System.out.println(usuario.getEndereco());
                                             System.out.print("Escolha o id do seu endereço: ");
-                                            int id = sc.nextInt();
-                                            endereco = enderecoService.listarPorDono(id);
-                                            enderecoService.deletar(endereco);
-                                            System.out.println("Endereço deletado com sucesso!\n");
+                                            opcao = sc.nextInt();
+                                            sc.nextLine();
+                                            if (enderecoService.deletar(opcao)){
+                                                usuario.setEndereco(null);
+                                            }
                                         } else {
                                             System.out.println("Você não tem nenhum endereço cadastrado.\n");
                                         }

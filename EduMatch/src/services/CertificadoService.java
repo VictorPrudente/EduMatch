@@ -38,8 +38,7 @@ public class CertificadoService implements Service<Certificado> {
     }
 
     @Override
-    public boolean deletar(Certificado certificado) {
-        int id = certificado.getId();
+    public boolean deletar(int id) {
         try {
             certificadoRepository.remover(id);
             System.out.printf("Certificado com o id %d removido com sucesso.");
