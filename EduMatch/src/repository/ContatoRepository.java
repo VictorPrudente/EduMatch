@@ -12,21 +12,27 @@ import java.util.List;
 public class ContatoRepository implements Repositorio<Integer, Contato> {
 
     @Override
-    public Integer getProximoId(Connection connection) throws SQLException {
-        String sql = "SELECT VS_13_EQUIPE_9.SEQ_CONTATO.nextval AS mysequence from DUAL";
+    public Integer getProximoId(Connection connection) throws BancoDeDadosException {
+        try {
+            String sql = "SELECT VS_13_EQUIPE_9.SEQ_CONTATO.nextval AS mysequence from DUAL";
 
-        Statement stmt = connection.createStatement();
-        ResultSet res = stmt.executeQuery(sql);
+            Statement stmt = connection.createStatement();
+            ResultSet res = stmt.executeQuery(sql);
 
-        if (res.next()) {
-            return res.getInt("mysequence");
+            if (res.next()) {
+                int id = res.getInt("mysequence");
+                return id;
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
         }
-        return null;
     }
 
     @Override
     public Contato adicionar(Contato contato) throws BancoDeDadosException {
         Connection con = null;
+
         try {
             con = ConexaoBancoDeDados.getConnection();
 
@@ -34,8 +40,8 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             contato.setId(proximoId);
 
             String sql = "INSERT INTO VS_13_EQUIPE_9.CONTATO\n" +
-                    "(ID_CONTATO, DESCRICAO, TELEFONE, TIPO_CONTATO, ID_USUARIO, ID_EMPRESA, ID_ESCOLA) \n" +
-                    "VALUES(?, ?, ?, ?, ?, ?, ?)\n";
+                    "(ID_CONTATO, DESCRICAO, TELEFONE, TIPO_CONTATO, ID_USUARIO) \n" +
+                    "VALUES(?, ?, ?, ?, ?)\n";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -44,11 +50,10 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             stmt.setString(3, contato.getTelefone());
             stmt.setInt(4, contato.getTipo().ordinal());
             stmt.setInt(5, contato.getId_usuario());
-            stmt.setInt(6, contato.getId_empresa());
-            stmt.setInt(7, contato.getId_escola());
 
             int res = stmt.executeUpdate();
             return contato;
+
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {
@@ -96,14 +101,16 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
         try {
             con = ConexaoBancoDeDados.getConnection();
 
-            StringBuilder sql = new StringBuilder();
-            sql.append("UPDATE VS_13_EQUIPE_9.CONTATO SET ");
-            sql.append(" descricao = ?,");
-            sql.append(" telefone = ? ");
-            sql.append(" tipo_contato = ? ");
-            sql.append(" WHERE id_contato = ? ");
+            String sql = """
+                    UPDATE VS_13_EQUIPE_9.CONTATO 
+                        SET
+                        descricao = ?,
+                        telefone = ?,
+                        tipo_contato = ?
+                    WHERE id_contato = ? """;
 
-            PreparedStatement stmt = con.prepareStatement(sql.toString());
+
+            PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setString(1, contato.getDescricao());
             stmt.setString(2, contato.getTelefone());
@@ -144,8 +151,6 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
                 contato.setDescricao(res.getString("descricao"));
                 contato.setTipo(TipoDeContato.valueOf(res.getInt("tipo_contato")));
                 contato.setId_usuario(res.getInt("id_usuario"));
-                contato.setId_empresa(res.getInt("id_empresa"));
-                contato.setId_escola(res.getInt("id_escola"));
                 contatos.add(contato);
             }
         } catch (SQLException e) {
@@ -167,44 +172,22 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
         try {
             con = ConexaoBancoDeDados.getConnection();
             String sql = """
-                SELECT c.id_contato, c.telefone, c.tipo_contato, c.descricao, c.id_usuario, c.id_empresa, c.id_escola
+                SELECT c.id_contato, c.telefone, c.tipo_contato, c.descricao, c.id_usuario
                 FROM VS_13_EQUIPE_9.CONTATO c
-                LEFT JOIN VS_13_EQUIPE_9.USUARIO u ON u.ID_USUARIO = c.ID_USUARIO
-                LEFT JOIN VS_13_EQUIPE_9.EMPRESA emp ON emp.ID_EMPRESA = c.ID_EMPRESA
-                LEFT JOIN VS_13_EQUIPE_9.ESCOLA esc ON esc.ID_ESCOLA = c.ID_ESCOLA
-                WHERE c.id_usuario = ? OR c.id_empresa = ? OR c.id_escola = ?""";
+                WHERE c.id_usuario = ?""";
 
-            try (PreparedStatement stmt = con.prepareStatement(sql)) {
-                stmt.setInt(1, id);
-                stmt.setInt(2, id);
-                stmt.setInt(3, id);
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
 
-                try (ResultSet res = stmt.executeQuery()) {
-                    while (res.next()) {
+            ResultSet res = stmt.executeQuery();
+                    if (res.next()) {
                         Contato contato = new Contato();
                         contato.setId(res.getInt("id_contato"));
                         contato.setTelefone(res.getString("telefone"));
                         contato.setTipo(TipoDeContato.valueOf(res.getInt("tipo_contato")));
                         contato.setDescricao(res.getString("descricao"));
-
-                        int idUsuario = res.getInt("id_usuario");
-                        int idEmpresa = res.getInt("id_empresa");
-                        int idEscola = res.getInt("id_escola");
-
-                        if (!res.wasNull()) {
-                            if (idUsuario != 0) {
-                                contato.setId_usuario(idUsuario);
-                            } else if (idEmpresa != 0) {
-                                contato.setId_empresa(idEmpresa);
-                            } else if (idEscola != 0) {
-                                contato.setId_escola(idEscola);
-                            }
-
-                            return contato;
+                        return contato;
                         }
-                    }
-                }
-            }
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {

@@ -22,7 +22,7 @@ public class Jogo {
 
     private Game questao;
 
-    public Certificado jogo(Scanner sc, int opcao, Usuario usuario){
+    public Certificado jogar(Scanner sc, int opcao, Usuario usuario){
         opcao--;
         String respostaUsuario;
         switch (opcao){

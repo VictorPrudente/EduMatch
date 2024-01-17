@@ -105,33 +105,7 @@ public class Cadastro {
         }
     }
 
-    public Contato cadastrarContato(Scanner sc){
-    while (true){
-        String telefone = "";
-        String descricao = "";
-        try {
-            while (telefone.isBlank() || !telefone.matches("^[0-9]+$")) {
-                System.out.print("Número para contato: ");
-                telefone = sc.nextLine();
-            }
-            while (descricao.isBlank()) {
-                System.out.print("Descrição: ");
-                descricao = sc.nextLine();
-            }
-            System.out.print("Tipo de contato\n" +
-                    "[1] Celular\n" +
-                    "[2] Residencial\n" +
-                    "[3] Comercial\n");
-            System.out.print("Opção: ");
-            int opcao = sc.nextInt();
-            sc.nextLine();
-        return new Contato(descricao, telefone, TipoDeContato.valueOf(opcao-1));
-        } catch (RuntimeException e){
-            System.out.println("\n\u001B[31mErro ao ler os dados. Por favor, tente novamente.\u001B[0m");
-            sc.nextLine();
-        }
-        }
-    }
+
 
 
     public Escola cadastrarEscola(Scanner sc){

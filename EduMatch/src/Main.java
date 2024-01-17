@@ -2,10 +2,7 @@ import entities.*;
 import entities.enums.Games;
 import exceptions.InputException;
 import services.*;
-import utils.Cadastro;
-import utils.EnderecoCRUD;
-import utils.Jogo;
-import utils.Menu;
+import utils.*;
 
 import java.util.List;
 import java.util.Map;
@@ -22,6 +19,7 @@ public class Main {
         EmpresaService empresaService = new EmpresaService();
         UsuarioService usuarioService = new UsuarioService();
         EnderecoCRUD enderecoCRUD = new EnderecoCRUD();
+        ContatoCRUD contatoCRUD = new ContatoCRUD();
         Cadastro cadastro = new Cadastro();
         Jogo jogo = new Jogo();
         Menu menu = new Menu();
@@ -73,7 +71,7 @@ public class Main {
                         System.out.println();
                         menu.menuNovoJogo();
                         opcao = menu.entradaUsuario(sc);
-                        Certificado certificado = jogo.jogo(sc, opcao, usuario);
+                        Certificado certificado = jogo.jogar(sc, opcao, usuario);
                         if (certificado != null){
                             certificadoService.salvar(certificado);
                         } else
@@ -94,7 +92,7 @@ public class Main {
                             case 2: {
                                 List<Usuario> usuarios = usuarioService.rankearUsuarios();
                                 Map<Integer, Usuario> ranking = usuarios.stream().collect(Collectors.toMap(usuarios::indexOf, user -> user));
-                                ranking.forEach((i, jogador) -> System.out.printf("%n%d° Posicao:%n%s %n", i, jogador));
+                                ranking.forEach((i, jogador) -> System.out.printf("%n%d° Posicao:%n%s %n", ++i, jogador));
                                 continue;
                             }
                             case 3: {
@@ -120,49 +118,12 @@ public class Main {
                                 enderecoCRUD.enderecoOpcoes(sc, opcao, usuario);
                                     }
                                 break;
+                            //CONTATO
                             case 2: {
-                                //Contatos
                                 menu.menuContato();
                                 opcao = menu.entradaUsuario(sc);
-                                switch (opcao) {
-                                    case 1: {
-                                        usuario.setContato(contatoService.listarPorDono(usuario.getId()));
-                                        if (usuario.getContato() != null) {
-                                            System.out.println("CONTATO CADASTRADO");
-                                        } else {
-                                            System.out.println("\nNenhum contato cadastrado.\n");
-                                        }
-                                        continue;
-                                    }
-                                    case 2: {
-                                        Contato contato = cadastro.cadastrarContato(sc);
-                                        System.out.println("Contato cadastrado com sucesso!\n");
-                                        continue;
-                                    }
-                                    case 3: {
-                                        int i = 0;
-
-                                        System.out.println("Escolha o ID do contato a ser atualizado: ");
-                                        opcao = menu.entradaUsuario(sc);
-                                        Contato contatoAtualizado = cadastro.cadastrarContato(sc);
-                                        break;
-                                    }
-                                    case 4: {
-                                        int i = 0;
-
-                                        System.out.println("Escolha o ID do contato a ser deletado: ");
-                                        System.out.print("Opção: ");
-                                        opcao = sc.nextInt();
-
-                                    }
-                                    case 5: {
-                                        continue;
-                                    }
-                                    default: {
-                                        System.out.println(error);
-                                        continue;
-                                    }
-                                }
+                                contatoCRUD.contatoOpcoes(sc, opcao, usuario);
+                                break;
                             }
                             case 3: {
                                 menu.menuEscola();
