@@ -1,4 +1,6 @@
 import entities.*;
+import entities.enums.Games;
+import exceptions.InputException;
 import services.*;
 import utils.Cadastro;
 import utils.EnderecoCRUD;
@@ -27,33 +29,39 @@ public class Main {
         Usuario usuario = new Usuario();
         int opcao = 0;
         boolean execucao = true;
+        String error = "\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n";
 
 
         System.out.println("BEM VINDOS AO EDUMATCH");
-            menu.menuLogin();
-            opcao = menu.entradaUsuario(sc);
-            switch (opcao) {
-                case 1: {
-                    usuario = cadastro.Login(sc);
-                    break;
-                }
-                case 2:
-                    usuario = cadastro.cadastrarUsuario(sc);
-                    usuarioService.salvar(usuario);
-                    System.out.println();
-                    break;
-                case 3:
-                    System.out.println("\nFinalizando a aplicação. Até logo!");
-                    break;
-            }
-        Endereco endereco = enderecoService.listarPorDono(usuario.getId());
-        if (endereco != null) {
-            usuario.setEndereco(endereco);
-        }
-        Contato contato = contatoService.listarPorDono(usuario.getId());
-        if (contato != null) {
-            usuario.setContato(contato);
-        }
+           try {
+               menu.menuLogin();
+               opcao = menu.entradaUsuario(sc);
+               switch (opcao) {
+                   case 1: {
+                       usuario = cadastro.Login(sc);
+                       break;
+                   }
+                   case 2:
+                       usuario = cadastro.cadastrarUsuario(sc);
+                       usuarioService.salvar(usuario);
+                       System.out.println();
+                       break;
+                   case 3:
+                       System.out.println("\nFinalizando a aplicação. Até logo!");
+                       System.exit(0);
+               }
+               Endereco endereco = enderecoService.listarPorDono(usuario.getId());
+               if (endereco != null) {
+                   usuario.setEndereco(endereco);
+               }
+               Contato contato = contatoService.listarPorDono(usuario.getId());
+               if (contato != null) {
+                   usuario.setContato(contato);
+               }
+           } catch (InputException e){
+               System.out.println("InputException caught: " + e.getMessage());
+               e.printStackTrace();
+           }
         while (execucao) {
             menu.menuPrincipal();
             try {
@@ -94,7 +102,7 @@ public class Main {
                                 continue;
                             }
                             default: {
-                                System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
+                                System.out.println(error);
                             }
                         }
                         break;
@@ -105,6 +113,7 @@ public class Main {
                         opcao = menu.entradaUsuario(sc);
 
                         switch (opcao) {
+                            //ENDEREÇO
                             case 1: {
                                 menu.menuEndereco();
                                 opcao = menu.entradaUsuario(sc);
@@ -126,7 +135,7 @@ public class Main {
                                         continue;
                                     }
                                     case 2: {
-                                        contato = cadastro.cadastrarContato(sc);
+                                        Contato contato = cadastro.cadastrarContato(sc);
                                         System.out.println("Contato cadastrado com sucesso!\n");
                                         continue;
                                     }
@@ -150,7 +159,7 @@ public class Main {
                                         continue;
                                     }
                                     default: {
-                                        System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
+                                        System.out.println(error);
                                         continue;
                                     }
                                 }
@@ -180,7 +189,7 @@ public class Main {
                                         continue;
                                     }
                                     default: {
-                                        System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
+                                        System.out.println(error);
                                         continue;
                                     }
                                 }
@@ -205,7 +214,7 @@ public class Main {
                                         break;
                                     }
                                     default: {
-                                        System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
+                                        System.out.println(error);
                                     }
                                 }
                                 break;
@@ -223,23 +232,22 @@ public class Main {
                                 break;
                             }
                             default: {
-                                System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
+                                System.out.println(error);
                             }
                         }
 
                         break;
                     }
+                    //FINALIZAR
                     case 4: {
                         System.out.println("\nFinalizando a aplicação. Até logo!");
-                        execucao = false;
-                        break;
+                        System.exit(0);
                     }
                     default:
                         System.out.println("\n\u001B[31mOpção Inválida. Tente novamente.\u001B[0m\n");
                 }
-            } catch (RuntimeException e) {
-                System.out.println("\n\u001B[31mOpção Inválida. Retornando ao menu principal.\u001B[0m\n");
-                e.printStackTrace();
+            } catch (InputException e) {
+                System.out.println(error);
                 sc.nextLine();
             }
         }

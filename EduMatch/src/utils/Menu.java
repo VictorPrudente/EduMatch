@@ -2,13 +2,15 @@ package utils;
 
 import entities.Game;
 import entities.Usuario;
+import exceptions.InputException;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
 
 
-    public void menuPrincipal(){
+    public void menuPrincipal() {
 
         StringBuilder sb = new StringBuilder();
 
@@ -20,7 +22,7 @@ public class Menu {
         System.out.println(sb);
     }
 
-    public void menuNovoJogo(){
+    public void menuNovoJogo() {
 
         StringBuilder sb = new StringBuilder();
 
@@ -32,7 +34,7 @@ public class Menu {
         System.out.println(sb);
     }
 
-    public void menuOpcoes(){
+    public void menuOpcoes() {
 
         StringBuilder sb = new StringBuilder();
 
@@ -47,7 +49,7 @@ public class Menu {
         System.out.println(sb);
     }
 
-    public void menuEndereco(){
+    public void menuEndereco() {
 
         StringBuilder sb = new StringBuilder();
         sb.append("\nMENU ENDEREÇOS\n");
@@ -59,7 +61,7 @@ public class Menu {
         System.out.println(sb);
     }
 
-    public void menuContato(){
+    public void menuContato() {
 
         StringBuilder sb = new StringBuilder();
         sb.append("\nMENU CONTATOS\n");
@@ -71,7 +73,7 @@ public class Menu {
         System.out.println(sb);
     }
 
-    public void menuEscola(){
+    public void menuEscola() {
 
         StringBuilder sb = new StringBuilder();
         sb.append("\nMENU ESCOLA\n");
@@ -80,7 +82,7 @@ public class Menu {
         System.out.println(sb);
     }
 
-    public void menuCertificado(){
+    public void menuCertificado() {
 
         StringBuilder sb = new StringBuilder();
         sb.append("\nMENU CERTIFICADOS\n");
@@ -91,7 +93,7 @@ public class Menu {
         System.out.println(sb);
     }
 
-    public void menuRanking(){
+    public void menuRanking() {
 
         StringBuilder sb = new StringBuilder();
         sb.append("\nMENU RANKING\n");
@@ -101,7 +103,8 @@ public class Menu {
 
         System.out.println(sb);
     }
-    public void menuLogin(){
+
+    public void menuLogin() {
 
         StringBuilder sb = new StringBuilder();
         sb.append("\nMENU LOGIN\n");
@@ -112,12 +115,17 @@ public class Menu {
         System.out.println(sb);
     }
 
-    public int entradaUsuario(Scanner sc){
-        int opcao;
-        System.out.print("Digite sua opção: ");
-        opcao = sc.nextInt();
-        sc.nextLine();
-        return opcao;
+    public int entradaUsuario(Scanner sc) {
+        while (true) {
+                int opcao;
+                System.out.print("Digite sua opção: ");
+                while (!sc.hasNextInt()) {
+                    System.out.print("Digite sua opção: ");
+                    sc.next();
+                }
+                opcao = sc.nextInt();
+                sc.nextLine();
+                return opcao;
+        }
     }
-
 }

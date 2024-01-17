@@ -3,7 +3,6 @@ package utils;
 import entities.Endereco;
 import entities.Usuario;
 import exceptions.InputException;
-import repository.EnderecoRepository;
 import services.EnderecoService;
 
 import java.util.Scanner;
