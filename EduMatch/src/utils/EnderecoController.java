@@ -7,11 +7,12 @@ import services.EnderecoService;
 
 import java.util.Scanner;
 
-public class EnderecoCRUD {
+public class EnderecoController {
 
     private final EnderecoService enderecoService = new EnderecoService();
     private final String erro = "\nVocê não tem nenhum endereço cadastrado.";
     private final String erroCadastro = "\nVocê já possui um endereço cadastrado.";
+    private final String input = "Opção: ";
 
     private Menu menu = new Menu();
 
@@ -57,7 +58,7 @@ public class EnderecoCRUD {
                 } while (rua.isBlank());
 
                 System.out.print("Número: ");
-                numero = menu.entradaUsuario(sc);
+                numero = menu.entradaUsuario(sc, "");
 
                 do {
                     System.out.print("Complemento: ");
@@ -122,8 +123,7 @@ public class EnderecoCRUD {
             System.out.println("ATUALIZAR O ENDEREÇO");
             System.out.println(usuario.getEndereco());
             System.out.print("Insira o id do seu endereço para atualiza-lo ou 0 para cancelar a operação: ");
-            int id = menu.entradaUsuario(sc);
-            sc.nextLine();
+            int id = menu.entradaUsuario(sc, "");
             if (id == 0){
                 return;
             }
@@ -141,9 +141,12 @@ public class EnderecoCRUD {
         if (temEndereco(usuario)) {
             System.out.println("DELETAR ENDEREÇO");
             System.out.println(usuario.getEndereco());
-            System.out.print("Escolha o id do seu endereço: ");
-            int opcao = menu.entradaUsuario(sc);
-            if (enderecoService.deletar(opcao)) {
+            System.out.print("Insira o id do seu endereço para deleta-lo ou 0 para cancelar a operação: ");
+            int id = menu.entradaUsuario(sc, "");
+            if (id == 0){
+                return;
+            }
+            if (enderecoService.deletar(usuario.getEndereco().getId())) {
                 usuario.setEndereco(null);
             }
         } else {

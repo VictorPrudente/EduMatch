@@ -21,7 +21,7 @@ public class UsuarioService implements Service<Usuario> {
             if(usuario.getCPF().length() != 11){
                 throw new Exception("CPF Inválido.");
             }
-            Usuario user = usuarioRepository.adicionar(usuario);
+            usuarioRepository.adicionar(usuario);
             System.out.println("\nUsuário cadastrado com sucesso!");
             return true;
         } catch (BancoDeDadosException e){
@@ -57,6 +57,15 @@ public class UsuarioService implements Service<Usuario> {
         try {
             Usuario usuario = usuarioRepository.listarPorId(id);
             return usuario;
+        } catch (BancoDeDadosException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Usuario listarPorEmail(String email) {
+        try {
+            return usuarioRepository.listarPorEmail(email);
         } catch (BancoDeDadosException e){
             e.printStackTrace();
         }

@@ -115,17 +115,15 @@ public class Menu {
         System.out.println(sb);
     }
 
-    public int entradaUsuario(Scanner sc) {
-        while (true) {
+    public int entradaUsuario(Scanner sc, String message) {
                 int opcao;
-                System.out.print("Digite sua opção: ");
+                System.out.print(message);
                 while (!sc.hasNextInt()) {
-                    System.out.print("Digite sua opção: ");
+                    System.out.print(message);
                     sc.next();
                 }
                 opcao = sc.nextInt();
                 sc.nextLine();
                 return opcao;
-        }
     }
 }

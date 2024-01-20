@@ -7,13 +7,14 @@ import services.ContatoService;
 
 import java.util.Scanner;
 
-public class ContatoCRUD {
+public class ContatoController {
 
     Menu menu = new Menu();
     private final ContatoService contatoService = new ContatoService();
     private final String erro = "\nVocê não tem nenhum endereço cadastrado.";
     private final String erroCadastro = "\nVocê já possui um endereço cadastrado.";
 
+    private final String input = "Opcao: ";
 
     public void contatoOpcoes(Scanner sc, int opcao, Usuario usuario) {
         switch (opcao) {
@@ -72,7 +73,7 @@ public class ContatoCRUD {
             System.out.println("ATUALIZAR CONTATO");
             System.out.println(usuario.getContato());
             System.out.print("Insira o id do seu contato para atualiza-lo ou 0 para cancelar a operação: ");
-            int id = menu.entradaUsuario(sc);
+            int id = menu.entradaUsuario(sc, "");
             if (id == 0) {
                 return;
             }
@@ -88,12 +89,12 @@ public class ContatoCRUD {
     private void deletar(Scanner sc, Usuario usuario){
         if (temContato(usuario)) {
             System.out.println(usuario.getContato());
-            System.out.println("Escolha o ID do contato a ser deletado ou 0 para cancelar a operação: ");
-            int opcao = menu.entradaUsuario(sc);
+            System.out.println("Escolha o ID do contato a ser deletado ou 0 para cancelar a operação.");
+            int opcao = menu.entradaUsuario(sc, "");
             if (opcao == 0){
                 return;
             }
-            if (contatoService.deletar(opcao)){
+            if (contatoService.deletar(usuario.getContato().getId())){
                 usuario.setContato(null);
             }
         } else {
@@ -130,7 +131,7 @@ public class ContatoCRUD {
                             [2] Residencial
                             [3] Comercial
                             """);
-                    opcao = menu.entradaUsuario(sc);
+                    opcao = menu.entradaUsuario(sc, input);
                 } while (opcao < 1 || opcao > 3);
 
                 return new Contato(descricao, telefone, TipoDeContato.valueOf(opcao - 1));
