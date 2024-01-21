@@ -76,7 +76,6 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
 
             stmt.setInt(1, id);
 
-            // Executa-se a consulta
             int res = stmt.executeUpdate();
 
             return res > 0;
@@ -99,18 +98,19 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
         try {
             con = ConexaoBancoDeDados.getConnection();
 
-            StringBuilder sql = new StringBuilder();
-            sql.append("UPDATE ENDERECO SET ");
-            sql.append(" logradouro = ?,");
-            sql.append(" numero = ?,");
-            sql.append(" complemento = ? ");
-            sql.append(" cep = ? ");
-            sql.append(" cidade = ? ");
-            sql.append(" estado = ? ");
-            sql.append(" pais = ? ");
-            sql.append(" WHERE id_endereco = ? ");
+            String sql = """
+                    UPDATE VS_13_EQUIPE_9.ENDERECO 
+                        SET 
+                            logradouro = ?, 
+                            numero = ?, 
+                            complemento = ?, 
+                            cep = ?,
+                            cidade = ?,
+                            estado = ?,
+                            pais = ?
+                        WHERE ID_ENDERECO = ?""";
 
-            PreparedStatement stmt = con.prepareStatement(sql.toString());
+            PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setString(1, endereco.getLogradouro());
             stmt.setInt(2, endereco.getNumero());
@@ -121,7 +121,6 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             stmt.setString(7, endereco.getPais());
             stmt.setInt(8, id);
 
-            // Executa-se a consulta
             int res = stmt.executeUpdate();
 
             return res > 0;

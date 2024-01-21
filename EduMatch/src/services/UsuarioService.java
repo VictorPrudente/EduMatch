@@ -21,7 +21,7 @@ public class UsuarioService implements Service<Usuario> {
             if(usuario.getCPF().length() != 11){
                 throw new Exception("CPF Inválido.");
             }
-            Usuario user = usuarioRepository.adicionar(usuario);
+            usuarioRepository.adicionar(usuario);
             System.out.println("\nUsuário cadastrado com sucesso!");
             return true;
         } catch (BancoDeDadosException e){
@@ -63,21 +63,29 @@ public class UsuarioService implements Service<Usuario> {
         return null;
     }
 
+    public Usuario listarPorEmail(String email) {
+        try {
+            return usuarioRepository.listarPorEmail(email);
+        } catch (BancoDeDadosException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public boolean atualizar(int id,Usuario usuario){
         try {
             usuarioRepository.editar(id, usuario);
-            System.out.printf("Usuário com o ID %d atualizado.", id);
+            System.out.printf("Usuário com o ID %d atualizado.\n", id);
             return true;
         } catch (BancoDeDadosException e){
             e.printStackTrace();
         }
-        System.out.println("Usuário não atualizado.");
+        System.out.println("Usuário não atualizado.\n");
         return false;
     }
     @Override
-    public boolean deletar(Usuario usuario){
-        int id = usuario.getId();
+    public boolean deletar(int id){
         try {
             usuarioRepository.remover(id);
             System.out.printf("Usuário com o id %d removido com sucesso.", id);

@@ -1,66 +1,75 @@
 package services;
 
 import entities.SoftSkill;
-import entities.enums.Dificuldades;
 import exceptions.BancoDeDadosException;
+import interfaces.Service;
 import repository.SoftSkillRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class SoftSkillService{
+public class SoftSkillService implements Service<SoftSkill> {
 
     private SoftSkillRepository softSkillRepository;
 
 
-    public SoftSkillService(){
+    public SoftSkillService() {
         softSkillRepository = new SoftSkillRepository();
     }
 
 
-    public void salvar(SoftSkill questao) {
+    @Override
+    public boolean salvar(SoftSkill questao) {
         try {
-            if(questao.getQuestao().isBlank()){
+            if (questao.getQuestao().isBlank()) {
                 throw new Exception("Questão vazia.");
             }
-
             SoftSkill novaQuestao = softSkillRepository.adicionar(questao);
             System.out.println("Questão adicionada com sucesso! " + novaQuestao);
-        } catch (BancoDeDadosException e){
+            return true;
+        } catch (BancoDeDadosException e) {
             System.out.println("ERRO: " + e.getMessage());
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("ERRO: " + e.getMessage());
         }
+        return false;
+    }
+
+    @Override
+    public boolean atualizar(int id, SoftSkill softSkill) {
+        try {
+            softSkillRepository.editar(id, softSkill);
+            System.out.println("Questão com ID " + id + " editada.");
+            return true;
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean deletar(int id) {
+        try {
+            softSkillRepository.remover(id);
+            System.out.println("Questão com ID " + id + " removida");
+            return true;
+        } catch (BancoDeDadosException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public void listarTodos() {
+
     }
 
 
-    public SoftSkill listarPelaDificuldade(int i){
-        SoftSkill questao = new SoftSkill();
+    public SoftSkill listarPelaDificuldade(int i) {
         try {
             return softSkillRepository.listarPorDificuldade(i);
-        } catch (BancoDeDadosException e){
+        } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
         return null;
     }
-
-
-    public void atualizar(Integer id, SoftSkill pergunta){
-        try {
-            boolean editou = softSkillRepository.editar(id, pergunta);
-            System.out.println("Questão com ID " + id + " editada? " + editou);
-        } catch (BancoDeDadosException e){
-            e.printStackTrace();
-        }
-    }
-
-    public void deletar(Integer id){
-        try {
-            boolean removeu = softSkillRepository.remover(id);
-            System.out.println("Questão com ID " + id + " removida? " + removeu);
-        } catch (BancoDeDadosException e) {
-            e.printStackTrace();
-        }
-    }
 }
+
 

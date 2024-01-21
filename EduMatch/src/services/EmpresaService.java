@@ -35,8 +35,8 @@ public class EmpresaService implements Service<Empresa> {
         return false;
     }
 
-    public boolean deletar(Empresa empresa) {
-        int id = empresa.getId();
+    @Override
+    public boolean deletar(int id) {
         try {
             empresaRepository.remover(id);
             System.out.printf("Empresa com o ID %d removida com sucesso.", id);

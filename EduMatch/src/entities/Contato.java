@@ -7,23 +7,9 @@ public class Contato {
     private String telefone;
     private TipoDeContato tipo;
     private Integer id_usuario;
-    private Integer id_empresa;
-    private Integer id_escola;
 
     public Contato(){}
 
-    public Integer getId_empresa() {
-        return id_empresa;
-    }
-    public void setId_empresa(Integer id_empresa) {
-        this.id_empresa = id_empresa;
-    }
-    public Integer getId_escola() {
-        return id_escola;
-    }
-    public void setId_escola(Integer id_escola) {
-        this.id_escola = id_escola;
-    }
     public Integer getId_usuario() {
         return id_usuario;
     }
@@ -34,7 +20,7 @@ public class Contato {
     public Integer getId() {
         return id;
     }
-    public void setId(Integer id_) {
+    public void setId(Integer id) {
         this.id = id;
     }
     public String getDescricao() {

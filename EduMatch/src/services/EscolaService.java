@@ -70,9 +70,9 @@ public class EscolaService implements Service<Escola>{
         System.out.println("Escola não atualizada.");
         return false;
     }
-    //Remove
-    public boolean deletar(Escola escola) {
-        int id = escola.getId();
+
+    @Override
+    public boolean deletar(int id) {
         try {
             escolaRepository.remover(id);
             System.out.println("Escola com o id %d removida com sucesso.");

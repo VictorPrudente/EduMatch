@@ -30,6 +30,7 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
         }
     }
 
+
     @Override
     public Usuario adicionar(Usuario usuario) throws BancoDeDadosException {
         Connection con = null;
@@ -118,6 +119,8 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
                         WHERE
                             id_usuario = ?""";
             PreparedStatement ps = con.prepareStatement(sql);
+
+
             ps.setString(1, usuario.getNome());
             ps.setString(2, usuario.getSobrenome());
             ps.setInt(3, usuario.getIdade());
