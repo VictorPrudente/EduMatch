@@ -32,8 +32,7 @@ public class ContatoService implements Service<Contato> {
     }
 
     @Override
-    public boolean deletar(Contato contato) {
-        int id = contato.getId();
+    public boolean deletar(int id) {
         try {
             contatoRepository.remover(id);
             System.out.printf("Contato com o id %d removido com sucesso.", id);
@@ -50,6 +49,7 @@ public class ContatoService implements Service<Contato> {
         try {
             contatoRepository.editar(id, contato);
             System.out.printf("Contato com o ID %d atualizado.", id);
+            return true;
         } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }

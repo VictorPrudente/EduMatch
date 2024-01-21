@@ -2,23 +2,15 @@ package utils;
 
 import entities.Game;
 import entities.Usuario;
+import exceptions.InputException;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Menu {
 
 
-    public int validarQuestao(String opcaoRespondida, Game questao, Usuario usuario){
-        int acerto = 0;
-        if (opcaoRespondida.equals(questao.getOpcaoCerta())) {
-            usuario.setPontuacao(questao.getPontos());
-            System.out.println("\nOpção correta! Isso ai :D\n");
-            acerto++;
-        } else {
-            System.out.println("\nOpção errada, preste mais atenção!\n");
-        }
-        return acerto;
-    }
-
-    public void menuPrincipal(){
+    public void menuPrincipal() {
 
         StringBuilder sb = new StringBuilder();
 
@@ -30,7 +22,7 @@ public class Menu {
         System.out.println(sb);
     }
 
-    public void menuNovoJogo(){
+    public void menuNovoJogo() {
 
         StringBuilder sb = new StringBuilder();
 
@@ -42,7 +34,7 @@ public class Menu {
         System.out.println(sb);
     }
 
-    public void menuOpcoes(){
+    public void menuOpcoes() {
 
         StringBuilder sb = new StringBuilder();
 
@@ -57,7 +49,7 @@ public class Menu {
         System.out.println(sb);
     }
 
-    public void menuEndereco(){
+    public void menuEndereco() {
 
         StringBuilder sb = new StringBuilder();
         sb.append("\nMENU ENDEREÇOS\n");
@@ -69,7 +61,7 @@ public class Menu {
         System.out.println(sb);
     }
 
-    public void menuContato(){
+    public void menuContato() {
 
         StringBuilder sb = new StringBuilder();
         sb.append("\nMENU CONTATOS\n");
@@ -81,7 +73,7 @@ public class Menu {
         System.out.println(sb);
     }
 
-    public void menuEscola(){
+    public void menuEscola() {
 
         StringBuilder sb = new StringBuilder();
         sb.append("\nMENU ESCOLA\n");
@@ -90,7 +82,7 @@ public class Menu {
         System.out.println(sb);
     }
 
-    public void menuCertificado(){
+    public void menuCertificado() {
 
         StringBuilder sb = new StringBuilder();
         sb.append("\nMENU CERTIFICADOS\n");
@@ -101,7 +93,7 @@ public class Menu {
         System.out.println(sb);
     }
 
-    public void menuRanking(){
+    public void menuRanking() {
 
         StringBuilder sb = new StringBuilder();
         sb.append("\nMENU RANKING\n");
@@ -111,7 +103,8 @@ public class Menu {
 
         System.out.println(sb);
     }
-    public void menuLogin(){
+
+    public void menuLogin() {
 
         StringBuilder sb = new StringBuilder();
         sb.append("\nMENU LOGIN\n");
@@ -121,15 +114,16 @@ public class Menu {
 
         System.out.println(sb);
     }
-    public void menuCadastro(){
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("\nCPF não encontrado, Deseja se cadastrar?\n");
-        sb.append("[1] Sim\n");
-        sb.append("[2] Sair da aplicação");
-
-        System.out.println(sb);
+    public int entradaUsuario(Scanner sc, String message) {
+                int opcao;
+                System.out.print(message);
+                while (!sc.hasNextInt()) {
+                    System.out.print(message);
+                    sc.next();
+                }
+                opcao = sc.nextInt();
+                sc.nextLine();
+                return opcao;
     }
-
-
 }
