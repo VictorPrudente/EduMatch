@@ -1,6 +1,6 @@
-package VS13.Squad9.EduMatch.entities;
+package VS13.Squad09.EduMatch.entities;
 
-import VS13.Squad9.EduMatch.entities.enums.TipoDeEndereco;
+import VS13.Squad09.EduMatch.entities.enums.TipoDeEndereco;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +19,5 @@ public class Endereco {
     private String cidade;
     private String estado;
     private String pais;
-    private Integer id_usuario;
-    private Integer id_escola;
-    private Integer id_empresa;
+    private Usuario usuario;
 }

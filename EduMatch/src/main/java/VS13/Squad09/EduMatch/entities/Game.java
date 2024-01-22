@@ -8,7 +8,6 @@ import java.util.Objects;
 public abstract class Game{
 
     protected int id;
-
     protected Dificuldades dificuldade;
     protected String questao;
     protected String opcaoCerta;

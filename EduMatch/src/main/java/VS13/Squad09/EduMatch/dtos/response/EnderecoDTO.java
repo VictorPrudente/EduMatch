@@ -1,6 +1,6 @@
-package VS13.Squad9.EduMatch.dtos.response;
+package VS13.Squad09.EduMatch.dtos.response;
 
-import VS13.Squad9.EduMatch.entities.enums.TipoDeEndereco;
+import VS13.Squad09.EduMatch.entities.enums.TipoDeEndereco;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

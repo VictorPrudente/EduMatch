@@ -1,4 +1,4 @@
-package VS13.Squad9.EduMatch.entities.enums;
+package VS13.Squad09.EduMatch.entities.enums;
 
 public enum TipoDeContato {
         CELULAR(0),

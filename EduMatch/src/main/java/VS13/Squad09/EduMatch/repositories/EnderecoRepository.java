@@ -1,9 +1,8 @@
-package repository;
+package VS13.Squad09.EduMatch.repositories;
 
-import VS13.Squad9.EduMatch.entities.Endereco;
-import entities.Endereco;
+import VS13.Squad09.EduMatch.entities.Endereco;
+import VS13.Squad09.EduMatch.interfaces.Repositorio;
 import exceptions.BancoDeDadosException;
-import interfaces.Repositorio;
 
 import java.sql.*;
 import java.util.ArrayList;

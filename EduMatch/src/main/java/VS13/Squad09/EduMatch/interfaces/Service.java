@@ -1,4 +1,4 @@
-package interfaces;
+package VS13.Squad09.EduMatch.interfaces;
 
 import java.util.List;
 

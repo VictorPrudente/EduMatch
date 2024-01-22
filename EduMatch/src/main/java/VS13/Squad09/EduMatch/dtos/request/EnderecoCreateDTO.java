@@ -1,6 +1,6 @@
 package VS13.Squad09.EduMatch.dtos.request;
 
-import VS13.Squad9.EduMatch.entities.enums.TipoDeEndereco;
+import VS13.Squad09.EduMatch.entities.enums.TipoDeEndereco;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;

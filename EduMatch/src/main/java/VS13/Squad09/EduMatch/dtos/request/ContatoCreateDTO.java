@@ -1,6 +1,6 @@
 package VS13.Squad09.EduMatch.dtos.request;
 
-import VS13.Squad9.EduMatch.entities.enums.TipoDeContato;
+import VS13.Squad09.EduMatch.entities.enums.TipoDeContato;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
