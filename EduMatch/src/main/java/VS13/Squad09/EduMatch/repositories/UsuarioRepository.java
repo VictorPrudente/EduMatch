@@ -1,9 +1,9 @@
 package repository;
 
-import entities.Usuario;
+import VS13.Squad09.EduMatch.entities.Usuario;
 import exceptions.BancoDeDadosException;
 import interfaces.Repositorio;
-
+import repository.ConexaoBancoDeDados;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
         Connection con = null;
 
         try {
-            con =ConexaoBancoDeDados.getConnection();
+            con = repository.ConexaoBancoDeDados.getConnection();
 
             Integer proximoId = this.getProximoId(con);
             usuario.setId(proximoId);
@@ -78,18 +78,66 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
     }
 
     @Override
-    public boolean remover(Integer id) throws BancoDeDadosException {
+    public List<Usuario> listar() throws BancoDeDadosException {
+        List<Usuario> usuarios = new ArrayList<>();
         Connection con = null;
+
         try {
             con = ConexaoBancoDeDados.getConnection();
-            String sql = "DELETE FROM VS_13_EQUIPE_9.USUARIO WHERE id_usuario = ? ";
+            Statement st = con.createStatement();
 
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO";
 
-            int res = ps.executeUpdate();
+            ResultSet res = st.executeQuery(sql);
 
-            return res > 0;
+            while (res.next()){
+                Usuario usuario = new Usuario();
+                usuario.setId(res.getInt("id_usuario"));
+                usuario.setNome(res.getString("nome"));
+                usuario.setSobrenome(res.getString("sobrenome"));
+                usuario.setCPF(res.getString("cpf"));
+                usuario.setIdade(res.getInt("idade"));
+                usuario.setPontuacao(res.getInt("pontuacao"));
+
+                usuarios.add(usuario);
+            }
+        } catch (SQLException e){
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null){
+                    con.close();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+        return usuarios;
+    }
+
+    public Usuario listarPorId(int id) throws BancoDeDadosException {
+        Connection con = null;
+
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+
+            String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO WHERE id_usuario = ? ";
+
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, id);
+
+            ResultSet res = st.executeQuery();
+            if (res.next()){
+                Usuario usuario = new Usuario();
+                usuario.setId(res.getInt("id_usuario"));
+                usuario.setNome(res.getString("nome"));
+                usuario.setSobrenome(res.getString("sobrenome"));
+                usuario.setCPF(res.getString("cpf"));
+                usuario.setIdade(res.getInt("idade"));
+                usuario.setPontuacao(res.getInt("pontuacao"));
+                return usuario;
+            }
+            return null;
         } catch (SQLException e){
             throw new BancoDeDadosException(e.getCause());
         } finally {
@@ -143,42 +191,6 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
         }
     }
 
-    public Usuario listarPorId(int id) throws BancoDeDadosException {
-        Connection con = null;
-
-        try {
-            con = ConexaoBancoDeDados.getConnection();
-
-            String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO WHERE id_usuario = ? ";
-
-            PreparedStatement st = con.prepareStatement(sql);
-            st.setInt(1, id);
-
-            ResultSet res = st.executeQuery();
-            if (res.next()){
-                Usuario usuario = new Usuario();
-                usuario.setId(res.getInt("id_usuario"));
-                usuario.setNome(res.getString("nome"));
-                usuario.setSobrenome(res.getString("sobrenome"));
-                usuario.setCPF(res.getString("cpf"));
-                usuario.setIdade(res.getInt("idade"));
-                usuario.setPontuacao(res.getInt("pontuacao"));
-                return usuario;
-            }
-            return null;
-        } catch (SQLException e){
-            throw new BancoDeDadosException(e.getCause());
-        } finally {
-            try {
-                if (con != null){
-                    con.close();
-                }
-            } catch (SQLException e){
-                e.printStackTrace();
-            }
-        }
-    }
-
     public Usuario listarPorEmail(String email) throws BancoDeDadosException {
         Connection con = null;
 
@@ -218,44 +230,6 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
         }
     }
 
-    @Override
-    public List<Usuario> listar() throws BancoDeDadosException {
-        List<Usuario> usuarios = new ArrayList<>();
-        Connection con = null;
-
-        try {
-            con = ConexaoBancoDeDados.getConnection();
-            Statement st = con.createStatement();
-
-            String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO";
-
-            ResultSet res = st.executeQuery(sql);
-
-            while (res.next()){
-                Usuario usuario = new Usuario();
-                usuario.setId(res.getInt("id_usuario"));
-                usuario.setNome(res.getString("nome"));
-                usuario.setSobrenome(res.getString("sobrenome"));
-                usuario.setCPF(res.getString("cpf"));
-                usuario.setIdade(res.getInt("idade"));
-                usuario.setPontuacao(res.getInt("pontuacao"));
-
-                usuarios.add(usuario);
-            }
-        } catch (SQLException e){
-            throw new BancoDeDadosException(e.getCause());
-        } finally {
-            try {
-                if (con != null){
-                    con.close();
-                }
-            } catch (SQLException e){
-                e.printStackTrace();
-            }
-        }
-        return usuarios;
-    }
-
 
     public List<Usuario> rankearJogadores() throws BancoDeDadosException{
         List<Usuario> usuarios = new ArrayList<>();
@@ -291,5 +265,31 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
             }
         }
         return usuarios;
+    }
+
+    @Override
+    public boolean deletar(Usuario usuario) throws BancoDeDadosException {
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+            String sql = "DELETE FROM VS_13_EQUIPE_9.USUARIO WHERE id_usuario = ? ";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, usuario.getId());
+
+            int res = ps.executeUpdate();
+
+            return res > 0;
+        } catch (SQLException e){
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null){
+                    con.close();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
     }
 }
