@@ -1,17 +1,15 @@
-package repository;
+package VS13.Squad09.EduMatch.repositories;
 
 import VS13.Squad09.EduMatch.entities.Usuario;
 import exceptions.BancoDeDadosException;
-import interfaces.Repositorio;
 import repository.ConexaoBancoDeDados;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UsuarioRepository implements Repositorio<Integer, Usuario> {
+public class UsuarioRepository {
 
 
-    @Override
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
         try{
             String sql = "SELECT VS_13_EQUIPE_9.SEQ_USUARIO.nextval AS mysequence from DUAL";
@@ -30,8 +28,6 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
         }
     }
 
-
-    @Override
     public Usuario adicionar(Usuario usuario) throws BancoDeDadosException {
         Connection con = null;
 
@@ -77,7 +73,6 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
 
     }
 
-    @Override
     public List<Usuario> listar() throws BancoDeDadosException {
         List<Usuario> usuarios = new ArrayList<>();
         Connection con = null;
@@ -151,7 +146,6 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
         }
     }
 
-    @Override
     public boolean editar(Integer id, Usuario usuario) throws BancoDeDadosException {
         Connection con = null;
         try {
@@ -267,7 +261,6 @@ public class UsuarioRepository implements Repositorio<Integer, Usuario> {
         return usuarios;
     }
 
-    @Override
     public boolean deletar(Usuario usuario) throws BancoDeDadosException {
         Connection con = null;
         try {

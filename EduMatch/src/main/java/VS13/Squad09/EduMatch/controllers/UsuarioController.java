@@ -23,7 +23,6 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvar(@RequestBody @Valid UsuarioCreateDTO usuario)throws BancoDeDadosException {
         return ResponseEntity.ok(usuarioService.salvar(usuario));
-        // return new ResponseEntity<>(usuarioService.create(usuario), HttpStatus.OK);
     }
 
     @GetMapping
@@ -43,9 +42,14 @@ public class UsuarioController {
         return ResponseEntity.ok().body(usuarioService.atualizar(id, usuarioAtualizar));
     }
 
-    @DeleteMapping("/{idUsuario}") // DELETE localhost:8080/usuario/10
+    @DeleteMapping("/{idUsuario}")
     public ResponseEntity<Void> delete(@PathVariable("idUsuario") @NotNull Integer id) throws BancoDeDadosException {
         usuarioService.delete(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/rankear")
+    public ResponseEntity<List<UsuarioDTO>> rankearUsuarios () throws Exception{
+        return ResponseEntity.ok(usuarioService.rankearUsuarios());
     }
 }

@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f49153f2-3afe-47e5-9cb2-3fe02e0807aa" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/interfaces/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/interfaces/Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/UsuarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/UsuarioController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/UsuarioRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/UsuarioService.java" afterDir="false" />
     </list>
@@ -53,10 +52,10 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.EduMatchApplication.executor": "Run",
-    "git-widget-placeholder": "feat/spring__migration",
+    "git-widget-placeholder": "feat/spring__migration__usuario",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/vinicius.felix/VemSerDBC/vs13-back-novo/vs13-back/modulo-03-1-springweb/Aula-05/pessoaapi",
+    "last_opened_file_path": "C:/Users/vinicius.felix/VemSerDBC/trab-final-back-java-atual-atual/vs13-squad9-EduMatch/EduMatch",
     "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
