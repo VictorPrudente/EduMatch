@@ -5,14 +5,10 @@ import VS13.Squad09.EduMatch.dtos.request.EnderecoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.EnderecoDTO;
 import VS13.Squad09.EduMatch.services.EnderecoService;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
 
 @Validated
 @RestController
@@ -22,21 +18,26 @@ public class EnderecoController {
 
     private EnderecoService enderecoService;
 
-
     @PostMapping("/usuario/{idUsuario}")
     public ResponseEntity<EnderecoDTO> salvar(@PathVariable("idUsuario") Integer idUsuario,
                                               @Valid @RequestBody EnderecoCreateDTO enderecoCreateDTO) throws Exception{
         return ResponseEntity.ok(enderecoService.salvar(idUsuario, enderecoCreateDTO));
     }
 
+    @PutMapping("/{idEndereco}")
+    public ResponseEntity<EnderecoDTO> atualizar(@PathVariable("idEndereco") Integer idEndereco,
+                                                 EnderecoCreateDTO enderecoCreateDTO) throws exceptions.BancoDeDadosException {
+        return ResponseEntity.ok(enderecoService.atualizar(idEndereco, enderecoCreateDTO));
+    }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Integer id){
+    public ResponseEntity<Void> deletar(@PathVariable Integer id) throws exceptions.BancoDeDadosException {
         enderecoService.deletar(id);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
-    public ResponseEntity<List<EnderecoDTO>> listarTodos(){
-        return ResponseEntity.ok(enderecoService.listarTodos());
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<EnderecoDTO> listarPorDono(@PathVariable("id") Integer id) throws exceptions.BancoDeDadosException {
+        return ResponseEntity.ok(enderecoService.listarPorDono(id));
     }
 }

@@ -3,13 +3,17 @@ package VS13.Squad09.EduMatch.repositories;
 import VS13.Squad09.EduMatch.entities.Endereco;
 import VS13.Squad09.EduMatch.interfaces.Repositorio;
 import exceptions.BancoDeDadosException;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnderecoRepository implements Repositorio<Integer, Endereco> {
-    @Override
+
+@Repository
+public class EnderecoRepository {
+
+
     public Integer getProximoId(Connection connection) throws SQLException {
         String sql = "SELECT VS_13_EQUIPE_9.SEQ_ENDERECO.nextval AS mysequence from DUAL";
 
@@ -23,8 +27,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
         return null;
     }
 
-    @Override
-    public Endereco adicionar(Integer id, Endereco endereco) throws BancoDeDadosException {
+    public Endereco adicionar(Integer idUsuario, Endereco endereco) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = repository.ConexaoBancoDeDados.getConnection();
@@ -46,10 +49,10 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             stmt.setString(6, endereco.getCidade());
             stmt.setString(7, endereco.getEstado());
             stmt.setString(8, endereco.getPais());
-            stmt.setInt(9, endereco.getId_usuario());
+            stmt.setInt(9, idUsuario);
 
 
-            int res = stmt.executeUpdate();
+            stmt.executeUpdate();
             return endereco;
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
@@ -64,7 +67,6 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
         }
     }
 
-    @Override
     public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
@@ -92,8 +94,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
         }
     }
 
-    @Override
-    public boolean editar(Integer id, Endereco endereco) throws BancoDeDadosException {
+    public Endereco editar(Integer id, Endereco endereco) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = repository.ConexaoBancoDeDados.getConnection();
@@ -121,9 +122,9 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             stmt.setString(7, endereco.getPais());
             stmt.setInt(8, id);
 
-            int res = stmt.executeUpdate();
+            stmt.executeUpdate();
 
-            return res > 0;
+            return endereco;
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {
@@ -137,7 +138,6 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
         }
     }
 
-    @Override
     public List<Endereco> listar() throws BancoDeDadosException {
         List<Endereco> enderecos = new ArrayList<>();
         Connection con = null;
