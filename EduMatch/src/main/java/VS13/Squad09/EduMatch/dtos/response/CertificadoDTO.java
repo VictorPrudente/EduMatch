@@ -1,7 +1,7 @@
-package VS13.Squad9.EduMatch.dtos.response;
+package VS13.Squad09.EduMatch.dtos.response;
 
-import VS13.Squad9.EduMatch.entities.Usuario;
-import VS13.Squad9.EduMatch.entities.enums.Games;
+import VS13.Squad09.EduMatch.entities.Usuario;
+import VS13.Squad09.EduMatch.entities.enums.Games;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

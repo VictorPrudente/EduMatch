@@ -1,7 +1,7 @@
 package VS13.Squad09.EduMatch.dtos.request;
 
-import VS13.Squad9.EduMatch.entities.Usuario;
-import VS13.Squad9.EduMatch.entities.enums.Games;
+import VS13.Squad09.EduMatch.entities.Usuario;
+import VS13.Squad09.EduMatch.entities.enums.Games;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 
