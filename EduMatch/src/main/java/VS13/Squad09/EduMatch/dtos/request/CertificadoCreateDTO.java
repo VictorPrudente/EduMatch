@@ -4,11 +4,12 @@ import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Games;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
 
 import java.time.LocalDateTime;
 
 public class CertificadoCreateDTO {
-
+    @Positive
     private Integer id;
     @NotNull(message = "A trilha não pode estar vazia.")
     private Games trilha;

@@ -28,7 +28,7 @@ public class JogoMenu {
         switch (opcao){
 
             case 0:
-                return respostaUsuario
+                return respostaUsuario;
                 for (Dificuldades dificuldade : Dificuldades.values()) {
                     questao = service.listarPelaDificuldade(dificuldade.ordinal());
                     System.out.println(questao);
