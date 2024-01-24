@@ -36,14 +36,10 @@ public class CertificadoService {
         return certificadoDTO;
     }
 
-    public CertificadoDTO deletar(int id) throws Exception {
+    public String deletar(int id) throws Exception {
         log.debug("Deletando certificado...");
 
-        Certificado certificadoRecuperado = getCertificado(id);
-
-        certificadoRepository.remover(certificadoRecuperado.getId());
-
-        return objectMapper.convertValue(certificadoRecuperado, CertificadoDTO.class);
+        return certificadoRepository.remover(id);
     }
 
     public List<CertificadoDTO> listarTodos() throws BancoDeDadosException {
