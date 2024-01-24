@@ -26,33 +26,4 @@ public class Usuario {
     private List<Certificado> certificados = new ArrayList<>();
     private Integer id_escola;
     private Integer id_empresa;
-
-    @Override
-    public String toString() {
-        return String.format("""
-                Nome: %s %s
-                Idade: %d
-                Pontucação: %d""", nome, sobrenome, idade, pontuacao);
-    }
-
-    public String imprimirDados(){
-        return String.format("""
-                Nome: %s %s
-                CPF: %s
-                Idade: %d
-                Pontuação: %d""", nome, sobrenome, CPF, idade, pontuacao);
-    }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Usuario usuario = (Usuario) o;
-        return Objects.equals(id, usuario.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
 }
