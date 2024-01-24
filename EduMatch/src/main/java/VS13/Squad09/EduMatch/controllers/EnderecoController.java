@@ -1,27 +1,23 @@
 package VS13.Squad09.EduMatch.controllers;
 
 
+import VS13.Squad09.EduMatch.controllers.interfaces.IEnderecoController;
 import VS13.Squad09.EduMatch.dtos.request.EnderecoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.EnderecoDTO;
 import VS13.Squad09.EduMatch.services.EnderecoService;
 import jakarta.validation.Valid;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-
 @Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/endereco")
-public class EnderecoController {
+public class EnderecoController implements IEnderecoController {
 
     private EnderecoService enderecoService;
-
 
     @PostMapping("/usuario/{idUsuario}")
     public ResponseEntity<EnderecoDTO> salvar(@PathVariable("idUsuario") Integer idUsuario,
@@ -29,14 +25,19 @@ public class EnderecoController {
         return ResponseEntity.ok(enderecoService.salvar(idUsuario, enderecoCreateDTO));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Integer id){
-        enderecoService.deletar(id);
-        return ResponseEntity.ok().build();
+    @PutMapping("/{idEndereco}")
+    public ResponseEntity<EnderecoDTO> atualizar(@PathVariable("idEndereco") Integer idEndereco,
+                                                 EnderecoCreateDTO enderecoCreateDTO) throws exceptions.BancoDeDadosException {
+        return ResponseEntity.ok(enderecoService.atualizar(idEndereco, enderecoCreateDTO));
     }
 
-    @GetMapping
-    public ResponseEntity<List<EnderecoDTO>> listarTodos(){
-        return ResponseEntity.ok(enderecoService.listarTodos());
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletar(@PathVariable Integer id) throws exceptions.BancoDeDadosException {
+        return ResponseEntity.ok(enderecoService.deletar(id));
+    }
+
+    @GetMapping("/usuario/{id}")
+    public ResponseEntity<EnderecoDTO> listarPorDono(@PathVariable("id") Integer id) throws exceptions.BancoDeDadosException {
+        return ResponseEntity.ok(enderecoService.listarPorDono(id));
     }
 }
