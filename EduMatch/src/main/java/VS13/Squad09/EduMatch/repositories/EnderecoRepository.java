@@ -183,7 +183,6 @@ public class EnderecoRepository {
         try {
             con = repository.ConexaoBancoDeDados.getConnection();
             String sql = """
-                
                     SELECT end.id_endereco, end.logradouro, end.numero, end.complemento, end.cep, end.cidade, end.estado, end.pais, end.id_usuario
                     FROM VS_13_EQUIPE_9.ENDERECO end
                     WHERE end.id_usuario = ?""";
@@ -202,7 +201,7 @@ public class EnderecoRepository {
                     endereco.setCidade(res.getString("cidade"));
                     endereco.setEstado(res.getString("estado"));
                     endereco.setPais(res.getString("pais"));
-                    endereco.setId_usuario(res.getInt("id_usuario"));
+                    endereco.setUsuarioId(res.getInt("id_usuario"));
                     return endereco;
                 }
         } catch (SQLException e) {

@@ -1,6 +1,7 @@
 package VS13.Squad09.EduMatch.controllers;
 
 
+import VS13.Squad09.EduMatch.controllers.interfaces.IEnderecoController;
 import VS13.Squad09.EduMatch.dtos.request.EnderecoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.EnderecoDTO;
 import VS13.Squad09.EduMatch.services.EnderecoService;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/endereco")
-public class EnderecoController {
+public class EnderecoController implements IEnderecoController {
 
     private EnderecoService enderecoService;
 
