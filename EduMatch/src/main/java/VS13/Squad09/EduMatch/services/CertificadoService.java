@@ -1,85 +1,80 @@
-package services;
+package VS13.Squad09.EduMatch.services;
 
-import entities.Certificado;
-import entities.Usuario;
-import exceptions.BancoDeDadosException;
-import interfaces.Service;
-import repository.CertificadoRepository;
+import VS13.Squad09.EduMatch.dtos.request.CertificadoCreateDTO;
+import VS13.Squad09.EduMatch.dtos.response.CertificadoDTO;
+import VS13.Squad09.EduMatch.entities.Certificado;
+import VS13.Squad09.EduMatch.entities.Usuario;
+import VS13.Squad09.EduMatch.repositories.CertificadoRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class CertificadoService implements Service<Certificado> {
+@RequiredArgsConstructor
+@Service
+@Slf4j
+public class CertificadoService {
 
-    private CertificadoRepository certificadoRepository;
+    private final CertificadoRepository certificadoRepository;
+    private final ObjectMapper objectMapper;
 
-    public CertificadoService() {
-        certificadoRepository = new CertificadoRepository();
+    public CertificadoDTO criar(CertificadoCreateDTO certificado) throws Exception {
+        log.debug("Criando Certificado...");
+
+        Certificado certificadoEntity = objectMapper.convertValue(certificado, Certificado.class);
+
+        certificadoEntity = certificadoRepository.adicionar(certificadoEntity);
+
+        CertificadoDTO certificadoDTO = objectMapper.convertValue(certificadoEntity, CertificadoDTO.class);
+
+        return certificadoDTO;
     }
 
-    @Override
-    public boolean salvar(Certificado certificado) {
-        try {
-            certificadoRepository.adicionar(certificado);
-            System.out.println("Parabéns pelo seu certificado!\n");
-            return true;
-        } catch (BancoDeDadosException e) {
-            System.out.println("ERRO: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("ERRO: " + e.getMessage());
-        }
-        System.out.println("Certificado não cadastrado. Tente novamente");
-        return false;
+    public CertificadoDTO deletar(int id) throws Exception {
+        log.debug("Deletando certificado...");
+
+        certificadoRepository.remover(id);
+
+        Certificado certificadoRecuperado = getCertificado(id);
+
+        certificadoRepository.remover(certificadoRecuperado.getId());
+
+        CertificadoDTO certificadoDTO = objectMapper.convertValue(certificadoRecuperado, CertificadoDTO.class);
+
+        return certificadoDTO;
+
     }
 
-    @Override
-    public boolean atualizar(int id, Certificado certificado) {
-        System.out.println("Não é possível atualizar o certificado após a emissão.");
-        return false;
+    public List<CertificadoDTO> listarTodos() throws Exception {
+        log.debug("Listando Certificados...");
+        return certificadoRepository.listar().stream().map(certificado ->
+                        objectMapper.convertValue(certificado, CertificadoDTO.class))
+                .collect(Collectors.toList());
     }
 
-    @Override
-    public boolean deletar(int id) {
-        try {
-            certificadoRepository.remover(id);
-            System.out.printf("Certificado com o id %d removido com sucesso.");
-            return true;
-        } catch (BancoDeDadosException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Certificado não removido.");
-        return false;
+    public CertificadoDTO listarUltimo(Usuario usuario) throws Exception {
+        log.debug("Listando último Certficado...");
+        Certificado certificado = certificadoRepository.listarUltimo(usuario);
+        CertificadoDTO certificadoDTO = objectMapper.convertValue(certificado, CertificadoDTO.class);
+        return certificadoDTO;
     }
 
-    @Override
-    public void listarTodos() {
-        try {
-            List<Certificado> certificados = certificadoRepository.listar();
-            certificados.forEach(System.out::println);
-        } catch (BancoDeDadosException e) {
-            e.printStackTrace();
-        }
+
+    public CertificadoDTO listarPorUsuario(Usuario usuario) throws Exception {
+        List<Certificado> certificados = certificadoRepository.listarPorUsuario(usuario);
+        CertificadoDTO certificadoDTO = objectMapper.convertValue(certificados, CertificadoDTO.class);
+        return certificadoDTO;
     }
 
-    public Certificado listarUltimo(Usuario usuario) {
-        try {
-            Certificado certificado = certificadoRepository.listarUltimo(usuario);
-            return certificado;
-        } catch (BancoDeDadosException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Nenhum certificado encontrado. Jogue para adquirir seu primeiro!");
-        return null;
-    }
-
-    public boolean listarPorUsuario(Usuario usuario) {
-        try {
-            List<Certificado> certificados = certificadoRepository.listarPorUsuario(usuario);
-            certificados.forEach(System.out::println);
-            return true;
-        } catch (BancoDeDadosException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Nenhum certificado encontrado. Jogue para adquirir seu primeiro!");
-        return false;
+    public Certificado getCertificado(Integer id) throws Exception {
+        return certificadoRepository.listar().stream()
+                .filter(certificado -> certificado.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new Exception("Certificado não encontrado"));
     }
 }
