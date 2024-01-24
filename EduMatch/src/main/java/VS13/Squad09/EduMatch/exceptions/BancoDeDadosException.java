@@ -1,4 +1,4 @@
-package exceptions;
+package VS13.Squad09.EduMatch.exceptions;
 
 import java.sql.SQLException;
 
