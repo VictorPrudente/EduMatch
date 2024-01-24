@@ -67,7 +67,7 @@ public class EnderecoRepository {
         }
     }
 
-    public boolean remover(Integer id) throws BancoDeDadosException {
+    public String remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = repository.ConexaoBancoDeDados.getConnection();
@@ -80,7 +80,8 @@ public class EnderecoRepository {
 
             int res = stmt.executeUpdate();
 
-            return res > 0;
+            return (res > 0) ? "Endereço deletado com sucesso" : "Endereço não deletado";
+
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {

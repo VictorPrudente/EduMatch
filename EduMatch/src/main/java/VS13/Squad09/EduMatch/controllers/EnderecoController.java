@@ -31,9 +31,8 @@ public class EnderecoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Integer id) throws exceptions.BancoDeDadosException {
-        enderecoService.deletar(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<String> deletar(@PathVariable Integer id) throws exceptions.BancoDeDadosException {
+        return ResponseEntity.ok(enderecoService.deletar(id));
     }
 
     @GetMapping("/usuario/{id}")

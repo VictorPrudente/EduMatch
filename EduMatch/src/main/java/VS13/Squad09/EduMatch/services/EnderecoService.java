@@ -26,8 +26,8 @@ public class EnderecoService {
         return objectMapper.convertValue(endereco, EnderecoDTO.class);
     }
 
-    public void deletar(Integer id) throws BancoDeDadosException {
-        enderecoRepository.remover(id);
+    public String deletar(Integer id) throws BancoDeDadosException {
+        return enderecoRepository.remover(id);
     }
 
     public EnderecoDTO atualizar(Integer id, EnderecoCreateDTO enderecoCreateDTO) throws BancoDeDadosException {
