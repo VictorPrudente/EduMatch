@@ -1,16 +1,17 @@
-package repository;
+package VS13.Squad09.EduMatch.repositories;
 
-import entities.Certificado;
-import entities.Usuario;
-import entities.enums.Games;
+import VS13.Squad09.EduMatch.entities.Certificado;
+import VS13.Squad09.EduMatch.entities.Usuario;
+import VS13.Squad09.EduMatch.entities.enums.Games;
 import exceptions.BancoDeDadosException;
-import interfaces.Repositorio;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CertificadoRepository implements Repositorio <Integer, Certificado>{
+@Repository
+public class CertificadoRepository {
 
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
 
@@ -30,7 +31,6 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
         }
     }
 
-    @Override
     public Certificado adicionar(Certificado certificado) throws BancoDeDadosException {
         Connection con = null;
         try{
@@ -48,7 +48,7 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
             PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setInt(1, certificado.getId());
-            stmt.setInt(2,certificado.getGame().ordinal());
+            stmt.setInt(2,certificado.getTrilha().ordinal());
             Timestamp ts = Timestamp.valueOf(certificado.getConclusao());
             stmt.setTimestamp(3, ts);
             stmt.setInt(4, certificado.getUsuario().getId());
@@ -69,7 +69,7 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
             }
         }
     }
-    @Override
+
     public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
@@ -99,13 +99,6 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
     }
 
 
-    @Override
-    public boolean editar(Integer id, Certificado certificado) throws BancoDeDadosException {
-        //certificado não deve ser alterado depois de emitido.
-        return false;
-        }
-
-    @Override
     public List<Certificado> listar() throws BancoDeDadosException {
         List<Certificado> certificados = new ArrayList<>();
         Connection con = null;
@@ -122,7 +115,7 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
             while (res.next()) {
                 Certificado certificado = new Certificado();
                 certificado.setId(res.getInt("id_certificado"));
-                certificado.setGame(Games.valueOf(res.getString("nome")));
+                certificado.setTrilha(Games.valueOf(res.getString("nome")));
                 Timestamp ts = res.getTimestamp("data_emitida");
                 certificado.setConclusao(ts.toLocalDateTime());
                 certificados.add(certificado);
@@ -161,7 +154,7 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
                 while (res.next()) {
                     Certificado certificado = new Certificado();
                     certificado.setId(res.getInt("id_certificado"));
-                    certificado.setGame(Games.valueOf(res.getInt("trilha")));
+                    certificado.setTrilha(Games.valueOf(res.getInt("trilha")));
                     Timestamp ts = res.getTimestamp("data_emitida");
                     certificado.setConclusao(ts.toLocalDateTime());
                     certificados.add(certificado);
@@ -201,7 +194,7 @@ public class CertificadoRepository implements Repositorio <Integer, Certificado>
             if (res.next()) {
                 Certificado certificado = new Certificado();
                 certificado.setId(res.getInt("id_certificado"));
-                certificado.setGame(Games.valueOf(res.getInt("trilha")));
+                certificado.setTrilha(Games.valueOf(res.getInt("trilha")));
                 Timestamp ts = res.getTimestamp("data_emitida");
                 certificado.setConclusao(ts.toLocalDateTime());
                 certificado.setUsuario(usuario);
