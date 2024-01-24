@@ -1,6 +1,6 @@
-package VS13.Squad9.EduMatch.entities;
+package VS13.Squad09.EduMatch.entities;
 
-import VS13.Squad9.EduMatch.entities.enums.Games;
+import VS13.Squad09.EduMatch.entities.enums.Games;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,7 @@ public class Certificado {
 
     private LocalDateTime conclusao = LocalDateTime.now();
 
-    private VS13.Squad9.EduMatch.entities.Usuario usuario;
+    private Usuario usuario;
 
     private Integer id;
 }

@@ -28,8 +28,9 @@ public class JogoMenu {
         switch (opcao){
 
             case 0:
+                return respostaUsuario;
                 for (Dificuldades dificuldade : Dificuldades.values()) {
-                    questao = portuguesService.listarPelaDificuldade(dificuldade.ordinal());
+                    questao = service.listarPelaDificuldade(dificuldade.ordinal());
                     System.out.println(questao);
                     respostaUsuario = validarEntrada(sc);
                     validarResposta(respostaUsuario, usuario);

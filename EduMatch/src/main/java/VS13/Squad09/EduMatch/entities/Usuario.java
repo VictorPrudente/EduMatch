@@ -1,17 +1,16 @@
 package VS13.Squad09.EduMatch.entities;
 
-import VS13.Squad9.EduMatch.entities.Certificado;
-import VS13.Squad9.EduMatch.entities.Contato;
-import VS13.Squad9.EduMatch.entities.Endereco;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class Usuario {
 
     private Integer id;
@@ -27,5 +26,4 @@ public class Usuario {
     private List<Certificado> certificados = new ArrayList<>();
     private Integer id_escola;
     private Integer id_empresa;
-
 }

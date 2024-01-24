@@ -1,4 +1,4 @@
-package interfaces;
+package VS13.Squad09.EduMatch.interfaces;
 
 import exceptions.BancoDeDadosException;
 import java.sql.Connection;

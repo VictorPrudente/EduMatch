@@ -3,12 +3,12 @@ package VS13.Squad09.EduMatch.repositories;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import exceptions.BancoDeDadosException;
 import repository.ConexaoBancoDeDados;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioRepository {
-
 
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
         try{
@@ -75,6 +75,7 @@ public class UsuarioRepository {
 
     public List<Usuario> listar() throws BancoDeDadosException {
         List<Usuario> usuarios = new ArrayList<>();
+
         Connection con = null;
 
         try {
@@ -223,7 +224,6 @@ public class UsuarioRepository {
             }
         }
     }
-
 
     public List<Usuario> rankearJogadores() throws BancoDeDadosException{
         List<Usuario> usuarios = new ArrayList<>();

@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f49153f2-3afe-47e5-9cb2-3fe02e0807aa" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/UsuarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/UsuarioController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/UsuarioRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/UsuarioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/request/UsuarioCreateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/request/UsuarioCreateDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/MailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/MailService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +44,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Maven.EduMatch [install].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -52,11 +52,18 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.EduMatchApplication.executor": "Run",
-    "git-widget-placeholder": "feat/spring__migration__usuario",
+    "git-widget-placeholder": "spring/migration",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/vinicius.felix/VemSerDBC/trab-final-back-java-atual-atual/vs13-squad9-EduMatch/EduMatch",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.keymap",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -72,7 +79,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-17.0.9-corretto-17.0.9-f644763e9732-ebaef533" />
+        <option value="jdk-17.0.10-corretto-17.0.10-f644763e9732-24fca987" />
+        <option value="jdk-17.0.8-graalvm-ce-17-f644763e9732-d36b8c3b" />
       </set>
     </attachedChunks>
   </component>
@@ -87,10 +95,17 @@
       <workItem from="1705930347578" duration="82000" />
       <workItem from="1705930492602" duration="16000" />
       <workItem from="1705930531949" duration="267000" />
+      <workItem from="1705930958178" duration="1780000" />
+      <workItem from="1705932765718" duration="3997000" />
+      <workItem from="1706020952690" duration="6553000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Migracao para Spring" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>
