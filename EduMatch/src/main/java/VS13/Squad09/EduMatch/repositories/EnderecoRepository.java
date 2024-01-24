@@ -3,13 +3,17 @@ package VS13.Squad09.EduMatch.repositories;
 import VS13.Squad09.EduMatch.entities.Endereco;
 import VS13.Squad09.EduMatch.interfaces.Repositorio;
 import exceptions.BancoDeDadosException;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnderecoRepository implements Repositorio<Integer, Endereco> {
-    @Override
+
+@Repository
+public class EnderecoRepository {
+
+
     public Integer getProximoId(Connection connection) throws SQLException {
         String sql = "SELECT VS_13_EQUIPE_9.SEQ_ENDERECO.nextval AS mysequence from DUAL";
 
@@ -23,8 +27,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
         return null;
     }
 
-    @Override
-    public Endereco adicionar(Integer id, Endereco endereco) throws BancoDeDadosException {
+    public Endereco adicionar(Integer idUsuario, Endereco endereco) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = repository.ConexaoBancoDeDados.getConnection();
@@ -46,10 +49,10 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             stmt.setString(6, endereco.getCidade());
             stmt.setString(7, endereco.getEstado());
             stmt.setString(8, endereco.getPais());
-            stmt.setInt(9, endereco.getId_usuario());
+            stmt.setInt(9, idUsuario);
 
 
-            int res = stmt.executeUpdate();
+            stmt.executeUpdate();
             return endereco;
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
@@ -64,8 +67,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
         }
     }
 
-    @Override
-    public boolean remover(Integer id) throws BancoDeDadosException {
+    public String remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = repository.ConexaoBancoDeDados.getConnection();
@@ -78,7 +80,8 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
 
             int res = stmt.executeUpdate();
 
-            return res > 0;
+            return (res > 0) ? "Endereço deletado com sucesso" : "Endereço não deletado";
+
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {
@@ -92,8 +95,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
         }
     }
 
-    @Override
-    public boolean editar(Integer id, Endereco endereco) throws BancoDeDadosException {
+    public Endereco editar(Integer id, Endereco endereco) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = repository.ConexaoBancoDeDados.getConnection();
@@ -121,9 +123,9 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
             stmt.setString(7, endereco.getPais());
             stmt.setInt(8, id);
 
-            int res = stmt.executeUpdate();
+            stmt.executeUpdate();
 
-            return res > 0;
+            return endereco;
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {
@@ -137,7 +139,6 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
         }
     }
 
-    @Override
     public List<Endereco> listar() throws BancoDeDadosException {
         List<Endereco> enderecos = new ArrayList<>();
         Connection con = null;
@@ -182,7 +183,6 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
         try {
             con = repository.ConexaoBancoDeDados.getConnection();
             String sql = """
-                
                     SELECT end.id_endereco, end.logradouro, end.numero, end.complemento, end.cep, end.cidade, end.estado, end.pais, end.id_usuario
                     FROM VS_13_EQUIPE_9.ENDERECO end
                     WHERE end.id_usuario = ?""";
@@ -201,7 +201,7 @@ public class EnderecoRepository implements Repositorio<Integer, Endereco> {
                     endereco.setCidade(res.getString("cidade"));
                     endereco.setEstado(res.getString("estado"));
                     endereco.setPais(res.getString("pais"));
-                    endereco.setId_usuario(res.getInt("id_usuario"));
+                    endereco.setUsuarioId(res.getInt("id_usuario"));
                     return endereco;
                 }
         } catch (SQLException e) {
