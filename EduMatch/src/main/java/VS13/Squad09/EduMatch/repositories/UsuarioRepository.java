@@ -2,7 +2,6 @@ package VS13.Squad09.EduMatch.repositories;
 
 import VS13.Squad09.EduMatch.entities.Usuario;
 import exceptions.BancoDeDadosException;
-import repository.ConexaoBancoDeDados;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class UsuarioRepository {
         Connection con = null;
 
         try {
-            con = repository.ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             Integer proximoId = this.getProximoId(con);
             usuario.setId(proximoId);

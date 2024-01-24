@@ -1,5 +1,6 @@
 package repository;
 
+import VS13.Squad09.EduMatch.repositories.ConexaoBancoDeDados;
 import entities.Escola;
 import entities.enums.TipoEscola;
 import exceptions.BancoDeDadosException;
@@ -34,7 +35,7 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
         Connection con = null;
 
         try {
-            con =ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             Integer proximoId = this.getProximoId(con);
             escola.setId(proximoId);
