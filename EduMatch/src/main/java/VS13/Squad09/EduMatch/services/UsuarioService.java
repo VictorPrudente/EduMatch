@@ -1,99 +1,76 @@
-package services;
+package VS13.Squad09.EduMatch.services;
 
-import entities.Usuario;
+import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
+import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
+import VS13.Squad09.EduMatch.entities.Usuario;
+import VS13.Squad09.EduMatch.repositories.UsuarioRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import exceptions.BancoDeDadosException;
-import interfaces.Service;
-import repository.UsuarioRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
 
 import java.util.*;
+import java.util.stream.Collectors;
 
-public class UsuarioService implements Service<Usuario> {
+@Service
+@RequiredArgsConstructor
+@Slf4j
+public class UsuarioService {
 
-    private UsuarioRepository usuarioRepository;
+    private final ObjectMapper objectMapper;
+    private final UsuarioRepository usuarioRepository;
 
-    public UsuarioService() {
-        usuarioRepository = new UsuarioRepository();
+
+    public UsuarioDTO salvar(UsuarioCreateDTO usuarioDTO) throws BancoDeDadosException {
+
+        log.info("Criando usuario");
+        Usuario usuarioEntity = objectMapper.convertValue(usuarioDTO, Usuario.class);
+        usuarioRepository.adicionar(usuarioEntity);
+        System.out.println("\nUsuário cadastrado com sucesso!");
+        UsuarioDTO usuarioDTO2 = objectMapper.convertValue(usuarioEntity, UsuarioDTO.class);
+        return usuarioDTO2;
+
     }
 
-    @Override
-    public boolean salvar(Usuario usuario){
-        try {
-            if(usuario.getCPF().length() != 11){
-                throw new Exception("CPF Inválido.");
-            }
-            usuarioRepository.adicionar(usuario);
-            System.out.println("\nUsuário cadastrado com sucesso!");
-            return true;
-        } catch (BancoDeDadosException e){
-            System.out.println("ERRO: " + e.getMessage());
-        } catch (Exception e){
-            System.out.println("ERRO: " + e.getMessage());
-        }
-        System.out.println("Usuário não cadastrado. Tente novamente");
-        return false;
+    public List<UsuarioDTO> listarTodos() throws BancoDeDadosException {
+        return usuarioRepository.listar().stream()
+                .map(usuario -> objectMapper.convertValue(usuario, UsuarioDTO.class))
+                .collect(Collectors.toList());
+
     }
 
-    @Override
-    public void listarTodos(){
-        try {
-            List<Usuario> usuarios = usuarioRepository.listar();
-            usuarios.forEach(System.out::println);
-        } catch (BancoDeDadosException e){
-            e.printStackTrace();
-        }
+    public UsuarioDTO listarPorId(Integer id) throws Exception {
+        return objectMapper.convertValue(usuarioRepository.listarPorId(id), UsuarioDTO.class);
     }
 
-    public List<Usuario> rankearUsuarios(){
-        try {
-            return usuarioRepository.rankearJogadores();
-        } catch (BancoDeDadosException e){
-            e.printStackTrace();
-        }
-        System.out.println("Algo deu errado.");
-        return null;
-    }
-
-    public Usuario listarPorId(int id) throws Exception {
-        try {
-            Usuario usuario = usuarioRepository.listarPorId(id);
-            return usuario;
-        } catch (BancoDeDadosException e){
-            e.printStackTrace();
-        }
-        return null;
+    public List<UsuarioDTO> rankearUsuarios() throws BancoDeDadosException {
+        return usuarioRepository.rankearJogadores().stream().map(usuario ->
+                objectMapper.convertValue(usuario, UsuarioDTO.class)).collect(Collectors.toList());
     }
 
     public Usuario listarPorEmail(String email) {
         try {
             return usuarioRepository.listarPorEmail(email);
-        } catch (BancoDeDadosException e){
+        } catch (BancoDeDadosException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    @Override
-    public boolean atualizar(int id,Usuario usuario){
-        try {
-            usuarioRepository.editar(id, usuario);
-            System.out.printf("Usuário com o ID %d atualizado.\n", id);
-            return true;
-        } catch (BancoDeDadosException e){
-            e.printStackTrace();
-        }
-        System.out.println("Usuário não atualizado.\n");
-        return false;
+    public UsuarioDTO atualizar(int id, UsuarioCreateDTO usuario) throws BancoDeDadosException {
+        Usuario usuarioEntity = objectMapper.convertValue(usuario, Usuario.class);
+        UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioRepository.editar(id, usuarioEntity), UsuarioDTO.class);
+        System.out.printf("Usuário com o ID %d atualizado.\n", id);
+        return usuarioDTO;
     }
-    @Override
-    public boolean deletar(int id){
-        try {
-            usuarioRepository.remover(id);
-            System.out.printf("Usuário com o id %d removido com sucesso.", id);
-            return true;
-        } catch (BancoDeDadosException e){
-            e.printStackTrace();
-        }
-        System.out.println("Usuário não removido.");
-        return false;
+
+    public void delete(int id) throws BancoDeDadosException {
+        Usuario usuarioProcurado = usuarioRepository.listarPorId(id);
+        usuarioRepository.deletar(usuarioProcurado);
+        log.info("Usuário Removido!");
+
     }
 }
+

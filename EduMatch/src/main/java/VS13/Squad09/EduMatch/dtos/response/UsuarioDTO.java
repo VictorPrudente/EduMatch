@@ -6,14 +6,13 @@ import VS13.Squad09.EduMatch.entities.Endereco;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class UsuarioDTO {
+    private Integer id;
     private String nome;
     private String sobrenome;
     private String email;
