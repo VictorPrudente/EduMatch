@@ -6,6 +6,7 @@ import VS13.Squad09.EduMatch.entities.Certificado;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.repositories.CertificadoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +24,7 @@ public class CertificadoService {
     private final CertificadoRepository certificadoRepository;
     private final ObjectMapper objectMapper;
 
-    public CertificadoDTO criar(CertificadoCreateDTO certificado) throws Exception {
+    public CertificadoDTO criar(CertificadoCreateDTO certificado) throws BancoDeDadosException {
         log.debug("Criando Certificado...");
 
         Certificado certificadoEntity = objectMapper.convertValue(certificado, Certificado.class);
@@ -35,29 +36,20 @@ public class CertificadoService {
         return certificadoDTO;
     }
 
-    public CertificadoDTO deletar(int id) throws Exception {
+    public String deletar(int id) throws Exception {
         log.debug("Deletando certificado...");
 
-        certificadoRepository.remover(id);
-
-        Certificado certificadoRecuperado = getCertificado(id);
-
-        certificadoRepository.remover(certificadoRecuperado.getId());
-
-        CertificadoDTO certificadoDTO = objectMapper.convertValue(certificadoRecuperado, CertificadoDTO.class);
-
-        return certificadoDTO;
-
+        return certificadoRepository.remover(id);
     }
 
-    public List<CertificadoDTO> listarTodos() throws Exception {
+    public List<CertificadoDTO> listarTodos() throws BancoDeDadosException {
         log.debug("Listando Certificados...");
         return certificadoRepository.listar().stream().map(certificado ->
                         objectMapper.convertValue(certificado, CertificadoDTO.class))
                 .collect(Collectors.toList());
     }
 
-    public CertificadoDTO listarUltimo(Usuario usuario) throws Exception {
+    public CertificadoDTO listarUltimo(Usuario usuario) throws BancoDeDadosException {
         log.debug("Listando último Certficado...");
         Certificado certificado = certificadoRepository.listarUltimo(usuario);
         CertificadoDTO certificadoDTO = objectMapper.convertValue(certificado, CertificadoDTO.class);
@@ -65,7 +57,7 @@ public class CertificadoService {
     }
 
 
-    public CertificadoDTO listarPorUsuario(Usuario usuario) throws Exception {
+    public CertificadoDTO listarPorUsuario(Usuario usuario) throws BancoDeDadosException {
         List<Certificado> certificados = certificadoRepository.listarPorUsuario(usuario);
         CertificadoDTO certificadoDTO = objectMapper.convertValue(certificados, CertificadoDTO.class);
         return certificadoDTO;

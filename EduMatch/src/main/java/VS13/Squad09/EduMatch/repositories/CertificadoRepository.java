@@ -3,7 +3,7 @@ package VS13.Squad09.EduMatch.repositories;
 import VS13.Squad09.EduMatch.entities.Certificado;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Games;
-import exceptions.BancoDeDadosException;
+import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -70,7 +70,7 @@ public class CertificadoRepository {
         }
     }
 
-    public boolean remover(Integer id) throws BancoDeDadosException {
+    public String remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
@@ -81,10 +81,9 @@ public class CertificadoRepository {
 
             stmt.setInt(1, id);
 
-            // Executa-se a consulta
             int res = stmt.executeUpdate();
 
-            return res > 0;
+            return res > 0 ? "Certificado deletado com sucesso" : "Certificado não deletado";
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {
