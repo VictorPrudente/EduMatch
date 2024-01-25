@@ -5,18 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f49153f2-3afe-47e5-9cb2-3fe02e0807aa" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/CertificadoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/CertificadoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/EnderecoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/EnderecoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/QuestaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/QuestaoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/UsuarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/UsuarioController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/interfaces/IUsuarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/interfaces/IUsuarioController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/request/CertificadoCreateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/request/CertificadoCreateDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/request/ContatoCreateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/request/ContatoCreateDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/request/EnderecoCreateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/request/EnderecoCreateDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/request/QuestaoCreateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/request/QuestaoCreateDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/request/UsuarioCreateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/request/UsuarioCreateDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/exceptions/InputException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/menus/CertificadoMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/UsuarioRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/EmailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +28,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="feat/spring_migration" />
+        <entry key="$PROJECT_DIR$/.." value="spring/bd" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -66,7 +60,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.EduMatchApplication.executor": "Run",
-    "git-widget-placeholder": "spring/custom-exceptions",
+    "git-widget-placeholder": "spring/migration",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
