@@ -2,7 +2,7 @@ package VS13.Squad09.EduMatch.repositories;
 
 import VS13.Squad09.EduMatch.entities.Certificado;
 import VS13.Squad09.EduMatch.entities.Usuario;
-import VS13.Squad09.EduMatch.entities.enums.Games;
+import VS13.Squad09.EduMatch.entities.enums.Trilha;
 import exceptions.BancoDeDadosException;
 import org.springframework.stereotype.Repository;
 
@@ -115,7 +115,7 @@ public class CertificadoRepository {
             while (res.next()) {
                 Certificado certificado = new Certificado();
                 certificado.setId(res.getInt("id_certificado"));
-                certificado.setTrilha(Games.valueOf(res.getString("nome")));
+                certificado.setTrilha(Trilha.valueOf(res.getString("nome")));
                 Timestamp ts = res.getTimestamp("data_emitida");
                 certificado.setConclusao(ts.toLocalDateTime());
                 certificados.add(certificado);
@@ -154,7 +154,7 @@ public class CertificadoRepository {
                 while (res.next()) {
                     Certificado certificado = new Certificado();
                     certificado.setId(res.getInt("id_certificado"));
-                    certificado.setTrilha(Games.valueOf(res.getInt("trilha")));
+                    certificado.setTrilha(Trilha.valueOf(res.getInt("trilha")));
                     Timestamp ts = res.getTimestamp("data_emitida");
                     certificado.setConclusao(ts.toLocalDateTime());
                     certificados.add(certificado);
@@ -194,7 +194,7 @@ public class CertificadoRepository {
             if (res.next()) {
                 Certificado certificado = new Certificado();
                 certificado.setId(res.getInt("id_certificado"));
-                certificado.setTrilha(Games.valueOf(res.getInt("trilha")));
+                certificado.setTrilha(Trilha.valueOf(res.getInt("trilha")));
                 Timestamp ts = res.getTimestamp("data_emitida");
                 certificado.setConclusao(ts.toLocalDateTime());
                 certificado.setUsuario(usuario);

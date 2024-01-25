@@ -3,15 +3,12 @@ package VS13.Squad9.EduMatch.menu;
 import entities.*;
 import entities.enums.Dificuldades;
 import entities.enums.Games;
-import services.MatematicaService;
-import services.PortuguesService;
-import services.SoftSkillService;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class JogoMenu {
-    MatematicaService matematicaService = new MatematicaService();
+    services.QuestaoService questaoService = new services.QuestaoService();
     PortuguesService portuguesService = new PortuguesService();
     SoftSkillService softSkillService = new SoftSkillService();
 
@@ -39,7 +36,7 @@ public class JogoMenu {
 
             case 1:
                 for (Dificuldades dificuldade : Dificuldades.values()) {
-                    questao = matematicaService.listarPelaDificuldade(dificuldade.ordinal());
+                    questao = questaoService.listarPelaDificuldade(dificuldade.ordinal());
                     System.out.println(questao);
                     respostaUsuario = validarEntrada(sc);
                     validarResposta(respostaUsuario, usuario);
