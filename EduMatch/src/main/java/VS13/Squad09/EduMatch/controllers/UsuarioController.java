@@ -1,5 +1,6 @@
 package VS13.Squad09.EduMatch.controllers;
 
+import VS13.Squad09.EduMatch.controllers.interfaces.IUsuarioController;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
@@ -16,7 +17,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/usuario")
-public class UsuarioController {
+public class UsuarioController implements IUsuarioController {
 
     private final UsuarioService usuarioService;
 
