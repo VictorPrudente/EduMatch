@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
+import VS13.Squad09.EduMatch.entities.Endereco;
+import VS13.Squad09.EduMatch.entities.Contato;
+import VS13.Squad09.EduMatch.entities.Certificado;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
