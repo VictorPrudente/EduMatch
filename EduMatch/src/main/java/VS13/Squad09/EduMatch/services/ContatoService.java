@@ -1,20 +1,19 @@
-package services;
+package VS13.Squad09.EduMatch.services;
 
-import entities.Contato;
-import interfaces.Service;
-import repository.ContatoRepository;
-import exceptions.BancoDeDadosException;
+
+import VS13.Squad09.EduMatch.entities.Contato;
+import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import VS13.Squad09.EduMatch.repositories.ContatoRepository;
 
 import java.util.List;
 
-public class ContatoService implements Service<Contato> {
+public class ContatoService {
     private ContatoRepository contatoRepository;
 
     public ContatoService() {
         contatoRepository = new ContatoRepository();
     }
 
-    @Override
     public boolean salvar(Contato contato) {
         try {
             Contato contatoAdicionado = contatoRepository.adicionar(contato);
@@ -31,7 +30,6 @@ public class ContatoService implements Service<Contato> {
         return false;
     }
 
-    @Override
     public boolean deletar(int id) {
         try {
             contatoRepository.remover(id);
@@ -44,7 +42,6 @@ public class ContatoService implements Service<Contato> {
         return false;
     }
 
-    @Override
     public boolean atualizar(int id, Contato contato) {
         try {
             contatoRepository.editar(id, contato);
@@ -57,7 +54,6 @@ public class ContatoService implements Service<Contato> {
         return false;
     }
 
-    @Override
     public void listarTodos() {
         try {
             List<Contato> listar = contatoRepository.listar();

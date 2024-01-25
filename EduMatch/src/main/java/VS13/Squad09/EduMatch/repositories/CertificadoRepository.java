@@ -4,6 +4,7 @@ import VS13.Squad09.EduMatch.entities.Certificado;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Dificuldades;
 import VS13.Squad09.EduMatch.entities.enums.Games;
+
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +24,7 @@ public class CertificadoRepository {
 
             ResultSet res = st.executeQuery(sql);
 
-            if (res.next()) {
+            if (res.next()){
                 return res.getInt("mysequence");
             }
             return null;
@@ -34,6 +35,7 @@ public class CertificadoRepository {
 
     public Certificado adicionar(Certificado certificado) throws BancoDeDadosException {
         Connection con = null;
+
         try {
             con = ConexaoBancoDeDadosLocal.getConnection();
 
@@ -60,12 +62,13 @@ public class CertificadoRepository {
 
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
-        } finally {
+        }finally {
             try {
-                if (con != null) {
+                if(con!=null){
                     con.close();
                 }
-            } catch (SQLException e) {
+            }
+            catch (SQLException e){
                 e.printStackTrace();
             }
         }
@@ -98,7 +101,6 @@ public class CertificadoRepository {
         }
     }
 
-
     public List<Certificado> listar() throws BancoDeDadosException {
         List<Certificado> certificados = new ArrayList<>();
         Connection con = null;
@@ -115,7 +117,7 @@ public class CertificadoRepository {
             while (res.next()) {
                 Certificado certificado = new Certificado();
                 certificado.setId(res.getInt("id_certificado"));
-                certificado.setTrilha(Games.valueOf(res.getString("nome")));
+                certificado.setTrilha(Trilha.valueOf(res.getString("nome")));
                 Timestamp ts = res.getTimestamp("data_emitida");
                 certificado.setConclusao(ts.toLocalDateTime());
                 certificados.add(certificado);
@@ -155,7 +157,8 @@ public class CertificadoRepository {
             while (res.next()) {
                 Certificado certificado = new Certificado();
                 certificado.setId(res.getInt("id_certificado"));
-                certificado.setTrilha(Games.valueOf(res.getInt("trilha")));
+                certificado.setTrilha(Trilha.valueOf(res.getInt("trilha")));
+                certificado.setDificuldade(Dificuldades.valueOf(res.getInt("dificuldade")));
                 Timestamp ts = res.getTimestamp("data_emitida");
                 certificado.setConclusao(ts.toLocalDateTime());
 
@@ -180,7 +183,6 @@ public class CertificadoRepository {
         }
         return certificados;
     }
-
 
     public Certificado listarUltimo(Integer idUsuario) throws BancoDeDadosException {
         Connection con = null;

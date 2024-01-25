@@ -1,13 +1,14 @@
-package services;
-import entities.Empresa;
-import interfaces.Service;
-import exceptions.BancoDeDadosException;
-import repository.EmpresaRepository;
+package VS13.Squad09.EduMatch.services;
+
+
+import VS13.Squad09.EduMatch.entities.Empresa;
+import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import VS13.Squad09.EduMatch.repositories.EmpresaRepository;
 
 import java.util.*;
 
 
-public class EmpresaService implements Service<Empresa> {
+public class EmpresaService {
 
     private EmpresaRepository empresaRepository;
 
@@ -35,7 +36,7 @@ public class EmpresaService implements Service<Empresa> {
         return false;
     }
 
-    @Override
+
     public boolean deletar(int id) {
         try {
             empresaRepository.remover(id);
@@ -60,7 +61,7 @@ public class EmpresaService implements Service<Empresa> {
         return false;
     }
 
-    @Override
+
     public void listarTodos() {
         try {
             List<Empresa> listar = empresaRepository.listar();

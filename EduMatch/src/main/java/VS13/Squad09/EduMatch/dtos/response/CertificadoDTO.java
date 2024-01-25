@@ -3,6 +3,7 @@ package VS13.Squad09.EduMatch.dtos.response;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Dificuldades;
 import VS13.Squad09.EduMatch.entities.enums.Games;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
