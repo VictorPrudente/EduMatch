@@ -6,6 +6,9 @@ import VS13.Squad09.EduMatch.entities.Endereco;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
+
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @NoArgsConstructor
@@ -20,9 +23,9 @@ public class UsuarioDTO {
     private String CPF;
     private Integer idade;
     private Integer pontuacao;
-    private Endereco endereco;
-    private Contato contato;
-    private List<Certificado> certificados;
-    private Integer id_escola;
-    private Integer id_empresa;
+    private Integer idEndereco;
+    private Integer idContato;
+    private Integer idCertificado;
+    private Integer idEscola;
+    private Integer idEmpresa;
 }
