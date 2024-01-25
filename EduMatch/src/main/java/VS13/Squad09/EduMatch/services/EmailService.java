@@ -54,8 +54,9 @@ public class EmailService {
         dados.put("email", from);
         Template tipoTemplate = switch (numeroTemplate){
             case 1 -> fmConfiguration.getTemplate("email-criar-usuario-template.ftl");
-            case 2 -> fmConfiguration.getTemplate("email-deletar-usuario-template.ftl");
-            case 3 -> fmConfiguration.getTemplate("email-emitir-certificado-template.ftl");
+            case 2 -> fmConfiguration.getTemplate("email-atualizar-usuario-template.ftl");
+            case 3 -> fmConfiguration.getTemplate("email-deletar-usuario-template.ftl");
+            case 4 -> fmConfiguration.getTemplate("email-emitir-certificado-template.ftl");
             default -> throw new Exception();
         };
 
