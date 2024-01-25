@@ -1,4 +1,4 @@
-package VS13.Squad9.EduMatch.entities;
+package VS13.Squad09.EduMatch.entities;
 
 import VS13.Squad9.EduMatch.entities.enums.TipoEscola;
 

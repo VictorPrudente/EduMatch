@@ -1,6 +1,5 @@
-package VS13.Squad9.EduMatch.entities;
+package VS13.Squad09.EduMatch.entities;
 
-import java.util.ArrayList;
 
 public class Empresa {
     private int Id;

@@ -4,9 +4,9 @@ package VS13.Squad09.EduMatch.services;
 import VS13.Squad09.EduMatch.dtos.request.EnderecoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.EnderecoDTO;
 import VS13.Squad09.EduMatch.entities.Endereco;
+import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.repositories.EnderecoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import exceptions.BancoDeDadosException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

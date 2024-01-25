@@ -2,11 +2,12 @@ package VS13.Squad09.EduMatch.dtos.request;
 
 import VS13.Squad09.EduMatch.entities.enums.Dificuldades;
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 @NoArgsConstructor

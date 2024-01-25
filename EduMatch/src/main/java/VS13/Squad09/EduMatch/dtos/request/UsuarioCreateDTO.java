@@ -1,6 +1,8 @@
 package VS13.Squad09.EduMatch.dtos.request;
 
-import jakarta.validation.constraints.NotNull;
+import VS13.Squad09.EduMatch.entities.Certificado;
+import VS13.Squad09.EduMatch.entities.Contato;
+import VS13.Squad09.EduMatch.entities.Endereco;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +11,7 @@ import VS13.Squad09.EduMatch.entities.Endereco;
 import VS13.Squad09.EduMatch.entities.Contato;
 import VS13.Squad09.EduMatch.entities.Certificado;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 @Data
