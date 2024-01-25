@@ -1,20 +1,13 @@
-package services;
-
-import entities.Endereco;
-import entities.Escola;
-import entities.enums.TipoEscola;
-import exceptions.BancoDeDadosException;
-import interfaces.Service;
-import repository.EscolaRepository;
+package VS13.Squad09.EduMatch.services;
 
 
-import java.util.ArrayList;
+import VS13.Squad09.EduMatch.entities.Escola;
+import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import VS13.Squad09.EduMatch.repositories.EscolaRepository;
+
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class EscolaService implements Service<Escola>{
+public class EscolaService {
     private EscolaRepository escolaRepository;
 
     public EscolaService(){
@@ -71,7 +64,7 @@ public class EscolaService implements Service<Escola>{
         return false;
     }
 
-    @Override
+
     public boolean deletar(int id) {
         try {
             escolaRepository.remover(id);

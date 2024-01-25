@@ -1,17 +1,16 @@
-package repository;
+package VS13.Squad09.EduMatch.repositories;
 
-import entities.Contato;
-import entities.enums.TipoDeContato;
-import exceptions.BancoDeDadosException;
-import interfaces.Repositorio;
+import VS13.Squad09.EduMatch.entities.Contato;
+import VS13.Squad09.EduMatch.entities.enums.TipoDeContato;
+import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContatoRepository implements Repositorio<Integer, Contato> {
+public class ContatoRepository {
 
-    @Override
+
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
         try {
             String sql = "SELECT VS_13_EQUIPE_9.SEQ_CONTATO.nextval AS mysequence from DUAL";
@@ -29,7 +28,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
         }
     }
 
-    @Override
+
     public Contato adicionar(Contato contato) throws BancoDeDadosException {
         Connection con = null;
 
@@ -49,7 +48,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
             stmt.setString(2, contato.getDescricao());
             stmt.setString(3, contato.getTelefone());
             stmt.setInt(4, contato.getTipo().ordinal());
-            stmt.setInt(5, contato.getId_usuario());
+            stmt.setInt(5, contato.getIdUsuario());
 
             int res = stmt.executeUpdate();
             return contato;
@@ -67,7 +66,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
         }
     }
 
-    @Override
+
     public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
@@ -95,7 +94,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
         }
     }
 
-    @Override
+
     public boolean editar(Integer id, Contato contato) throws BancoDeDadosException {
         Connection con = null;
         try {
@@ -133,7 +132,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
         }
     }
 
-    @Override
+
     public List<Contato> listar() throws BancoDeDadosException {
         List<Contato> contatos = new ArrayList<>();
         Connection con = null;
@@ -150,7 +149,7 @@ public class ContatoRepository implements Repositorio<Integer, Contato> {
                 contato.setId(res.getInt("id_contato"));
                 contato.setDescricao(res.getString("descricao"));
                 contato.setTipo(TipoDeContato.valueOf(res.getInt("tipo_contato")));
-                contato.setId_usuario(res.getInt("id_usuario"));
+                contato.setIdUsuario(res.getInt("id_usuario"));
                 contatos.add(contato);
             }
         } catch (SQLException e) {

@@ -1,12 +1,14 @@
 package VS13.Squad09.EduMatch.repositories;
 
 import VS13.Squad09.EduMatch.entities.Usuario;
-import exceptions.BancoDeDadosException;
-
+import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Repository
 public class UsuarioRepository {
 
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {

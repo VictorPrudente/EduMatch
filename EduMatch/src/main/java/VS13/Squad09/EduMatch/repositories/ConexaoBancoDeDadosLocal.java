@@ -1,4 +1,4 @@
-package repository;
+package VS13.Squad09.EduMatch.repositories;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

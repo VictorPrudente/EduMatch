@@ -6,13 +6,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
-@Data
 public class CertificadoCreateDTO {
     @Positive(message = "O id não pode ser negativo")
     @Schema(description = "Id do Certificado", example = "1")
