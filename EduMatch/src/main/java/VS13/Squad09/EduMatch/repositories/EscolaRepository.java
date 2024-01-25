@@ -1,7 +1,6 @@
 package VS13.Squad09.EduMatch.repositories;
 
-
-
+import VS13.Squad09.EduMatch.repositories.ConexaoBancoDeDados;
 import VS13.Squad09.EduMatch.entities.Escola;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 
@@ -32,7 +31,7 @@ public class EscolaRepository {
         Connection con = null;
 
         try {
-            con =ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             Integer proximoId = this.getProximoId(con);
             escola.setId(proximoId);

@@ -22,7 +22,7 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> salvar(@RequestBody @Valid UsuarioCreateDTO usuario)throws BancoDeDadosException {
+    public ResponseEntity<UsuarioDTO> salvar(@RequestBody @Valid UsuarioCreateDTO usuario) throws Exception {
         return ResponseEntity.ok(usuarioService.salvar(usuario));
     }
 
@@ -39,12 +39,12 @@ public class UsuarioController {
 
     @PutMapping("/{idUsuario}")
     public ResponseEntity<UsuarioDTO> atualizar(@PathVariable("idUsuario") @NotNull Integer id,
-                                            @RequestBody @Valid UsuarioCreateDTO usuarioAtualizar) throws BancoDeDadosException {
+                                            @RequestBody @Valid UsuarioCreateDTO usuarioAtualizar) throws Exception {
         return ResponseEntity.ok().body(usuarioService.atualizar(id, usuarioAtualizar));
     }
 
     @DeleteMapping("/{idUsuario}")
-    public ResponseEntity<Void> delete(@PathVariable("idUsuario") @NotNull Integer id) throws BancoDeDadosException {
+    public ResponseEntity<Void> delete(@PathVariable("idUsuario") @NotNull Integer id) throws Exception {
         usuarioService.delete(id);
         return ResponseEntity.ok().build();
     }
