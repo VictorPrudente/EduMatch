@@ -3,16 +3,14 @@ package VS13.Squad09.EduMatch.services;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
-
-
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -50,7 +48,7 @@ public class EmailService {
         Map<String, Object> dados = new HashMap<>();
         dados.put("nome", usuario.getNome());
         dados.put("id", usuario.getId());
-        dados.put("certificado", usuario.getCertificados());
+        dados.put("certificado", usuario.getIdCertificado());
         dados.put("email", from);
         Template tipoTemplate = switch (numeroTemplate){
             case 1 -> fmConfiguration.getTemplate("email-criar-usuario-template.ftl");
