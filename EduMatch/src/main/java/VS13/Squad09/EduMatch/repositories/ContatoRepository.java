@@ -3,13 +3,14 @@ package VS13.Squad09.EduMatch.repositories;
 import VS13.Squad09.EduMatch.entities.Contato;
 import VS13.Squad09.EduMatch.entities.enums.TipoDeContato;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class ContatoRepository {
-
 
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
         try {
@@ -29,7 +30,7 @@ public class ContatoRepository {
     }
 
 
-    public Contato adicionar(Contato contato) throws BancoDeDadosException {
+    public Contato adicionar(Integer idUsuario, Contato contato) throws BancoDeDadosException {
         Connection con = null;
 
         try {
@@ -48,7 +49,7 @@ public class ContatoRepository {
             stmt.setString(2, contato.getDescricao());
             stmt.setString(3, contato.getTelefone());
             stmt.setInt(4, contato.getTipo().ordinal());
-            stmt.setInt(5, contato.getIdUsuario());
+            stmt.setInt(5, idUsuario);
 
             int res = stmt.executeUpdate();
             return contato;
