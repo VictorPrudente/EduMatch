@@ -3,7 +3,7 @@ package VS13.Squad09.EduMatch.repositories;
 import VS13.Squad09.EduMatch.entities.Certificado;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
-import exceptions.BancoDeDadosException;
+import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;

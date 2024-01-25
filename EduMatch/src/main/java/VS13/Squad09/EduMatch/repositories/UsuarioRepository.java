@@ -1,13 +1,15 @@
 package VS13.Squad09.EduMatch.repositories;
 
 import VS13.Squad09.EduMatch.entities.Usuario;
-import exceptions.BancoDeDadosException;
-import repository.ConexaoBancoDeDados;
+import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Repository
 public class UsuarioRepository {
 
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
@@ -32,7 +34,7 @@ public class UsuarioRepository {
         Connection con = null;
 
         try {
-            con = repository.ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDados.getConnection();
 
             Integer proximoId = this.getProximoId(con);
             usuario.setId(proximoId);

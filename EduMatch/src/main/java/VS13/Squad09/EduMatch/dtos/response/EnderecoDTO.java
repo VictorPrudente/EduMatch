@@ -6,11 +6,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = true)
-public class EnderecoDTO extends EnderecoCreateDTO {
+public class EnderecoDTO {
+    private Integer id;
+    private String logradouro;
+    private Integer numero;
+    private String complemento;
+    private TipoDeEndereco tipo;
+    private String cep;
+    private String cidade;
+    private String estado;
+    private String pais;
+    private Integer usuarioId;
 }

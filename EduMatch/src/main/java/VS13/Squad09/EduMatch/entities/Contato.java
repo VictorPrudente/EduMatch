@@ -11,5 +11,5 @@ public class Contato {
     private String descricao;
     private String telefone;
     private TipoDeContato tipo;
-    private Usuario usuario;
+    private Integer idUsuario;
 }

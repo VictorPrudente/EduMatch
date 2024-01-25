@@ -1,17 +1,16 @@
-package repository;
+package VS13.Squad09.EduMatch.repositories;
 
-import entities.Escola;
-import entities.enums.TipoEscola;
-import exceptions.BancoDeDadosException;
-import interfaces.Repositorio;
+
+
+import VS13.Squad09.EduMatch.entities.Escola;
+import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EscolaRepository implements Repositorio<Integer, Escola> {
+public class EscolaRepository {
 
-    @Override
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
         try{
             String sql = "SELECT VS_13_EQUIPE_9.seq_escola.nextval AS mysequence from DUAL";
@@ -29,7 +28,6 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
         }
     }
 
-    @Override
     public Escola adicionar(Escola escola) throws BancoDeDadosException {
         Connection con = null;
 
@@ -71,7 +69,6 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
 
     }
 
-    @Override
     public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
@@ -99,7 +96,6 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
         }
     }
 
-    @Override
     public boolean editar(Integer id, Escola escola) throws BancoDeDadosException {
         Connection con = null;
         try {
@@ -133,7 +129,6 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
         }
     }
 
-    @Override
     public List<Escola> listar() throws BancoDeDadosException {
         List<Escola> escolas = new ArrayList<>();
         Connection con = null;
@@ -149,7 +144,7 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
                 Escola escola = new Escola();
                 escola.setId(res.getInt("id_escola"));
                 escola.setNome(res.getString("nome"));
-                escola.setTipo(TipoEscola.valueOf(res.getInt("tipo")));
+                escola.setTipo(VS13.Squad9.EduMatch.entities.enums.TipoEscola.valueOf(res.getInt("tipo")));
                 escola.setCnpj(res.getString("cnpj"));
                 escolas.add(escola);
             }
@@ -183,7 +178,7 @@ public class EscolaRepository implements Repositorio<Integer, Escola> {
                 Escola escola = new Escola();
                 escola.setId(res.getInt("id_escola"));
                 escola.setNome(res.getString("nome"));
-                escola.setTipo(TipoEscola.valueOf(res.getInt("tipo")));
+                escola.setTipo(VS13.Squad9.EduMatch.entities.enums.TipoEscola.valueOf(res.getInt("tipo")));
                 escola.setCnpj(res.getString("cnpj"));
                 return escola;
             }
