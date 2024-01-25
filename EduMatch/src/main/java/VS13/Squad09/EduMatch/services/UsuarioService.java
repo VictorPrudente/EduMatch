@@ -64,7 +64,6 @@ public class UsuarioService {
         Usuario usuarioEntity = objectMapper.convertValue(usuario, Usuario.class);
         UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioRepository.editar(id, usuarioEntity), UsuarioDTO.class);
         System.out.printf("Usuário com o ID %d atualizado.\n", id);
-        emailService.sendEmail(usuarioEntity, 2);
         return usuarioDTO;
     }
 
@@ -72,7 +71,7 @@ public class UsuarioService {
         Usuario usuarioProcurado = usuarioRepository.listarPorId(id);
         usuarioRepository.deletar(usuarioProcurado);
         log.info("Usuário Removido!");
-        emailService.sendEmail(usuarioProcurado, 3);
+        emailService.sendEmail(usuarioProcurado, 2);
 
     }
 }

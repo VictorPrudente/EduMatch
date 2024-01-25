@@ -1,5 +1,5 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+<head>background
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Java Mail</title>
 </head>
@@ -12,16 +12,18 @@
             <table width="600" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td align="center" valign="top" bgcolor="#d3be6c"
-                        style="background-color: #d3be6c; font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #000000; padding: 0px 15px 10px 15px;">
+                        style="-color: #d3be6c; font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #000000; padding: 0px 15px 10px 15px;">
 
                         <div style="font-size: 48px; color:blue;">
                             <b>Java Mail</b>
                         </div>
 
                         <div style="font-size: 24px; color: #555100;">
-                            <br> <b> Olá ${nome} <b>, Os dados de seu endereco foram atualizados no nosso sistema! </b> <br>
+                            <br> Olá ${nome}, Parabéms! Você acabou de receber um novo certificado! <br>
+                            <br> {certificado} <br>
                         </div>
                         <div>
+                            <br> Continue com os estudos para que consiga alcançar voos maiores!  <br>
                             <br> Qualquer dúvida é só contatar o suporte pelo e-mail ${email}. <br> <br>
                             <br> <br> <b>Att, Sistema.</b>
                             <br>

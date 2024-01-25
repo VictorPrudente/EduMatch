@@ -50,14 +50,12 @@ public class EmailService {
         Map<String, Object> dados = new HashMap<>();
         dados.put("nome", usuario.getNome());
         dados.put("id", usuario.getId());
+        dados.put("certificado", usuario.getCertificados());
         dados.put("email", from);
         Template tipoTemplate = switch (numeroTemplate){
             case 1 -> fmConfiguration.getTemplate("email-criar-usuario-template.ftl");
-            case 2 -> fmConfiguration.getTemplate("email-atualizar-usuario-template.ftl");
-            case 3 -> fmConfiguration.getTemplate("email-deletar-usuario-template.ftl");
-            case 4 -> fmConfiguration.getTemplate("email-criar-endereco-template.ftl");
-            case 5 -> fmConfiguration.getTemplate("email-atualizar-endereco-template.ftl");
-            case 6 -> fmConfiguration.getTemplate("email-deletar-endereco-template.ftl");
+            case 2 -> fmConfiguration.getTemplate("email-deletar-usuario-template.ftl");
+            case 3 -> fmConfiguration.getTemplate("email-emitir-certificado-template.ftl");
             default -> throw new Exception();
         };
 
