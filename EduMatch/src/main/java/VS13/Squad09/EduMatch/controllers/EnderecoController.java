@@ -6,11 +6,11 @@ import VS13.Squad09.EduMatch.dtos.request.EnderecoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.EnderecoDTO;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.services.EnderecoService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 
 @Validated
 @RestController

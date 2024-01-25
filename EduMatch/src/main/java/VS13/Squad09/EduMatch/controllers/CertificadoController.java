@@ -5,8 +5,6 @@ import VS13.Squad09.EduMatch.dtos.request.CertificadoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.CertificadoDTO;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.services.CertificadoService;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -14,6 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController

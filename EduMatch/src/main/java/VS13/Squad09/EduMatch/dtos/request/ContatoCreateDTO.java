@@ -1,12 +1,13 @@
 package VS13.Squad09.EduMatch.dtos.request;
 
 import VS13.Squad09.EduMatch.entities.enums.TipoDeContato;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 @Data
