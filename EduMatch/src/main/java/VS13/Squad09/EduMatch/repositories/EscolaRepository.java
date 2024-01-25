@@ -177,8 +177,6 @@ public class EscolaRepository {
                 Escola escola = new Escola();
                 escola.setId(res.getInt("id_escola"));
                 escola.setNome(res.getString("nome"));
-                escola.setTipo(VS13.Squad9.EduMatch.entities.enums.TipoEscola.valueOf(res.getInt("tipo")));
-                escola.setCnpj(res.getString("cnpj"));
                 return escola;
             }
             return null;
