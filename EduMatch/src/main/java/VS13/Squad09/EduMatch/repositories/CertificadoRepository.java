@@ -162,14 +162,8 @@ public class CertificadoRepository {
                 usuario.setNome(res.getString("nome"));
                 usuario.setSobrenome(res.getString("sobrenome"));
 
-                while (res.next()) {
-                    Certificado certificado = new Certificado();
-                    certificado.setId(res.getInt("id_certificado"));
-                    certificado.setTrilha(Trilha.valueOf(res.getInt("trilha")));
-                    Timestamp ts = res.getTimestamp("data_emitida");
-                    certificado.setConclusao(ts.toLocalDateTime());
-                    certificado.setUsuario(usuario);
-                    certificados.add(certificado);
+                certificado.setUsuario(usuario);
+                certificados.add(certificado);
             }
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
