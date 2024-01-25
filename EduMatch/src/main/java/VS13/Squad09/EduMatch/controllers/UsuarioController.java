@@ -2,6 +2,7 @@ package VS13.Squad09.EduMatch.controllers;
 
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
+import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.services.UsuarioService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -9,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import exceptions.BancoDeDadosException;
 import java.util.List;
 
 @Validated

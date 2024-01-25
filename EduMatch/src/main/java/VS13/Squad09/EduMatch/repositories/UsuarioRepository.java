@@ -1,7 +1,7 @@
 package VS13.Squad09.EduMatch.repositories;
 
 import VS13.Squad09.EduMatch.entities.Usuario;
-import exceptions.BancoDeDadosException;
+import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 
 import java.sql.*;
 import java.util.ArrayList;
