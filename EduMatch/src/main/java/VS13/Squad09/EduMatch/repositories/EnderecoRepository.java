@@ -30,7 +30,7 @@ public class EnderecoRepository {
     public Endereco adicionar(Integer idUsuario, Endereco endereco) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = repository.ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
 
             Integer proximoId = this.getProximoId(con);
             endereco.setId(proximoId);
@@ -70,7 +70,7 @@ public class EnderecoRepository {
     public String remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = repository.ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
 
             String sql = "DELETE FROM VS_13_EQUIPE_9.ENDERECO WHERE id_endereco = ?";
 
@@ -98,7 +98,7 @@ public class EnderecoRepository {
     public Endereco editar(Integer id, Endereco endereco) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = repository.ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
 
             String sql = """
                     UPDATE VS_13_EQUIPE_9.ENDERECO 
@@ -143,7 +143,7 @@ public class EnderecoRepository {
         List<Endereco> enderecos = new ArrayList<>();
         Connection con = null;
         try {
-            con = repository.ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
             Statement stmt = con.createStatement();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.ENDERECO";
@@ -181,7 +181,7 @@ public class EnderecoRepository {
     public Endereco listarPorDono(int id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = repository.ConexaoBancoDeDados.getConnection();
+            con = ConexaoBancoDeDadosLocal.getConnection();
             String sql = """
                     SELECT end.id_endereco, end.logradouro, end.numero, end.complemento, end.cep, end.cidade, end.estado, end.pais, end.id_usuario
                     FROM VS_13_EQUIPE_9.ENDERECO end
