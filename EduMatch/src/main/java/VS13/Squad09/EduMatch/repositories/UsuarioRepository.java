@@ -1,13 +1,14 @@
 package VS13.Squad09.EduMatch.repositories;
 
 import VS13.Squad09.EduMatch.entities.Usuario;
-import exceptions.BancoDeDadosException;
-import repository.ConexaoBancoDeDados;
-
+import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Repository
 public class UsuarioRepository {
 
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
@@ -32,7 +33,7 @@ public class UsuarioRepository {
         Connection con = null;
 
         try {
-            con = repository.ConexaoBancoDeDados.getConnection();
+            con = repository.ConexaoBancoDeDadosLocal.getConnection();
 
             Integer proximoId = this.getProximoId(con);
             usuario.setId(proximoId);
@@ -79,7 +80,7 @@ public class UsuarioRepository {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = repository.ConexaoBancoDeDadosLocal.getConnection();
             Statement st = con.createStatement();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO";
@@ -115,7 +116,7 @@ public class UsuarioRepository {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = repository.ConexaoBancoDeDadosLocal.getConnection();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO WHERE id_usuario = ? ";
 
@@ -150,7 +151,7 @@ public class UsuarioRepository {
     public boolean editar(Integer id, Usuario usuario) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = repository.ConexaoBancoDeDadosLocal.getConnection();
 
             String sql = """
                     UPDATE VS_13_EQUIPE_9.USUARIO
@@ -190,7 +191,7 @@ public class UsuarioRepository {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = repository.ConexaoBancoDeDadosLocal.getConnection();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO WHERE email = ? ";
 
@@ -230,7 +231,7 @@ public class UsuarioRepository {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = repository.ConexaoBancoDeDadosLocal.getConnection();
             Statement st = con.createStatement();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO ORDER BY pontuacao DESC";
@@ -264,7 +265,7 @@ public class UsuarioRepository {
     public boolean deletar(Usuario usuario) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = repository.ConexaoBancoDeDadosLocal.getConnection();
             String sql = "DELETE FROM VS_13_EQUIPE_9.USUARIO WHERE id_usuario = ? ";
 
             PreparedStatement ps = con.prepareStatement(sql);

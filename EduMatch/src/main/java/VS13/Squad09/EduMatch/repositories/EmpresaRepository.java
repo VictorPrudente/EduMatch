@@ -1,15 +1,16 @@
-package repository;
+package VS13.Squad09.EduMatch.repositories;
 
-import entities.Empresa;
-import exceptions.BancoDeDadosException;
-import interfaces.Repositorio;
+
+
+import VS13.Squad09.EduMatch.entities.Empresa;
+import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmpresaRepository implements Repositorio<Integer, Empresa> {
-        @Override
+public class EmpresaRepository {
+
         public Integer getProximoId(Connection connection) throws BancoDeDadosException {
             try{
                 String sql = "SELECT VS_13_EQUIPE_9.seq_empresa.nextval AS mysequence from DUAL";
@@ -27,7 +28,7 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
             }
         }
 
-        @Override
+
         public Empresa adicionar(Empresa empresa) throws BancoDeDadosException {
             Connection con = null;
 
@@ -71,7 +72,7 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
 
         }
 
-        @Override
+
         public boolean remover(Integer id) throws BancoDeDadosException {
             Connection con = null;
             try {
@@ -100,7 +101,7 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
             }
         }
 
-        @Override
+
         public boolean editar(Integer id, Empresa empresa) throws BancoDeDadosException {
             Connection con = null;
             try {
@@ -139,7 +140,7 @@ public class EmpresaRepository implements Repositorio<Integer, Empresa> {
             }
         }
 
-        @Override
+
         public List<Empresa> listar() throws BancoDeDadosException {
             List<Empresa> empresas = new ArrayList<>();
             Connection con = null;
