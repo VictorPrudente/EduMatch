@@ -70,7 +70,7 @@ public class CertificadoRepository {
         }
     }
 
-    public boolean remover(Integer id) throws BancoDeDadosException {
+    public String remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
@@ -81,10 +81,9 @@ public class CertificadoRepository {
 
             stmt.setInt(1, id);
 
-            // Executa-se a consulta
             int res = stmt.executeUpdate();
 
-            return res > 0;
+            return res > 0 ? "Certificado deletado com sucesso" : "Certificado não deletado";
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {
@@ -97,7 +96,6 @@ public class CertificadoRepository {
             }
         }
     }
-
 
     public List<Certificado> listar() throws BancoDeDadosException {
         List<Certificado> certificados = new ArrayList<>();
@@ -134,60 +132,72 @@ public class CertificadoRepository {
         return certificados;
     }
 
-    public List<Certificado> listarPorUsuario(Usuario usuario) throws BancoDeDadosException {
-            List<Certificado> certificados = new ArrayList<>();
-            Connection con = null;
-            try {
-                con = ConexaoBancoDeDados.getConnection();
-
-                String sql = """
-                        SELECT c.id_certificado, c.trilha, c.data_emitida
-                        FROM VS_13_EQUIPE_9.CERTIFICADO c
-                        WHERE ID_USUARIO = ?""";
-
-                PreparedStatement stmt = con.prepareStatement(sql);
-
-                stmt.setInt(1, usuario.getId());
-
-                ResultSet res = stmt.executeQuery();
-
-                while (res.next()) {
-                    Certificado certificado = new Certificado();
-                    certificado.setId(res.getInt("id_certificado"));
-                    certificado.setTrilha(Trilha.valueOf(res.getInt("trilha")));
-                    Timestamp ts = res.getTimestamp("data_emitida");
-                    certificado.setConclusao(ts.toLocalDateTime());
-                    certificados.add(certificado);
-                    certificado.setUsuario(usuario);
-                }
-            } catch (SQLException e) {
-                throw new BancoDeDadosException(e.getCause());
-            } finally {
-                try {
-                    if (con != null) {
-                        con.close();
-                    }
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            return certificados;
-    }
-
-    public Certificado listarUltimo(Usuario usuario) throws BancoDeDadosException {
+    public List<Certificado> listarPorUsuario(Integer idUsuario) throws BancoDeDadosException {
+        List<Certificado> certificados = new ArrayList<>();
         Connection con = null;
         try {
             con = ConexaoBancoDeDados.getConnection();
 
             String sql = """
-                    SELECT c.id_certificado, c.trilha, c.data_emitida
-                    FROM VS_13_EQUIPE_9.CERTIFICADO c
-                    WHERE ID_USUARIO = ?
-                    ORDER BY c.data_emitida DESC""";
+                SELECT c.id_certificado, c.trilha, c.data_emitida, u.nome, u.sobrenome
+                FROM VS_13_EQUIPE_9.CERTIFICADO c
+                INNER JOIN VS_13_EQUIPE_9.USUARIO u ON c.ID_USUARIO = u.ID_USUARIO
+                WHERE c.ID_USUARIO = ?""";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setInt(1, usuario.getId());
+            stmt.setInt(1, idUsuario);
+
+            ResultSet res = stmt.executeQuery();
+
+            while (res.next()) {
+                Certificado certificado = new Certificado();
+                certificado.setId(res.getInt("id_certificado"));
+                certificado.setTrilha(Trilha.valueOf(res.getInt("trilha")));
+                Timestamp ts = res.getTimestamp("data_emitida");
+                certificado.setConclusao(ts.toLocalDateTime());
+
+                Usuario usuario = new Usuario();
+                usuario.setId(idUsuario);
+                usuario.setNome(res.getString("nome"));
+                usuario.setSobrenome(res.getString("sobrenome"));
+
+                certificado.setUsuario(usuario);
+                certificados.add(certificado);
+            }
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return certificados;
+    }
+
+    public Certificado listarUltimo(Integer idUsuario) throws BancoDeDadosException {
+        Connection con = null;
+        try {
+            con = ConexaoBancoDeDados.getConnection();
+
+            String sql = """           
+                    SELECT id_certificado, trilha, data_emitida, nome, sobrenome
+                    FROM (
+                        SELECT c.id_certificado, c.trilha, c.data_emitida, u.nome, u.sobrenome
+                        FROM VS_13_EQUIPE_9.CERTIFICADO c
+                        INNER JOIN VS_13_EQUIPE_9.USUARIO u ON c.ID_USUARIO = u.ID_USUARIO
+                        WHERE c.ID_USUARIO = ?
+                        ORDER BY c.data_emitida DESC
+                    )
+                    WHERE ROWNUM <= 1""";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, idUsuario);
 
             ResultSet res = stmt.executeQuery();
 
@@ -197,7 +207,14 @@ public class CertificadoRepository {
                 certificado.setTrilha(Trilha.valueOf(res.getInt("trilha")));
                 Timestamp ts = res.getTimestamp("data_emitida");
                 certificado.setConclusao(ts.toLocalDateTime());
+
+                Usuario usuario = new Usuario();
+                usuario.setId(idUsuario);
+                usuario.setNome(res.getString("nome"));
+                usuario.setSobrenome(res.getString("sobrenome"));
+
                 certificado.setUsuario(usuario);
+
                 return certificado;
             }
         } catch (SQLException e) {
