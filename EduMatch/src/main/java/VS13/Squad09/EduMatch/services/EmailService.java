@@ -20,11 +20,11 @@ import java.util.Map;
 public class EmailService {
 
     private final freemarker.template.Configuration fmConfiguration;
+    private final JavaMailSender emailSender;
 
     @Value("${spring.mail.username}")
     private String from;
 
-    private final JavaMailSender emailSender;
 
     public void sendEmail(Usuario usuario, int numeroTemplate) throws Exception {
         MimeMessage mimeMessage = emailSender.createMimeMessage();
