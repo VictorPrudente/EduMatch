@@ -19,5 +19,5 @@ public class Endereco {
     private String cidade;
     private String estado;
     private String pais;
-    private Usuario usuario;
+    private Integer usuarioId;
 }
