@@ -6,7 +6,6 @@ import VS13.Squad09.EduMatch.dtos.request.QuestaoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.QuestaoDTO;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.services.QuestaoService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
