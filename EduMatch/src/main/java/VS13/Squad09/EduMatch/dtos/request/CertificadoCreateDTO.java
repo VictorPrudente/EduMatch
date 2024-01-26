@@ -2,7 +2,7 @@ package VS13.Squad09.EduMatch.dtos.request;
 
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Dificuldades;
-import VS13.Squad09.EduMatch.entities.enums.Games;
+import VS13.Squad09.EduMatch.entities.enums.Trilha;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.constraints.NotNull;
@@ -24,7 +24,7 @@ public class CertificadoCreateDTO {
 
     @NotNull(message = "A trilha não pode estar vazia.")
     @Schema(description = "Trilha que será selecionada", required = true, example = "MATEMATICA")
-    private Games trilha;
+    private Trilha trilha;
 
 
     @NotNull(message = "A data de conclusão não pode estar vazia.")
