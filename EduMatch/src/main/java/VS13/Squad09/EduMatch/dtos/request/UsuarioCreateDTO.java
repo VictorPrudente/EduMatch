@@ -34,11 +34,12 @@ public class UsuarioCreateDTO {
         private Integer idade;
         private Integer pontuacao;
         @NotNull
-        private Endereco endereco;
+        private Integer idEndereco;
         @NotNull
-        private Contato contato;
-        private List<Certificado> certificados = new ArrayList<>();
-        private Integer id_escola;
-        private Integer id_empresa;
+        private Integer idContato;
+        @NotNull
+        private Integer idCertificado;
+        private Integer idEscola;
+        private Integer idEmpresa;
 
 }

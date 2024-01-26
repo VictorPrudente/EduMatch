@@ -19,11 +19,11 @@ public class Usuario {
     private String email;
     private String senha;
     private String CPF;
+    private Integer idEndereco;
+    private Integer idContato;
     private Integer idade;
     private Integer pontuacao;
-    private Endereco endereco;
-    private Contato contato;
-    private List<Certificado> certificados = new ArrayList<>();
-    private Integer id_escola;
-    private Integer id_empresa;
+    private Integer idCertificado;
+    private Integer idEscola;
+    private Integer idEmpresa;
 }
