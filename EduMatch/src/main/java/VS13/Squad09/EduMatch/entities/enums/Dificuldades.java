@@ -1,25 +1,27 @@
-package VS13.Squad9.EduMatch.entities.enums;
+package VS13.Squad09.EduMatch.entities.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+@Getter
+@AllArgsConstructor
 public enum Dificuldades {
 
-    FACIL(0),
-    MEDIO(1),
-    DIFICIL(2);
+    FACIL(1),
+    MEDIO(2),
+    DIFICIL(3);
 
-    private int nivel;
+    private Integer nivel;
 
-    public int getNivel() {
-        return nivel;
-    }
+
     public static Dificuldades valueOf(int nivel){
-        for (Dificuldades dificuldade : Dificuldades.values()){
-            if (dificuldade.ordinal() == nivel){
-                return dificuldade;
-            }
-        }
-        throw new IllegalStateException("Nível de dificuldade não encontrado.");
-    }
-
-    Dificuldades(int i) {
+        return Arrays.stream(Dificuldades.values())
+                .filter(dificuldades -> dificuldades.getNivel().equals(nivel))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("Nível de Dificuldade não encontrado"));
     }
 }

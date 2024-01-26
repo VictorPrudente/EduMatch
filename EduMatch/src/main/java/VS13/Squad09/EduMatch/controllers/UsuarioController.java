@@ -1,27 +1,29 @@
 package VS13.Squad09.EduMatch.controllers;
 
+import VS13.Squad09.EduMatch.controllers.interfaces.IUsuarioController;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
+import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.services.UsuarioService;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import exceptions.BancoDeDadosException;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/usuario")
-public class UsuarioController {
+public class UsuarioController implements IUsuarioController {
 
     private final UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> salvar(@RequestBody @Valid UsuarioCreateDTO usuario)throws BancoDeDadosException {
+    public ResponseEntity<UsuarioDTO> salvar(@RequestBody @Valid UsuarioCreateDTO usuario) throws Exception {
         return ResponseEntity.ok(usuarioService.salvar(usuario));
     }
 
@@ -38,12 +40,12 @@ public class UsuarioController {
 
     @PutMapping("/{idUsuario}")
     public ResponseEntity<UsuarioDTO> atualizar(@PathVariable("idUsuario") @NotNull Integer id,
-                                            @RequestBody @Valid UsuarioCreateDTO usuarioAtualizar) throws BancoDeDadosException {
+                                            @RequestBody @Valid UsuarioCreateDTO usuarioAtualizar) throws Exception {
         return ResponseEntity.ok().body(usuarioService.atualizar(id, usuarioAtualizar));
     }
 
     @DeleteMapping("/{idUsuario}")
-    public ResponseEntity<Void> delete(@PathVariable("idUsuario") @NotNull Integer id) throws BancoDeDadosException {
+    public ResponseEntity<Void> delete(@PathVariable("idUsuario") @NotNull Integer id) throws Exception {
         usuarioService.delete(id);
         return ResponseEntity.ok().build();
     }

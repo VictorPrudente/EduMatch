@@ -1,6 +1,6 @@
 package VS13.Squad09.EduMatch.entities;
 
-import VS13.Squad09.EduMatch.entities.enums.Games;
+import VS13.Squad09.EduMatch.entities.enums.Trilha;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Certificado {
 
-    private Games trilha;
+    private Trilha trilha;
 
     private LocalDateTime conclusao = LocalDateTime.now();
 
