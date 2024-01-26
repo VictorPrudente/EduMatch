@@ -1,7 +1,9 @@
 package VS13.Squad09.EduMatch.repositories;
 
 import VS13.Squad09.EduMatch.entities.Endereco;
+import VS13.Squad09.EduMatch.entities.enums.TipoDeEndereco;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -29,30 +31,28 @@ public class EnderecoRepository {
     public Endereco adicionar(Integer idUsuario, Endereco endereco) throws BancoDeDadosException {
         Connection con = null;
         try {
-<<<<<<< HEAD
             con = ConexaoBancoDeDadosLocal.getConnection();
-=======
-            con = ConexaoBancoDeDados.getConnection();
->>>>>>> spring/migration
+
 
             Integer proximoId = this.getProximoId(con);
             endereco.setId(proximoId);
 
             String sql = "INSERT INTO VS_13_EQUIPE_9.ENDERECO\n" +
-                    "(id_endereco, logradouro, numero, complemento, cep, cidade, estado, pais, id_usuario)\n" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)\n";
+                    "(id_endereco, logradouro, numero, tipo_endereco, complemento, cep, cidade, estado, pais, id_usuario)\n" +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)\n";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setInt(1, endereco.getId());
             stmt.setString(2, endereco.getLogradouro());
             stmt.setInt(3, endereco.getNumero());
-            stmt.setString(4, endereco.getComplemento());
-            stmt.setString(5, endereco.getCep());
-            stmt.setString(6, endereco.getCidade());
-            stmt.setString(7, endereco.getEstado());
-            stmt.setString(8, endereco.getPais());
-            stmt.setInt(9, idUsuario);
+            stmt.setInt(4, endereco.getTipoDeEndereco().ordinal());
+            stmt.setString(5, endereco.getComplemento());
+            stmt.setString(6, endereco.getCep());
+            stmt.setString(7, endereco.getCidade());
+            stmt.setString(8, endereco.getEstado());
+            stmt.setString(9, endereco.getPais());
+            stmt.setInt(10, idUsuario);
 
 
             stmt.executeUpdate();
@@ -70,14 +70,10 @@ public class EnderecoRepository {
         }
     }
 
-    public String remover(Integer id) throws BancoDeDadosException {
+    public String remover(Integer id) throws BancoDeDadosException, NaoEncontradoException {
         Connection con = null;
         try {
-<<<<<<< HEAD
             con = ConexaoBancoDeDadosLocal.getConnection();
-=======
-            con = ConexaoBancoDeDados.getConnection();
->>>>>>> spring/migration
 
             String sql = "DELETE FROM VS_13_EQUIPE_9.ENDERECO WHERE id_endereco = ?";
 
@@ -87,7 +83,8 @@ public class EnderecoRepository {
 
             int res = stmt.executeUpdate();
 
-            return (res > 0) ? "Endereço deletado com sucesso" : "Endereço não deletado";
+            if (res > 0) return "Endereço deletado com sucesso";
+            throw new NaoEncontradoException("Nenhum endereco encontrado com este ID.");
 
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
@@ -102,20 +99,17 @@ public class EnderecoRepository {
         }
     }
 
-    public Endereco editar(Integer id, Endereco endereco) throws BancoDeDadosException {
+    public Endereco editar(Integer id, Endereco endereco) throws BancoDeDadosException, NaoEncontradoException {
         Connection con = null;
         try {
-<<<<<<< HEAD
             con = ConexaoBancoDeDadosLocal.getConnection();
-=======
-            con = ConexaoBancoDeDados.getConnection();
->>>>>>> spring/migration
 
             String sql = """
                     UPDATE VS_13_EQUIPE_9.ENDERECO 
                         SET 
                             logradouro = ?, 
                             numero = ?, 
+                            tipo_endereco = ?,
                             complemento = ?, 
                             cep = ?,
                             cidade = ?,
@@ -127,16 +121,18 @@ public class EnderecoRepository {
 
             stmt.setString(1, endereco.getLogradouro());
             stmt.setInt(2, endereco.getNumero());
-            stmt.setString(3, endereco.getComplemento());
-            stmt.setString(4, endereco.getCep());
-            stmt.setString(5, endereco.getCidade());
-            stmt.setString(6, endereco.getEstado());
-            stmt.setString(7, endereco.getPais());
-            stmt.setInt(8, id);
+            stmt.setInt(3, endereco.getTipoDeEndereco().ordinal());
+            stmt.setString(4, endereco.getComplemento());
+            stmt.setString(5, endereco.getCep());
+            stmt.setString(6, endereco.getCidade());
+            stmt.setString(7, endereco.getEstado());
+            stmt.setString(8, endereco.getPais());
+            stmt.setInt(9, id);
 
-            stmt.executeUpdate();
+            int res = stmt.executeUpdate();
+            if (res > 0) return endereco;
+            throw new NaoEncontradoException("Nenhum endereco encontrado com este ID.");
 
-            return endereco;
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {
@@ -154,11 +150,8 @@ public class EnderecoRepository {
         List<Endereco> enderecos = new ArrayList<>();
         Connection con = null;
         try {
-<<<<<<< HEAD
             con = ConexaoBancoDeDadosLocal.getConnection();
-=======
-            con = ConexaoBancoDeDados.getConnection();
->>>>>>> spring/migration
+
             Statement stmt = con.createStatement();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.ENDERECO";
@@ -171,6 +164,7 @@ public class EnderecoRepository {
                 endereco.setId(res.getInt("id_endereco"));
                 endereco.setLogradouro(res.getString("logradouro"));
                 endereco.setNumero(res.getInt("numero"));
+                endereco.setTipoDeEndereco(TipoDeEndereco.valueOf(res.getInt("tipo_endereco")));
                 endereco.setComplemento(res.getString("complemento"));
                 endereco.setCep(res.getString("cep"));
                 endereco.setCidade(res.getString("cidade"));
@@ -193,16 +187,13 @@ public class EnderecoRepository {
     }
 
 
-    public Endereco listarPorDono(int id) throws BancoDeDadosException {
+    public Endereco listarPorDono(int id) throws BancoDeDadosException, NaoEncontradoException {
         Connection con = null;
         try {
-<<<<<<< HEAD
             con = ConexaoBancoDeDadosLocal.getConnection();
-=======
-            con = ConexaoBancoDeDados.getConnection();
->>>>>>> spring/migration
+
             String sql = """
-                    SELECT end.id_endereco, end.logradouro, end.numero, end.complemento, end.cep, end.cidade, end.estado, end.pais, end.id_usuario
+                    SELECT *
                     FROM VS_13_EQUIPE_9.ENDERECO end
                     WHERE end.id_usuario = ?""";
 
@@ -215,6 +206,7 @@ public class EnderecoRepository {
                     endereco.setId(res.getInt("id_endereco"));
                     endereco.setLogradouro(res.getString("logradouro"));
                     endereco.setNumero(res.getInt("numero"));
+                    endereco.setTipoDeEndereco(TipoDeEndereco.valueOf(res.getInt("tipo_endereco")));
                     endereco.setComplemento(res.getString("complemento"));
                     endereco.setCep(res.getString("cep"));
                     endereco.setCidade(res.getString("cidade"));
@@ -222,7 +214,8 @@ public class EnderecoRepository {
                     endereco.setPais(res.getString("pais"));
                     endereco.setUsuarioId(res.getInt("id_usuario"));
                     return endereco;
-                }
+                } else
+                    throw new NaoEncontradoException("Nenhum endereço cadastrado");
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {
@@ -234,6 +227,5 @@ public class EnderecoRepository {
                 e.printStackTrace();
             }
         }
-        return null;
     }
 }

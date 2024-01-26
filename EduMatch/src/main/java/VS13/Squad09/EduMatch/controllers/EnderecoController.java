@@ -5,6 +5,7 @@ import VS13.Squad09.EduMatch.controllers.interfaces.IEnderecoController;
 import VS13.Squad09.EduMatch.dtos.request.EnderecoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.EnderecoDTO;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.services.EnderecoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import javax.validation.Valid;
 @RequestMapping("/endereco")
 public class EnderecoController implements IEnderecoController {
 
-    private EnderecoService enderecoService;
+    private final EnderecoService enderecoService;
 
     @PostMapping("/usuario/{idUsuario}")
     public ResponseEntity<EnderecoDTO> salvar(@PathVariable("idUsuario") Integer idUsuario,
@@ -28,17 +29,17 @@ public class EnderecoController implements IEnderecoController {
 
     @PutMapping("/{idEndereco}")
     public ResponseEntity<EnderecoDTO> atualizar(@PathVariable("idEndereco") Integer idEndereco,
-                                                 EnderecoCreateDTO enderecoCreateDTO) throws BancoDeDadosException {
+                                                 EnderecoCreateDTO enderecoCreateDTO) throws BancoDeDadosException, NaoEncontradoException {
         return ResponseEntity.ok(enderecoService.atualizar(idEndereco, enderecoCreateDTO));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletar(@PathVariable Integer id) throws BancoDeDadosException {
+    public ResponseEntity<String> deletar(@PathVariable Integer id) throws BancoDeDadosException, NaoEncontradoException {
         return ResponseEntity.ok(enderecoService.deletar(id));
     }
 
     @GetMapping("/usuario/{id}")
-    public ResponseEntity<EnderecoDTO> listarPorDono(@PathVariable("id") Integer id) throws BancoDeDadosException {
+    public ResponseEntity<EnderecoDTO> listarPorDono(@PathVariable("id") Integer id) throws BancoDeDadosException, NaoEncontradoException {
         return ResponseEntity.ok(enderecoService.listarPorDono(id));
     }
 }

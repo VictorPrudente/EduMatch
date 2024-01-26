@@ -21,6 +21,6 @@ public enum TipoEscola {
                 return tipoEscola;
             }
         }
-        throw new IllegalStateException("Tipo de Contato não encontrado");
+        throw new IllegalStateException("Tipo de Escola não encontrado");
     }
 }

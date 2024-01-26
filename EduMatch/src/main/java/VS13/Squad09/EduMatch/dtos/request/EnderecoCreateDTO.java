@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -30,7 +31,7 @@ public class EnderecoCreateDTO {
 
     @Schema(description = "Tipo de endereço, sendo Residencial ou Comercial", required = true, example = "COMERCIAL")
     @NotNull(message = "O tipo de endereço não pode estar vazio.")
-    private TipoDeEndereco tipo;
+    private TipoDeEndereco tipoDeEndereco;
 
     @Schema(description = "Complemento do endereço", example = "Apto 200 | Esquina com Rua y")
     @Size(max = 50, message = "Complemento não deve conter mais que 50 caracteres.")
@@ -51,6 +52,5 @@ public class EnderecoCreateDTO {
     @Schema(description = "País do endereço", required = true, example = "Brasil")
     @NotBlank(message = "O campo 'Pais' não pode estar vazio.")
     private String pais;
-
 }
 
