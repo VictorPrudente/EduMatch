@@ -19,13 +19,9 @@ public class UsuarioDTO {
     private String nome;
     private String sobrenome;
     private String email;
-    private String senha;
     private String CPF;
     private Integer idade;
     private Integer pontuacao;
-    private Integer idEndereco;
-    private Integer idContato;
-    private Integer idCertificado;
     private Integer idEscola;
     private Integer idEmpresa;
 }

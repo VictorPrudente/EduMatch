@@ -51,7 +51,7 @@ public class UsuarioRepository {
             stmt.setString(3, usuario.getSenha());
             stmt.setString(4,usuario.getNome());
             stmt.setString(5,usuario.getSobrenome());
-            stmt.setString(6,usuario.getCPF());
+            stmt.setString(6,usuario.getCPF().replaceAll("\\D", ""));
             stmt.setInt(7,usuario.getIdade());
             stmt.setInt(8,usuario.getPontuacao());
 
@@ -90,12 +90,15 @@ public class UsuarioRepository {
             while (res.next()){
                 Usuario usuario = new Usuario();
                 usuario.setId(res.getInt("id_usuario"));
+                usuario.setEmail(res.getString("email"));
+                usuario.setSenha(res.getString("senha"));
                 usuario.setNome(res.getString("nome"));
                 usuario.setSobrenome(res.getString("sobrenome"));
                 usuario.setCPF(res.getString("cpf"));
                 usuario.setIdade(res.getInt("idade"));
                 usuario.setPontuacao(res.getInt("pontuacao"));
-
+                usuario.setIdEmpresa(res.getInt("id_empresa"));
+                usuario.setIdEscola(res.getInt("id_escola"));
                 usuarios.add(usuario);
             }
         } catch (SQLException e){
@@ -127,11 +130,15 @@ public class UsuarioRepository {
             if (res.next()){
                 Usuario usuario = new Usuario();
                 usuario.setId(res.getInt("id_usuario"));
+                usuario.setEmail(res.getString("email"));
+                usuario.setSenha(res.getString("senha"));
                 usuario.setNome(res.getString("nome"));
                 usuario.setSobrenome(res.getString("sobrenome"));
                 usuario.setCPF(res.getString("cpf"));
                 usuario.setIdade(res.getInt("idade"));
                 usuario.setPontuacao(res.getInt("pontuacao"));
+                usuario.setIdEmpresa(res.getInt("id_empresa"));
+                usuario.setIdEscola(res.getInt("id_escola"));
                 return usuario;
             }
             return null;
@@ -203,13 +210,15 @@ public class UsuarioRepository {
             if (res.next()){
                 Usuario usuario = new Usuario();
                 usuario.setId(res.getInt("id_usuario"));
+                usuario.setEmail(res.getString("email"));
+                usuario.setSenha(res.getString("senha"));
                 usuario.setNome(res.getString("nome"));
                 usuario.setSobrenome(res.getString("sobrenome"));
                 usuario.setCPF(res.getString("cpf"));
                 usuario.setIdade(res.getInt("idade"));
                 usuario.setPontuacao(res.getInt("pontuacao"));
-                usuario.setEmail(res.getString("email"));
-                usuario.setSenha(res.getString("senha"));
+                usuario.setIdEmpresa(res.getInt("id_empresa"));
+                usuario.setIdEscola(res.getInt("id_escola"));
                 return usuario;
             }
             return null;
@@ -241,10 +250,15 @@ public class UsuarioRepository {
             while (res.next()){
                 Usuario usuario = new Usuario();
                 usuario.setId(res.getInt("id_usuario"));
+                usuario.setEmail(res.getString("email"));
+                usuario.setSenha(res.getString("senha"));
                 usuario.setNome(res.getString("nome"));
-                usuario.setIdade(res.getInt("idade"));
                 usuario.setSobrenome(res.getString("sobrenome"));
+                usuario.setCPF(res.getString("cpf"));
+                usuario.setIdade(res.getInt("idade"));
                 usuario.setPontuacao(res.getInt("pontuacao"));
+                usuario.setIdEmpresa(res.getInt("id_empresa"));
+                usuario.setIdEscola(res.getInt("id_escola"));
 
                 usuarios.add(usuario);
             }
@@ -262,28 +276,7 @@ public class UsuarioRepository {
         return usuarios;
     }
 
-    public boolean deletar(Usuario usuario) throws BancoDeDadosException {
-        Connection con = null;
-        try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
-            String sql = "DELETE FROM VS_13_EQUIPE_9.USUARIO WHERE id_usuario = ? ";
-
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, usuario.getId());
-
-            int res = ps.executeUpdate();
-
-            return res > 0;
-        } catch (SQLException e){
-            throw new BancoDeDadosException(e.getCause());
-        } finally {
-            try {
-                if (con != null){
-                    con.close();
-                }
-            } catch (SQLException e){
-                e.printStackTrace();
-            }
-        }
+    public void deletar(Usuario usuario) throws BancoDeDadosException {
+        //Não iremos deletar questões do banco de dados.
     }
 }

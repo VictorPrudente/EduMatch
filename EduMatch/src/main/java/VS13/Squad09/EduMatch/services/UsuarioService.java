@@ -27,11 +27,12 @@ public class UsuarioService {
     public UsuarioDTO salvar(UsuarioCreateDTO usuarioDTO) throws Exception {
 
         log.info("Criando usuario");
+        usuarioDTO.setPontuacao(0);
         Usuario usuarioEntity = objectMapper.convertValue(usuarioDTO, Usuario.class);
         usuarioRepository.adicionar(usuarioEntity);
         System.out.println("\nUsuário cadastrado com sucesso!");
         UsuarioDTO usuarioDTO2 = objectMapper.convertValue(usuarioEntity, UsuarioDTO.class);
-        emailService.sendEmail(usuarioEntity, 1);
+        // emailService.sendEmail(usuarioEntity, 1);
         return usuarioDTO2;
     }
 
@@ -70,8 +71,7 @@ public class UsuarioService {
 
     public void delete(int id) throws Exception {
         Usuario usuarioProcurado = usuarioRepository.listarPorId(id);
-        usuarioRepository.deletar(usuarioProcurado);
-        log.info("Usuário Removido!");
+        //Não iremos deletar questões do banco de dados.
         emailService.sendEmail(usuarioProcurado, 3);
 
     }

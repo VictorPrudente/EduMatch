@@ -3,6 +3,7 @@ package VS13.Squad09.EduMatch.dtos.request;
 import VS13.Squad09.EduMatch.entities.Certificado;
 import VS13.Squad09.EduMatch.entities.Contato;
 import VS13.Squad09.EduMatch.entities.Endereco;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +20,6 @@ import java.util.List;
 @AllArgsConstructor
 public class UsuarioCreateDTO {
 
-        private Integer id;
         @NotNull
         private String nome;
         @NotNull
@@ -32,14 +32,14 @@ public class UsuarioCreateDTO {
         private String CPF;
         @NotNull
         private Integer idade;
-        private Integer pontuacao;
-        @NotNull
+        @Hidden
         private Integer idEndereco;
-        @NotNull
+        @Hidden
         private Integer idContato;
-        @NotNull
-        private Integer idCertificado;
+        @Hidden
         private Integer idEscola;
+        @Hidden
         private Integer idEmpresa;
+        private Integer pontuacao;
 
 }

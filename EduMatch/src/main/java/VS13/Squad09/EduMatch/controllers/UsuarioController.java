@@ -46,8 +46,8 @@ public class UsuarioController implements IUsuarioController {
 
     @DeleteMapping("/{idUsuario}")
     public ResponseEntity<Void> delete(@PathVariable("idUsuario") @NotNull Integer id) throws Exception {
-        usuarioService.delete(id);
-        return ResponseEntity.ok().build();
+        //Não iremos deletar questões do banco de dados.
+        return null;
     }
 
     @GetMapping("/rankear")
