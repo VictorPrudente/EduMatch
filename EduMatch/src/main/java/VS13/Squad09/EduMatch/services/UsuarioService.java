@@ -66,8 +66,8 @@ public class UsuarioService {
         return usuarioDTO2;
     }
 
-    public Usuario listarPorEmail(String email) throws BancoDeDadosException {
-            return usuarioRepository.listarPorEmail(email);
+    public UsuarioDTO listarPorEmail(String email) throws BancoDeDadosException {
+            return objectMapper.convertValue(usuarioRepository.listarPorEmail(email), UsuarioDTO.class );
     }
 
     public List<UsuarioDTO> rankearUsuarios() throws BancoDeDadosException {

@@ -24,7 +24,7 @@ public class UsuarioController implements IUsuarioController {
 
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvar(@RequestBody @Valid UsuarioCreateDTO usuario) throws Exception {
-        return ResponseEntity.ok(usuarioService.salvar(usuario));
+        return ResponseEntity.ok(usuarioService.adicionar(usuario));
     }
 
     @GetMapping
@@ -32,10 +32,19 @@ public class UsuarioController implements IUsuarioController {
         return ResponseEntity.ok(usuarioService.listarTodos());
     }
 
-
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioDTO>  listarPorId(@PathVariable("id") @NotNull Integer id) throws Exception {
         return ResponseEntity.ok(usuarioService.listarPorId(id));
+    }
+
+    @GetMapping("/email") //email?email=
+    public ResponseEntity<UsuarioDTO> listarPorEmail(@RequestParam("email") @NotNull String email) throws Exception {
+        return ResponseEntity.ok(usuarioService.listarPorEmail(email));
+    }
+
+    @GetMapping("/status/{stts}")
+    public ResponseEntity<List<UsuarioDTO>> listarPorStatus(@RequestParam("stts") @NotNull Integer stts) throws Exception {
+        return ResponseEntity.ok(usuarioService.listarPorStatus(stts));
     }
 
     @PutMapping("/{idUsuario}")
