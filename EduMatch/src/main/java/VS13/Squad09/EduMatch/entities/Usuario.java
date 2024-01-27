@@ -23,11 +23,8 @@ public class Usuario {
     private TipoDocumento tipoDocumento;
     private Role role;
     private Status status;
-    private Integer idEndereco;
-    private Integer idContato;
     private LocalDate dataNascimento;
     private Integer pontuacao;
-    private Integer idCertificado;
     private Integer idEscola;
     private Integer idEmpresa;
 }

@@ -27,16 +27,17 @@ public class UsuarioService {
 
     public UsuarioDTO adicionar(UsuarioCreateDTO usuarioDTO) throws Exception {
         log.info("Criando usuario");
-        if (usuarioDTO.getCNPJ().isBlank() && usuarioDTO.getCPF().isBlank()) {
+        if (usuarioDTO.getCNPJ() == null && usuarioDTO.getCPF() == null) {
             throw new RegraDeNegocioException("Documentação vazia");
         }
 
         Usuario usuarioEntity = objectMapper.convertValue(usuarioDTO, Usuario.class);
         usuarioEntity.setStatus(Status.Ativo);
+        usuarioEntity.setPontuacao(0);
         usuarioRepository.adicionar(usuarioEntity);
 
         UsuarioDTO usuarioDTO2 = objectMapper.convertValue(usuarioEntity, UsuarioDTO.class);
-        emailService.sendEmail(usuarioEntity, 1);
+        //emailService.sendEmail(usuarioEntity, 1);
 
         return usuarioDTO2;
     }

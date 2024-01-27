@@ -5,15 +5,20 @@ import VS13.Squad09.EduMatch.entities.enums.Role;
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.entities.enums.TipoDocumento;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import java.sql.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Repository
+@RequiredArgsConstructor
+@Slf4j
 public class UsuarioRepository {
+
+    private final ConexaoBancoDeDados conexaoBancoDeDados;
 
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
         try{
@@ -37,34 +42,49 @@ public class UsuarioRepository {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = conexaoBancoDeDados.getConnection();
+            log.info("Conectado");
 
             Integer proximoId = this.getProximoId(con);
             usuario.setId(proximoId);
 
             String sql = """
                             INSERT INTO VS_13_EQUIPE_9.USUARIO
-                            (id_usuario, email, senha, nome, sobrenome, cpf, cpnj, dataNascimento, pontuacao, tipoDocumentacao, role, status)
+                            (id_usuario, email, senha, nome, sobrenome, cpf, cnpj, data_nascimento, pontuacao, tipo_documentacao, role, status)
                             VALUES(?,?,?,?,?,?,?,?,?,?,?,?)
                             """;
 
             PreparedStatement stmt = con.prepareStatement(sql);
+            log.info("SQL pronto");
 
             stmt.setInt(1, usuario.getId());
+            log.info("id");
             stmt.setString(2, usuario.getEmail());
+            log.info("email");
             stmt.setString(3, usuario.getSenha());
+            log.info("senha");
             stmt.setString(4,usuario.getNome());
+            log.info("nome");
             stmt.setString(5,usuario.getSobrenome());
+            log.info("sobrenome");
             stmt.setString(6,usuario.getCPF());
+            log.info("cpf");
             stmt.setString(7,usuario.getCNPJ());
+            log.info("cnpj");
             Date dataParaSql = Date.valueOf(usuario.getDataNascimento());
             stmt.setDate(8, dataParaSql);
+            log.info("Data de nascimento");
             stmt.setInt(9, usuario.getPontuacao());
+            log.info("pontuação");
             stmt.setInt(10, usuario.getTipoDocumento().ordinal());
+            log.info("tipo documento");
             stmt.setInt(11, usuario.getStatus().ordinal());
+            log.info("status");
             stmt.setInt(12, usuario.getRole().ordinal());
+            log.info("role");
 
             stmt.executeUpdate();
+            log.info("SQL executada");
             return usuario;
 
         } catch (SQLException e){
@@ -89,7 +109,7 @@ public class UsuarioRepository {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = conexaoBancoDeDados.getConnection();
             Statement st = con.createStatement();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO";
@@ -130,7 +150,7 @@ public class UsuarioRepository {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = conexaoBancoDeDados.getConnection();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO WHERE id_usuario = ? ";
 
@@ -170,7 +190,7 @@ public class UsuarioRepository {
     public boolean atualizar(Integer id, Usuario usuario) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = conexaoBancoDeDados.getConnection();
 
             String sql = """
                 UPDATE VS_13_EQUIPE_9.USUARIO
@@ -179,9 +199,9 @@ public class UsuarioRepository {
                         senha = ?,
                         nome = ?, 
                         sobrenome = ?,
-                        dataNascimento = ?, 
+                        data_nascimento = ?, 
                         pontuacao = ?,
-                        tipoDocumentacao = ?,
+                        tipo_documentacao = ?,
                         role = ?,
                         status = ?
                     WHERE
@@ -221,7 +241,7 @@ public class UsuarioRepository {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = conexaoBancoDeDados.getConnection();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO WHERE email = ? ";
 
@@ -266,7 +286,7 @@ public class UsuarioRepository {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
+            con = conexaoBancoDeDados.getConnection();
             Statement st = con.createStatement();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO WHERE status = 1 ORDER BY pontuacao DESC";

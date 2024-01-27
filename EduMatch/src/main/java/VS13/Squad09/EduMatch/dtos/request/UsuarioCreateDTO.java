@@ -47,12 +47,10 @@ public class UsuarioCreateDTO {
         @Schema(description = "cnpj do usuário/PJ", example = "10123456000412")
         private String CNPJ;
 
-        @NotBlank
         @NotNull
         @Schema(description = "Tipo do documento do usuário", example = "CPF")
         private TipoDocumento tipoDocumento;
 
-        @NotBlank
         @NotNull
         @Schema(description = "permissão do usuário", example = "ADM")
         private Role role;
@@ -64,18 +62,6 @@ public class UsuarioCreateDTO {
         @NotNull
         @Schema(description = "Status do cadastro do usuário", example = "ATIVO")
         private Status status;
-
-        @Positive
-        @Schema(description = "id do endereço do usuário", example = "1")
-        private Integer idEndereco;
-
-        @Positive
-        @Schema(description = "id do contato do usuário", example = "1")
-        private Integer idContato;
-
-        @Positive
-        @Schema(description = "id do certificado do usuário", example = "1")
-        private Integer idCertificado;
 
         @Positive
         @Schema(description = "id da escola do usuário", example = "1")

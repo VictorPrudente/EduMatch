@@ -6,6 +6,7 @@ import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +19,14 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/usuario")
+@Slf4j
 public class UsuarioController implements IUsuarioController {
 
     private final UsuarioService usuarioService;
 
     @PostMapping
     public ResponseEntity<UsuarioDTO> salvar(@RequestBody @Valid UsuarioCreateDTO usuario) throws Exception {
+        log.info("Criando");
         return ResponseEntity.ok(usuarioService.adicionar(usuario));
     }
 
