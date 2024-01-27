@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f49153f2-3afe-47e5-9cb2-3fe02e0807aa" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/interfaces/IUsuarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/interfaces/IUsuarioController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/request/CertificadoCreateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/request/CertificadoCreateDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/menus/CertificadoMenu.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/UsuarioRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/EmailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/UsuarioService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,8 +41,8 @@
     </option>
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
-}</component>
+    &quot;associatedIndex&quot;: 8
+    }</component>
   <component name="ProjectId" id="2bJPjNmD5LIrMVlckubV2GaqyCS" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -53,7 +50,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.EduMatchApplication.executor": "Run",
+    "Application.EduMatchApplication.executor": "Debug",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -61,7 +58,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.EduMatchApplication.executor": "Run",
-    "git-widget-placeholder": "spring/migration",
+    "git-widget-placeholder": "spring/usuario-refact",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/vinicius.felix/VemSerDBC/vs13-back-novo/vs13-back/modulo-03-1-springweb/Aula-08",
@@ -108,6 +105,13 @@
         <item itemvalue="Application.EduMatchApplication" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-17.0.9-corretto-17.0.9-f644763e9732-ebaef533" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
