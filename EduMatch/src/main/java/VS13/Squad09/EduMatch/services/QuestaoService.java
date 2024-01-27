@@ -3,12 +3,20 @@ package VS13.Squad09.EduMatch.services;
 import VS13.Squad09.EduMatch.dtos.request.QuestaoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.QuestaoDTO;
 import VS13.Squad09.EduMatch.entities.Questao;
+import VS13.Squad09.EduMatch.entities.Usuario;
+import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.repositories.QuestaoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class QuestaoService {
@@ -18,23 +26,65 @@ public class QuestaoService {
 
 
     public QuestaoDTO create(QuestaoCreateDTO questaoCreateDTO) throws BancoDeDadosException {
-            Questao questao = questaoRepository.create(objectMapper.convertValue(questaoCreateDTO, Questao.class));
-            return objectMapper.convertValue(questao, QuestaoDTO.class);
-        }
+        Questao questao = objectMapper.convertValue(questaoCreateDTO, Questao.class);
+        questao.setStatus(Status.Ativo);
+        questaoRepository.create(questao);
+        return objectMapper.convertValue(questao, QuestaoDTO.class);
+    }
+
+    public QuestaoDTO findById(Integer id) throws BancoDeDadosException {
+        Questao questao = questaoRepository.findById(id);
+        return objectMapper.convertValue(questao, QuestaoDTO.class);
+    }
+
+
+    public QuestaoDTO findByTrailAndDificulty(Integer trilha, Integer dificuldade) throws BancoDeDadosException {
+        log.info("Buscando 1 questão");
+        Questao questao = questaoRepository.findByTrailAndDificulty(trilha, dificuldade);
+        log.info("Retornando uma questão " + questao.getPontos());
+        return objectMapper.convertValue(questao, QuestaoDTO.class);
+    }
+
+    public List<QuestaoDTO> findAllByTrailAndDificulty(Integer trilha, Integer dificuldade) throws BancoDeDadosException {
+        return questaoRepository.findAllByTrailAndDificulty(trilha, dificuldade).stream()
+                .map(questao -> objectMapper.convertValue(questao, QuestaoDTO.class))
+                .collect(Collectors.toList());
+    }
+
+
+    public List<QuestaoDTO> findAllByTrail(Integer trilha) throws BancoDeDadosException {
+        return questaoRepository.findAllByTrail(trilha).stream()
+                .map(questao -> objectMapper.convertValue(questao, QuestaoDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<QuestaoDTO> findAllActive() throws BancoDeDadosException {
+        return questaoRepository.findAll().stream()
+                .map(questao -> objectMapper.convertValue(questao, QuestaoDTO.class))
+                .collect(Collectors.toList());
+    }
 
     public QuestaoDTO update(Integer id, QuestaoCreateDTO questaoCreateDTO) throws BancoDeDadosException {
-            Questao questao = objectMapper.convertValue(questaoCreateDTO, Questao.class);
-            return objectMapper.convertValue(questaoRepository.update(id, questao), QuestaoDTO.class);
+
+        //Seto a questão atualizada como inativa.
+        Questao questao = questaoRepository.findById(id);
+        questao.setStatus(Status.Inativo);
+        questaoRepository.update(questao);
+
+        //crio uma nova questão, seto o status como ativa e salvo no banco de dados.
+        Questao questaoAtualizada = objectMapper.convertValue(questaoCreateDTO, Questao.class);
+        questaoAtualizada.setStatus(Status.Ativo);
+        questaoRepository.create(questaoAtualizada);
+        return objectMapper.convertValue(questaoAtualizada, QuestaoDTO.class);
     }
 
+    public QuestaoDTO delete(Integer id) throws BancoDeDadosException {
 
-    public String deletar(int id) throws BancoDeDadosException {
-        return questaoRepository.delete(id);
-    }
+        //Procuro a questão no banco de dados. Seto como inativa e a atualizo.
+        Questao questao = questaoRepository.findById(id);
+        questao.setStatus(Status.Inativo);
+        questaoRepository.update(questao);
 
-
-    public QuestaoDTO listByTrailAndDificulty(Integer trilha, Integer dificuldade) throws BancoDeDadosException {
-            Questao questao = questaoRepository.listByTrailAndDificulty(trilha, dificuldade);
-            return objectMapper.convertValue(questao, QuestaoDTO.class);
+        return objectMapper.convertValue(questao, QuestaoDTO.class);
     }
 }

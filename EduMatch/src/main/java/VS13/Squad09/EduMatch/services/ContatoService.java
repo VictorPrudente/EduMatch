@@ -4,15 +4,16 @@ package VS13.Squad09.EduMatch.services;
 import VS13.Squad09.EduMatch.entities.Contato;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.repositories.ContatoRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class ContatoService {
-    private ContatoRepository contatoRepository;
+    private final ContatoRepository contatoRepository;
 
-    public ContatoService() {
-        contatoRepository = new ContatoRepository();
-    }
 
     public boolean salvar(Contato contato) {
         try {

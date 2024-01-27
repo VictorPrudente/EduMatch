@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Validated
 @RestController
@@ -34,12 +35,33 @@ public class QuestaoController implements IQuestaoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Integer id) throws BancoDeDadosException {
-        return ResponseEntity.ok(service.deletar(id));
+    public ResponseEntity<QuestaoDTO> delete(@PathVariable Integer id) throws BancoDeDadosException {
+        return ResponseEntity.ok(service.delete(id));
+    }
+
+    @GetMapping({"/{id}"})
+    public ResponseEntity<QuestaoDTO> findById(@PathVariable Integer id) throws BancoDeDadosException {
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @GetMapping({"/{trilha}/{dificuldade}"})
-    public ResponseEntity<QuestaoDTO> listByTrailAndDificulty(@PathVariable Integer trilha, @PathVariable Integer dificuldade) throws BancoDeDadosException {
-        return ResponseEntity.ok(service.listByTrailAndDificulty(trilha, dificuldade));
+    public ResponseEntity<QuestaoDTO> findByTrailAndDificulty(@PathVariable Integer trilha, @PathVariable Integer dificuldade) throws BancoDeDadosException {
+        return ResponseEntity.ok(service.findByTrailAndDificulty(trilha, dificuldade));
+    }
+
+    @GetMapping({"/all/{trilha}/{dificuldade}"})
+    public ResponseEntity<List<QuestaoDTO>> findAllByTrailAndDificulty(@PathVariable Integer trilha, @PathVariable Integer dificuldade) throws BancoDeDadosException {
+        return ResponseEntity.ok(service.findAllByTrailAndDificulty(trilha, dificuldade));
+    }
+
+
+    @GetMapping({"/{trilha}/all"})
+    public ResponseEntity<List<QuestaoDTO>> findAllByTrail(@PathVariable Integer trilha) throws BancoDeDadosException {
+        return ResponseEntity.ok(service.findAllByTrail(trilha));
+    }
+
+    @GetMapping({"/ativas"})
+    public ResponseEntity<List<QuestaoDTO>> findAllActive() throws BancoDeDadosException {
+        return ResponseEntity.ok(service.findAllActive());
     }
 }

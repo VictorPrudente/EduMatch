@@ -4,15 +4,16 @@ package VS13.Squad09.EduMatch.services;
 import VS13.Squad09.EduMatch.entities.Escola;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.repositories.EscolaRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor
 public class EscolaService {
-    private EscolaRepository escolaRepository;
+    private final EscolaRepository escolaRepository;
 
-    public EscolaService(){
-        escolaRepository = new EscolaRepository();
-    }
 
     public Escola listarPorId(int id) {
         try {

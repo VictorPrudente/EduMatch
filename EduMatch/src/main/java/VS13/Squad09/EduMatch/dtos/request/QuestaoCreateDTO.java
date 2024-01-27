@@ -1,6 +1,7 @@
 package VS13.Squad09.EduMatch.dtos.request;
 
 import VS13.Squad09.EduMatch.entities.enums.Dificuldades;
+import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,13 +32,4 @@ public class QuestaoCreateDTO {
 
     @NotNull(message = "A trilha não pode estar nula.")
     private Trilha trilha;
-
-    public QuestaoCreateDTO(Integer id, String pergunta, String opcaoCerta, Dificuldades dificuldade, Trilha trilha) {
-        this.id = id;
-        this.pergunta = pergunta;
-        this.opcaoCerta = opcaoCerta;
-        this.dificuldade = dificuldade;
-        this.trilha = trilha;
-        this.pontos = dificuldade.getNivel() * 3;
-    }
 }

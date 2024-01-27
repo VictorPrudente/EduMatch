@@ -4,6 +4,7 @@ import VS13.Squad09.EduMatch.entities.Certificado;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -11,7 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class CertificadoRepository {
+
+    private final ConexaoBancoDeDados conexaoBancoDeDados;
 
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
 
@@ -34,7 +38,7 @@ public class CertificadoRepository {
     public Certificado adicionar(Certificado certificado) throws BancoDeDadosException {
         Connection con = null;
         try{
-            con = ConexaoBancoDeDados.getConnection();
+            con = conexaoBancoDeDados.getConnection();
 
             Integer proximoId = this.getProximoId(con);
 
@@ -73,7 +77,7 @@ public class CertificadoRepository {
     public String remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = conexaoBancoDeDados.getConnection();
 
             String sql = "DELETE FROM VS_13_EQUIPE_9.CERTIFICADO WHERE id_certificado = ?";
 
@@ -101,7 +105,7 @@ public class CertificadoRepository {
         List<Certificado> certificados = new ArrayList<>();
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = conexaoBancoDeDados.getConnection();
             Statement st = con.createStatement();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.CERTIFICADO c\n" +
@@ -136,7 +140,7 @@ public class CertificadoRepository {
         List<Certificado> certificados = new ArrayList<>();
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = conexaoBancoDeDados.getConnection();
 
             String sql = """
                 SELECT c.id_certificado, c.trilha, c.data_emitida, u.nome, u.sobrenome
@@ -182,7 +186,7 @@ public class CertificadoRepository {
     public Certificado listarUltimo(Integer idUsuario) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = conexaoBancoDeDados.getConnection();
 
             String sql = """           
                     SELECT id_certificado, trilha, data_emitida, nome, sobrenome

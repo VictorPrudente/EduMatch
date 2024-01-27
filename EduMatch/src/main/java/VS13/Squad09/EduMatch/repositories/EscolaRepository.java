@@ -3,12 +3,18 @@ package VS13.Squad09.EduMatch.repositories;
 import VS13.Squad09.EduMatch.repositories.ConexaoBancoDeDados;
 import VS13.Squad09.EduMatch.entities.Escola;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
+@RequiredArgsConstructor
 public class EscolaRepository {
+
+    private final ConexaoBancoDeDados conexaoBancoDeDados;
 
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
         try{
@@ -31,7 +37,7 @@ public class EscolaRepository {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = conexaoBancoDeDados.getConnection();
 
             Integer proximoId = this.getProximoId(con);
             escola.setId(proximoId);
@@ -71,7 +77,7 @@ public class EscolaRepository {
     public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = conexaoBancoDeDados.getConnection();
 
             String sql = "DELETE FROM VS_13_EQUIPE_9.ESCOLA WHERE id_escola = ?";
 
@@ -98,7 +104,7 @@ public class EscolaRepository {
     public boolean editar(Integer id, Escola escola) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = conexaoBancoDeDados.getConnection();
 
             StringBuilder sql = new StringBuilder();
             sql.append("UPDATE VS_13_EQUIPE_9.ESCOLA SET ");
@@ -132,7 +138,7 @@ public class EscolaRepository {
         List<Escola> escolas = new ArrayList<>();
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = conexaoBancoDeDados.getConnection();
             Statement stmt = con.createStatement();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.ESCOLA";
@@ -164,7 +170,7 @@ public class EscolaRepository {
     public Escola listarPorId(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = conexaoBancoDeDados.getConnection();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.ESCOLA WHERE ID_ESCOLA = ? ";
 

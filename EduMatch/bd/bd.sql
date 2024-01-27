@@ -325,6 +325,7 @@ CREATE TABLE QUESTAO (
                            opcao_correta CHAR(1) NOT NULL,
                            trilha NUMBER(1,0) NOT NULL CHECK (trilha IN (1, 2, 3)),
                            dificuldade NUMBER(1,0) NOT NULL CHECK (dificuldade IN (1,2,3)),
+                           status NUMBER (1,0) NOT NULL CHHECK (status IN (0,1)),
                            PRIMARY KEY ( id_questao )
 );
 

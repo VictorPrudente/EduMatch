@@ -3,13 +3,19 @@ package VS13.Squad09.EduMatch.repositories;
 import VS13.Squad09.EduMatch.entities.Contato;
 import VS13.Squad09.EduMatch.entities.enums.TipoDeContato;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
+@RequiredArgsConstructor
 public class ContatoRepository {
 
+
+    private final ConexaoBancoDeDados conexaoBancoDeDados;
 
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
         try {
@@ -33,7 +39,7 @@ public class ContatoRepository {
         Connection con = null;
 
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = conexaoBancoDeDados.getConnection();
 
             Integer proximoId = this.getProximoId(con);
             contato.setId(proximoId);
@@ -70,7 +76,7 @@ public class ContatoRepository {
     public boolean remover(Integer id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = conexaoBancoDeDados.getConnection();
 
             String sql = "DELETE FROM VS_13_EQUIPE_9.CONTATO WHERE id_contato = ?";
 
@@ -98,7 +104,7 @@ public class ContatoRepository {
     public boolean editar(Integer id, Contato contato) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = conexaoBancoDeDados.getConnection();
 
             String sql = """
                     UPDATE VS_13_EQUIPE_9.CONTATO 
@@ -137,7 +143,7 @@ public class ContatoRepository {
         List<Contato> contatos = new ArrayList<>();
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = conexaoBancoDeDados.getConnection();
             Statement stmt = con.createStatement();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.CONTATO";
@@ -169,7 +175,7 @@ public class ContatoRepository {
     public Contato listarPorDono(int id) throws BancoDeDadosException {
         Connection con = null;
         try {
-            con = ConexaoBancoDeDados.getConnection();
+            con = conexaoBancoDeDados.getConnection();
             String sql = """
                 SELECT c.id_contato, c.telefone, c.tipo_contato, c.descricao, c.id_usuario
                 FROM VS_13_EQUIPE_9.CONTATO c
