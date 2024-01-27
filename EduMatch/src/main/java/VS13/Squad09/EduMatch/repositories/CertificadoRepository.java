@@ -2,6 +2,8 @@ package VS13.Squad09.EduMatch.repositories;
 
 import VS13.Squad09.EduMatch.entities.Certificado;
 import VS13.Squad09.EduMatch.entities.Usuario;
+import VS13.Squad09.EduMatch.entities.enums.Dificuldades;
+
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import lombok.RequiredArgsConstructor;
@@ -46,18 +48,19 @@ public class CertificadoRepository {
 
             String sql = """
                     INSERT INTO VS_13_EQUIPE_9.CERTIFICADO
-                    (id_certificado, trilha, data_emitida, id_usuario)
-                    VALUES(?,?,?,?)
-                    """ ;
+                    (id_certificado, trilha, dificuldade, data_emitida, id_usuario)
+                    VALUES(?,?,?,?,?)
+                    """;
             PreparedStatement stmt = con.prepareStatement(sql);
 
             stmt.setInt(1, certificado.getId());
-            stmt.setInt(2,certificado.getTrilha().ordinal());
+            stmt.setInt(2, certificado.getTrilha().ordinal());
+            stmt.setInt(3, certificado.getDificuldade().ordinal());
             Timestamp ts = Timestamp.valueOf(certificado.getConclusao());
-            stmt.setTimestamp(3, ts);
-            stmt.setInt(4, certificado.getUsuario().getId());
+            stmt.setTimestamp(4, ts);
+            stmt.setInt(5, certificado.getUsuario().getId());
 
-            int res = stmt.executeUpdate();
+            stmt.executeUpdate();
             return certificado;
 
         } catch (SQLException e) {
@@ -106,6 +109,7 @@ public class CertificadoRepository {
         Connection con = null;
         try {
             con = conexaoBancoDeDados.getConnection();
+
             Statement st = con.createStatement();
 
             String sql = "SELECT * FROM VS_13_EQUIPE_9.CERTIFICADO c\n" +
@@ -117,7 +121,8 @@ public class CertificadoRepository {
             while (res.next()) {
                 Certificado certificado = new Certificado();
                 certificado.setId(res.getInt("id_certificado"));
-                certificado.setTrilha(Trilha.valueOf(res.getString("nome")));
+                certificado.setTrilha(Trilha.valueOf(res.getString("trilha")));
+                certificado.setDificuldade(Dificuldades.valueOf(res.getString("dificuldade")));
                 Timestamp ts = res.getTimestamp("data_emitida");
                 certificado.setConclusao(ts.toLocalDateTime());
                 certificados.add(certificado);
@@ -143,7 +148,7 @@ public class CertificadoRepository {
             con = conexaoBancoDeDados.getConnection();
 
             String sql = """
-                SELECT c.id_certificado, c.trilha, c.data_emitida, u.nome, u.sobrenome
+                SELECT c.trilha, c.dificuldade, c.data_emitida, u.nome, u.sobrenome
                 FROM VS_13_EQUIPE_9.CERTIFICADO c
                 INNER JOIN VS_13_EQUIPE_9.USUARIO u ON c.ID_USUARIO = u.ID_USUARIO
                 WHERE c.ID_USUARIO = ?""";
@@ -158,6 +163,7 @@ public class CertificadoRepository {
                 Certificado certificado = new Certificado();
                 certificado.setId(res.getInt("id_certificado"));
                 certificado.setTrilha(Trilha.valueOf(res.getInt("trilha")));
+                certificado.setDificuldade(Dificuldades.valueOf(res.getInt("dificuldade")));
                 Timestamp ts = res.getTimestamp("data_emitida");
                 certificado.setConclusao(ts.toLocalDateTime());
 
@@ -189,9 +195,9 @@ public class CertificadoRepository {
             con = conexaoBancoDeDados.getConnection();
 
             String sql = """           
-                    SELECT id_certificado, trilha, data_emitida, nome, sobrenome
+                    SELECT id_certificado, trilha, dificuldade, data_emitida, nome, sobrenome
                     FROM (
-                        SELECT c.id_certificado, c.trilha, c.data_emitida, u.nome, u.sobrenome
+                        SELECT c.id_certificado, c.trilha, c.dificuldade, c.data_emitida, u.nome, u.sobrenome
                         FROM VS_13_EQUIPE_9.CERTIFICADO c
                         INNER JOIN VS_13_EQUIPE_9.USUARIO u ON c.ID_USUARIO = u.ID_USUARIO
                         WHERE c.ID_USUARIO = ?
@@ -209,6 +215,7 @@ public class CertificadoRepository {
                 Certificado certificado = new Certificado();
                 certificado.setId(res.getInt("id_certificado"));
                 certificado.setTrilha(Trilha.valueOf(res.getInt("trilha")));
+                certificado.setDificuldade(Dificuldades.valueOf(res.getInt("dificuldade")));
                 Timestamp ts = res.getTimestamp("data_emitida");
                 certificado.setConclusao(ts.toLocalDateTime());
 
