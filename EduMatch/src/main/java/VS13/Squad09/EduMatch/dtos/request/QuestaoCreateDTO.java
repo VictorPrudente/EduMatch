@@ -3,6 +3,7 @@ package VS13.Squad09.EduMatch.dtos.request;
 import VS13.Squad09.EduMatch.entities.enums.Dificuldades;
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

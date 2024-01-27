@@ -1,5 +1,7 @@
 package VS13.Squad09.EduMatch.entities.enums;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +20,6 @@ public enum Dificuldades {
     DIFICIL(3);
 
     private Integer nivel;
-
 
     public static Dificuldades valueOf(Integer nivel){
         log.info("Retornando " + nivel);

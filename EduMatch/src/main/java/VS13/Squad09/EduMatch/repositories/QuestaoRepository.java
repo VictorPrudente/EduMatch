@@ -58,9 +58,9 @@ public class QuestaoRepository{
             ps.setInt(2, questao.getPontos());
             ps.setString(3, questao.getPergunta());
             ps.setString(4, questao.getOpcaoCerta());
-            ps.setInt(5, questao.getTrilha().ordinal());
-            ps.setInt(6, questao.getDificuldade().getNivel().intValue());
-            ps.setInt(7, questao.getStatus().ordinal());
+            ps.setInt(5, questao.getTrilha().getTipo());
+            ps.setInt(6, questao.getDificuldade().getNivel());
+            ps.setInt(7, questao.getStatus().getTipo());
 
             ps.executeUpdate();
 
