@@ -22,4 +22,5 @@ public enum Status {
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("Status não encontrado."));
     }
+
 }

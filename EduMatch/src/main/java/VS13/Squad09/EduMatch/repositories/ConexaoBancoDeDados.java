@@ -1,30 +1,37 @@
 package VS13.Squad09.EduMatch.repositories;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+@Component
 public class ConexaoBancoDeDados {
-    private static final String SERVER = "vemser-dbc.dbccompany.com.br";
-    private static final String PORT = "25000"; // Porta TCP padrão do Oracle
-    private static final String DATABASE = "xe";
+    @Value("${spring.datasource.url}")
+    private String SERVER;
+    @Value("${spring.datasource.username}")
+    private String USER;
+    @Value("${spring.datasource.password}")
+    private String PASS;
+    @Value("${spring.jpa.properties.hibernate.default_schema}")
+    private String SCHEMA;
 
-    // Configuração dos parâmetros de autenticação
-    private static final String USER = "VS_13_EQUIPE_9";
-    private static final String PASS = "oracle";
-    private static final String SCHEMA = "VS_13_EQUIPE_9";
 
-    public static Connection getConnection() throws SQLException {
-        String url = "jdbc:oracle:thin:@" + SERVER + ":" + PORT + ":" + DATABASE;
-        // jdbc:oracle:thin:@localhost:1521:xe
-
-        // Abre-se a conexão com o Banco de Dados
-        Connection con = DriverManager.getConnection(url, USER, PASS);
-
-        // sempre usar o schema vem_ser
+    public Connection getConnection() throws SQLException {
+        Connection con = DriverManager.getConnection(SERVER, USER, PASS);
         con.createStatement().execute("alter session set current_schema=" + SCHEMA);
 
         return con;
     }
 
+    public void closeConnection(Connection connection) {
+        try {
+            if (connection != null)
+                connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

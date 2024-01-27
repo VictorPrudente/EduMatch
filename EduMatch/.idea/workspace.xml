@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="f49153f2-3afe-47e5-9cb2-3fe02e0807aa" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/UsuarioRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/UsuarioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bd/bd.sql" beforeDir="false" afterPath="$PROJECT_DIR$/bd/bd.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/QuestaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/QuestaoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/interfaces/IQuestaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/interfaces/IQuestaoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/enums/Dificuldades.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/enums/Dificuldades.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/QuestaoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/QuestaoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/QuestaoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/QuestaoService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +23,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -40,6 +45,9 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
     &quot;associatedIndex&quot;: 8
     }</component>
@@ -58,20 +66,27 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.EduMatchApplication.executor": "Run",
-    "git-widget-placeholder": "spring/usuario-refact",
+    "Spring Boot.EduMatchLocal.executor": "Run",
+    "git-widget-placeholder": "spring/game",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/vinicius.felix/VemSerDBC/vs13-back-novo/vs13-back/modulo-03-1-springweb/Aula-08",
+    "last_opened_file_path": "C:/Users/vitu_/OneDrive/Área de Trabalho/DBC task grupo/vs13-squad9-EduMatch/EduMatch/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.6793103",
     "settings.editor.selected.configurable": "preferences.keymap",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\vitu_\OneDrive\Área de Trabalho\DBC task grupo\vs13-squad9-EduMatch\EduMatch\src\main\resources" />
+    </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="VS13.Squad09.EduMatch.exceptions" />
     </key>
@@ -79,7 +94,7 @@
       <recent name="VS13.Squad09.EduMatch.exceptions" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.EduMatchApplication">
+  <component name="RunManager" selected="Spring Boot.EduMatchLocal">
     <configuration name="EduMatchApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="VS13.Squad09.EduMatch.EduMatchApplication" />
       <module name="EduMatch" />
@@ -93,13 +108,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="EduMatchApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration name="EduMatchLocal" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="EduMatch" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="VS13.Squad09.EduMatch.EduMatchApplication" />
+      <option name="VM_PARAMETERS" value="-Dspring.datasource.url=jdbc:oracle:thin:@localhost:1521:xe?oracle.jdbc.timezoneAsRegion=false -Dspring.datasource.username=system -Dspring.datasource.password=oracle -Dspring.jpa.properties.hibernate.default_schema=VS_13_EQUIPE_9" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="EduMatchRemoto" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="EduMatch" />
+      <option name="SPRING_BOOT_MAIN_CLASS" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.EduMatchApplication" />
+      <item itemvalue="Spring Boot.EduMatchLocal" />
+      <item itemvalue="Spring Boot.EduMatchRemoto" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.EduMatchApplication" />
@@ -127,6 +155,7 @@
       <workItem from="1705930958178" duration="1780000" />
       <workItem from="1705932765718" duration="3997000" />
       <workItem from="1706020009567" duration="2081000" />
+      <workItem from="1706355276309" duration="19244000" />
     </task>
     <servers />
   </component>

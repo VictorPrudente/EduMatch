@@ -2,6 +2,7 @@ package VS13.Squad09.EduMatch.dtos.response;
 
 import VS13.Squad09.EduMatch.dtos.request.QuestaoCreateDTO;
 import VS13.Squad09.EduMatch.entities.enums.Dificuldades;
+import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,5 +20,6 @@ public class QuestaoDTO {
     private String opcaoCerta;
     private Trilha trilha;
     private Dificuldades dificuldade;
+    private Status status;
 
 }
