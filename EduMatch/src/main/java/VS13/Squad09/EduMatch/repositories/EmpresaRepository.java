@@ -4,12 +4,19 @@ package VS13.Squad09.EduMatch.repositories;
 
 import VS13.Squad09.EduMatch.entities.Empresa;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
+@RequiredArgsConstructor
 public class EmpresaRepository {
+
+
+    private final ConexaoBancoDeDados conexaoBancoDeDados;
 
         public Integer getProximoId(Connection connection) throws BancoDeDadosException {
             try{
@@ -33,7 +40,7 @@ public class EmpresaRepository {
             Connection con = null;
 
             try {
-                con =ConexaoBancoDeDados.getConnection();
+                con = conexaoBancoDeDados.getConnection();
 
                 Integer proximoId = this.getProximoId(con);
                 empresa.setId(proximoId);
@@ -76,7 +83,7 @@ public class EmpresaRepository {
         public boolean remover(Integer id) throws BancoDeDadosException {
             Connection con = null;
             try {
-                con = ConexaoBancoDeDados.getConnection();
+                con = conexaoBancoDeDados.getConnection();
 
                 String sql = "DELETE FROM VS_13_EQUIPE_9.EMPRESA WHERE id_empresa = ?";
 
@@ -105,7 +112,7 @@ public class EmpresaRepository {
         public boolean editar(Integer id, Empresa empresa) throws BancoDeDadosException {
             Connection con = null;
             try {
-                con = ConexaoBancoDeDados.getConnection();
+                con = conexaoBancoDeDados.getConnection();
 
                 StringBuilder sql = new StringBuilder();
                 sql.append("UPDATE VS_13_EQUIPE_9.EMPRESA SET ");
@@ -145,7 +152,7 @@ public class EmpresaRepository {
             List<Empresa> empresas = new ArrayList<>();
             Connection con = null;
             try {
-                con = ConexaoBancoDeDados.getConnection();
+                con = conexaoBancoDeDados.getConnection();
                 Statement stmt = con.createStatement();
 
                 String sql = "SELECT * FROM VS_13_EQUIPE_9.EMPRESA";
