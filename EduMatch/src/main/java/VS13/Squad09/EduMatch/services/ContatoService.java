@@ -1,77 +1,60 @@
 package VS13.Squad09.EduMatch.services;
 
-
+import VS13.Squad09.EduMatch.dtos.mapper.ContatoMapper;
+import VS13.Squad09.EduMatch.dtos.request.ContatoCreateDTO;
+import VS13.Squad09.EduMatch.dtos.response.ContatoDTO;
 import VS13.Squad09.EduMatch.entities.Contato;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
 import VS13.Squad09.EduMatch.repositories.ContatoRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ContatoService {
     private final ContatoRepository contatoRepository;
 
+    private final UsuarioService usuarioService;
+    private final ContatoMapper contatoMapper;
 
-    public boolean salvar(Contato contato) {
-        try {
-            Contato contatoAdicionado = contatoRepository.adicionar(contato);
-            System.out.println("Contato adicinado com sucesso! " + contatoAdicionado);
-            return true;
-        } catch (BancoDeDadosException e) {
-            System.out.println("ERRO: " + e.getMessage());
-            e.printStackTrace();
-        } catch (Exception e) {
-            System.out.println("ERRO: " + e.getMessage());
-            e.printStackTrace();
-        }
-        System.out.println("Contato não cadastrado. Tente novamente");
-        return false;
+    public ContatoDTO salvar(Integer id, ContatoCreateDTO contatoCreateDTO) throws Exception {
+        usuarioService.listarPorId(id);
+
+        Contato contatoEntity = contatoMapper.toEntity(contatoCreateDTO);
+
+        ContatoDTO contatoDTO = contatoMapper.toDto(contatoRepository.adicionar(id, contatoEntity));
+
+        return contatoDTO;
     }
 
-    public boolean deletar(int id) {
-        try {
-            contatoRepository.remover(id);
-            System.out.printf("Contato com o id %d removido com sucesso.", id);
-            return true;
-        } catch (BancoDeDadosException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Contato não removido.");
-        return false;
+    public ContatoDTO atualizar(Integer id, ContatoCreateDTO contatoCreateDTO) throws Exception {
+        listarPorId(id);
+
+        Contato contatoEntity = contatoMapper.toEntity(contatoCreateDTO);
+
+        ContatoDTO contatoDTO = contatoMapper.toDto(contatoRepository.editar(id, contatoEntity));
+
+        return contatoDTO;
     }
 
-    public boolean atualizar(int id, Contato contato) {
-        try {
-            contatoRepository.editar(id, contato);
-            System.out.printf("Contato com o ID %d atualizado.", id);
-            return true;
-        } catch (BancoDeDadosException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Contato não atualizado.");
-        return false;
+    public void deletar(Integer id) throws Exception {
+        listarPorId(id);
+        contatoRepository.remover(id);
     }
 
-    public void listarTodos() {
-        try {
-            List<Contato> listar = contatoRepository.listar();
-            listar.forEach(System.out::println);
-        } catch (BancoDeDadosException e) {
-            e.printStackTrace();
-        }
+    private Contato listarPorId(Integer id) throws Exception {
+        return contatoRepository.listar().stream()
+                .filter(contato -> contato.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new RegraDeNegocioException("Contato não encontrado!"));
     }
 
-    public Contato listarPorDono(int id) {
-        //este id vem da entidade que estiver chamando o seu contato. Por exemplo, usuario.getId();
-        try {
-            return contatoRepository.listarPorDono(id);
-        } catch (BancoDeDadosException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Contato não encontrado.");
-        return null;
+    public List<ContatoDTO> listarPorUsuario(Integer idUsuario) throws Exception {
+        return contatoMapper.toDto(contatoRepository.listarPorDono(idUsuario));
     }
 }

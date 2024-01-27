@@ -4,6 +4,7 @@ import VS13.Squad09.EduMatch.entities.Contato;
 import VS13.Squad09.EduMatch.entities.enums.TipoDeContato;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -13,7 +14,6 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class ContatoRepository {
-
 
     private final ConexaoBancoDeDados conexaoBancoDeDados;
 
@@ -35,7 +35,7 @@ public class ContatoRepository {
     }
 
 
-    public Contato adicionar(Contato contato) throws BancoDeDadosException {
+    public Contato adicionar(Integer idUsuario, Contato contato) throws BancoDeDadosException {
         Connection con = null;
 
         try {
@@ -54,7 +54,7 @@ public class ContatoRepository {
             stmt.setString(2, contato.getDescricao());
             stmt.setString(3, contato.getTelefone());
             stmt.setInt(4, contato.getTipo().ordinal());
-            stmt.setInt(5, contato.getIdUsuario());
+            stmt.setInt(5, idUsuario);
 
             int res = stmt.executeUpdate();
             return contato;
@@ -101,7 +101,7 @@ public class ContatoRepository {
     }
 
 
-    public boolean editar(Integer id, Contato contato) throws BancoDeDadosException {
+    public Contato editar(Integer id, Contato contato) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = conexaoBancoDeDados.getConnection();
@@ -124,7 +124,7 @@ public class ContatoRepository {
 
             int res = stmt.executeUpdate();
 
-            return res > 0;
+            return contato;
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {
@@ -172,29 +172,32 @@ public class ContatoRepository {
         return contatos;
     }
 
-    public Contato listarPorDono(int id) throws BancoDeDadosException {
+    public List<Contato> listarPorDono(int id) throws BancoDeDadosException {
+        List<Contato> contatos = new ArrayList<>();
         Connection con = null;
+
         try {
             con = conexaoBancoDeDados.getConnection();
             String sql = """
-                SELECT c.id_contato, c.telefone, c.tipo_contato, c.descricao, c.id_usuario
-                FROM VS_13_EQUIPE_9.CONTATO c
-                WHERE c.id_usuario = ?""";
+            SELECT c.id_contato, c.telefone, c.tipo_contato, c.descricao, c.id_usuario
+            FROM VS_13_EQUIPE_9.CONTATO c
+            WHERE c.id_usuario = ?""";
 
             PreparedStatement stmt = con.prepareStatement(sql);
             stmt.setInt(1, id);
 
             ResultSet res = stmt.executeQuery();
-                    if (res.next()) {
-                        Contato contato = new Contato();
-                        contato.setId(res.getInt("id_contato"));
-                        contato.setTelefone(res.getString("telefone"));
-                        contato.setTipo(TipoDeContato.valueOf(res.getInt("tipo_contato")));
-                        contato.setDescricao(res.getString("descricao"));
-                        return contato;
-                        }
+
+            while (res.next()) {
+                Contato contato = new Contato();
+                contato.setId(res.getInt("id_contato"));
+                contato.setTelefone(res.getString("telefone"));
+                contato.setTipo(TipoDeContato.valueOf(res.getInt("tipo_contato")));
+                contato.setDescricao(res.getString("descricao"));
+                contatos.add(contato);
+            }
         } catch (SQLException e) {
-            throw new BancoDeDadosException(e.getCause());
+            throw new BancoDeDadosException(e);
         } finally {
             try {
                 if (con != null) {
@@ -204,6 +207,8 @@ public class ContatoRepository {
                 e.printStackTrace();
             }
         }
-        return null;
+
+        return contatos;
     }
+
 }
