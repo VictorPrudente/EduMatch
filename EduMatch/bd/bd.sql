@@ -234,22 +234,24 @@ CREATE SEQUENCE SEQ_EMPRESA
 
 CREATE TABLE USUARIO (
                          id_usuario NUMBER(38,0) NOT NULL,
-                         nome VARCHAR2(50),
-                         sobrenome VARCHAR2(50),
                          email VARCHAR2(100) NOT NULL UNIQUE,
                          senha VARCHAR2(100) NOT NULL,
+                         nome VARCHAR2(50),
+                         sobrenome VARCHAR2(50),
                          cpf VARCHAR2(11) UNIQUE,
-                         idade NUMBER(2,0),
+                         cnpj VARCHAR2(14) UNIQUE,
+                         data_nascimento DATE,
                          pontuacao NUMBER(3,0),
-                         id_contato NUMBER(38,0),
-                         id_certificado NUMBER(38,0),
-                         id_endereco NUMBER(38,0),
+                         tipo_documentacao NUMBER(1,0) NOT NULL CHECK (tipo_documentacao IN (0,1)),
+                         role NUMBER(1,0) NOT NULL CHECK (role IN (0,1,2)),
+                         status NUMBER (1,0) NOT NULL CHECK (status IN (0,1)),
                          id_empresa NUMBER(38,0),
                          id_escola NUMBER(38,0),
                          PRIMARY KEY ( id_usuario ),
                          CONSTRAINT FK_USUARIO_ESCOLA FOREIGN KEY ( id_escola ) REFERENCES ESCOLA ( id_escola ),
                          CONSTRAINT FK_USUARIO_EMPRESA FOREIGN KEY ( id_empresa ) REFERENCES EMPRESA ( id_empresa )
 );
+
 
 
 CREATE SEQUENCE SEQ_USUARIO
