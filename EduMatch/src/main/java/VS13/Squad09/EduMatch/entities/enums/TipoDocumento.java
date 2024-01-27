@@ -16,7 +16,7 @@ public enum TipoDocumento {
         return tipo;
     }
 
-    public static TipoDocumento valueOf(int tipo){
+    public static TipoDocumento valueOf(Integer tipo){
         return Arrays.stream(TipoDocumento.values())
                 .filter(tipoDocumento -> tipoDocumento.getTipo().equals(tipo))
                 .findFirst()

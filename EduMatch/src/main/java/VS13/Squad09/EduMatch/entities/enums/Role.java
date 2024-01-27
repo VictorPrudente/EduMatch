@@ -17,7 +17,7 @@ public enum Role {
         return tipo;
     }
 
-    public static Role valueOf(int tipo){
+    public static Role valueOf(Integer tipo){
         return Arrays.stream(Role.values())
                 .filter(tipoRole -> tipoRole.getTipo().equals(tipo))
                 .findFirst()
