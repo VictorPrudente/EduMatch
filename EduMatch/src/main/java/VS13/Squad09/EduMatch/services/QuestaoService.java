@@ -6,6 +6,7 @@ import VS13.Squad09.EduMatch.entities.Questao;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.repositories.QuestaoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -32,13 +33,13 @@ public class QuestaoService {
         return objectMapper.convertValue(questao, QuestaoDTO.class);
     }
 
-    public QuestaoDTO findById(Integer id) throws BancoDeDadosException {
+    public QuestaoDTO findById(Integer id) throws BancoDeDadosException, NaoEncontradoException {
         Questao questao = questaoRepository.findById(id);
         return objectMapper.convertValue(questao, QuestaoDTO.class);
     }
 
 
-    public QuestaoDTO findByTrailAndDificulty(Integer trilha, Integer dificuldade) throws BancoDeDadosException {
+    public QuestaoDTO findByTrailAndDificulty(Integer trilha, Integer dificuldade) throws BancoDeDadosException, NaoEncontradoException {
         log.info("Buscando 1 questão");
         Questao questao = questaoRepository.findByTrailAndDificulty(trilha, dificuldade);
         log.info("Retornando uma questão " + questao.getPontos());
@@ -59,12 +60,13 @@ public class QuestaoService {
     }
 
     public List<QuestaoDTO> findAllActive() throws BancoDeDadosException {
+        log.info("Buscando questões na service.");
         return questaoRepository.findAll().stream()
                 .map(questao -> objectMapper.convertValue(questao, QuestaoDTO.class))
                 .collect(Collectors.toList());
     }
 
-    public QuestaoDTO update(Integer id, QuestaoCreateDTO questaoCreateDTO) throws BancoDeDadosException {
+    public QuestaoDTO update(Integer id, QuestaoCreateDTO questaoCreateDTO) throws BancoDeDadosException, NaoEncontradoException {
 
         //Seto a questão atualizada como inativa.
         Questao questao = questaoRepository.findById(id);
@@ -78,13 +80,18 @@ public class QuestaoService {
         return objectMapper.convertValue(questaoAtualizada, QuestaoDTO.class);
     }
 
-    public QuestaoDTO delete(Integer id) throws BancoDeDadosException {
-
+    public QuestaoDTO delete(Integer id) throws BancoDeDadosException, NaoEncontradoException {
+        log.info("Buscando questao na service.");
         //Procuro a questão no banco de dados. Seto como inativa e a atualizo.
         Questao questao = questaoRepository.findById(id);
+        log.info("Encontrada questao na service.");
+        log.info(questao.toString());
         questao.setStatus(Status.Inativo);
+        questao.setPergunta("apagada");
+        log.info("setado status inativo na questao.");
+        log.info(questao.toString());
         questaoRepository.update(questao);
-
+        log.info("questao inativa no banco de dados.");
         return objectMapper.convertValue(questao, QuestaoDTO.class);
     }
 }

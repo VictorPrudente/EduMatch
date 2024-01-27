@@ -3,6 +3,7 @@ package VS13.Squad09.EduMatch.controllers.interfaces;
 import VS13.Squad09.EduMatch.dtos.request.QuestaoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.QuestaoDTO;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -35,7 +36,7 @@ public interface IQuestaoController {
     @PutMapping("{id}")
     ResponseEntity<QuestaoDTO> update(@PathVariable Integer id,
                                       @RequestBody @Valid QuestaoCreateDTO questaoCreateDTO)
-            throws BancoDeDadosException;
+            throws BancoDeDadosException, NaoEncontradoException;
 
     @Operation(summary = "Torna uma questão inativa.", description = "Atualiza o status de uma questão no banco de dados para inativa, passando seu id como parâmetro.")
     @ApiResponses(value = {
@@ -45,7 +46,7 @@ public interface IQuestaoController {
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção. Questão não atualizada.")})
     @DeleteMapping("/{id}")
     ResponseEntity<QuestaoDTO> delete(@PathVariable Integer id)
-            throws BancoDeDadosException;
+            throws BancoDeDadosException, NaoEncontradoException;
 
 
     @Operation(summary = "Listar uma questão pelo seu ID.", description = "Lista uma questão passando como parâmetro ID.")
@@ -56,7 +57,7 @@ public interface IQuestaoController {
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção.")})
     @GetMapping({"/{id}"})
     ResponseEntity<QuestaoDTO> findById(@PathVariable Integer id)
-            throws BancoDeDadosException;
+            throws BancoDeDadosException, NaoEncontradoException;
 
 
     @Operation(summary = "Listar uma questão pela sua dificuldade e sua trilha.", description = "Lista uma questão passando como parâmetro sua trilha e o nível da dificuldade desejada.")
@@ -68,7 +69,7 @@ public interface IQuestaoController {
     @GetMapping({"/{trilha}/{dificuldade}"})
     ResponseEntity<QuestaoDTO> findByTrailAndDificulty(@PathVariable Integer trilha,
                                                        @PathVariable Integer dificuldade)
-                                                        throws BancoDeDadosException;
+            throws BancoDeDadosException, NaoEncontradoException;
 
 
     @Operation(summary = "Listar todas as questão com a mesma dificuldade da mesma trilha.", description = "Lista todas as questão passando como parâmetro sua trilha e o nível da dificuldade desejada.")

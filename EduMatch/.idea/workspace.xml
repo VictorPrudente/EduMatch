@@ -7,29 +7,11 @@
     <list default="true" id="f49153f2-3afe-47e5-9cb2-3fe02e0807aa" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bd/bd.sql" beforeDir="false" afterPath="$PROJECT_DIR$/bd/bd.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/EnderecoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/EnderecoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/QuestaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/QuestaoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/interfaces/IQuestaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/interfaces/IQuestaoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/request/QuestaoCreateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/request/QuestaoCreateDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/response/QuestaoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/response/QuestaoDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/Questao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/Questao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/enums/Trilha.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/enums/Trilha.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/CertificadoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/CertificadoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/ConexaoBancoDeDados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/ConexaoBancoDeDados.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/ConexaoBancoDeDadosLocal.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/ContatoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/ContatoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/EmpresaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/EmpresaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/EnderecoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/EnderecoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/EscolaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/EscolaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/enums/Dificuldades.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/enums/Dificuldades.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/QuestaoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/QuestaoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/UsuarioRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/ContatoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/ContatoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/EmpresaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/EmpresaService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/EscolaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/EscolaService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/QuestaoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/QuestaoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +155,7 @@
       <workItem from="1705930958178" duration="1780000" />
       <workItem from="1705932765718" duration="3997000" />
       <workItem from="1706020009567" duration="2081000" />
-      <workItem from="1706355276309" duration="12172000" />
+      <workItem from="1706355276309" duration="19244000" />
     </task>
     <servers />
   </component>
