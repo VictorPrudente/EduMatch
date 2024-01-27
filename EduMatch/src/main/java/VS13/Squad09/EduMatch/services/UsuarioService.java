@@ -3,7 +3,9 @@ package VS13.Squad09.EduMatch.services;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Usuario;
+import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
 import VS13.Squad09.EduMatch.repositories.UsuarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -23,15 +25,19 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final EmailService emailService;
 
-
     public UsuarioDTO salvar(UsuarioCreateDTO usuarioDTO) throws Exception {
-
         log.info("Criando usuario");
+        if (usuarioDTO.getCNPJ().isBlank() && usuarioDTO.getCPF().isBlank()) {
+            throw new RegraDeNegocioException("Documentação vazia");
+        }
+
         Usuario usuarioEntity = objectMapper.convertValue(usuarioDTO, Usuario.class);
+        usuarioEntity.setStatus(Status.Ativo);
         usuarioRepository.adicionar(usuarioEntity);
-        System.out.println("\nUsuário cadastrado com sucesso!");
+
         UsuarioDTO usuarioDTO2 = objectMapper.convertValue(usuarioEntity, UsuarioDTO.class);
         emailService.sendEmail(usuarioEntity, 1);
+
         return usuarioDTO2;
     }
 

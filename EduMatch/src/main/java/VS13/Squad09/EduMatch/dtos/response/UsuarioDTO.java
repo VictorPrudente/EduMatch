@@ -1,15 +1,13 @@
 package VS13.Squad09.EduMatch.dtos.response;
 
-import VS13.Squad09.EduMatch.entities.Certificado;
-import VS13.Squad09.EduMatch.entities.Contato;
-import VS13.Squad09.EduMatch.entities.Endereco;
+import VS13.Squad09.EduMatch.entities.enums.Status;
+import VS13.Squad09.EduMatch.entities.enums.TipoDocumento;
+import VS13.Squad09.EduMatch.entities.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.br.CPF;
 
-import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,10 +19,14 @@ public class UsuarioDTO {
     private String email;
     private String senha;
     private String CPF;
-    private Integer idade;
-    private Integer pontuacao;
+    private String CNPJ;
+    private TipoDocumento tipoDocumento;
+    private Role role;
+    private Status status;
     private Integer idEndereco;
     private Integer idContato;
+    private LocalDate dataNascimento;
+    private Integer pontuacao;
     private Integer idCertificado;
     private Integer idEscola;
     private Integer idEmpresa;
