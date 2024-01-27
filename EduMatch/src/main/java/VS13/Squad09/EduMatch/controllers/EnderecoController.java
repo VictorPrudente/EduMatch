@@ -18,7 +18,7 @@ import javax.validation.Valid;
 @RequestMapping("/endereco")
 public class EnderecoController implements IEnderecoController {
 
-    private EnderecoService enderecoService;
+    private final EnderecoService enderecoService;
 
     @PostMapping("/usuario/{idUsuario}")
     public ResponseEntity<EnderecoDTO> salvar(@PathVariable("idUsuario") Integer idUsuario,

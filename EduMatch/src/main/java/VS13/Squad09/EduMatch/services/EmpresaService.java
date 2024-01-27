@@ -4,17 +4,18 @@ package VS13.Squad09.EduMatch.services;
 import VS13.Squad09.EduMatch.entities.Empresa;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.repositories.EmpresaRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 
+@Service
+@RequiredArgsConstructor
 public class EmpresaService {
 
-    private EmpresaRepository empresaRepository;
+    private final EmpresaRepository empresaRepository;
 
-    public EmpresaService(){
-        empresaRepository = new EmpresaRepository();
-    }
 
     public boolean salvar(Empresa empresa) {
         try {

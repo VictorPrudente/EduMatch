@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ContatoService {
     private final ContatoRepository contatoRepository;
+
     private final UsuarioService usuarioService;
     private final ContatoMapper contatoMapper;
 
