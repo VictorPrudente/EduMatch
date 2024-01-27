@@ -7,7 +7,7 @@ import VS13.Squad09.EduMatch.entities.enums.TipoDocumento;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import org.springframework.stereotype.Repository;
 import java.sql.*;
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 
