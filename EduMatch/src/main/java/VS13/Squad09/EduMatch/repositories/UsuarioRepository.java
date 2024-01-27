@@ -83,7 +83,7 @@ public class UsuarioRepository {
 
     }
 
-    public List<Usuario> listar() throws BancoDeDadosException {
+    public List<Usuario> listarTodos() throws BancoDeDadosException {
         List<Usuario> usuarios = new ArrayList<>();
 
         Connection con = null;
@@ -167,7 +167,7 @@ public class UsuarioRepository {
         }
     }
 
-    public boolean editar(Integer id, Usuario usuario) throws BancoDeDadosException {
+    public boolean atualizar(Integer id, Usuario usuario) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = ConexaoBancoDeDadosLocal.getConnection();
@@ -179,7 +179,6 @@ public class UsuarioRepository {
                         senha = ?,
                         nome = ?, 
                         sobrenome = ?,
-                        cnpj = ?,
                         dataNascimento = ?, 
                         pontuacao = ?,
                         tipoDocumentacao = ?,
@@ -193,14 +192,13 @@ public class UsuarioRepository {
             ps.setString(2, usuario.getSenha());
             ps.setString(3, usuario.getNome());
             ps.setString(4, usuario.getSobrenome());
-            ps.setString(5, usuario.getCNPJ());
             Date dataParaSql = Date.valueOf(usuario.getDataNascimento());
-            ps.setDate(6, dataParaSql);
-            ps.setInt(7, usuario.getPontuacao());
-            ps.setInt(8, usuario.getTipoDocumento().ordinal());
-            ps.setInt(9, usuario.getRole().ordinal());
-            ps.setInt(10, usuario.getStatus().ordinal());
-            ps.setInt(11, id);
+            ps.setDate(5, dataParaSql);
+            ps.setInt(6, usuario.getPontuacao());
+            ps.setInt(7, usuario.getTipoDocumento().ordinal());
+            ps.setInt(8, usuario.getRole().ordinal());
+            ps.setInt(9, usuario.getStatus().ordinal());
+            ps.setInt(10, id);
 
             int res = ps.executeUpdate();
 
@@ -271,7 +269,7 @@ public class UsuarioRepository {
             con = ConexaoBancoDeDadosLocal.getConnection();
             Statement st = con.createStatement();
 
-            String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO ORDER BY pontuacao DESC";
+            String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO WHERE status = 1 ORDER BY pontuacao DESC";
 
             ResultSet res = st.executeQuery(sql);
 
@@ -298,30 +296,5 @@ public class UsuarioRepository {
             }
         }
         return usuarios;
-    }
-
-    public boolean deletar(Usuario usuario) throws BancoDeDadosException {
-        Connection con = null;
-        try {
-            con = ConexaoBancoDeDadosLocal.getConnection();
-            String sql = "DELETE FROM VS_13_EQUIPE_9.USUARIO WHERE id_usuario = ? ";
-
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, usuario.getId());
-
-            int res = ps.executeUpdate();
-
-            return res > 0;
-        } catch (SQLException e){
-            throw new BancoDeDadosException(e.getCause());
-        } finally {
-            try {
-                if (con != null){
-                    con.close();
-                }
-            } catch (SQLException e){
-                e.printStackTrace();
-            }
-        }
     }
 }

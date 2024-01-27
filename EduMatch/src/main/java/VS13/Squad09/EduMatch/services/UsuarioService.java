@@ -25,7 +25,7 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final EmailService emailService;
 
-    public UsuarioDTO salvar(UsuarioCreateDTO usuarioDTO) throws Exception {
+    public UsuarioDTO adicionar(UsuarioCreateDTO usuarioDTO) throws Exception {
         log.info("Criando usuario");
         if (usuarioDTO.getCNPJ().isBlank() && usuarioDTO.getCPF().isBlank()) {
             throw new RegraDeNegocioException("Documentação vazia");
@@ -42,14 +42,32 @@ public class UsuarioService {
     }
 
     public List<UsuarioDTO> listarTodos() throws BancoDeDadosException {
-        return usuarioRepository.listar().stream()
+        return usuarioRepository.listarTodos().stream()
                 .map(usuario -> objectMapper.convertValue(usuario, UsuarioDTO.class))
                 .collect(Collectors.toList());
+    }
 
+    public List<UsuarioDTO> listarPorStatus(int status) throws BancoDeDadosException {
+        return listarTodos().stream().filter(usuarioDTO -> usuarioDTO.getStatus().ordinal() == status).collect(Collectors.toList());
     }
 
     public UsuarioDTO listarPorId(Integer id) throws Exception {
         return objectMapper.convertValue(usuarioRepository.listarPorId(id), UsuarioDTO.class);
+    }
+
+    public UsuarioDTO atualizar(int id, UsuarioCreateDTO usuarioDTO) throws Exception {
+        if (usuarioDTO.getCNPJ().isBlank() && usuarioDTO.getCPF().isBlank()) {
+            throw new RegraDeNegocioException("Documentação vazia");
+        }
+        Usuario usuario = objectMapper.convertValue(usuarioDTO, Usuario.class);
+        UsuarioDTO usuarioDTO2 = objectMapper.convertValue(usuarioRepository.atualizar(id, usuario), UsuarioDTO.class);
+        System.out.printf("Usuário com o ID %d atualizado.\n", id);
+        emailService.sendEmail(usuario, 2);
+        return usuarioDTO2;
+    }
+
+    public Usuario listarPorEmail(String email) throws BancoDeDadosException {
+            return usuarioRepository.listarPorEmail(email);
     }
 
     public List<UsuarioDTO> rankearUsuarios() throws BancoDeDadosException {
@@ -57,29 +75,12 @@ public class UsuarioService {
                 objectMapper.convertValue(usuario, UsuarioDTO.class)).collect(Collectors.toList());
     }
 
-    public Usuario listarPorEmail(String email) {
-        try {
-            return usuarioRepository.listarPorEmail(email);
-        } catch (BancoDeDadosException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+    public UsuarioDTO delete(int id) throws Exception {
 
-    public UsuarioDTO atualizar(int id, UsuarioCreateDTO usuario) throws Exception {
-        Usuario usuarioEntity = objectMapper.convertValue(usuario, Usuario.class);
-        UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioRepository.editar(id, usuarioEntity), UsuarioDTO.class);
-        System.out.printf("Usuário com o ID %d atualizado.\n", id);
-        emailService.sendEmail(usuarioEntity, 2);
-        return usuarioDTO;
-    }
-
-    public void delete(int id) throws Exception {
         Usuario usuarioProcurado = usuarioRepository.listarPorId(id);
-        usuarioRepository.deletar(usuarioProcurado);
-        log.info("Usuário Removido!");
-        emailService.sendEmail(usuarioProcurado, 3);
-
+        usuarioProcurado.setStatus(Status.Inativo);
+        usuarioRepository.atualizar(id, usuarioProcurado);
+        return objectMapper.convertValue(usuarioProcurado, UsuarioDTO.class);
     }
 }
 
