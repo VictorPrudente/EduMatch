@@ -1,16 +1,15 @@
-package VS13.Squad09.EduMatch.entities;
+package VS13.Squad09.EduMatch.dtos.response;
 
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
+
 
 @Data
-@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Classificacao {
+public class ClassificacaoDTO {
 
     private Integer id;
     private String urlImagem;

@@ -61,9 +61,6 @@ public class InsigniaRepository {
             stmt.setString(2, insignia.getUrlImagem());
             stmt.setString(3, insignia.getTitulo());
             stmt.setString(4, insignia.getTitulo());
-            stmt.setInt(5, insignia.getPontuacao());
-            stmt.setInt(6, insignia.getTrilha().ordinal());
-            stmt.setInt(7, insignia.getDificuldade().ordinal());
             stmt.setInt(8, insignia.getStatus().ordinal());
             Timestamp ts = Timestamp.valueOf(insignia.getDataEmitida());
             stmt.setTimestamp(9, ts);
@@ -212,8 +209,6 @@ public class InsigniaRepository {
             if (res.next()) {
                 Insignia insignia = new Insignia();
                 insignia.setId(res.getInt("id_insignia"));
-                insignia.setTrilha(Trilha.valueOf(res.getInt("trilha")));
-                insignia.setDificuldade(Dificuldade.valueOf(res.getInt("dificuldade")));
                 Timestamp ts = res.getTimestamp("data_emitida");
 
                 Usuario usuario = new Usuario();
@@ -245,9 +240,6 @@ public class InsigniaRepository {
         insignia.setUrlImagem(res.getString("URL_IMAGEM"));
         insignia.setTitulo(res.getString("TITULO"));
         insignia.setDescricao(res.getString("DESCRICAO"));
-        insignia.setPontuacao(res.getInt("PONTUACAO"));
-        insignia.setTrilha(Trilha.valueOf(res.getInt("TRILHA")));
-        insignia.setDificuldade(Dificuldade.valueOf(res.getInt("DIFICULDADE")));
         insignia.setStatus(Status.valueOf(res.getInt("STATUS")));
         Timestamp ts = res.getTimestamp("DATA_EMITIDA");
         insignia.setIdUsuario(res.getInt("ID_USUARIO"));
