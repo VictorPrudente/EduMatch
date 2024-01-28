@@ -41,6 +41,8 @@ public class InsigniaCreateDTO {
     private Dificuldade dificuldade;
 
     @NotNull
-    private Status status;
+    private Status status = Status.ATIVO;
 
+    @NotNull
+    private Integer idUsuario;
 }
