@@ -2,7 +2,9 @@ package VS13.Squad09.EduMatch.services;
 
 import VS13.Squad09.EduMatch.dtos.request.InsigniaCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.InsigniaDTO;
+import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Insignia;
+import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.repositories.InsigniaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +21,15 @@ import java.util.stream.Collectors;
 public class InsigniaService {
 
     private final InsigniaRepository insigniaRepository;
+    private final UsuarioService usuarioService;
     private final ObjectMapper objectMapper;
 
-    public InsigniaDTO criar(InsigniaCreateDTO insignia) throws Exception {
+    public InsigniaDTO criar(Integer idUsuario, InsigniaCreateDTO insignia) throws Exception {
         log.debug("Criando Insignia...");
-
+        UsuarioDTO usuarioDTO = usuarioService.listarPorId(idUsuario);
         Insignia insigniaEntity = objectMapper.convertValue(insignia, Insignia.class);
         insigniaEntity.setDataEmitida(LocalDateTime.now());
+        insigniaEntity.setIdUsuario(usuarioDTO.getId());
         insigniaEntity = insigniaRepository.adicionar(insigniaEntity);
 
         InsigniaDTO insigniaDTO = objectMapper.convertValue(insigniaEntity, InsigniaDTO.class);
