@@ -15,11 +15,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Slf4j
+@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/insignia")
-@Validated
-@Slf4j
 public class InsigniaController {
 
 

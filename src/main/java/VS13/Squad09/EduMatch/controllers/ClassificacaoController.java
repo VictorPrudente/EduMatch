@@ -19,7 +19,7 @@ import java.util.List;
 @Validated
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/insignia")
+@RequestMapping("/rankings")
 public class ClassificacaoController {
 
 
