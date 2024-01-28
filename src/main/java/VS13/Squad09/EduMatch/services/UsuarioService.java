@@ -111,7 +111,7 @@ public class UsuarioService {
         usuarioProcurado.setStatus(Status.INATIVO);
         usuarioRepository.atualizar(id, usuarioProcurado);
         UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioProcurado, UsuarioDTO.class);
-        emailService.sendEmail(usuarioProcurado, 2);
+        emailService.sendEmail(usuarioProcurado, 3);
         return usuarioDTO;
     }
 
