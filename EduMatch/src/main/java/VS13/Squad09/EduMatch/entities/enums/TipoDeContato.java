@@ -1,19 +1,19 @@
 package VS13.Squad09.EduMatch.entities.enums;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+
+@Getter
+@AllArgsConstructor
 public enum TipoDeContato {
         CELULAR(0),
         RESIDENCIAL(1),
         COMERCIAL(2);
 
-        private int tipo;
+        private Integer tipo;
 
-        TipoDeContato(int tipo){
-        }
-
-
-        public int getTipo(){
-            return tipo;
-        }
 
         public static TipoDeContato valueOf(int tipo){
             for (TipoDeContato tipoContato : TipoDeContato.values()){

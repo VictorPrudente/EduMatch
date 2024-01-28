@@ -3,7 +3,6 @@ package VS13.Squad09.EduMatch.services;
 import VS13.Squad09.EduMatch.dtos.request.QuestaoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.QuestaoDTO;
 import VS13.Squad09.EduMatch.entities.Questao;
-import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
@@ -13,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +26,7 @@ public class QuestaoService {
 
     public QuestaoDTO create(QuestaoCreateDTO questaoCreateDTO) throws BancoDeDadosException {
         Questao questao = objectMapper.convertValue(questaoCreateDTO, Questao.class);
-        questao.setStatus(Status.Ativo);
+        questao.setStatus(Status.ATIVO);
         questaoRepository.create(questao);
         return objectMapper.convertValue(questao, QuestaoDTO.class);
     }
@@ -70,12 +68,12 @@ public class QuestaoService {
 
         //Seto a questão atualizada como inativa.
         Questao questao = questaoRepository.findById(id);
-        questao.setStatus(Status.Inativo);
+        questao.setStatus(Status.INATIVO);
         questaoRepository.update(questao);
 
         //crio uma nova questão, seto o status como ativa e salvo no banco de dados.
         Questao questaoAtualizada = objectMapper.convertValue(questaoCreateDTO, Questao.class);
-        questaoAtualizada.setStatus(Status.Ativo);
+        questaoAtualizada.setStatus(Status.ATIVO);
         questaoRepository.create(questaoAtualizada);
         return objectMapper.convertValue(questaoAtualizada, QuestaoDTO.class);
     }
@@ -86,7 +84,7 @@ public class QuestaoService {
         Questao questao = questaoRepository.findById(id);
         log.info("Encontrada questao na service.");
         log.info(questao.toString());
-        questao.setStatus(Status.Inativo);
+        questao.setStatus(Status.INATIVO);
         questao.setPergunta("apagada");
         log.info("setado status inativo na questao.");
         log.info(questao.toString());

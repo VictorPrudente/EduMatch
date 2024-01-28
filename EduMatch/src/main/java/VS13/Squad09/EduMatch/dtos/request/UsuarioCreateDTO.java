@@ -3,7 +3,8 @@ package VS13.Squad09.EduMatch.dtos.request;
 
 import VS13.Squad09.EduMatch.entities.enums.Role;
 import VS13.Squad09.EduMatch.entities.enums.Status;
-import VS13.Squad09.EduMatch.entities.enums.TipoDocumento;
+import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
+import VS13.Squad09.EduMatch.entities.enums.TipoEmpresa;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +25,8 @@ public class UsuarioCreateDTO {
         @NotBlank
         @Schema(description = "nome do usuário", example = "fulano / ciclano LTDA")
         private String nome;
+
+        private Integer pontuacao;
 
         @Schema(description = "sobrenome do usuário", example = "Silva")
         private String sobrenome;
@@ -47,12 +50,10 @@ public class UsuarioCreateDTO {
         @Schema(description = "cnpj do usuário/PJ", example = "10123456000412")
         private String CNPJ;
 
-        @NotBlank
         @NotNull
         @Schema(description = "Tipo do documento do usuário", example = "CPF")
-        private TipoDocumento tipoDocumento;
+        private TipoUsuario tipoUsuario;
 
-        @NotBlank
         @NotNull
         @Schema(description = "permissão do usuário", example = "ADM")
         private Role role;
@@ -65,24 +66,9 @@ public class UsuarioCreateDTO {
         @Schema(description = "Status do cadastro do usuário", example = "ATIVO")
         private Status status;
 
-        @Positive
-        @Schema(description = "id do endereço do usuário", example = "1")
-        private Integer idEndereco;
+        @Schema(description = "Tipo de Empresa", example = "PRIVADA")
+        private TipoEmpresa tipoEmpresa;
 
-        @Positive
-        @Schema(description = "id do contato do usuário", example = "1")
-        private Integer idContato;
-
-        @Positive
-        @Schema(description = "id do certificado do usuário", example = "1")
-        private Integer idCertificado;
-
-        @Positive
-        @Schema(description = "id da escola do usuário", example = "1")
-        private Integer idEscola;
-
-        @Positive
-        @Schema(description = "id da empresa do usuário", example = "1")
-        private Integer idEmpresa;
+        private Integer moedas;
 
 }

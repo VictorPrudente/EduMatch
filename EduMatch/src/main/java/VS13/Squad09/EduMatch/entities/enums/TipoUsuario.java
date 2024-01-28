@@ -1,23 +1,22 @@
 package VS13.Squad09.EduMatch.entities.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.Arrays;
 
-public enum TipoDocumento {
+
+@Getter
+@AllArgsConstructor
+public enum TipoUsuario {
     CPF(0),
     CNPJ(1);
 
-    private int tipo;
-
-    TipoDocumento(int tipo){
-    }
+    private Integer tipo;
 
 
-    public Integer getTipo(){
-        return tipo;
-    }
-
-    public static TipoDocumento valueOf(Integer tipo){
-        return Arrays.stream(TipoDocumento.values())
+    public static TipoUsuario valueOf(Integer tipo){
+        return Arrays.stream(TipoUsuario.values())
                 .filter(tipoDocumento -> tipoDocumento.getTipo().equals(tipo))
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException("Tipo de Documento não encontrado"));

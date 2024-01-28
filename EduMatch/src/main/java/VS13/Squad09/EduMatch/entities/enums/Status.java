@@ -9,8 +9,8 @@ import java.util.Arrays;
 @AllArgsConstructor
 public enum Status {
 
-    Inativo(0),
-    Ativo(1);
+    INATIVO(0),
+    ATIVO(1);
 
 
     private Integer tipo;

@@ -48,7 +48,6 @@ public class EmailService {
         Map<String, Object> dados = new HashMap<>();
         dados.put("nome", usuario.getNome());
         dados.put("id", usuario.getId());
-        dados.put("certificado", usuario.getIdCertificado());
         dados.put("email", from);
         Template tipoTemplate = switch (numeroTemplate){
             case 1 -> fmConfiguration.getTemplate("email-criar-usuario-template.ftl");
