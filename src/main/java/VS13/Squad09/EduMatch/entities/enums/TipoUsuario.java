@@ -9,8 +9,8 @@ import java.util.Arrays;
 @Getter
 @AllArgsConstructor
 public enum TipoUsuario {
-    CPF(0),
-    CNPJ(1);
+    PESSOA_FISICA(0),
+    PESSOA_JURIDICA(1);
 
     private Integer tipo;
 

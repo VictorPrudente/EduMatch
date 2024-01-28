@@ -1,7 +1,7 @@
 package VS13.Squad09.EduMatch.repositories;
 
 import VS13.Squad09.EduMatch.entities.Questao;
-import VS13.Squad09.EduMatch.entities.enums.Dificuldades;
+import VS13.Squad09.EduMatch.entities.enums.Dificuldade;
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
@@ -310,7 +310,7 @@ public class QuestaoRepository{
         questao.setPergunta(res.getString("pergunta"));
         questao.setOpcaoCerta(res.getString("opcao_correta"));
         questao.setTrilha(Trilha.valueOf(res.getInt("trilha")));
-        questao.setDificuldade(Dificuldades.valueOf(res.getInt("dificuldade")));
+        questao.setDificuldade(Dificuldade.valueOf(res.getInt("dificuldade")));
         questao.setStatus(Status.valueOf(res.getInt("status")));
         return questao;
     }

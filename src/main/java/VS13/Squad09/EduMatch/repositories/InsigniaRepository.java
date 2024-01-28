@@ -1,9 +1,9 @@
 package VS13.Squad09.EduMatch.repositories;
 
-import VS13.Squad09.EduMatch.entities.Certificado;
+import VS13.Squad09.EduMatch.entities.Insignia;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Dificuldade;
-
+import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import lombok.RequiredArgsConstructor;
@@ -15,14 +15,14 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class CertificadoRepository {
+public class InsigniaRepository {
 
     private final ConexaoBancoDeDados conexaoBancoDeDados;
 
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
 
         try {
-            String sql = "SELECT VS_13_EQUIPE_9.seq_certificado.nextval AS mysequence FROM DUAL";
+            String sql = "SELECT seq_insignia.nextval AS mysequence FROM DUAL";
 
             Statement st = connection.createStatement();
 
@@ -37,31 +37,35 @@ public class CertificadoRepository {
         }
     }
 
-    public Certificado adicionar(Certificado certificado) throws BancoDeDadosException {
+    public Insignia adicionar(Insignia insignia) throws BancoDeDadosException {
         Connection con = null;
         try{
             con = conexaoBancoDeDados.getConnection();
 
             Integer proximoId = this.getProximoId(con);
 
-            certificado.setId(proximoId);
+            insignia.setId(proximoId);
 
             String sql = """
-                    INSERT INTO VS_13_EQUIPE_9.CERTIFICADO
-                    (id_certificado, trilha, dificuldade, data_emitida, id_usuario)
-                    VALUES(?,?,?,?,?)
+                    INSERT INTO INSIGNIA
+                    (id_insignia, url_imagem, titulo, descricao, pontuacao, trilha, dificuldade, status, data_emitida)
+                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """;
             PreparedStatement stmt = con.prepareStatement(sql);
 
-            stmt.setInt(1, certificado.getId());
-            stmt.setInt(2, certificado.getTrilha().ordinal());
-            stmt.setInt(3, certificado.getDificuldade().ordinal());
-            Timestamp ts = Timestamp.valueOf(certificado.getConclusao());
-            stmt.setTimestamp(4, ts);
-            stmt.setInt(5, certificado.getUsuario().getId());
+            stmt.setInt(1, insignia.getId());
+            stmt.setString(2, insignia.getUrlImagem());
+            stmt.setString(3, insignia.getTitulo());
+            stmt.setString(4, insignia.getTitulo());
+            stmt.setInt(5, insignia.getPontuacao());
+            stmt.setInt(6, insignia.getTrilha().ordinal());
+            stmt.setInt(7, insignia.getDificuldade().ordinal());
+            stmt.setInt(8, insignia.getStatus().ordinal());
+            Timestamp ts = Timestamp.valueOf(insignia.getDataEmitida());
+            stmt.setTimestamp(9, ts);
 
             stmt.executeUpdate();
-            return certificado;
+            return insignia;
 
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
@@ -82,7 +86,7 @@ public class CertificadoRepository {
         try {
             con = conexaoBancoDeDados.getConnection();
 
-            String sql = "DELETE FROM VS_13_EQUIPE_9.CERTIFICADO WHERE id_certificado = ?";
+            String sql = "DELETE FROM INSIGNIA WHERE id_insignia = ?";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -90,7 +94,7 @@ public class CertificadoRepository {
 
             int res = stmt.executeUpdate();
 
-            return res > 0 ? "Certificado deletado com sucesso" : "Certificado não deletado";
+            return res > 0 ? "Insignia deletado com sucesso" : "Insignia não deletado";
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {
@@ -104,28 +108,23 @@ public class CertificadoRepository {
         }
     }
 
-    public List<Certificado> listar() throws BancoDeDadosException {
-        List<Certificado> certificados = new ArrayList<>();
+    public List<Insignia> listar() throws BancoDeDadosException {
+        List<Insignia> insignias = new ArrayList<>();
         Connection con = null;
         try {
             con = conexaoBancoDeDados.getConnection();
 
             Statement st = con.createStatement();
 
-            String sql = "SELECT * FROM VS_13_EQUIPE_9.CERTIFICADO c\n" +
-                    "RIGHT JOIN VS_13_EQUIPE_9.USUARIO u ON u.ID_USUARIO = c.ID_CERTIFICADO";
+            String sql = """
+                    SELECT * FROM INSIGNIA WHERE STATUS = 1
+                    """;
 
 
             ResultSet res = st.executeQuery(sql);
 
             while (res.next()) {
-                Certificado certificado = new Certificado();
-                certificado.setId(res.getInt("id_certificado"));
-                certificado.setTrilha(Trilha.valueOf(res.getString("trilha")));
-                certificado.setDificuldade(Dificuldade.valueOf(res.getString("dificuldade")));
-                Timestamp ts = res.getTimestamp("data_emitida");
-                certificado.setConclusao(ts.toLocalDateTime());
-                certificados.add(certificado);
+                insignias.add(insigniaSQL(res));
             }
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
@@ -138,20 +137,20 @@ public class CertificadoRepository {
                 e.printStackTrace();
             }
         }
-        return certificados;
+        return insignias;
     }
 
-    public List<Certificado> listarPorUsuario(Integer idUsuario) throws BancoDeDadosException {
-        List<Certificado> certificados = new ArrayList<>();
+    public List<Insignia> listarPorUsuario(Integer idUsuario) throws BancoDeDadosException {
+        List<Insignia> insignias = new ArrayList<>();
         Connection con = null;
         try {
             con = conexaoBancoDeDados.getConnection();
 
             String sql = """
-                SELECT c.trilha, c.dificuldade, c.data_emitida, u.nome, u.sobrenome
-                FROM VS_13_EQUIPE_9.CERTIFICADO c
-                INNER JOIN VS_13_EQUIPE_9.USUARIO u ON c.ID_USUARIO = u.ID_USUARIO
-                WHERE c.ID_USUARIO = ?""";
+                SELECT i.trilha, i.difiiuldade, i.data_emitida, u.nome, u.sobrenome
+                FROM INSIGNIA i
+                INNER JOIN USUARIO u ON i.ID_USUARIO = u.ID_USUARIO
+                WHERE i.ID_USUARIO = ?""";
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -160,20 +159,13 @@ public class CertificadoRepository {
             ResultSet res = stmt.executeQuery();
 
             while (res.next()) {
-                Certificado certificado = new Certificado();
-                certificado.setId(res.getInt("id_certificado"));
-                certificado.setTrilha(Trilha.valueOf(res.getInt("trilha")));
-                certificado.setDificuldade(Dificuldade.valueOf(res.getInt("dificuldade")));
-                Timestamp ts = res.getTimestamp("data_emitida");
-                certificado.setConclusao(ts.toLocalDateTime());
+                insigniaSQL(res);
 
                 Usuario usuario = new Usuario();
                 usuario.setId(idUsuario);
                 usuario.setNome(res.getString("nome"));
                 usuario.setSobrenome(res.getString("sobrenome"));
 
-                certificado.setUsuario(usuario);
-                certificados.add(certificado);
             }
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
@@ -186,20 +178,20 @@ public class CertificadoRepository {
                 e.printStackTrace();
             }
         }
-        return certificados;
+        return insignias;
     }
 
-    public Certificado listarUltimo(Integer idUsuario) throws BancoDeDadosException {
+    public Insignia listarUltimo(Integer idUsuario) throws BancoDeDadosException {
         Connection con = null;
         try {
             con = conexaoBancoDeDados.getConnection();
 
             String sql = """           
-                    SELECT id_certificado, trilha, dificuldade, data_emitida, nome, sobrenome
+                    SELECT id_insignia, trilha, dificuldade, data_emitida, nome, sobrenome
                     FROM (
-                        SELECT c.id_certificado, c.trilha, c.dificuldade, c.data_emitida, u.nome, u.sobrenome
-                        FROM VS_13_EQUIPE_9.CERTIFICADO c
-                        INNER JOIN VS_13_EQUIPE_9.USUARIO u ON c.ID_USUARIO = u.ID_USUARIO
+                        SELECT c.id_insignia, c.trilha, c.dificuldade, c.data_emitida, u.nome, u.sobrenome
+                        FROM INSIGNIA c
+                        INNER JOIN USUARIO u ON c.ID_USUARIO = u.ID_USUARIO
                         WHERE c.ID_USUARIO = ?
                         ORDER BY c.data_emitida DESC
                     )
@@ -212,21 +204,19 @@ public class CertificadoRepository {
             ResultSet res = stmt.executeQuery();
 
             if (res.next()) {
-                Certificado certificado = new Certificado();
-                certificado.setId(res.getInt("id_certificado"));
-                certificado.setTrilha(Trilha.valueOf(res.getInt("trilha")));
-                certificado.setDificuldade(Dificuldade.valueOf(res.getInt("dificuldade")));
+                Insignia insignia = new Insignia();
+                insignia.setId(res.getInt("id_insignia"));
+                insignia.setTrilha(Trilha.valueOf(res.getInt("trilha")));
+                insignia.setDificuldade(Dificuldade.valueOf(res.getInt("dificuldade")));
                 Timestamp ts = res.getTimestamp("data_emitida");
-                certificado.setConclusao(ts.toLocalDateTime());
 
                 Usuario usuario = new Usuario();
                 usuario.setId(idUsuario);
                 usuario.setNome(res.getString("nome"));
                 usuario.setSobrenome(res.getString("sobrenome"));
 
-                certificado.setUsuario(usuario);
 
-                return certificado;
+                return insignia;
             }
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
@@ -240,5 +230,21 @@ public class CertificadoRepository {
             }
         }
         return null;
+    }
+
+
+    private Insignia insigniaSQL(ResultSet res) throws SQLException {
+        Insignia insignia = new Insignia();
+        insignia.setId(res.getInt("id_insignia"));
+        insignia.setUrlImagem(res.getString("URL_IMAGEM"));
+        insignia.setTitulo(res.getString("TITULO"));
+        insignia.setDescricao(res.getString("DESCRICAO"));
+        insignia.setPontuacao(res.getInt("PONTUACAO"));
+        insignia.setTrilha(Trilha.valueOf(res.getInt("TRILHA")));
+        insignia.setDificuldade(Dificuldade.valueOf(res.getInt("DIFICULDADE")));
+        insignia.setStatus(Status.valueOf(res.getInt("STATUS")));
+        Timestamp ts = res.getTimestamp("DATA_EMITIDA");
+        insignia.setDataEmitida(ts.toLocalDateTime());
+        return insignia;
     }
 }

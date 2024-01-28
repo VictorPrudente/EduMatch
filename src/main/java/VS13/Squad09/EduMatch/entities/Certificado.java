@@ -1,6 +1,6 @@
 package VS13.Squad09.EduMatch.entities;
 
-import VS13.Squad09.EduMatch.entities.enums.Dificuldades;
+import VS13.Squad09.EduMatch.entities.enums.Dificuldade;
 
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ public class Certificado {
 
     private Usuario usuario;
 
-    private Dificuldades dificuldade;
+    private Dificuldade dificuldade;
 
     private Integer id;
 }
