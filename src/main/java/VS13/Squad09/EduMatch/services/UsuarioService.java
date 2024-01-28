@@ -49,7 +49,7 @@ public class UsuarioService {
         usuarioRepository.adicionar(usuarioEntity);
 
         UsuarioDTO usuarioDTO2 = objectMapper.convertValue(usuarioEntity, UsuarioDTO.class);
-        //emailService.sendEmail(usuarioEntity, 1);
+        emailService.sendEmail(usuarioEntity, 1);
 
         return usuarioDTO2;
     }
@@ -90,8 +90,9 @@ public class UsuarioService {
         Usuario usuarioAtualizado = objectMapper.convertValue(usuarioCreateDTO, Usuario.class);
         usuarioAtualizado.setId(id);
         usuarioRepository.atualizar(id, usuarioAtualizado);
-        return objectMapper.convertValue(usuarioAtualizado, UsuarioDTO.class);
-        //emailService.sendEmail(usuario, 2);
+        UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioAtualizado, UsuarioDTO.class);
+        emailService.sendEmail(usuarioAtualizado, 2);
+        return usuarioDTO;
 
     }
 
@@ -119,7 +120,9 @@ public class UsuarioService {
         Usuario usuarioProcurado = usuarioRepository.listarPorId(id);
         usuarioProcurado.setStatus(Status.INATIVO);
         usuarioRepository.atualizar(id, usuarioProcurado);
-        return objectMapper.convertValue(usuarioProcurado, UsuarioDTO.class);
+        UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioProcurado, UsuarioDTO.class);
+        emailService.sendEmail(usuarioProcurado, 3);
+        return usuarioDTO;
     }
 
 

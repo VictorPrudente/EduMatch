@@ -52,7 +52,7 @@ public class UsuarioCreateDTO {
         private String CNPJ;
 
         @NotNull
-        @Schema(description = "Tipo do documento do usuário", example = "CPF")
+        @Schema(description = "Tipo de usuário", example = "PESSOA_FISICA/PESSOA-JURIDICA")
         private TipoUsuario tipoUsuario;
 
         @NotNull

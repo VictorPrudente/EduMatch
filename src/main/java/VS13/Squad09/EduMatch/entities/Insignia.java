@@ -5,22 +5,19 @@ import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
 @Data
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Insignia {
+@EqualsAndHashCode(callSuper = true)
+public class Insignia extends Classificacao{
 
-    private Integer id;
-    private String urlImagem;
-    private String titulo;
-    private String descricao;
-    private Integer pontuacao;
-    private Trilha trilha;
-    private Dificuldade dificuldade;
-    private Status status;
     private LocalDateTime dataEmitida;
+    private Integer idUsuario;
 }
