@@ -19,7 +19,6 @@ public interface IContatoController {
             @ApiResponse(responseCode = "404", description = "Nenhum contato encontrado para o usuário deste ID."),
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")}
     )
-    @GetMapping("/contato/{idUsuario}")
     ResponseEntity<List<ContatoDTO>> listarPorUsuario(@PathVariable("idUsuario") Integer idUsuario) throws Exception;
 
 
@@ -43,7 +42,7 @@ public interface IContatoController {
     )
     @PutMapping("/{idContato}")
     ResponseEntity<ContatoDTO> atualizar(@PathVariable Integer idContato,
-                                          @Valid @RequestBody ContatoCreateDTO contatoCreateDTO) throws Exception;
+                                         @Valid @RequestBody ContatoCreateDTO contatoCreateDTO) throws Exception;
 
 
     @Operation(summary = "Deletar um Contato", description = "Remove um contato no banco de dados passando seu ID como parâmetro.")

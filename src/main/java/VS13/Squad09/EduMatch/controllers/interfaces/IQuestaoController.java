@@ -26,7 +26,6 @@ public interface IQuestaoController {
             throws BancoDeDadosException;
 
 
-
     @Operation(summary = "Atualizar uma Questão", description = "Atualiza uma questão no banco de dados passando seu id como parâmetro, tornando a versão antiga inativa e criando uma nova versão da mesma.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem sucedida. Questão atualizada."),

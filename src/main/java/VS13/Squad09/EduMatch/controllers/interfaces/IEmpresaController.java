@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 public interface IEmpresaController {
-    @Operation(summary = "Listar empresas", description = "Listas as empresas cadastradas no banco de dados.")
+seEntity<List<UsuarioDTO>> listarEmpresas() throws Exception;
+
+    @Operation(summary = "Listar empresas", description = "Lista as empresas cadastradas no banco de dados.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Listou as empresas cadastradas"),
             @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso. Endereço não criado."),
