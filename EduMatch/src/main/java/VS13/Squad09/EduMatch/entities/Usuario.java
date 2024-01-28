@@ -10,21 +10,22 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class Usuario {
     private Integer id;
-    private String nome;
-    private String sobrenome;
     private String email;
     private String senha;
-    private String CPF;
-    private String CNPJ;
+    private String nome;
     private TipoUsuario tipoUsuario;
-    private Role role;
-    private Status status;
-    private TipoEmpresa tipoEmpresa;
+    private String CPF;
+    private String sobrenome;
     private LocalDate dataNascimento;
     private Integer pontuacao;
+    private Integer moedas;
+    private String CNPJ;
+    private TipoEmpresa tipoEmpresa;
+    private Role role;
+    private Status status;
 }

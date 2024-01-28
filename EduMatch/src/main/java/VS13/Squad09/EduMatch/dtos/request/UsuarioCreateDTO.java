@@ -69,4 +69,6 @@ public class UsuarioCreateDTO {
         @Schema(description = "Tipo de Empresa", example = "PRIVADA")
         private TipoEmpresa tipoEmpresa;
 
+        private Integer moedas;
+
 }

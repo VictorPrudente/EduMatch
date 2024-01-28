@@ -4,6 +4,7 @@ import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Status;
+import VS13.Squad09.EduMatch.entities.enums.TipoEmpresa;
 import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
@@ -36,6 +37,10 @@ public class UsuarioService {
         Usuario usuarioEntity = objectMapper.convertValue(usuarioCreateDTO, Usuario.class);
         usuarioEntity.setStatus(Status.ATIVO);
         usuarioEntity.setPontuacao(0);
+        usuarioEntity.setMoedas(0);
+        if(usuarioEntity.getCPF() != null){
+            usuarioEntity.setTipoEmpresa(TipoEmpresa.DEFAULT);
+        }
         String senha = hashPassword(usuarioEntity.getSenha());
         usuarioEntity.setSenha(senha);
         usuarioRepository.adicionar(usuarioEntity);
@@ -65,10 +70,9 @@ public class UsuarioService {
     public UsuarioDTO atualizar(Integer id, UsuarioCreateDTO usuarioCreateDTO) throws Exception {
 
         validarUsuario(usuarioCreateDTO);
-
-        Usuario usuario = objectMapper.convertValue(usuarioCreateDTO, Usuario.class);
-        usuarioRepository.atualizar(id, usuario);
-        return objectMapper.convertValue(usuario, UsuarioDTO.class);
+        Usuario usuarioAtualizado = objectMapper.convertValue(usuarioCreateDTO, Usuario.class);
+        usuarioRepository.atualizar(id, usuarioAtualizado);
+        return objectMapper.convertValue(usuarioAtualizado, UsuarioDTO.class);
         //emailService.sendEmail(usuario, 2);
 
     }

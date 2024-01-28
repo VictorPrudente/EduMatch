@@ -51,42 +51,31 @@ public class UsuarioRepository {
 
             String sql = """
                             INSERT INTO USUARIO
-                            (id_usuario, email, senha, nome, sobrenome, cpf, cnpj, data_nascimento, pontuacao, tipo_documentacao, role, status, tipo_empresa)
-                            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
+                            (id_usuario, email, senha, nome, tipo_usuario, cpf, sobrenome, data_nascimento, pontuacao, moedas, cnpj, tipo_empresa, role, status)
+                            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                             """;
 
-            PreparedStatement stmt = con.prepareStatement(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
             log.info("SQL pronto");
 
-            stmt.setInt(1, usuario.getId());
-            log.info("id");
-            stmt.setString(2, usuario.getEmail());
-            log.info("email");
-            stmt.setString(3, usuario.getSenha());
-            log.info("senha");
-            stmt.setString(4,usuario.getNome());
-            log.info("nome");
-            stmt.setString(5,usuario.getSobrenome());
-            log.info("sobrenome");
-            stmt.setString(6,usuario.getCPF());
-            log.info("cpf");
-            stmt.setString(7,usuario.getCNPJ());
-            log.info("cnpj");
-            Date dataParaSql = Date.valueOf(usuario.getDataNascimento());
-            stmt.setDate(8, dataParaSql);
-            log.info("Data de nascimento");
-            stmt.setInt(9, usuario.getPontuacao());
-            log.info("pontuação");
-            stmt.setInt(10, usuario.getTipoUsuario().ordinal());
-            log.info("tipo documento");
-            stmt.setInt(11, usuario.getRole().ordinal());
-            log.info("status");
-            stmt.setInt(12, usuario.getStatus().ordinal());
-            log.info("role");
-            stmt.setInt(13, usuario.getTipoEmpresa().ordinal());
+            ps.setInt(1, usuario.getId());
+            ps.setString(2, usuario.getEmail());
+            ps.setString(3, usuario.getSenha());
+            ps.setString(4,usuario.getNome());
+            ps.setInt(5, usuario.getTipoUsuario().ordinal());
+            ps.setString(6,usuario.getCPF());
+            ps.setString(7,usuario.getSobrenome());
+            ps.setDate(8, Date.valueOf(usuario.getDataNascimento()));
+            ps.setInt(9, usuario.getPontuacao());
+            ps.setInt(10, usuario.getMoedas());
+            ps.setString(11,usuario.getCNPJ());
+            ps.setInt(12, usuario.getTipoEmpresa().ordinal());
+            ps.setInt(13, usuario.getRole().ordinal());
+            ps.setInt(14, usuario.getStatus().ordinal());
 
-            stmt.executeUpdate();
+            ps.executeUpdate();
             log.info("SQL executada");
+
             return usuario;
 
         } catch (SQLException e){
@@ -176,10 +165,12 @@ public class UsuarioRepository {
                         email = ?,
                         senha = ?,
                         nome = ?, 
+                        tipo_usuario = ?,
                         sobrenome = ?,
                         data_nascimento = ?, 
                         pontuacao = ?,
-                        tipo_documentacao = ?,
+                        moedas = ?,
+                        tipo_empresa = ?,
                         role = ?,
                         status = ?
                     WHERE
@@ -188,17 +179,19 @@ public class UsuarioRepository {
 
             ps.setString(1, usuario.getEmail());
             ps.setString(2, usuario.getSenha());
-            ps.setString(3, usuario.getNome());
-            ps.setString(4, usuario.getSobrenome());
-            Date dataParaSql = Date.valueOf(usuario.getDataNascimento());
-            ps.setDate(5, dataParaSql);
-            ps.setInt(6, usuario.getPontuacao());
-            ps.setInt(7, usuario.getTipoUsuario().ordinal());
-            ps.setInt(8, usuario.getRole().ordinal());
-            ps.setInt(9, usuario.getStatus().ordinal());
-            ps.setInt(10, id);
+            ps.setString(3,usuario.getNome());
+            ps.setInt(4, usuario.getTipoUsuario().ordinal());
+            ps.setString(5,usuario.getSobrenome());
+            ps.setDate(6, Date.valueOf(usuario.getDataNascimento()));
+            ps.setInt(7, usuario.getPontuacao());
+            ps.setInt(8, usuario.getMoedas());
+            ps.setInt(9, usuario.getTipoEmpresa().ordinal());
+            ps.setInt(10, usuario.getRole().ordinal());
+            ps.setInt(11, usuario.getStatus().ordinal());
+            ps.setInt(12, id);
 
             int res = ps.executeUpdate();
+
 
             return res > 0;
         } catch (SQLException e){
@@ -274,22 +267,24 @@ public class UsuarioRepository {
         return usuarios;
     }
 
+
+
     private Usuario querryUsuario(ResultSet res) throws SQLException {
         Usuario usuario = new Usuario();
         usuario.setId(res.getInt("id_usuario"));
         usuario.setEmail(res.getString("email"));
         usuario.setSenha(res.getString("senha"));
         usuario.setNome(res.getString("nome"));
-        usuario.setSobrenome(res.getString("sobrenome"));
+        usuario.setTipoUsuario(TipoUsuario.valueOf(res.getInt("tipo_usuario")));
         usuario.setCPF(res.getString("cpf"));
-        usuario.setCNPJ(res.getString("cnpj"));
-        Date dataParaSql = res.getDate("data_nascimento");
-        usuario.setDataNascimento(dataParaSql.toLocalDate());
+        usuario.setSobrenome(res.getString("sobrenome"));
+        usuario.setDataNascimento(res.getDate("data_nascimento").toLocalDate());
         usuario.setPontuacao(res.getInt("pontuacao"));
-        usuario.setTipoUsuario(TipoUsuario.valueOf(res.getInt("tipo_documentacao")));
+        usuario.setMoedas(res.getInt("moedas"));
+        usuario.setCNPJ(res.getString("cnpj"));
+        usuario.setTipoEmpresa(TipoEmpresa.valueOf(res.getInt("tipo_empresa")));
         usuario.setRole(Role.valueOf(res.getInt("role")));
         usuario.setStatus(Status.valueOf(res.getInt("status")));
-        usuario.setTipoEmpresa(TipoEmpresa.valueOf(res.getInt("tipo_empresa")));
         return usuario;
     }
 }

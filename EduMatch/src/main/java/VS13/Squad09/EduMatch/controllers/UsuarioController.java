@@ -15,11 +15,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Slf4j
 @Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/usuario")
-@Slf4j
 public class UsuarioController implements IUsuarioController {
 
     private final UsuarioService usuarioService;
@@ -67,10 +67,6 @@ public class UsuarioController implements IUsuarioController {
         return ResponseEntity.ok(usuarioService.rankearUsuarios());
     }
 
-    @GetMapping("/empresa")
-    public ResponseEntity<List<UsuarioDTO>> listarEmpresas () throws Exception{
-        return ResponseEntity.ok(usuarioService.listarEmpresas());
-    }
 
     @GetMapping("/login/{email}/{senha}")
     public ResponseEntity<Boolean> login (@PathVariable String email, @PathVariable String senha) throws Exception{

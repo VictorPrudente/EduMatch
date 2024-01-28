@@ -9,7 +9,8 @@ import lombok.Getter;
 public enum TipoEmpresa {
     PRIVADA(0),
     PUBLICA(1),
-    TECNICA(2);
+    TECNICA(2),
+    DEFAULT(3);
 
     private Integer tipo;
 

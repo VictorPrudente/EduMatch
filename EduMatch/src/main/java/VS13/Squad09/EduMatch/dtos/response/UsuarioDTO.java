@@ -16,9 +16,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class UsuarioDTO {
     private Integer id;
+    private String email;
     private String nome;
     private String sobrenome;
-    private String email;
     private String CPF;
     private String CNPJ;
     private TipoUsuario tipoUsuario;
@@ -27,4 +27,5 @@ public class UsuarioDTO {
     private LocalDate dataNascimento;
     private Integer pontuacao;
     private TipoEmpresa tipoEmpresa;
+    private Integer moedas;
 }
