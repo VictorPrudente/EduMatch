@@ -30,6 +30,7 @@ public class CertificadoCreateDTO {
     @Schema(description = "Data de conclusão da trilha", example = "yyyy-mm-dd")
     private LocalDateTime conclusao;
 
+
     @NotNull(message = "O tipo de dificuldade não pode estar vazia.")
     @Schema(description = "Dificuldade da trilha", example = "FACIL")
     private Dificuldade dificuldade;
