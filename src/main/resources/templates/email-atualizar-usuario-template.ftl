@@ -1,35 +1,92 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Java Mail</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-mail Educacional</title>
+    <style>
+        /* Reset CSS */
+        body, html {
+margin: 0;
+padding: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100%;
+}
+
+        body {
+font-family: Arial, sans-serif;
+background-color: #f8f8f8;
+}
+
+.container {
+max-width: 600px;
+padding: 20px;
+background-color: #fff;
+border-radius: 10px;
+box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+text-align: center;
+}
+
+.header {
+margin-bottom: 20px;
+}
+
+.header h1 {
+font-size: 36px;
+color: #007bff;
+margin: 0;
+}
+
+.content {
+padding: 20px;
+border-top: 2px solid #007bff;
+border-bottom: 2px solid #007bff;
+}
+
+.content p {
+font-size: 18px;
+color: #333;
+margin: 0 0 15px 0;
+}
+
+.cta-btn {
+display: inline-block;
+padding: 10px 20px;
+background-color: #007bff;
+color: #fff;
+text-decoration: none;
+border-radius: 5px;
+}
+
+.footer {
+margin-top: 20px;
+color: #666;
+}
+
+.footer p {
+font-size: 14px;
+}
+</style>
 </head>
-
 <body>
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-    <tr>
-        <td align="center" valign="top" bgcolor="#838383"
-            style="background-color: #838383;"><br> <br>
-            <table width="600" border="0" cellspacing="0" cellpadding="0">
-                <tr>
-                    <td align="center" valign="top" bgcolor="#d3be6c"
-                        style="background-color: #d3be6c; font-family: Arial, Helvetica, sans-serif; font-size: 13px; color: #000000; padding: 0px 15px 10px 15px;">
-
-                        <div style="font-size: 48px; color:blue;">
-                            <b>Java Mail</b>
-                        </div>
-
-                        <div style="font-size: 24px; color: #555100;">
-                            <br> <b> Olá ${nome} <b>, seus dados foram atualizados no nosso sistema! </b> <br>
-                        </div>
-                        <div>
-                            <br> Qualquer dúvida é só contatar o suporte pelo e-mail ${email}. <br> <br>
-                            <br> <br> <b>Att, Sistema.</b>
-                            <br>
-                        </div>
-                    </td>
-                </tr>
-            </table> <br> <br></td>
-    </tr>
-</table>
+<div class="container">
+        <div class="header">
+            <h1>EduMatch</h1>
+        </div>
+        <div class="content">
+            <p>Olá <strong>${nome}!</strong>,</p>
+            <p>Sua atualização foi realizada com sucesso!</p>
+            <h3>Qualquer dúvida, contactar o suporte pelo e-mail abaixo: </h3>
+            <a href="#" class="cta-btn"> ${email}</a>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 EduMatch. Todos os direitos reservados.</p>
+        </div>
+    </div>
 </body>
 </html>
