@@ -1,11 +1,11 @@
 package VS13.Squad09.EduMatch.services;
 
+import VS13.Squad09.EduMatch.dtos.request.LoginCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.entities.enums.TipoEmpresa;
-import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
 import VS13.Squad09.EduMatch.repositories.UsuarioRepository;
@@ -86,9 +86,10 @@ public class UsuarioService {
                 objectMapper.convertValue(usuario, UsuarioDTO.class)).collect(Collectors.toList());
     }
 
-    public Boolean login(String email, String senha) throws Exception {
-        Usuario usuarioProcurado = usuarioRepository.listarPorEmail(email);
-        if(hashPassword(senha).equals(usuarioProcurado.getSenha())) {
+    public Boolean login(LoginCreateDTO loginCreateDTO) throws Exception {
+        Usuario usuarioProcurado = usuarioRepository.listarPorEmail(loginCreateDTO.getEmail());
+        log.info(usuarioProcurado.toString());
+        if(hashPassword(loginCreateDTO.getSenha()).equals(usuarioProcurado.getSenha())) {
             return true;
         }
         throw new IllegalArgumentException("Senha inválida.");

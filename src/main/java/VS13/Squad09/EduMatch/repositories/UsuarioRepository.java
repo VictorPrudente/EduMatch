@@ -213,7 +213,7 @@ public class UsuarioRepository {
 
         try {
             con = conexaoBancoDeDados.getConnection();
-
+            log.info("ok banco");
             String sql = "SELECT * FROM USUARIO WHERE email = ? ";
 
             PreparedStatement st = con.prepareStatement(sql);
@@ -222,6 +222,7 @@ public class UsuarioRepository {
             ResultSet res = st.executeQuery();
 
             if (res.next()){
+                log.info("ok querry");
                 return querryUsuario(res);
             }
             return null;

@@ -1,6 +1,7 @@
 package VS13.Squad09.EduMatch.controllers;
 
 import VS13.Squad09.EduMatch.controllers.interfaces.IUsuarioController;
+import VS13.Squad09.EduMatch.dtos.request.LoginCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
@@ -68,8 +69,8 @@ public class UsuarioController implements IUsuarioController {
     }
 
 
-    @GetMapping("/login/{email}/{senha}")
-    public ResponseEntity<Boolean> login (@PathVariable String email, @PathVariable String senha) throws Exception{
-        return ResponseEntity.ok(usuarioService.login(email, senha));
+    @PostMapping("/login")
+    public ResponseEntity<Boolean> login (@RequestBody LoginCreateDTO loginCreateDTO) throws Exception{
+        return ResponseEntity.ok(usuarioService.login(loginCreateDTO));
     }
 }
