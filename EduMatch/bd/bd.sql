@@ -103,16 +103,16 @@ CREATE TABLE USUARIO (
     email VARCHAR2(100) NOT NULL UNIQUE,
     senha VARCHAR2(100) NOT NULL,
     nome VARCHAR2(50),
-    sobrenome VARCHAR2(50),
-    cpf VARCHAR2(11) UNIQUE,
-    cnpj VARCHAR2(14) UNIQUE,
-    data_nascimento DATE,
-    moedas NUMBER(38,0),
-    pontuacao NUMBER(3,0),
     tipo_usuario NUMBER(1,0) NOT NULL CHECK (tipo_usuario IN (0,1)),
+    cpf VARCHAR2(11) UNIQUE,
+    sobrenome VARCHAR2(50),
+    data_nascimento DATE,
+    pontuacao NUMBER(3,0),
+    moedas NUMBER(38,0),
+    cnpj VARCHAR2(14) UNIQUE,
+    tipo_empresa NUMBER (1,0) CHECK (tipo_empresa BETWEEN 0 AND 3),
     role NUMBER(1,0) NOT NULL CHECK (role IN (0,1,2)),
     status NUMBER (1,0) NOT NULL CHECK (status IN (0,1)),
-    tipo_empresa NUMBER (1,0) CHECK (tipo_empresa IN (0,1)),
     PRIMARY KEY ( id_usuario )
 );
 
@@ -143,18 +143,18 @@ CREATE SEQUENCE SEQ_CONTATO
 
 
 CREATE TABLE ENDERECO (
-    id_endereco NUMBER(38,0) NOT NULL,
-    logradouro VARCHAR2(250) NOT NULL,
-    numero NUMBER(10) NOT NULL,
-    complemento VARCHAR2(250) NOT NULL,
-    cep VARCHAR2(8) NOT NULL,
-    cidade VARCHAR2(50) NOT NULL,
-    estado VARCHAR2(50) NOT NULL,
-    pais VARCHAR2(50) NOT NULL,
-    tipo_endereco NUMBER(1,0) NOT NULL CHECK (tipo_endereco IN (0, 1)),
-    id_usuario NUMBER(38,0),
-    PRIMARY KEY ( id_endereco ),
-    CONSTRAINT FK_ENDERECO_USUARIO FOREIGN KEY ( id_usuario ) REFERENCES USUARIO ( id_usuario )
+     id_endereco NUMBER(38,0) NOT NULL,
+     logradouro VARCHAR2(250) NOT NULL,
+     numero NUMBER(10) NOT NULL,
+     complemento VARCHAR2(250) NOT NULL,
+     cep VARCHAR2(8) NOT NULL,
+     cidade VARCHAR2(50) NOT NULL,
+     estado VARCHAR2(50) NOT NULL,
+     pais VARCHAR2(50) NOT NULL,
+     tipo_endereco NUMBER(1,0) NOT NULL CHECK (tipo_endereco IN (0, 1)),
+     id_usuario NUMBER(38,0),
+     PRIMARY KEY ( id_endereco ),
+     CONSTRAINT FK_ENDERECO_USUARIO FOREIGN KEY ( id_usuario ) REFERENCES USUARIO ( id_usuario )
 );
 
 
@@ -188,7 +188,7 @@ CREATE TABLE QUESTAO (
     pontos NUMBER(1,0) NOT NULL,
     pergunta VARCHAR2(4000) UNIQUE NOT NULL,
     opcao_correta CHAR(1) NOT NULL,
-    trilha NUMBER(1,0) NOT NULL CHECK (trilha IN (1, 2, 3)),
+    trilha NUMBER(3,0) NOT NULL CHECK (trilha BETWEEN 0 AND 10),
     dificuldade NUMBER(1,0) NOT NULL CHECK (dificuldade IN (1,2,3)),
     status NUMBER (1,0) NOT NULL CHECK (status IN (0,1)),
     PRIMARY KEY ( id_questao )
