@@ -73,7 +73,7 @@ public class UsuarioController implements IUsuarioController {
     }
 
     @GetMapping("/login/{email}/{senha}")
-    public ResponseEntity<Boolean> login (String email, String senha) throws Exception{
+    public ResponseEntity<Boolean> login (@PathVariable String email, @PathVariable String senha) throws Exception{
         return ResponseEntity.ok(usuarioService.login(email, senha));
     }
 }

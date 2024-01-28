@@ -84,11 +84,12 @@ public class UsuarioService {
 
     public Boolean login(String email, String senha) throws Exception {
         Usuario usuarioProcurado = usuarioRepository.listarPorEmail(email);
-        if(usuarioProcurado.getSenha().equals(hashPassword(senha))) {
+        if(hashPassword(senha).equals(usuarioProcurado.getSenha())) {
             return true;
         }
         throw new IllegalArgumentException("Senha inválida.");
     }
+
 
     public List<UsuarioDTO> listarEmpresas() throws Exception {
         return usuarioRepository.listarTodos().stream()
@@ -106,13 +107,13 @@ public class UsuarioService {
     }
 
 
-
     public UsuarioCreateDTO validarUsuario(UsuarioCreateDTO usuarioDTO) throws RegraDeNegocioException {
         if (usuarioDTO.getCNPJ() == null && usuarioDTO.getCPF() == null) {
             throw new RegraDeNegocioException("Documentação vazia");
         }
         return usuarioDTO;
     }
+
 
     private String hashPassword(String senha){
         try {

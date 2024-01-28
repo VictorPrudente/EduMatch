@@ -4,6 +4,7 @@ import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
 import VS13.Squad09.EduMatch.entities.enums.Role;
 import VS13.Squad09.EduMatch.entities.enums.TipoEmpresa;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,8 +19,6 @@ public class UsuarioDTO {
     private String nome;
     private String sobrenome;
     private String email;
-    //@Hidden
-    private String senha;
     private String CPF;
     private String CNPJ;
     private TipoUsuario tipoUsuario;

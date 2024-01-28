@@ -5,23 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f49153f2-3afe-47e5-9cb2-3fe02e0807aa" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/UsuarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/controllers/UsuarioController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/request/UsuarioCreateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/request/UsuarioCreateDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/response/UsuarioDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/dtos/response/UsuarioDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/Escola.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/Escola.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/enums/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/enums/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/enums/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/enums/Status.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/enums/TipoDeContato.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/enums/TipoDeContato.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/enums/TipoDeEndereco.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/enums/TipoDeEndereco.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/enums/TipoDocumento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/enums/TipoUsuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/enums/TipoEscola.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/entities/enums/TipoEmpresa.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/EscolaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/EscolaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/repositories/UsuarioRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/QuestaoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/QuestaoService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/UsuarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/VS13/Squad09/EduMatch/services/UsuarioService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +152,7 @@
       <workItem from="1705932765718" duration="3997000" />
       <workItem from="1706020009567" duration="2081000" />
       <workItem from="1706355276309" duration="19244000" />
-      <workItem from="1706396440950" duration="5215000" />
+      <workItem from="1706396440950" duration="5569000" />
     </task>
     <servers />
   </component>
