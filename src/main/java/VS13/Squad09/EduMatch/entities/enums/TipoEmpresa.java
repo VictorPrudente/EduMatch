@@ -10,7 +10,7 @@ public enum TipoEmpresa {
     PRIVADA(0),
     PUBLICA(1),
     TECNICA(2),
-    DEFAULT(3);
+    USUARIO_PADRAO(3);
 
     private Integer tipo;
 

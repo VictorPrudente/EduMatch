@@ -1,7 +1,7 @@
 package VS13.Squad09.EduMatch.dtos.request;
 
 import VS13.Squad09.EduMatch.entities.Usuario;
-import VS13.Squad09.EduMatch.entities.enums.Dificuldades;
+import VS13.Squad09.EduMatch.entities.enums.Dificuldade;
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -34,7 +34,7 @@ public class CertificadoCreateDTO {
 
     @NotNull(message = "O tipo de dificuldade não pode estar vazia.")
     @Schema(description = "Dificuldade da trilha", example = "FACIL")
-    private Dificuldades dificuldade;
+    private Dificuldade dificuldade;
 
 
     @NotNull(message = "O id do usuário não pode estar nulo.")

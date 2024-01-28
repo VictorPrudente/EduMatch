@@ -5,13 +5,11 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 @Getter
 @AllArgsConstructor
 @Slf4j
-public enum Dificuldades {
+public enum Dificuldade {
 
     FACIL(1),
     MEDIO(2),
@@ -20,9 +18,9 @@ public enum Dificuldades {
     private Integer nivel;
 
 
-    public static Dificuldades valueOf(Integer nivel){
+    public static Dificuldade valueOf(Integer nivel){
         log.info("Retornando " + nivel);
-        return Arrays.stream(Dificuldades.values())
+        return Arrays.stream(Dificuldade.values())
                 .filter(dificuldades -> dificuldades.getNivel().equals(nivel))
                 .findFirst().get();
     }

@@ -6,6 +6,7 @@ import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.entities.enums.TipoEmpresa;
+import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
 import VS13.Squad09.EduMatch.repositories.UsuarioRepository;
@@ -38,8 +39,8 @@ public class UsuarioService {
         usuarioEntity.setStatus(Status.ATIVO);
         usuarioEntity.setPontuacao(0);
         usuarioEntity.setMoedas(0);
-        if(usuarioEntity.getCPF() != null){
-            usuarioEntity.setTipoEmpresa(TipoEmpresa.DEFAULT);
+        if(usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_FISICA){
+            usuarioEntity.setTipoEmpresa(TipoEmpresa.USUARIO_PADRAO);
         }
         String senha = hashPassword(usuarioEntity.getSenha());
         usuarioEntity.setSenha(senha);
