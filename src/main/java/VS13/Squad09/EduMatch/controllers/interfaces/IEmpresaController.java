@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 public interface IEmpresaController {
-seEntity<List<UsuarioDTO>> listarEmpresas() throws Exception;
 
     @Operation(summary = "Listar empresas", description = "Lista as empresas cadastradas no banco de dados.")
     @ApiResponses(value = {
