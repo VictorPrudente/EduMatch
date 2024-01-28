@@ -16,25 +16,23 @@ public interface IEnderecoController {
 
     @Operation(summary = "Criar um Endereço", description = "Cadastra um endereço no banco de dados.")
     @ApiResponses(value = {
-                    @ApiResponse(responseCode = "200", description = "Operação bem sucedida. Criou um endereço"),
-                    @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso. Endereço não criado."),
-                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção. Endereço não criado.")})
+            @ApiResponse(responseCode = "200", description = "Operação bem sucedida. Criou um endereço"),
+            @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso. Endereço não criado."),
+            @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção. Endereço não criado.")})
     @PostMapping("/usuario/{idUsuario}")
     ResponseEntity<EnderecoDTO> salvar(@PathVariable("idUsuario") Integer idUsuario,
-                                              @Valid @RequestBody EnderecoCreateDTO enderecoCreateDTO) throws Exception;
-
+                                       @Valid @RequestBody EnderecoCreateDTO enderecoCreateDTO) throws Exception;
 
 
     @Operation(summary = "Atualizar um Endereço", description = "Atualiza um endereço no banco de dados passando seu id como parâmetro.")
     @ApiResponses(value = {
-                    @ApiResponse(responseCode = "200", description = "Operação bem sucedida. Endereço atualizado."),
-                    @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso. Endereço não atualizado."),
-                    @ApiResponse(responseCode = "404", description = "Não foi encontrado um endereço com este ID. Endereço não atualizado."),
-                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção. Endereço não atualizado.")})
+            @ApiResponse(responseCode = "200", description = "Operação bem sucedida. Endereço atualizado."),
+            @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso. Endereço não atualizado."),
+            @ApiResponse(responseCode = "404", description = "Não foi encontrado um endereço com este ID. Endereço não atualizado."),
+            @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção. Endereço não atualizado.")})
     @PutMapping("/{idEndereco}")
     ResponseEntity<EnderecoDTO> atualizar(@PathVariable Integer idEndereco,
-                                                 @Valid @RequestBody EnderecoCreateDTO enderecoCreateDTO) throws BancoDeDadosException;
-
+                                          @Valid @RequestBody EnderecoCreateDTO enderecoCreateDTO) throws BancoDeDadosException;
 
 
     @Operation(summary = "Deletar um Endereço", description = "Remove um endereço no banco de dados passando seu ip como parâmetro.")
@@ -47,13 +45,12 @@ public interface IEnderecoController {
     ResponseEntity<String> deletar(@PathVariable Integer id) throws BancoDeDadosException;
 
 
-
     @Operation(summary = "Listar todos os endereços pelo ID do seu dono", description = "Retorna uma lista de endereços do banco correspondentes ao ID daquele dono.")
     @ApiResponses(value = {
-                    @ApiResponse(responseCode = "200", description = "Operação bem sucedida."),
-                    @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso."),
-                    @ApiResponse(responseCode = "404", description = "Nenhum endereço encontrado para o dono deste ID."),
-                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")})
+            @ApiResponse(responseCode = "200", description = "Operação bem sucedida."),
+            @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso."),
+            @ApiResponse(responseCode = "404", description = "Nenhum endereço encontrado para o dono deste ID."),
+            @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")})
     @GetMapping("/usuario/{id}")
     ResponseEntity<EnderecoDTO> listarPorDono(@PathVariable("id") Integer id) throws BancoDeDadosException;
 }

@@ -1,6 +1,7 @@
 package VS13.Squad09.EduMatch.controllers;
 
 
+import VS13.Squad09.EduMatch.controllers.interfaces.IInsigniasController;
 import VS13.Squad09.EduMatch.dtos.request.InsigniaCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.InsigniaDTO;
 import VS13.Squad09.EduMatch.services.InsigniaService;
@@ -20,7 +21,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/insignia")
-public class InsigniaController {
+public class InsigniaController implements IInsigniasController {
 
 
     private final InsigniaService insigniaService;

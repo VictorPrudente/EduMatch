@@ -14,16 +14,16 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public interface IUsuarioController {
-        @Operation(summary = "Listar todos os usuários", description = "Lista todos os usuários do banco")
-        @ApiResponses(
-                value = {
-                        @ApiResponse(responseCode = "200", description = "Retornou a lista de usuários"),
-                        @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
-                        @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
-                }
-        )
-        @GetMapping
-        public ResponseEntity<List<UsuarioDTO>> listarTodos() throws BancoDeDadosException;
+    @Operation(summary = "Listar todos os usuários", description = "Lista todos os usuários do banco")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Retornou a lista de usuários"),
+                    @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
+                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
+            }
+    )
+    @GetMapping
+    public ResponseEntity<List<UsuarioDTO>> listarTodos() throws BancoDeDadosException;
 
     @Operation(summary = "Mostra rank dos usuários", description = "Rankeia todos os usuários do banco")
     @ApiResponses(
@@ -34,42 +34,42 @@ public interface IUsuarioController {
             }
     )
 
-        @GetMapping("/rankear")
-        public ResponseEntity<List<UsuarioDTO>> rankearUsuarios () throws Exception;
+    @GetMapping("/rankear")
+    public ResponseEntity<List<UsuarioDTO>> rankearUsuarios() throws Exception;
 
-        @Operation(summary = "Criar um usuario", description = "Cri usuario no banco de dados")
-        @ApiResponses(
-                value = {
-                        @ApiResponse(responseCode = "200", description = "Criou  usuario"),
-                        @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
-                        @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
-                }
-        )
+    @Operation(summary = "Criar um usuario", description = "Cri usuario no banco de dados")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Criou  usuario"),
+                    @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
+                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
+            }
+    )
 
-        @PostMapping
-        public ResponseEntity<UsuarioDTO> salvar(@RequestBody @Valid UsuarioCreateDTO usuario) throws Exception;
+    @PostMapping
+    public ResponseEntity<UsuarioDTO> salvar(@RequestBody @Valid UsuarioCreateDTO usuario) throws Exception;
 
-        @Operation(summary = "Atualizar um usuario", description = "Atualiza um usuario no banco")
-        @ApiResponses(
-                value = {
-                        @ApiResponse(responseCode = "200", description = "Atualizou  usuario"),
-                        @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
-                        @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
-                }
-        )
-        @PutMapping("/{idUsuario}")
-        public ResponseEntity<UsuarioDTO> atualizar(@PathVariable("idUsuario") @NotNull Integer id,
-                                                    @RequestBody @Valid UsuarioCreateDTO usuarioAtualizar) throws Exception;
+    @Operation(summary = "Atualizar um usuario", description = "Atualiza um usuario no banco")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Atualizou  usuario"),
+                    @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
+                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
+            }
+    )
+    @PutMapping("/{idUsuario}")
+    public ResponseEntity<UsuarioDTO> atualizar(@PathVariable("idUsuario") @NotNull Integer id,
+                                                @RequestBody @Valid UsuarioCreateDTO usuarioAtualizar) throws Exception;
 
-        @Operation(summary = "Deletar um usuario", description = "Deleta o usuario do banco")
-        @ApiResponses(
-                value = {
-                        @ApiResponse(responseCode = "200", description = "Deletou  usuario"),
-                        @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
-                        @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
-                }
-        )
+    @Operation(summary = "Deletar um usuario", description = "Deleta o usuario do banco")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "200", description = "Deletou  usuario"),
+                    @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
+                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
+            }
+    )
 
-        @DeleteMapping("/{idUsuario}")
-        public ResponseEntity<Void> delete(@PathVariable("idUsuario") @NotNull Integer id) throws Exception;
-    }
+    @DeleteMapping("/{idUsuario}")
+    public ResponseEntity<Void> delete(@PathVariable("idUsuario") @NotNull Integer id) throws Exception;
+}
