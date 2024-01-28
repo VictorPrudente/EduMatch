@@ -1,23 +1,23 @@
 package VS13.Squad09.EduMatch.entities;
 
-import VS13.Squad9.EduMatch.entities.enums.TipoEscola;
+import VS13.Squad09.EduMatch.entities.enums.TipoEmpresa;
 
 public class Escola {
 
     private int Id;
     private String nome;
-    private TipoEscola tipo;
+    private TipoEmpresa tipo;
     private String cnpj;
 
     public Escola (){}
 
-    public Escola(String nome, TipoEscola tipo, String cnpj) {
+    public Escola(String nome, TipoEmpresa tipo, String cnpj) {
         this.nome = nome;
         this.tipo = tipo;
         this.cnpj = cnpj;
     }
 
-    public Escola(String nome, TipoEscola tipo){
+    public Escola(String nome, TipoEmpresa tipo){
         this.nome = nome;
         this.tipo = tipo;
     }
@@ -39,11 +39,11 @@ public class Escola {
         this.nome = nome;
     }
 
-    public TipoEscola getTipo() {
+    public TipoEmpresa getTipo() {
         return tipo;
     }
 
-    public void setTipo(TipoEscola tipo) {
+    public void setTipo(TipoEmpresa tipo) {
         this.tipo = tipo;
     }
 

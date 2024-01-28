@@ -3,7 +3,8 @@ package VS13.Squad09.EduMatch.repositories;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Role;
 import VS13.Squad09.EduMatch.entities.enums.Status;
-import VS13.Squad09.EduMatch.entities.enums.TipoDocumento;
+import VS13.Squad09.EduMatch.entities.enums.TipoEmpresa;
+import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,7 @@ public class UsuarioRepository {
 
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
         try{
-            String sql = "SELECT VS_13_EQUIPE_9.SEQ_USUARIO.nextval AS mysequence from DUAL";
+            String sql = "SELECT SEQ_USUARIO.nextval AS mysequence from DUAL";
             Statement stmt = connection.createStatement();
             ResultSet res = stmt.executeQuery(sql);
 
@@ -49,9 +50,9 @@ public class UsuarioRepository {
             usuario.setId(proximoId);
 
             String sql = """
-                            INSERT INTO VS_13_EQUIPE_9.USUARIO
-                            (id_usuario, email, senha, nome, sobrenome, cpf, cnpj, data_nascimento, pontuacao, tipo_documentacao, role, status)
-                            VALUES(?,?,?,?,?,?,?,?,?,?,?,?)
+                            INSERT INTO USUARIO
+                            (id_usuario, email, senha, nome, sobrenome, cpf, cnpj, data_nascimento, pontuacao, tipo_documentacao, role, status, tipo_empresa)
+                            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)
                             """;
 
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -76,12 +77,13 @@ public class UsuarioRepository {
             log.info("Data de nascimento");
             stmt.setInt(9, usuario.getPontuacao());
             log.info("pontuação");
-            stmt.setInt(10, usuario.getTipoDocumento().ordinal());
+            stmt.setInt(10, usuario.getTipoUsuario().ordinal());
             log.info("tipo documento");
-            stmt.setInt(11, usuario.getStatus().ordinal());
+            stmt.setInt(11, usuario.getRole().ordinal());
             log.info("status");
-            stmt.setInt(12, usuario.getRole().ordinal());
+            stmt.setInt(12, usuario.getStatus().ordinal());
             log.info("role");
+            stmt.setInt(13, usuario.getTipoEmpresa().ordinal());
 
             stmt.executeUpdate();
             log.info("SQL executada");
@@ -112,27 +114,15 @@ public class UsuarioRepository {
             con = conexaoBancoDeDados.getConnection();
             Statement st = con.createStatement();
 
-            String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO";
+            String sql = "SELECT * FROM USUARIO";
 
             ResultSet res = st.executeQuery(sql);
 
             while (res.next()){
-                Usuario usuario = new Usuario();
-                usuario.setId(res.getInt("id_usuario"));
-                usuario.setNome(res.getString("nome"));
-                usuario.setSobrenome(res.getString("sobrenome"));
-                usuario.setCPF(res.getString("cpf"));
-                usuario.setCNPJ(res.getString("cnpj"));
-                Date dataParaSql = res.getDate("dataNascimento");
-                usuario.setDataNascimento(dataParaSql.toLocalDate());
-                usuario.setPontuacao(res.getInt("pontuacao"));
-                usuario.setTipoDocumento(TipoDocumento.valueOf(res.getString("tipoDocumentacao")));
-                usuario.setRole(Role.valueOf(res.getString("role")));
-                usuario.setStatus(Status.valueOf(res.getString("status")));
-
-                usuarios.add(usuario);
+                usuarios.add(querryUsuario(res));
             }
         } catch (SQLException e){
+            log.error(e.getMessage());
             throw new BancoDeDadosException(e.getCause());
         } finally {
             try {
@@ -152,26 +142,14 @@ public class UsuarioRepository {
         try {
             con = conexaoBancoDeDados.getConnection();
 
-            String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO WHERE id_usuario = ? ";
+            String sql = "SELECT * FROM USUARIO WHERE id_usuario = ? ";
 
             PreparedStatement st = con.prepareStatement(sql);
             st.setInt(1, id);
 
             ResultSet res = st.executeQuery();
             if (res.next()){
-                Usuario usuario = new Usuario();
-                usuario.setId(res.getInt("id_usuario"));
-                usuario.setNome(res.getString("nome"));
-                usuario.setSobrenome(res.getString("sobrenome"));
-                usuario.setCPF(res.getString("cpf"));
-                usuario.setCNPJ(res.getString("cnpj"));
-                Date dataParaSql = res.getDate("dataNascimento");
-                usuario.setDataNascimento(dataParaSql.toLocalDate());
-                usuario.setPontuacao(res.getInt("pontuacao"));
-                usuario.setTipoDocumento(TipoDocumento.valueOf(res.getString("tipoDocumentacao")));
-                usuario.setRole(Role.valueOf(res.getString("role")));
-                usuario.setStatus(Status.valueOf(res.getString("status")));
-                return usuario;
+                return querryUsuario(res);
             }
             return null;
         } catch (SQLException e){
@@ -193,7 +171,7 @@ public class UsuarioRepository {
             con = conexaoBancoDeDados.getConnection();
 
             String sql = """
-                UPDATE VS_13_EQUIPE_9.USUARIO
+                UPDATE USUARIO
                     SET 
                         email = ?,
                         senha = ?,
@@ -215,7 +193,7 @@ public class UsuarioRepository {
             Date dataParaSql = Date.valueOf(usuario.getDataNascimento());
             ps.setDate(5, dataParaSql);
             ps.setInt(6, usuario.getPontuacao());
-            ps.setInt(7, usuario.getTipoDocumento().ordinal());
+            ps.setInt(7, usuario.getTipoUsuario().ordinal());
             ps.setInt(8, usuario.getRole().ordinal());
             ps.setInt(9, usuario.getStatus().ordinal());
             ps.setInt(10, id);
@@ -243,7 +221,7 @@ public class UsuarioRepository {
         try {
             con = conexaoBancoDeDados.getConnection();
 
-            String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO WHERE email = ? ";
+            String sql = "SELECT * FROM USUARIO WHERE email = ? ";
 
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, email);
@@ -251,21 +229,7 @@ public class UsuarioRepository {
             ResultSet res = st.executeQuery();
 
             if (res.next()){
-                Usuario usuario = new Usuario();
-                usuario.setId(res.getInt("id_usuario"));
-                usuario.setNome(res.getString("nome"));
-                usuario.setSobrenome(res.getString("sobrenome"));
-                usuario.setCPF(res.getString("cpf"));
-                usuario.setCNPJ(res.getString("cnpj"));
-                Date dataParaSql = res.getDate("dataNascimento");
-                usuario.setDataNascimento(dataParaSql.toLocalDate());
-                usuario.setPontuacao(res.getInt("pontuacao"));
-                usuario.setEmail(res.getString("email"));
-                usuario.setSenha(res.getString("senha"));
-                usuario.setTipoDocumento(TipoDocumento.valueOf(res.getString("tipoDocumentacao")));
-                usuario.setRole(Role.valueOf(res.getString("role")));
-                usuario.setStatus(Status.valueOf(res.getString("status")));
-                return usuario;
+                return querryUsuario(res);
             }
             return null;
         } catch (SQLException e){
@@ -289,20 +253,12 @@ public class UsuarioRepository {
             con = conexaoBancoDeDados.getConnection();
             Statement st = con.createStatement();
 
-            String sql = "SELECT * FROM VS_13_EQUIPE_9.USUARIO WHERE status = 1 ORDER BY pontuacao DESC";
+            String sql = "SELECT * FROM USUARIO WHERE status = 1 ORDER BY pontuacao DESC";
 
             ResultSet res = st.executeQuery(sql);
 
             while (res.next()){
-                Usuario usuario = new Usuario();
-                usuario.setId(res.getInt("id_usuario"));
-                usuario.setNome(res.getString("nome"));
-                Date dataParaSql = res.getDate("dataNascimento");
-                usuario.setDataNascimento(dataParaSql.toLocalDate());
-                usuario.setSobrenome(res.getString("sobrenome"));
-                usuario.setPontuacao(res.getInt("pontuacao"));
-
-                usuarios.add(usuario);
+                usuarios.add(querryUsuario(res));
             }
         } catch (SQLException e){
             throw new BancoDeDadosException(e.getCause());
@@ -316,5 +272,24 @@ public class UsuarioRepository {
             }
         }
         return usuarios;
+    }
+
+    private Usuario querryUsuario(ResultSet res) throws SQLException {
+        Usuario usuario = new Usuario();
+        usuario.setId(res.getInt("id_usuario"));
+        usuario.setEmail(res.getString("email"));
+        usuario.setSenha(res.getString("senha"));
+        usuario.setNome(res.getString("nome"));
+        usuario.setSobrenome(res.getString("sobrenome"));
+        usuario.setCPF(res.getString("cpf"));
+        usuario.setCNPJ(res.getString("cnpj"));
+        Date dataParaSql = res.getDate("data_nascimento");
+        usuario.setDataNascimento(dataParaSql.toLocalDate());
+        usuario.setPontuacao(res.getInt("pontuacao"));
+        usuario.setTipoUsuario(TipoUsuario.valueOf(res.getInt("tipo_documentacao")));
+        usuario.setRole(Role.valueOf(res.getInt("role")));
+        usuario.setStatus(Status.valueOf(res.getInt("status")));
+        usuario.setTipoEmpresa(TipoEmpresa.valueOf(res.getInt("tipo_empresa")));
+        return usuario;
     }
 }

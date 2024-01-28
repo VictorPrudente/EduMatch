@@ -1,6 +1,7 @@
 package VS13.Squad09.EduMatch.repositories;
 
 import VS13.Squad09.EduMatch.entities.Escola;
+import VS13.Squad09.EduMatch.entities.enums.TipoEmpresa;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -148,7 +149,7 @@ public class EscolaRepository {
                 Escola escola = new Escola();
                 escola.setId(res.getInt("id_escola"));
                 escola.setNome(res.getString("nome"));
-                escola.setTipo(VS13.Squad9.EduMatch.entities.enums.TipoEscola.valueOf(res.getInt("tipo")));
+                escola.setTipo(TipoEmpresa.valueOf(res.getInt("tipo")));
                 escola.setCnpj(res.getString("cnpj"));
                 escolas.add(escola);
             }

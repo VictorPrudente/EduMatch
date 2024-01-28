@@ -40,13 +40,13 @@ public class UsuarioController implements IUsuarioController {
         return ResponseEntity.ok(usuarioService.listarPorId(id));
     }
 
-    @GetMapping("/email") //email?email=
-    public ResponseEntity<UsuarioDTO> listarPorEmail(@RequestParam("email") @NotNull String email) throws Exception {
+    @GetMapping("/email/{email}") //email?email=
+    public ResponseEntity<UsuarioDTO> listarPorEmail(@PathVariable @NotNull String email) throws Exception {
         return ResponseEntity.ok(usuarioService.listarPorEmail(email));
     }
 
     @GetMapping("/status/{stts}")
-    public ResponseEntity<List<UsuarioDTO>> listarPorStatus(@RequestParam("stts") @NotNull Integer stts) throws Exception {
+    public ResponseEntity<List<UsuarioDTO>> listarPorStatus(@PathVariable @NotNull Integer stts) throws Exception {
         return ResponseEntity.ok(usuarioService.listarPorStatus(stts));
     }
 
@@ -65,5 +65,15 @@ public class UsuarioController implements IUsuarioController {
     @GetMapping("/rankear")
     public ResponseEntity<List<UsuarioDTO>> rankearUsuarios () throws Exception{
         return ResponseEntity.ok(usuarioService.rankearUsuarios());
+    }
+
+    @GetMapping("/empresa")
+    public ResponseEntity<List<UsuarioDTO>> listarEmpresas () throws Exception{
+        return ResponseEntity.ok(usuarioService.listarEmpresas());
+    }
+
+    @GetMapping("/login/{email}/{senha}")
+    public ResponseEntity<Boolean> login (String email, String senha) throws Exception{
+        return ResponseEntity.ok(usuarioService.login(email, senha));
     }
 }
