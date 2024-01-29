@@ -42,4 +42,9 @@ public class EnderecoController implements IEnderecoController {
     public ResponseEntity<EnderecoDTO> listarPorDono(@PathVariable("id") Integer id) throws BancoDeDadosException, NaoEncontradoException {
         return ResponseEntity.ok(enderecoService.listarPorDono(id));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<EnderecoDTO> listarPorId(@PathVariable("id") Integer id) throws BancoDeDadosException, NaoEncontradoException {
+        return ResponseEntity.ok(enderecoService.listarPorId(id));
+    }
 }

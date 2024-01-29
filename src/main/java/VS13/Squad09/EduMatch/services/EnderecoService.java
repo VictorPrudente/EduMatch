@@ -28,11 +28,20 @@ public class EnderecoService {
     private final ObjectMapper objectMapper;
 
     public EnderecoDTO salvar(Integer id, EnderecoCreateDTO enderecoCreateDTO) throws Exception {
-        UsuarioDTO usuario = usuarioService.listarPorId(id);
-        if (usuario != null) {
+
+        Endereco enderecoExistente = enderecoRepository.listarPorDono(id);
+        if (enderecoExistente == null) {
+            usuarioService.listarPorId(id);
+
             Endereco endereco = enderecoRepository.adicionar(id, objectMapper.convertValue(enderecoCreateDTO, Endereco.class));
+
             return objectMapper.convertValue(endereco, EnderecoDTO.class);
-        } throw new NaoEncontradoException("Nenhum usuário encontrado com este id.");
+        } throw new RegraDeNegocioException("Usuário já possui um endereço cadastrado.");
+    }
+
+    public EnderecoDTO listarPorId(Integer id) throws NaoEncontradoException, BancoDeDadosException {
+        Endereco endereco = enderecoRepository.listarPorId(id);
+        return objectMapper.convertValue(endereco, EnderecoDTO.class);
     }
 
     public String deletar(Integer id) throws BancoDeDadosException, NaoEncontradoException {
@@ -40,7 +49,9 @@ public class EnderecoService {
     }
 
     public EnderecoDTO atualizar(Integer id, EnderecoCreateDTO enderecoCreateDTO) throws BancoDeDadosException, NaoEncontradoException {
+        listarPorId(id);
         Endereco endereco = enderecoRepository.editar(id, objectMapper.convertValue(enderecoCreateDTO, Endereco.class));
+        endereco.setId(id);
         return objectMapper.convertValue(endereco, EnderecoDTO.class);
     }
 
@@ -51,8 +62,11 @@ public class EnderecoService {
     }
 
     public EnderecoDTO listarPorDono(Integer idUsuario) throws BancoDeDadosException, NaoEncontradoException {
-        return objectMapper.convertValue(
-                enderecoRepository.listarPorDono(idUsuario),
+        Endereco endereco = enderecoRepository.listarPorDono(idUsuario);
+        if (endereco == null){
+            throw new NaoEncontradoException("Nenhum endereço cadastrado.");
+        }
+        return objectMapper.convertValue(endereco,
                 EnderecoDTO.class);
     }
 
