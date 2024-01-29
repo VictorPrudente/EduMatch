@@ -22,7 +22,6 @@ public interface IContatoController {
     @GetMapping("/contato/{idUsuario}")
     ResponseEntity<ContatoDTO> listarPorUsuario(@PathVariable("idUsuario") Integer idUsuario) throws Exception;
 
-
     @Operation(summary = "Criar um Contato", description = "Cadastra um contato no banco de dados.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem sucedida. Criou um contato"),
@@ -43,7 +42,7 @@ public interface IContatoController {
     )
     @PutMapping("/{idContato}")
     ResponseEntity<ContatoDTO> atualizar(@PathVariable Integer idContato,
-                                          @Valid @RequestBody ContatoCreateDTO contatoCreateDTO) throws Exception;
+                                         @Valid @RequestBody ContatoCreateDTO contatoCreateDTO) throws Exception;
 
 
     @Operation(summary = "Deletar um Contato", description = "Remove um contato no banco de dados passando seu ID como parâmetro.")

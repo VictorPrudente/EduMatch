@@ -37,18 +37,18 @@ public class UsuarioController implements IUsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioDTO>  listarPorId(@PathVariable("id") @NotNull Integer id) throws Exception {
+    public ResponseEntity<UsuarioDTO> listarPorId(@PathVariable("id") @NotNull Integer id) throws Exception {
         return ResponseEntity.ok(usuarioService.listarPorId(id));
-    }
-
-    @GetMapping("/email/{email}") //email?email=
-    public ResponseEntity<UsuarioDTO> listarPorEmail(@PathVariable @NotNull String email) throws Exception {
-        return ResponseEntity.ok(usuarioService.listarPorEmail(email));
     }
 
     @GetMapping("/status/{stts}")
     public ResponseEntity<List<UsuarioDTO>> listarPorStatus(@PathVariable @NotNull Integer stts) throws Exception {
         return ResponseEntity.ok(usuarioService.listarPorStatus(stts));
+    }
+
+    @GetMapping("/rankear")
+    public ResponseEntity<List<UsuarioDTO>> rankearUsuarios () throws Exception{
+        return ResponseEntity.ok(usuarioService.rankearUsuarios());
     }
 
     @PutMapping("/{idUsuario}")
@@ -62,12 +62,6 @@ public class UsuarioController implements IUsuarioController {
         usuarioService.delete(id);
         return ResponseEntity.ok().build();
     }
-
-    @GetMapping("/rankear")
-    public ResponseEntity<List<UsuarioDTO>> rankearUsuarios () throws Exception{
-        return ResponseEntity.ok(usuarioService.rankearUsuarios());
-    }
-
 
     @PostMapping("/login")
     public ResponseEntity<Boolean> login (@RequestBody LoginCreateDTO loginCreateDTO) throws Exception{

@@ -15,12 +15,15 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ContatoCreateDTO {
+
     @Schema(description = "Informações adicionais sobre o contato", required = true, example = "Apenas ligações")
     @Length(max = 50, message = "A descrição não pode ter mais q 50 caracteres.")
     private String descricao;
+
     @Schema(description = "Numero do contato", required = true, example = "21998561236")
     @Size(min = 8, max = 9, message = "Telefone deve conter 9 digitos para celular ou 8 digitos para fixo.")
     private String telefone;
+
     @Schema(description = "Tipo do contato", required = true, example = "RESIDENCIAL")
     @NotNull(message = "Tipo de contato não deve ser nulo.")
     private TipoDeContato tipo;
