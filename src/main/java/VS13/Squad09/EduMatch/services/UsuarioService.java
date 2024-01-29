@@ -2,6 +2,7 @@ package VS13.Squad09.EduMatch.services;
 
 import VS13.Squad09.EduMatch.dtos.request.LoginCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
+import VS13.Squad09.EduMatch.dtos.response.PessoaJuridicaDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Status;
@@ -107,11 +108,11 @@ public class UsuarioService {
     }
 
 
-    public List<UsuarioDTO> listarEmpresas() throws Exception {
+    public List<PessoaJuridicaDTO> listarEmpresas() throws Exception {
         return usuarioRepository.listarTodos().stream()
                 .filter(usuario -> usuario.getTipoUsuario().ordinal() == 1)
                 .filter(usuario -> usuario.getStatus().ordinal() == 1)
-                .map(usuario -> objectMapper.convertValue(usuario, UsuarioDTO.class))
+                .map(usuario -> objectMapper.convertValue(usuario, PessoaJuridicaDTO.class))
                 .collect(Collectors.toList());
     }
 
