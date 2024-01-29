@@ -43,7 +43,7 @@ public interface IContatoController {
     )
     @PutMapping("/{idContato}")
     ResponseEntity<ContatoDTO> atualizar(@PathVariable Integer idContato,
-                                          @Valid @RequestBody ContatoCreateDTO contatoCreateDTO) throws Exception;
+                                         @Valid @RequestBody ContatoCreateDTO contatoCreateDTO) throws Exception;
 
 
     @Operation(summary = "Deletar um Contato", description = "Remove um contato no banco de dados passando seu ID como parâmetro.")
