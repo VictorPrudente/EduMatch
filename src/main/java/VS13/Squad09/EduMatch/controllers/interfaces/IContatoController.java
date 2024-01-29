@@ -22,7 +22,6 @@ public interface IContatoController {
     @GetMapping("/contato/{idUsuario}")
     ResponseEntity<ContatoDTO> listarPorUsuario(@PathVariable("idUsuario") Integer idUsuario) throws Exception;
 
-
     @Operation(summary = "Criar um Contato", description = "Cadastra um contato no banco de dados.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem sucedida. Criou um contato"),
