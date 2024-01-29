@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ContatoDTO {
+    private Integer id;
     private String telefone;
     private String descricao;
     private TipoDeContato tipo;
