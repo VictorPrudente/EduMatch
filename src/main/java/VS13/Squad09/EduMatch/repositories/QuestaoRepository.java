@@ -314,10 +314,5 @@ public class QuestaoRepository{
         questao.setStatus(Status.valueOf(res.getInt("status")));
         return questao;
     }
-
-
-
-
-
 }
 

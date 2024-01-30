@@ -5,33 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body {
-            text-align: center;
-        }
+        /*body {*/
+        /*    text-align: center;*/
+        /*}*/
 
-        .container {
-            position: relative;
-            width: 100%;
-        }
+        /*.container {*/
+        /*    position: relative;*/
+        /*    width: 100%;*/
+        /*}*/
 
-        .image {
-            width: 100%;
-            background-image: url("https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/main/certificado.png");
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            margin: 0 auto;
-            height: 500px;
-        }
+        /*.image {*/
+        /*    width: 100%;*/
+        /*    background-image: url("https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/main/certificado.png");*/
+        /*    background-size: cover;*/
+        /*    display: flex;*/
+        /*    justify-content: center;*/
+        /*    align-items: center;*/
+        /*    position: relative;*/
+        /*    margin: 0 auto;*/
+        /*    height: 500px;*/
+        /*}*/
 
-        .overlay {
-            position: absolute;
-            top: 35%;
-            left: 35%;
-            font-size: 24px;
-        }
+        /*.overlay {*/
+        /*    position: absolute;*/
+        /*    top: 35%;*/
+        /*    left: 35%;*/
+        /*    font-size: 24px;*/
+        /*}*/
 
     </style>
 </head>
