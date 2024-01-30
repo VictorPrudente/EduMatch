@@ -189,7 +189,7 @@ CREATE TABLE QUESTAO (
     pergunta VARCHAR2(4000) UNIQUE NOT NULL,
     opcao_correta CHAR(1) NOT NULL,
     trilha NUMBER(3,0) NOT NULL CHECK (trilha BETWEEN 0 AND 10),
-        dificuldade NUMBER(1,0) NOT NULL CHECK (dificuldade IN (1,2,3)),
+    dificuldade NUMBER(1,0) NOT NULL CHECK (dificuldade IN (1,2,3)),
     status NUMBER (1,0) NOT NULL CHECK (status IN (0,1)),
     PRIMARY KEY ( id_questao )
 );
