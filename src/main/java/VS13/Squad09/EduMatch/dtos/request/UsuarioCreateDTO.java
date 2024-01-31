@@ -66,12 +66,4 @@ public class UsuarioCreateDTO {
         @Schema(description = "Tipo de Empresa", example = "0 = PRIVADA")
         private TipoEmpresa tipoEmpresa;
 
-        @Schema(description = "Status do Usuário", example = "1 = ATIVO")
-        private Status status = Status.ATIVO;
-
-        @Schema(description = "Pontuação do usuário PF", example = "10")
-        private Integer pontuacao = 0;
-
-        @Schema(description = "Moedas do usuário PF", example = "150")
-        private Integer moedas = 0;
 }
