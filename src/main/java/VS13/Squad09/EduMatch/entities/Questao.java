@@ -26,8 +26,7 @@ public class Questao {
     private String pergunta;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "LISTA_OPCOES", joinColumns = @JoinColumn(name = "ID_QUESTAO", nullable = false),
-            uniqueConstraints = @UniqueConstraint(columnNames = {"ID_QUESTAO"}))
+    @CollectionTable(name = "LISTA_OPCOES", joinColumns = @JoinColumn(name = "ID_QUESTAO", nullable = false))
     private List<Opcao> opcoes = new ArrayList<>();
 
     @Column(name = "OPCAO_CORRETA")

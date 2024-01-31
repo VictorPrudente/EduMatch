@@ -41,9 +41,9 @@ public class UsuarioService {
         usuarioEntity.setPontuacao(0);
         usuarioEntity.setMoedas(0);
 
-        if(usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_FISICA){
-            usuarioEntity.setTipoEmpresa(TipoEmpresa.USUARIO_PADRAO);
-        }
+        //if(usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_FISICA){
+        //    usuarioEntity.setTipoEmpresa(TipoEmpresa.USUARIO_PADRAO);
+        //}
 
         String senha = hashPassword(usuarioEntity.getSenha());
         usuarioEntity.setSenha(senha);
