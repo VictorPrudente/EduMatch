@@ -1,4 +1,4 @@
-package VS13.Squad09.EduMatch.dtos.response;
+package VS13.Squad09.EduMatch.dtos.response.prova;
 
 import VS13.Squad09.EduMatch.entities.Questao;
 import VS13.Squad09.EduMatch.entities.Usuario;
@@ -7,23 +7,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProvaDTO {
+public class ProvaStartDTO {
 
     private Integer id;
 
-    private List<Questao> questoes;
+    private Set<Questao> questoes;
 
     private Usuario usuario;
 
     private LocalDateTime dataInicio;
-
-    private LocalDateTime dataFinal;
-
-    private Integer totalAcertos;
 }

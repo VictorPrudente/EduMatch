@@ -1,9 +1,10 @@
 package VS13.Squad09.EduMatch.services;
 
 
-import VS13.Squad09.EduMatch.dtos.request.ProvaCreateDTO;
-import VS13.Squad09.EduMatch.dtos.response.ProvaDTO;
+import VS13.Squad09.EduMatch.dtos.request.prova.ProvaStartCreateDTO;
+import VS13.Squad09.EduMatch.dtos.response.prova.ProvaStartDTO;
 import VS13.Squad09.EduMatch.dtos.response.QuestaoDTO;
+import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Prova;
 import VS13.Squad09.EduMatch.entities.Questao;
 import VS13.Squad09.EduMatch.entities.Usuario;
@@ -16,7 +17,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,13 +28,33 @@ public class ProvaService {
 
     private final ProvaRepository repository;
     private final QuestaoService questaoService;
+    private final UsuarioService usuarioService;
     private final ObjectMapper mapper;
 
-    public ProvaDTO create(ProvaCreateDTO provaCreateDTO, Integer trilha, Integer dificuldade) throws NaoEncontradoException, BancoDeDadosException {
-        Prova prova = toEntity(provaCreateDTO);
+    public ProvaStartDTO startTest(ProvaStartCreateDTO provaStartCreateDTO, Integer trilha, Integer dificuldade) throws Exception {
+
+        UsuarioDTO usuarioDTO = usuarioService.listarPorId(provaStartCreateDTO.getIdUsuario());
+
+        Usuario usuario = mapper.convertValue(usuarioDTO, Usuario.class);
+
+        Prova prova = toEntity(provaStartCreateDTO);
+
         prova.setDataInicio(LocalDateTime.now());
+
+        prova.setUsuario(usuario);
+
         prova.setQuestoes(gerarQuestoes(trilha, dificuldade));
-        return toDTO(prova);
+
+        prova.shuffleOpcoes();
+        
+        return toDTO(repository.save(prova));
+
+    }
+
+    public ProvaStartDTO finishTest(ProvaStartCreateDTO provaStartCreateDTO){
+        Prova prova = toEntity(provaStartCreateDTO);
+        repository.save(prova);
+        return null;
     }
 
 
@@ -39,8 +62,8 @@ public class ProvaService {
 
     //Métodos adicionais
 
-    private ProvaDTO toDTO(Prova prova){
-        return mapper.convertValue(prova, ProvaDTO.class);
+    private ProvaStartDTO toDTO(Prova prova){
+        return mapper.convertValue(prova, ProvaStartDTO.class);
     }
 
     private Prova toEntity(Object o){
@@ -48,12 +71,10 @@ public class ProvaService {
     }
 
     private List<Questao> gerarQuestoes(Integer trilha, Integer dificuldade) throws NaoEncontradoException, BancoDeDadosException {
-        List<QuestaoDTO> questoes = new ArrayList<>();
-        for (int i = 0; i<10; i++){
-            questoes.add(questaoService.findByTrailAndDificulty(trilha, dificuldade));
-        }
+
+        List<QuestaoDTO> questoes = new ArrayList<>(questaoService.find5ByTrilhaAndDificuldade(trilha, dificuldade));
         return questoes.stream()
-                .map(questao -> mapper.convertValue(questao, Questao.class))
+                .map(questaoDTO -> mapper.convertValue(questaoDTO, Questao.class))
                 .collect(Collectors.toList());
     }
 }

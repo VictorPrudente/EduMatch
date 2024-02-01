@@ -7,7 +7,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -24,20 +27,26 @@ public class Prova {
     @ManyToMany
     @JoinTable(
             name = "PROVA_QUESTAO",
-            joinColumns = @JoinColumn(name = "PROVA_ID"),
-            inverseJoinColumns = @JoinColumn(name = "QUESTAO_ID"))
+            joinColumns = @JoinColumn(name = "ID_PROVA"),
+            inverseJoinColumns = @JoinColumn(name = "ID_QUESTAO"))
     private List<Questao> questoes;
 
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "LISTA_RESPOSTAS", joinColumns = @JoinColumn(name = "ID_PROVA", nullable = false))
+    private List<Resposta> respostas;
+
     @OneToOne
-    @JoinColumn(name = "USUARIO_ID")
+    @JoinColumn(name = "ID_USUARIO")
     private Usuario usuario;
 
-    @Column(name = "INICIO")
+    @Column(name = "HORA_INICIO")
     private LocalDateTime dataInicio;
 
-    @Column(name = "FINAL")
+    @Column(name = "HORA_FINAL")
     private LocalDateTime dataFinal;
-
-    @Column(name = "TOTAL_ACERTOS")
-    private Integer totalAcertos;
+    public void shuffleOpcoes(){
+        for(Questao questao : questoes){
+            questao.shuffleOpcoes();
+        }
+    }
 }

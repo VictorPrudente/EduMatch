@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 @Repository
@@ -33,6 +34,9 @@ public interface QuestaoRepository extends JpaRepository<Questao, Integer> {
 
     @Query(value = "SELECT * FROM QUESTAO q WHERE q.status = :status ORDER BY q.trilha, q.dificuldade", nativeQuery = true)
     List<Questao> findAllByStatus(@Param("status") Integer status);
+
+    @Query(value = "SELECT * FROM QUESTAO WHERE ROWNUM <= 5 AND TRILHA = :trilha AND DIFICULDADE = :dificuldade AND STATUS = 1 ORDER BY DBMS_RANDOM.VALUE", nativeQuery = true)
+    List<Questao> get5ByTrilhaAndDificuldade(@Param("trilha") Integer trilha, @Param("dificuldade") Integer dificuldade);
 
 }
 

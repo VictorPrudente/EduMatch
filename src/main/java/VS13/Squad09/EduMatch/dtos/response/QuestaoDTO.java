@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -19,7 +20,13 @@ public class QuestaoDTO {
     private String pergunta;
     private List<Opcao> opcoes;
     private String opcaoCerta;
+    private String opcaoEscolhida;
     private Trilha trilha;
     private Dificuldade dificuldade;
     private Status status;
+
+    public void shuffleOpcoes(){
+        Collections.shuffle(opcoes);
+    }
+
 }
