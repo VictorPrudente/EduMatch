@@ -21,23 +21,13 @@ public class CertificadoCreateDTO {
     @Schema(description = "Id do Certificado", example = "1")
     private Integer id;
 
-
     @NotNull(message = "A trilha não pode estar vazia.")
     @Schema(description = "Trilha que será selecionada", required = true, example = "MATEMATICA")
     private Trilha trilha;
 
 
-    @NotNull(message = "A data de conclusão não pode estar vazia.")
-    @PastOrPresent(message = "A data de conclusão não pode estar no futuro.")
-    @Schema(description = "Data de conclusão da trilha", example = "yyyy-mm-dd")
-    private LocalDateTime conclusao;
-
     @NotNull(message = "O tipo de dificuldade não pode estar vazia.")
     @Schema(description = "Dificuldade da trilha", example = "FACIL")
     private Dificuldade dificuldade;
 
-
-    @NotNull(message = "O id do usuário não pode estar nulo.")
-    @Schema(description = "Id do usuário cadastrado no banco de dados", required = true, example = "1")
-    private Usuario usuario;
 }

@@ -2,6 +2,7 @@ package VS13.Squad09.EduMatch.services;
 
 import VS13.Squad09.EduMatch.dtos.request.LoginCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
+import VS13.Squad09.EduMatch.dtos.response.PessoaJuridicaDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Status;
@@ -39,18 +40,21 @@ public class UsuarioService {
         usuarioEntity.setStatus(Status.ATIVO);
         usuarioEntity.setPontuacao(0);
         usuarioEntity.setMoedas(0);
+
         if(usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_FISICA){
             usuarioEntity.setTipoEmpresa(TipoEmpresa.USUARIO_PADRAO);
         }
+
         String senha = hashPassword(usuarioEntity.getSenha());
         usuarioEntity.setSenha(senha);
         usuarioRepository.adicionar(usuarioEntity);
 
         UsuarioDTO usuarioDTO2 = objectMapper.convertValue(usuarioEntity, UsuarioDTO.class);
-        //emailService.sendEmail(usuarioEntity, 1);
+        emailService.sendEmail(usuarioEntity, null, 1);
 
         return usuarioDTO2;
     }
+
 
     public List<UsuarioDTO> listarTodos() throws BancoDeDadosException {
         return usuarioRepository.listarTodos().stream()
@@ -58,34 +62,41 @@ public class UsuarioService {
                 .collect(Collectors.toList());
     }
 
-    public List<UsuarioDTO> listarPorStatus(Integer status) throws BancoDeDadosException {
-        return listarTodos().stream()
-                .filter(usuarioDTO -> usuarioDTO.getStatus().getTipo().equals(status))
-                .collect(Collectors.toList());
+
+    public List<UsuarioDTO> listarPorStatus(Integer status) throws Exception {
+        return usuarioRepository.listarPorStatus(status).stream().map(usuario ->
+                objectMapper.convertValue(usuario, UsuarioDTO.class)).collect(Collectors.toList());
     }
+
 
     public UsuarioDTO listarPorId(Integer id) throws Exception {
         return objectMapper.convertValue(usuarioRepository.listarPorId(id), UsuarioDTO.class);
     }
 
+
+    public UsuarioDTO listarPorEmail(String email) throws Exception {
+            return objectMapper.convertValue(usuarioRepository.listarPorEmail(email), UsuarioDTO.class );
+    }
+
+
+    public List<UsuarioDTO> rankearUsuarios() throws Exception {
+        return usuarioRepository.rankearJogadores().stream().map(usuario ->
+                objectMapper.convertValue(usuario, UsuarioDTO.class)).collect(Collectors.toList());
+    }
+
+
     public UsuarioDTO atualizar(Integer id, UsuarioCreateDTO usuarioCreateDTO) throws Exception {
 
         validarUsuario(usuarioCreateDTO);
         Usuario usuarioAtualizado = objectMapper.convertValue(usuarioCreateDTO, Usuario.class);
+        usuarioAtualizado.setId(id);
         usuarioRepository.atualizar(id, usuarioAtualizado);
-        return objectMapper.convertValue(usuarioAtualizado, UsuarioDTO.class);
-        //emailService.sendEmail(usuario, 2);
+        UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioAtualizado, UsuarioDTO.class);
+        emailService.sendEmail(usuarioAtualizado, null, 2);
+        return usuarioDTO;
 
     }
 
-    public UsuarioDTO listarPorEmail(String email) throws BancoDeDadosException {
-            return objectMapper.convertValue(usuarioRepository.listarPorEmail(email), UsuarioDTO.class );
-    }
-
-    public List<UsuarioDTO> rankearUsuarios() throws BancoDeDadosException {
-        return usuarioRepository.rankearJogadores().stream().map(usuario ->
-                objectMapper.convertValue(usuario, UsuarioDTO.class)).collect(Collectors.toList());
-    }
 
     public Boolean login(LoginCreateDTO loginCreateDTO) throws Exception {
         Usuario usuarioProcurado = usuarioRepository.listarPorEmail(loginCreateDTO.getEmail());
@@ -97,19 +108,25 @@ public class UsuarioService {
     }
 
 
-    public List<UsuarioDTO> listarEmpresas() throws Exception {
+    public List<PessoaJuridicaDTO> listarEmpresas() throws Exception {
         return usuarioRepository.listarTodos().stream()
                 .filter(usuario -> usuario.getTipoUsuario().ordinal() == 1)
                 .filter(usuario -> usuario.getStatus().ordinal() == 1)
-                .map(usuario -> objectMapper.convertValue(usuario, UsuarioDTO.class))
+                .map(usuario -> objectMapper.convertValue(usuario, PessoaJuridicaDTO.class))
                 .collect(Collectors.toList());
     }
+
 
     public UsuarioDTO delete(Integer id) throws Exception {
         Usuario usuarioProcurado = usuarioRepository.listarPorId(id);
         usuarioProcurado.setStatus(Status.INATIVO);
+        String email = usuarioProcurado.getEmail();
+        usuarioProcurado.setEmail(null);
         usuarioRepository.atualizar(id, usuarioProcurado);
-        return objectMapper.convertValue(usuarioProcurado, UsuarioDTO.class);
+        usuarioProcurado.setEmail(email);
+        UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioProcurado, UsuarioDTO.class);
+        emailService.sendEmail(usuarioProcurado,null, 3);
+        return usuarioDTO;
     }
 
 
@@ -137,7 +154,5 @@ public class UsuarioService {
             return null;
         }
     }
-
-
 }
 

@@ -17,7 +17,7 @@ public class EnderecoDTO {
     private String logradouro;
     private Integer numero;
     private String complemento;
-    private TipoDeEndereco tipo;
+    private TipoDeEndereco tipoDeEndereco;
     private String cep;
     private String cidade;
     private String estado;

@@ -1,16 +1,20 @@
 package VS13.Squad09.EduMatch.dtos.response;
 
-import VS13.Squad09.EduMatch.entities.enums.TipoDeContato;
+import VS13.Squad09.EduMatch.entities.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ContatoDTO {
+public class ClassificacaoDTO {
+
     private Integer id;
-    private String telefone;
+    private String urlImagem;
+    private String titulo;
     private String descricao;
-    private TipoDeContato tipo;
+    private Integer pontuacaoNecessaria;
+    private Status status;
 }
