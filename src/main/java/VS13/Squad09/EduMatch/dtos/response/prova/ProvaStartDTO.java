@@ -2,6 +2,7 @@ package VS13.Squad09.EduMatch.dtos.response.prova;
 
 import VS13.Squad09.EduMatch.entities.Questao;
 import VS13.Squad09.EduMatch.entities.Usuario;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,4 +23,6 @@ public class ProvaStartDTO {
     private Usuario usuario;
 
     private LocalDateTime dataInicio;
+
+    private Integer tempoLimite;
 }

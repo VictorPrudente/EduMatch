@@ -20,7 +20,6 @@ public class QuestaoDTO {
     private String pergunta;
     private List<Opcao> opcoes;
     private String opcaoCerta;
-    private String opcaoEscolhida;
     private Trilha trilha;
     private Dificuldade dificuldade;
     private Status status;

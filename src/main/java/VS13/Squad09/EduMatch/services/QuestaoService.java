@@ -130,7 +130,7 @@ public class QuestaoService {
     }
 
     private Integer pontuacao(Questao questao){
-        return questao.getDificuldade().getNivel() * multiplicador;
+        return (questao.getDificuldade().getNivel() * multiplicador) + multiplicador;
     }
 
 }

@@ -1,7 +1,9 @@
 package VS13.Squad09.EduMatch.controllers;
 
 
+import VS13.Squad09.EduMatch.dtos.request.prova.ProvaFinishCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.prova.ProvaStartCreateDTO;
+import VS13.Squad09.EduMatch.dtos.response.prova.ProvaFinishDTO;
 import VS13.Squad09.EduMatch.dtos.response.prova.ProvaStartDTO;
 import VS13.Squad09.EduMatch.services.ProvaService;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +24,12 @@ public class ProvaController {
         return ResponseEntity.ok(service.startTest(provaStartCreateDTO, trilha, dificuldade));
     }
 
-    @PostMapping
-    public ResponseEntity<ProvaStartDTO> finishTest(@RequestBody ProvaStartCreateDTO provaStartCreateDTO) throws Exception {
-        return ResponseEntity.ok(service.finishTest(provaStartCreateDTO));
+    @PutMapping("/{idProva}")
+    public ResponseEntity<ProvaFinishDTO> finishTest(@PathVariable Integer idProva, @RequestBody ProvaFinishCreateDTO prova) throws Exception {
+        return ResponseEntity.ok(service.finishTest(idProva,prova));
     }
+
+
 
 
 }

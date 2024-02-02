@@ -7,8 +7,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 
-@Data
+@Getter
+@Setter
 @Embeddable
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class Opcao implements Serializable {

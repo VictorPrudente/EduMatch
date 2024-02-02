@@ -3,14 +3,15 @@ package VS13.Squad09.EduMatch.entities;
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.entities.enums.Dificuldade;
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.*;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "QUESTAO")
@@ -25,6 +26,7 @@ public class Questao {
     @Column(name = "PERGUNTA")
     private String pergunta;
 
+    @JsonIgnore
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "LISTA_OPCOES", joinColumns = @JoinColumn(name = "ID_QUESTAO", nullable = false))
     private List<Opcao> opcoes = new ArrayList<>();
@@ -43,6 +45,10 @@ public class Questao {
 
     @Column(name = "STATUS")
     private Status status;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "questoes")
+    private List<Prova> prova;
 
     public void shuffleOpcoes(){
         Collections.shuffle(opcoes);
