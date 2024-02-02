@@ -47,7 +47,7 @@ public class EmailService {
     public String geContentFromTemplate(Usuario usuario, int numeroTemplate) throws Exception {
         Map<String, Object> dados = new HashMap<>();
         dados.put("nome", usuario.getNome());
-        dados.put("id", usuario.getId());
+        dados.put("id", usuario.getIdUsuario());
         dados.put("email", from);
         Template tipoTemplate = switch (numeroTemplate){
             case 1 -> fmConfiguration.getTemplate("email-criar-usuario-template.ftl");

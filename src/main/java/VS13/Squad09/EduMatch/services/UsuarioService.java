@@ -1,5 +1,6 @@
 package VS13.Squad09.EduMatch.services;
 
+import VS13.Squad09.EduMatch.dtos.UsuarioCompletoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.request.LoginCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
@@ -14,8 +15,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -39,63 +38,51 @@ public class UsuarioService {
         usuarioEntity.setStatus(Status.ATIVO);
         usuarioEntity.setPontuacao(0);
         usuarioEntity.setMoedas(0);
-
         if(usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_FISICA){
             usuarioEntity.setTipoEmpresa(TipoEmpresa.USUARIO_PADRAO);
         }
-
         String senha = hashPassword(usuarioEntity.getSenha());
         usuarioEntity.setSenha(senha);
-        usuarioRepository.adicionar(usuarioEntity);
+        usuarioRepository.save(usuarioEntity);
 
         UsuarioDTO usuarioDTO2 = objectMapper.convertValue(usuarioEntity, UsuarioDTO.class);
-        emailService.sendEmail(usuarioEntity, 1);
+        //emailService.sendEmail(usuarioEntity, 1);
 
         return usuarioDTO2;
     }
 
-
     public List<UsuarioDTO> listarTodos() throws BancoDeDadosException {
-        return usuarioRepository.listarTodos().stream()
+        return usuarioRepository.findAll().stream()
                 .map(usuario -> objectMapper.convertValue(usuario, UsuarioDTO.class))
                 .collect(Collectors.toList());
     }
 
-
-    public List<UsuarioDTO> listarPorStatus(Integer status) throws Exception {
-        return usuarioRepository.listarPorStatus(status).stream().map(usuario ->
-                objectMapper.convertValue(usuario, UsuarioDTO.class)).collect(Collectors.toList());
+    public List<UsuarioDTO> listarPorStatus(Integer status) throws BancoDeDadosException {
+        return listarTodos().stream()
+                .filter(usuarioDTO -> usuarioDTO.getStatus().getTipo().equals(status))
+                .collect(Collectors.toList());
     }
-
 
     public UsuarioDTO listarPorId(Integer id) throws Exception {
-        return objectMapper.convertValue(usuarioRepository.listarPorId(id), UsuarioDTO.class);
+        return objectMapper.convertValue(usuarioRepository.findById(id), UsuarioDTO.class);
     }
 
-
-    public UsuarioDTO listarPorEmail(String email) throws Exception {
-            return objectMapper.convertValue(usuarioRepository.listarPorEmail(email), UsuarioDTO.class );
+    public UsuarioDTO atualizar(UsuarioCreateDTO usuarioCreateDTO) throws Exception {
+        validarUsuario(usuarioCreateDTO);
+        Usuario usuarioAtualizado = objectMapper.convertValue(usuarioCreateDTO, Usuario.class);
+        usuarioRepository.save(usuarioAtualizado);
+        return objectMapper.convertValue(usuarioAtualizado, UsuarioDTO.class);
+        //emailService.sendEmail(usuario, 2);
     }
 
+    public UsuarioDTO listarPorEmail(String email) throws BancoDeDadosException {
+        return objectMapper.convertValue(usuarioRepository.listarPorEmail(email), UsuarioDTO.class );
+    }
 
-    public List<UsuarioDTO> rankearUsuarios() throws Exception {
+    public List<UsuarioDTO> rankearUsuarios() throws BancoDeDadosException {
         return usuarioRepository.rankearJogadores().stream().map(usuario ->
                 objectMapper.convertValue(usuario, UsuarioDTO.class)).collect(Collectors.toList());
     }
-
-
-    public UsuarioDTO atualizar(Integer id, UsuarioCreateDTO usuarioCreateDTO) throws Exception {
-
-        validarUsuario(usuarioCreateDTO);
-        Usuario usuarioAtualizado = objectMapper.convertValue(usuarioCreateDTO, Usuario.class);
-        usuarioAtualizado.setId(id);
-        usuarioRepository.atualizar(id, usuarioAtualizado);
-        UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioAtualizado, UsuarioDTO.class);
-        emailService.sendEmail(usuarioAtualizado, 2);
-        return usuarioDTO;
-
-    }
-
 
     public Boolean login(LoginCreateDTO loginCreateDTO) throws Exception {
         Usuario usuarioProcurado = usuarioRepository.listarPorEmail(loginCreateDTO.getEmail());
@@ -108,31 +95,27 @@ public class UsuarioService {
 
 
     public List<UsuarioDTO> listarEmpresas() throws Exception {
-        return usuarioRepository.listarTodos().stream()
+        return usuarioRepository.findAll().stream()
                 .filter(usuario -> usuario.getTipoUsuario().ordinal() == 1)
                 .filter(usuario -> usuario.getStatus().ordinal() == 1)
                 .map(usuario -> objectMapper.convertValue(usuario, UsuarioDTO.class))
                 .collect(Collectors.toList());
     }
 
-
     public UsuarioDTO delete(Integer id) throws Exception {
-        Usuario usuarioProcurado = usuarioRepository.listarPorId(id);
+        Usuario usuarioProcurado = usuarioRepository.findById(id).orElseThrow(() -> new IllegalStateException("O valor está ausente!"));
         usuarioProcurado.setStatus(Status.INATIVO);
-        usuarioRepository.atualizar(id, usuarioProcurado);
-        UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioProcurado, UsuarioDTO.class);
-        emailService.sendEmail(usuarioProcurado, 3);
-        return usuarioDTO;
+        usuarioRepository.save(usuarioProcurado);
+        return objectMapper.convertValue(usuarioProcurado, UsuarioDTO.class);
     }
 
 
-    public UsuarioCreateDTO validarUsuario(UsuarioCreateDTO usuarioDTO) throws RegraDeNegocioException {
-        if (usuarioDTO.getCNPJ() == null && usuarioDTO.getCPF() == null) {
+    public UsuarioCreateDTO validarUsuario(UsuarioCreateDTO usuarioCreateDTO) throws RegraDeNegocioException {
+        if (usuarioCreateDTO.getCNPJ() == null && usuarioCreateDTO.getCPF() == null) {
             throw new RegraDeNegocioException("Documentação vazia");
         }
-        return usuarioDTO;
+        return usuarioCreateDTO;
     }
-
 
     private String hashPassword(String senha){
         try {
@@ -149,6 +132,14 @@ public class UsuarioService {
             e.printStackTrace();
             return null;
         }
+    }
+    public List<UsuarioCompletoRelatorioDTO> listarUsuarioCompletoRelatorio(Integer id) {
+        return usuarioRepository.procurarUsuarioCompletoDTO(id)
+                .stream().map(usuario -> {
+                    usuario.setEnderecosUsuario(usuarioRepository.procurarEnderecos(usuario.getIdUsuario()));
+                    usuario.setContatosUsuario(usuarioRepository.procurarContatos(usuario.getIdUsuario()));
+                    return usuario;
+                }).toList();
     }
 }
 
