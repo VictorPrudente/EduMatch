@@ -1,6 +1,7 @@
 package VS13.Squad09.EduMatch.entities;
 
 
+import VS13.Squad09.EduMatch.entities.enums.Elo;
 import lombok.*;
 import javax.persistence.*;
 import java.util.Objects;
@@ -18,6 +19,9 @@ public class Ranking extends Distintivo {
 
     @Column(name = "PONTUACAO_NECESSARIA")
     private Integer pontuacaoNecessaria;
+
+    @Column(name = "ELO")
+    private Elo elo;
 
     @Override
     public boolean equals(Object object) {

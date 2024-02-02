@@ -1,7 +1,6 @@
 package VS13.Squad09.EduMatch.controllers;
 
 
-import VS13.Squad09.EduMatch.dtos.response.ClassificacaoDTO;
 import VS13.Squad09.EduMatch.dtos.response.DistintivoDTO;
 import VS13.Squad09.EduMatch.services.DistintivoService;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +13,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @Slf4j
 @Validated

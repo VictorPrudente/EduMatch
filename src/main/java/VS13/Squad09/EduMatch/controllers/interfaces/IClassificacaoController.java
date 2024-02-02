@@ -1,6 +1,6 @@
 package VS13.Squad09.EduMatch.controllers.interfaces;
 
-import VS13.Squad09.EduMatch.dtos.response.ClassificacaoDTO;
+import VS13.Squad09.EduMatch.dtos.response.RankingDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -15,5 +15,5 @@ public interface IClassificacaoController {
             @ApiResponse(responseCode = "200", description = "Operação bem sucedida."),
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção.")})
     @GetMapping
-    ResponseEntity<List<ClassificacaoDTO>> listarTodos() throws Exception;
+    ResponseEntity<List<RankingDTO>> listarTodos() throws Exception;
 }
