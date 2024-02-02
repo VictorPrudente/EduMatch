@@ -1,6 +1,7 @@
 package VS13.Squad09.EduMatch.controllers;
 
 import VS13.Squad09.EduMatch.controllers.interfaces.IUsuarioController;
+import VS13.Squad09.EduMatch.dtos.UsuarioCompletoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.request.LoginCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
@@ -11,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -52,9 +52,8 @@ public class UsuarioController implements IUsuarioController {
     }
 
     @PutMapping("/{idUsuario}")
-    public ResponseEntity<UsuarioDTO> atualizar(@PathVariable("idUsuario") @NotNull Integer id,
-                                            @RequestBody @Valid UsuarioCreateDTO usuarioAtualizar) throws Exception {
-        return ResponseEntity.ok().body(usuarioService.atualizar(id, usuarioAtualizar));
+    public ResponseEntity<UsuarioDTO> atualizar(@RequestBody @Valid UsuarioCreateDTO usuarioAtualizar) throws Exception {
+        return ResponseEntity.ok().body(usuarioService.atualizar(usuarioAtualizar));
     }
 
     @DeleteMapping("/{idUsuario}")
@@ -66,5 +65,10 @@ public class UsuarioController implements IUsuarioController {
     @PostMapping("/login")
     public ResponseEntity<Boolean> login (@RequestBody LoginCreateDTO loginCreateDTO) throws Exception{
         return ResponseEntity.ok(usuarioService.login(loginCreateDTO));
+    }
+
+    @GetMapping("/usuario-completo/{idPesoa}")
+    public ResponseEntity<List<UsuarioCompletoRelatorioDTO>> listarUsuarioCompletoRelatorio(@PathVariable("idUsuario") @NotNull Integer idUsuario){
+        return ResponseEntity.ok(usuarioService.listarUsuarioCompletoRelatorio(idUsuario));
     }
 }

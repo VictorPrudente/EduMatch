@@ -85,7 +85,6 @@ public class EmailService {
 
     public String geContentFromTemplate(Usuario usuario, Certificado certificado,  int numeroTemplate) throws Exception {
         Map<String, Object> dados = new HashMap<>();
-
         if (usuario != null){
             dados.put("nome", usuario.getNome());
             dados.put("id", usuario.getId());

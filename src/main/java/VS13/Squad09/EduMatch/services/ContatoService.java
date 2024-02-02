@@ -20,55 +20,51 @@ import java.util.stream.Collectors;
 public class ContatoService {
 
     private final ContatoRepository contatoRepository;
-
     private final UsuarioService usuarioService;
     private final ContatoMapper contatoMapper;
 
     public ContatoDTO salvar(Integer id, ContatoCreateDTO contatoCreateDTO) throws Exception {
+        usuarioService.listarPorId(id);
 
-        Contato contato = contatoRepository.listarPorDono(id);
-        if(contato == null) {
-            usuarioService.listarPorId(id);
-
-            Contato contatoEntity = contatoMapper.toEntity(contatoCreateDTO);
-
-            ContatoDTO contatoDTO = contatoMapper.toDto(contatoRepository.adicionar(id, contatoEntity));
-
-            return contatoDTO;
+        if(returnContatoByIdUsuario(id) != null) {
+            throw new RegraDeNegocioException("Usuário já possui um contato cadastrado.");
         }
-        throw new RegraDeNegocioException("Usuário já possui um contato cadastrado.");
-    }
-
-    public ContatoDTO atualizar(Integer id, ContatoCreateDTO contatoCreateDTO) throws Exception {
-        listarPorId(id);
 
         Contato contatoEntity = contatoMapper.toEntity(contatoCreateDTO);
 
-        ContatoDTO contatoDTO = contatoMapper.toDto(contatoRepository.editar(id, contatoEntity));
-        contatoDTO.setId(id);
-        return contatoDTO;
+        return contatoMapper.toDto(contatoRepository.save(contatoEntity));
+    }
+
+    public ContatoDTO atualizar(Integer id, ContatoCreateDTO contatoCreateDTO) throws Exception {
+        findByIdContato(id);
+
+        Contato contatoEntity = contatoMapper.toEntity(contatoCreateDTO);
+
+        return contatoMapper.toDto(contatoRepository.save(contatoEntity));
     }
 
     public void deletar(Integer id) throws Exception {
-        listarPorId(id);
-        contatoRepository.remover(id);
+        contatoRepository.delete(obterContatoPorId(id));
     }
 
-    public ContatoDTO listarPorId(Integer id) throws Exception {
-        Contato contato = contatoRepository.listarPorId(id);
-        if (contato == null){
-            throw new NaoEncontradoException("Nenhum contato encontrado.");
-        }
-        return contatoMapper.toDto(contato);
+    public ContatoDTO findByIdContato(Integer id) throws Exception{
+        return contatoMapper.toDto(obterContatoPorId(id));
     }
 
-
-    public ContatoDTO listarPorUsuario(Integer idUsuario) throws Exception {
-        Contato contato = contatoRepository.listarPorDono(idUsuario);
-        if (contato != null){
-            return contatoMapper.toDto(contatoRepository.listarPorDono(idUsuario));
+    public ContatoDTO findContatoByUsuarioId(Integer idUsuario) throws Exception{
+        if (returnContatoByIdUsuario(idUsuario) == null){
+            throw new NaoEncontradoException("O contato é nulo!");
         }
-        throw new NaoEncontradoException("Nenhum contato cadastrado neste usuário.");
+        return contatoMapper.toDto(returnContatoByIdUsuario(idUsuario));
+    }
+
+    private Contato obterContatoPorId(Integer id) throws Exception {
+        return contatoRepository.findById(id)
+                .orElseThrow(() -> new NaoEncontradoException("Id informado não pertence a um contato válido!"));
+    }
+
+    private Contato returnContatoByIdUsuario(Integer idUsuario) {
+        return contatoRepository.findContatoByUsuarioId(idUsuario);
     }
 
 }
