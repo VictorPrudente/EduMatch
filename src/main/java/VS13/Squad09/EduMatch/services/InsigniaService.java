@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
-@Service
 @Slf4j
+@Service
+@RequiredArgsConstructor
 public class InsigniaService {
 
     private final InsigniaRepository insigniaRepository;
@@ -29,48 +29,34 @@ public class InsigniaService {
         UsuarioDTO usuarioDTO = usuarioService.listarPorId(idUsuario);
         Insignia insigniaEntity = objectMapper.convertValue(insignia, Insignia.class);
         insigniaEntity.setDataEmitida(LocalDateTime.now());
-        insigniaEntity.setIdUsuario(usuarioDTO.getId());
-        insigniaEntity = insigniaRepository.adicionar(insigniaEntity);
+        Usuario usuario = objectMapper.convertValue(usuarioDTO, Usuario.class);
+        insigniaEntity.setUsuario(usuario);
 
+        insigniaRepository.save(insigniaEntity);
         InsigniaDTO insigniaDTO = objectMapper.convertValue(insigniaEntity, InsigniaDTO.class);
 
         return insigniaDTO;
     }
 
-    public String deletar(int id) throws Exception {
-        log.debug("Deletando insignia...");
-
-        return insigniaRepository.remover(id);
+    public void deletar(int id) throws Exception {
+        //não será deletada uma insignia do usuário.
     }
-
-    public List<InsigniaDTO> listarTodos() throws Exception {
-        log.debug("Listando Insignias...");
-        return insigniaRepository.listar().stream().map(insignia ->
-                        objectMapper.convertValue(insignia, InsigniaDTO.class))
-                .collect(Collectors.toList());
-    }
-
-    public InsigniaDTO listarUltimo(Integer usuarioId) throws Exception {
-        log.debug("Listando último Certficado...");
-        Insignia insignia = insigniaRepository.listarUltimo(usuarioId);
-
-        if (insignia == null) {
-            throw new Exception("Nenhum insignia encontrado para o usuário com ID: " + usuarioId);
-        }
-
-        InsigniaDTO insigniaDTO = objectMapper.convertValue(insignia, InsigniaDTO.class);
-        return insigniaDTO;
-    }
-
 
     public InsigniaDTO listarPorUsuario(Integer usuarioId) throws Exception {
-        List<Insignia> insignias = insigniaRepository.listarPorUsuario(usuarioId);
+        Usuario usuario = objectMapper.convertValue(usuarioService.listarPorId(usuarioId), Usuario.class);
+
+        List<Insignia> insignias = insigniaRepository.findAllByUsuario(usuario);
 
         if (insignias.isEmpty()) {
             throw new Exception("Nenhum insignia encontrado para o usuário com ID: " + usuarioId);
         }
 
-        InsigniaDTO insigniaDTO = objectMapper.convertValue(insignias, InsigniaDTO.class);
-        return insigniaDTO;
+        return objectMapper.convertValue(insignias, InsigniaDTO.class);
+    }
+
+    public List<InsigniaDTO> listarTodas() throws Exception {
+        return insigniaRepository.findAll().stream()
+                .map(insignia -> objectMapper.convertValue(insignia, InsigniaDTO.class))
+                .collect(Collectors.toList());
     }
 }

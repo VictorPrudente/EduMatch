@@ -20,10 +20,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class InsigniaCreateDTO {
 
-    @Positive
-    @Schema(description = "id da insignia", example = "1")
-    private Integer id;
-
     @NotBlank
     @Schema(description = "imagem da insignia", example = "https://img.freepik.com/fotos-premium/arvore-psicodelica-ao-por-do-sol-hd-wallpaper_899449-86011.jpg")
     private String urlImagem;
@@ -51,9 +47,5 @@ public class InsigniaCreateDTO {
 
     @NotNull
     @Schema(description = "status da insignia", example = "1 = ATIVO")
-    private Status status = Status.ATIVO;
-
-    @NotNull
-    @Schema(description = "id do usuário relacionado à insignia", example = "10")
-    private Integer idUsuario;
+    private Status status;
 }
