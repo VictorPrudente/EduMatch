@@ -1,21 +1,28 @@
-package VS13.Squad09.EduMatch.entities;
+package VS13.Squad09.EduMatch.dtos.response;
+
 
 import VS13.Squad09.EduMatch.entities.enums.Status;
+import VS13.Squad09.EduMatch.entities.enums.TipoDistintivo;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
+import lombok.Setter;
 
-@Data
-@SuperBuilder
+import javax.persistence.Column;
+
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Classificacao {
+public class DistintivoDTO {
 
     private Integer id;
+
     private String urlImagem;
+
     private String titulo;
+
     private String descricao;
-    private Integer pontuacaoNecessaria;
-    private Status status;
+
+    private TipoDistintivo tipo;
 }

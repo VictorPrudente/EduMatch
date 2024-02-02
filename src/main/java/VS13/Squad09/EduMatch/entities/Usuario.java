@@ -4,13 +4,14 @@ import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
 import VS13.Squad09.EduMatch.entities.enums.Role;
 import VS13.Squad09.EduMatch.entities.enums.TipoEmpresa;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -66,8 +67,8 @@ public class Usuario {
     private Status status;
   
     @JsonIgnore
-    @OneToOne(mappedBy = "usuario")
-    private Prova prova;
+    @OneToMany(mappedBy = "usuario")
+    private Set<Prova> prova;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -82,16 +83,16 @@ public class Usuario {
     private Endereco endereco;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "USUARIO", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Insignia> insignias;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "USUARIO", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Certificado> certificados;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Ranking> rankings;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_PESSOA", referencedColumnName = "ID_PESSOA")
+    private Ranking ranking;
   
     @Override
     public boolean equals(Object object) {

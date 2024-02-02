@@ -1,6 +1,6 @@
 package VS13.Squad09.EduMatch.repositories;
 
-import VS13.Squad09.EduMatch.entities.Classificacao;
+import VS13.Squad09.EduMatch.entities.Distintivo;
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +21,8 @@ public class ClassificacaoRepository {
 
 
 
-    public List<Classificacao> listar() throws BancoDeDadosException {
-        List<Classificacao> classificacaos = new ArrayList<>();
+    public List<Distintivo> listar() throws BancoDeDadosException {
+        List<Distintivo> classificacaos = new ArrayList<>();
         Connection con = null;
         try {
             con = conexaoBancoDeDados.getConnection();
@@ -54,8 +54,8 @@ public class ClassificacaoRepository {
     }
 
 
-    private Classificacao classificacaoSQL(ResultSet res) throws SQLException {
-        Classificacao classificacao = new Classificacao();
+    private Distintivo classificacaoSQL(ResultSet res) throws SQLException {
+        Distintivo classificacao = new Distintivo();
         classificacao.setId(res.getInt("id_classificacao"));
         classificacao.setUrlImagem(res.getString("URL_IMAGEM"));
         classificacao.setTitulo(res.getString("TITULO"));

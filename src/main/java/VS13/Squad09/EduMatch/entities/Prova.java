@@ -40,7 +40,7 @@ public class Prova {
     @CollectionTable(name = "LISTA_RESPOSTAS", joinColumns = @JoinColumn(name = "ID_PROVA", nullable = false))
     private List<Resposta> respostas;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "ID_USUARIO")
     private Usuario usuario;
 
