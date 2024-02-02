@@ -34,7 +34,7 @@ public class EmailService {
 
             mimeMessageHelper.setFrom(from);
             mimeMessageHelper.setTo(usuario.getEmail());
-            mimeMessageHelper.setSubject("Assunto Teste Template");
+            mimeMessageHelper.setSubject("Email ao usuário");
             mimeMessageHelper.setText(geContentFromTemplate(usuario, numeroTemplate ), true);
 
             emailSender.send(mimeMessageHelper.getMimeMessage());
@@ -54,7 +54,7 @@ public class EmailService {
             case 2 -> fmConfiguration.getTemplate("email-atualizar-usuario-template.ftl");
             case 3 -> fmConfiguration.getTemplate("email-deletar-usuario-template.ftl");
             case 4 -> fmConfiguration.getTemplate("email-emitir-certificado-template.ftl");
-            default -> throw new Exception();
+            default -> throw new Exception("Número de template inválido:" + numeroTemplate);
         };
 
         String html = FreeMarkerTemplateUtils.processTemplateIntoString(tipoTemplate, dados);

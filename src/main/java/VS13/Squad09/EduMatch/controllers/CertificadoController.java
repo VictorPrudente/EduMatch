@@ -28,33 +28,33 @@ public class CertificadoController implements ICertificadoController {
     @GetMapping
     public ResponseEntity<List<CertificadoDTO>> listarTodos() throws Exception {
         List<CertificadoDTO> certificadoDTOS = certificadoService.listarTodos();
-        log.debug("Todos os certificados listados.");
+        log.info("Todos os certificados listados.");
         return new ResponseEntity<>(certificadoDTOS, HttpStatus.OK);
     }
 
     @GetMapping("/usuario/{usuarioId}/ultimo")
     public ResponseEntity<CertificadoDTO> listarUltimo(@NotNull @PathVariable("usuarioId") Integer usuarioId) throws Exception {
         CertificadoDTO certificadoDTO = certificadoService.listarUltimo(usuarioId);
-        log.debug("Ultimo certificado do usuário.");
+        log.info("Ultimo certificado do usuário.");
         return new ResponseEntity<>(certificadoDTO, HttpStatus.OK);
     }
 
     @GetMapping("/usuario/{usuarioId}")
     public ResponseEntity<CertificadoDTO> listarPorUsuario(@NotNull @PathVariable("usuarioId") Integer usuarioId) throws Exception {
         CertificadoDTO certificadoDTO = certificadoService.listarPorUsuario(usuarioId);
-        log.debug("Certificados do usuário listados.");
+        log.info("Certificados do usuário listados.");
         return new ResponseEntity<>(certificadoDTO, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<CertificadoDTO> criar(@Valid @RequestBody CertificadoCreateDTO certificado) throws Exception {
-        log.debug("Certificado Criado.");
+        log.info("Certificado Criado.");
         return new ResponseEntity<>(certificadoService.criar(certificado), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deletar(@NotNull @PathVariable("id") Integer id) throws Exception {
-        log.debug("Certificado Deletado.");
+        log.info("Certificado Deletado.");
         certificadoService.deletar(id);
         return new ResponseEntity<>("Certificado deletado com sucesso", HttpStatus.OK);
     }

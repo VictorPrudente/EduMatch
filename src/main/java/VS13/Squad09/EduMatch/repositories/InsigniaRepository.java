@@ -7,12 +7,15 @@ import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Slf4j
 @Repository
 @RequiredArgsConstructor
 public class InsigniaRepository {
@@ -22,7 +25,7 @@ public class InsigniaRepository {
     public Integer getProximoId(Connection connection) throws BancoDeDadosException {
 
         try {
-            String sql = "SELECT seq_insignia.nextval AS mysequence FROM DUAL";
+            String sql = "SELECT SEQ_INSIGNIA.nextval AS mysequence FROM DUAL";
 
             Statement st = connection.createStatement();
 
@@ -43,13 +46,14 @@ public class InsigniaRepository {
             con = conexaoBancoDeDados.getConnection();
 
             Integer proximoId = this.getProximoId(con);
-
+            log.info(String.valueOf(proximoId));
             insignia.setId(proximoId);
+            log.info(insignia.toString());
 
             String sql = """
                     INSERT INTO INSIGNIA
-                    (id_insignia, url_imagem, titulo, descricao, pontuacao, trilha, dificuldade, status, data_emitida)
-                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    (id_insignia, url_imagem, titulo, descricao, pontuacao, trilha, dificuldade, status, data_emitida, id_usuario)
+                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     """;
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -57,12 +61,11 @@ public class InsigniaRepository {
             stmt.setString(2, insignia.getUrlImagem());
             stmt.setString(3, insignia.getTitulo());
             stmt.setString(4, insignia.getTitulo());
-            stmt.setInt(5, insignia.getPontuacao());
-            stmt.setInt(6, insignia.getTrilha().ordinal());
-            stmt.setInt(7, insignia.getDificuldade().ordinal());
             stmt.setInt(8, insignia.getStatus().ordinal());
             Timestamp ts = Timestamp.valueOf(insignia.getDataEmitida());
             stmt.setTimestamp(9, ts);
+            stmt.setInt(10, insignia.getIdUsuario());
+
 
             stmt.executeUpdate();
             return insignia;
@@ -206,8 +209,6 @@ public class InsigniaRepository {
             if (res.next()) {
                 Insignia insignia = new Insignia();
                 insignia.setId(res.getInt("id_insignia"));
-                insignia.setTrilha(Trilha.valueOf(res.getInt("trilha")));
-                insignia.setDificuldade(Dificuldade.valueOf(res.getInt("dificuldade")));
                 Timestamp ts = res.getTimestamp("data_emitida");
 
                 Usuario usuario = new Usuario();
@@ -239,11 +240,9 @@ public class InsigniaRepository {
         insignia.setUrlImagem(res.getString("URL_IMAGEM"));
         insignia.setTitulo(res.getString("TITULO"));
         insignia.setDescricao(res.getString("DESCRICAO"));
-        insignia.setPontuacao(res.getInt("PONTUACAO"));
-        insignia.setTrilha(Trilha.valueOf(res.getInt("TRILHA")));
-        insignia.setDificuldade(Dificuldade.valueOf(res.getInt("DIFICULDADE")));
         insignia.setStatus(Status.valueOf(res.getInt("STATUS")));
         Timestamp ts = res.getTimestamp("DATA_EMITIDA");
+        insignia.setIdUsuario(res.getInt("ID_USUARIO"));
         insignia.setDataEmitida(ts.toLocalDateTime());
         return insignia;
     }

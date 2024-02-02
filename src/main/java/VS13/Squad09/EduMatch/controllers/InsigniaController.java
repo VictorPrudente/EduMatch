@@ -15,11 +15,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Slf4j
+@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/insignia")
-@Validated
-@Slf4j
 public class InsigniaController {
 
 
@@ -50,10 +50,10 @@ public class InsigniaController {
     }
 
 
-    @PostMapping
-    public ResponseEntity<InsigniaDTO> criar(@Valid @RequestBody InsigniaCreateDTO insignia) throws Exception {
+    @PostMapping("/{idUsuario}")
+    public ResponseEntity<InsigniaDTO> criar(@PathVariable Integer idUsuario, @Valid @RequestBody InsigniaCreateDTO insignia) throws Exception {
         log.debug("Insignia Criado.");
-        return new ResponseEntity<>(insigniaService.criar(insignia), HttpStatus.CREATED);
+        return new ResponseEntity<>(insigniaService.criar(idUsuario, insignia), HttpStatus.CREATED);
     }
 
 

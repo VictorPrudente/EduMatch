@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 
@@ -23,4 +24,5 @@ public class InsigniaDTO {
     private Dificuldade dificuldade;
     private Status status;
     private LocalDateTime dataEmitida;
+    private Integer idUsuario;
 }

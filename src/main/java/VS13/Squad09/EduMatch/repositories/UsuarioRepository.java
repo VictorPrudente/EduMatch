@@ -125,7 +125,41 @@ public class UsuarioRepository {
         return usuarios;
     }
 
-    public Usuario listarPorId(int id) throws BancoDeDadosException {
+
+    public List<Usuario> listarPorStatus(Integer status) throws BancoDeDadosException {
+        List<Usuario> usuarios = new ArrayList<>();
+        Connection con = null;
+
+        try {
+            con = conexaoBancoDeDados.getConnection();
+            log.info("ok banco");
+            String sql = "SELECT * FROM USUARIO WHERE status = ? ";
+
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, status);
+
+            ResultSet res = st.executeQuery();
+
+            while (res.next()){
+                log.info("ok querry");
+                usuarios.add(querryUsuario(res));
+            }
+            return usuarios;
+        } catch (SQLException e){
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null){
+                    con.close();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public Usuario listarPorId(Integer id) throws BancoDeDadosException {
         Connection con = null;
 
         try {
@@ -141,59 +175,6 @@ public class UsuarioRepository {
                 return querryUsuario(res);
             }
             return null;
-        } catch (SQLException e){
-            throw new BancoDeDadosException(e.getCause());
-        } finally {
-            try {
-                if (con != null){
-                    con.close();
-                }
-            } catch (SQLException e){
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public boolean atualizar(Integer id, Usuario usuario) throws BancoDeDadosException {
-        Connection con = null;
-        try {
-            con = conexaoBancoDeDados.getConnection();
-
-            String sql = """
-                UPDATE USUARIO
-                    SET 
-                        email = ?,
-                        senha = ?,
-                        nome = ?, 
-                        tipo_usuario = ?,
-                        sobrenome = ?,
-                        data_nascimento = ?, 
-                        pontuacao = ?,
-                        moedas = ?,
-                        tipo_empresa = ?,
-                        role = ?,
-                        status = ?
-                    WHERE
-                        id_usuario = ?""";
-            PreparedStatement ps = con.prepareStatement(sql);
-
-            ps.setString(1, usuario.getEmail());
-            ps.setString(2, usuario.getSenha());
-            ps.setString(3,usuario.getNome());
-            ps.setInt(4, usuario.getTipoUsuario().ordinal());
-            ps.setString(5,usuario.getSobrenome());
-            ps.setDate(6, Date.valueOf(usuario.getDataNascimento()));
-            ps.setInt(7, usuario.getPontuacao());
-            ps.setInt(8, usuario.getMoedas());
-            ps.setInt(9, usuario.getTipoEmpresa().ordinal());
-            ps.setInt(10, usuario.getRole().ordinal());
-            ps.setInt(11, usuario.getStatus().ordinal());
-            ps.setInt(12, id);
-
-            int res = ps.executeUpdate();
-
-
-            return res > 0;
         } catch (SQLException e){
             throw new BancoDeDadosException(e.getCause());
         } finally {
@@ -268,6 +249,60 @@ public class UsuarioRepository {
         return usuarios;
     }
 
+
+    public boolean atualizar(Integer id, Usuario usuario) throws BancoDeDadosException {
+        Connection con = null;
+        try {
+            con = conexaoBancoDeDados.getConnection();
+
+            String sql = """
+                UPDATE USUARIO
+                    SET 
+                        email = ?,
+                        senha = ?,
+                        nome = ?, 
+                        tipo_usuario = ?,
+                        sobrenome = ?,
+                        data_nascimento = ?, 
+                        pontuacao = ?,
+                        moedas = ?,
+                        tipo_empresa = ?,
+                        role = ?,
+                        status = ?
+                    WHERE
+                        id_usuario = ?""";
+            PreparedStatement ps = con.prepareStatement(sql);
+
+
+            ps.setString(1, usuario.getEmail());
+            ps.setString(2, usuario.getSenha());
+            ps.setString(3,usuario.getNome());
+            ps.setInt(4, usuario.getTipoUsuario().ordinal());
+            ps.setString(5,usuario.getSobrenome());
+            ps.setDate(6, Date.valueOf(usuario.getDataNascimento()));
+            ps.setInt(7, usuario.getPontuacao());
+            ps.setInt(8, usuario.getMoedas());
+            ps.setInt(9, usuario.getTipoEmpresa().ordinal());
+            ps.setInt(10, usuario.getRole().ordinal());
+            ps.setInt(11, usuario.getStatus().ordinal());
+            ps.setInt(12, id);
+
+            int res = ps.executeUpdate();
+
+
+            return res > 0;
+        } catch (SQLException e){
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null){
+                    con.close();
+                }
+            } catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+    }
 
 
     private Usuario querryUsuario(ResultSet res) throws SQLException {
