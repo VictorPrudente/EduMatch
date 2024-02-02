@@ -14,7 +14,6 @@ import javax.validation.Valid;
 
 public interface IEnderecoController {
 
-
     @Operation(summary = "Criar um Endereço", description = "Cadastra um endereço no banco de dados.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem sucedida. Criou um endereço"),
@@ -32,8 +31,8 @@ public interface IEnderecoController {
             @ApiResponse(responseCode = "404", description = "Não foi encontrado um endereço com este ID. Endereço não atualizado."),
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção. Endereço não atualizado.")})
     @PutMapping("/{idEndereco}")
-    ResponseEntity<EnderecoDTO> atualizar(@PathVariable Integer idEndereco,
-                                                 @Valid @RequestBody EnderecoCreateDTO enderecoCreateDTO) throws BancoDeDadosException, NaoEncontradoException;
+    ResponseEntity<EnderecoDTO> atualizar(@PathVariable("idEndereco") Integer idEndereco,
+                                          @Valid @RequestBody EnderecoCreateDTO enderecoCreateDTO) throws Exception;
 
 
     @Operation(summary = "Deletar um Endereço", description = "Remove um endereço no banco de dados passando seu ID como parâmetro.")
@@ -43,7 +42,7 @@ public interface IEnderecoController {
             @ApiResponse(responseCode = "404", description = "Não foi encontrado um endereço com este ID. Endereço não deletado."),
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção. Endereço não deletado.")})
     @DeleteMapping("/{id}")
-    ResponseEntity<String> deletar(@PathVariable Integer id) throws BancoDeDadosException, NaoEncontradoException;
+    ResponseEntity<Void> deletar(@PathVariable Integer id) throws BancoDeDadosException, NaoEncontradoException;
 
 
     @Operation(summary = "Listar todos os endereços pelo ID do seu dono", description = "Retorna uma lista de endereços do banco correspondentes ao ID daquele dono.")
@@ -53,5 +52,5 @@ public interface IEnderecoController {
             @ApiResponse(responseCode = "404", description = "Nenhum endereço encontrado para o dono deste ID."),
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")})
     @GetMapping("/usuario/{id}")
-    ResponseEntity<EnderecoDTO> listarPorDono(@PathVariable("id") Integer id) throws BancoDeDadosException, NaoEncontradoException;
+    ResponseEntity<EnderecoDTO> listarPorDono(@PathVariable("id") Integer id) throws Exception;
 }
