@@ -1,20 +1,21 @@
 package VS13.Squad09.EduMatch.dtos.response;
 
+import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Status;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.Set;
 
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClassificacaoDTO {
+public class RankingDTO {
 
     private Integer id;
     private String urlImagem;
     private String titulo;
     private String descricao;
-    private Integer pontuacaoNecessaria;
-    private Status status;
+    private Set<Usuario> usuarios;
 }
