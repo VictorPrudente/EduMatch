@@ -47,6 +47,12 @@ public class QuestaoService {
         return getById(id);
     }
 
+    public List<QuestaoDTO> find5ByTrilhaAndDificuldade(Integer trilha, Integer dificuldade){
+        return questaoRepository.get5ByTrilhaAndDificuldade(trilha, dificuldade).stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
 
     public QuestaoDTO findByTrailAndDificulty(Integer trilha, Integer dificuldade) throws BancoDeDadosException, NaoEncontradoException {
         log.info("Buscando 1 questão");
@@ -124,7 +130,7 @@ public class QuestaoService {
     }
 
     private Integer pontuacao(Questao questao){
-        return questao.getDificuldade().getNivel() * multiplicador;
+        return (questao.getDificuldade().getNivel() * multiplicador) + multiplicador;
     }
 
 }

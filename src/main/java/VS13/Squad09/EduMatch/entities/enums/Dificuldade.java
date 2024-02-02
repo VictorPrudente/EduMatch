@@ -11,9 +11,9 @@ import java.util.Arrays;
 @AllArgsConstructor
 public enum Dificuldade {
 
-    FACIL(1),
-    MEDIO(2),
-    DIFICIL(3);
+    FACIL(0),
+    MEDIO(1),
+    DIFICIL(2);
 
     private Integer nivel;
 

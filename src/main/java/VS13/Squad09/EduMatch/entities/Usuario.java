@@ -13,16 +13,18 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="USUARIO")
+@Entity(name = "USUARIO")
 public class Usuario {
+
     @Id
+    @Column(name = "ID_USUARIO")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USUARIO")
     @SequenceGenerator(name = "SEQ_USUARIO", sequenceName = "SEQ_USUARIO", allocationSize = 1)
-    @Column(name = "id_pessoa")
-    private Integer idUsuario;
+    private Integer id;
 
     @Column(name = "email")
     private String email;
@@ -62,9 +64,9 @@ public class Usuario {
 
     @Column(name = "status")
     private Status status;
-
+  
+    @JsonIgnore
     @OneToOne(mappedBy = "usuario")
-    @Column(name = "prova")
     private Prova prova;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -90,4 +92,17 @@ public class Usuario {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Ranking> rankings;
+  
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Usuario usuario = (Usuario) object;
+        return Objects.equals(id, usuario.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

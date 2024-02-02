@@ -39,9 +39,11 @@ public class UsuarioService {
         usuarioEntity.setStatus(Status.ATIVO);
         usuarioEntity.setPontuacao(0);
         usuarioEntity.setMoedas(0);
+
         if(usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_FISICA){
             usuarioEntity.setTipoEmpresa(TipoEmpresa.USUARIO_PADRAO);
         }
+      
         String senha = hashPassword(usuarioEntity.getSenha());
         usuarioEntity.setSenha(senha);
         usuarioRepository.save(usuarioEntity);
