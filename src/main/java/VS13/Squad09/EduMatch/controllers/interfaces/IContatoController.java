@@ -12,15 +12,15 @@ import javax.validation.Valid;
 import java.util.List;
 
 public interface IContatoController {
-    @Operation(summary = "Listar todos os contatos pelo ID do seu usuário", description = "Retorna uma lista de contatos do banco correspondentes ao ID daquele usuário.")
+    @Operation(summary = "Listar o contato pelo ID do seu usuário", description = "Retorna uma lista de contatos do banco correspondentes ao ID daquele usuário.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem sucedida."),
             @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso."),
             @ApiResponse(responseCode = "404", description = "Nenhum contato encontrado para o usuário deste ID."),
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")}
     )
-    ResponseEntity<List<ContatoDTO>> listarPorUsuario(@PathVariable("idUsuario") Integer idUsuario) throws Exception;
-
+    @GetMapping("/contato/{idUsuario}")
+    ResponseEntity<ContatoDTO> listarPorUsuario(@PathVariable("idUsuario") Integer idUsuario) throws Exception;
 
     @Operation(summary = "Criar um Contato", description = "Cadastra um contato no banco de dados.")
     @ApiResponses(value = {

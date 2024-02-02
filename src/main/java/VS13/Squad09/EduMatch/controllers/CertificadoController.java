@@ -40,16 +40,16 @@ public class CertificadoController implements ICertificadoController {
     }
 
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<CertificadoDTO> listarPorUsuario(@NotNull @PathVariable("usuarioId") Integer usuarioId) throws Exception {
-        CertificadoDTO certificadoDTO = certificadoService.listarPorUsuario(usuarioId);
+    public ResponseEntity<List<CertificadoDTO>> listarPorUsuario(@NotNull @PathVariable("usuarioId") Integer usuarioId) throws Exception {
+        List<CertificadoDTO> certificadoDTO = certificadoService.listarPorUsuario(usuarioId);
         log.info("Certificados do usuário listados.");
         return new ResponseEntity<>(certificadoDTO, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<CertificadoDTO> criar(@Valid @RequestBody CertificadoCreateDTO certificado) throws Exception {
+    @PostMapping("/{idUsuario}")
+    public ResponseEntity<CertificadoDTO> criar(@PathVariable Integer idUsuario, @Valid @RequestBody CertificadoCreateDTO certificado) throws Exception {
         log.info("Certificado Criado.");
-        return new ResponseEntity<>(certificadoService.criar(certificado), HttpStatus.CREATED);
+        return new ResponseEntity<>(certificadoService.criar(idUsuario, certificado), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

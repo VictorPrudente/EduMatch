@@ -63,9 +63,9 @@ public class QuestaoController implements IQuestaoController {
         return ResponseEntity.ok(service.findAllByTrail(trilha));
     }
 
-    @GetMapping({"/ativas"})
-    public ResponseEntity<List<QuestaoDTO>> findAllActive() throws BancoDeDadosException {
+    @GetMapping({"/all/{status}"})
+    public ResponseEntity<List<QuestaoDTO>> findAllByStatus(@PathVariable Integer status) throws BancoDeDadosException {
         log.info("Buscando questoes na controller.");
-        return ResponseEntity.ok(service.findAllActive());
+        return ResponseEntity.ok(service.findAllByStatus(status));
     }
 }

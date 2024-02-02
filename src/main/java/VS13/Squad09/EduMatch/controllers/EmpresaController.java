@@ -1,6 +1,7 @@
 package VS13.Squad09.EduMatch.controllers;
 
 import VS13.Squad09.EduMatch.controllers.interfaces.IEmpresaController;
+import VS13.Squad09.EduMatch.dtos.response.PessoaJuridicaDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class EmpresaController implements IEmpresaController {
     private final UsuarioService usuarioService;
 
     @GetMapping()
-    public ResponseEntity<List<UsuarioDTO>> listarEmpresas () throws Exception{
+    public ResponseEntity<List<PessoaJuridicaDTO>> listarEmpresas () throws Exception{
         return ResponseEntity.ok(usuarioService.listarEmpresas());
     }
 }

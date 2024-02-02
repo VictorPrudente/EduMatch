@@ -48,16 +48,16 @@ public interface ICertificadoController {
             }
     )
     @GetMapping("/usuario/{usuarioId}")
-    ResponseEntity<CertificadoDTO> listarPorUsuario(@NotNull @PathVariable("usuarioId") Integer usuarioId) throws Exception;
+    ResponseEntity<List<CertificadoDTO>> listarPorUsuario(@NotNull @PathVariable("usuarioId") Integer usuarioId) throws Exception;
 
 
-    @Operation(summary = "Criar um Certificado", description = "Cadastra um certificado no banco de dados")
+    @Operation(summary = "Criar um Certificado", description = "Cadastra um certificado no banco de dados vinculado a um usuário.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Criou um certificado"),
             @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")})
     @PostMapping
-    ResponseEntity<CertificadoDTO> criar(@Valid @RequestBody CertificadoCreateDTO certificado) throws Exception;
+    ResponseEntity<CertificadoDTO> criar(@PathVariable Integer idUsuario, @Valid @RequestBody CertificadoCreateDTO certificado) throws Exception;
 
 
     @Operation(summary = "Deletar um Certificado", description = "Deleta um certificado no banco de dados")
