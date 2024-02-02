@@ -17,10 +17,10 @@ public class ProvaStartCreateDTO {
     @NotNull(message = "Uma prova precisa de um jogador!")
     private Integer idUsuario;
 
-    @NotNull
-    Trilha trilha;
+    @NotNull(message = "Uma prova precisa ter uma trilha definida.")
+    private Trilha trilha;
 
-    @NotNull
-    Dificuldade dificuldade;
+    @NotNull(message = "Uma prova precisa ter uma dificuldade definida.")
+    private Dificuldade dificuldade;
 
 }

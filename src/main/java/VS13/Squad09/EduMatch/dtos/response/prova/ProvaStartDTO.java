@@ -25,4 +25,6 @@ public class ProvaStartDTO {
     private LocalDateTime dataInicio;
 
     private Integer tempoLimite;
+
+    private Integer totalQuestoes;
 }

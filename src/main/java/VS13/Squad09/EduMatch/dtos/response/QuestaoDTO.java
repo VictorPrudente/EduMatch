@@ -23,9 +23,4 @@ public class QuestaoDTO {
     private Trilha trilha;
     private Dificuldade dificuldade;
     private Status status;
-
-    public void shuffleOpcoes(){
-        Collections.shuffle(opcoes);
-    }
-
 }

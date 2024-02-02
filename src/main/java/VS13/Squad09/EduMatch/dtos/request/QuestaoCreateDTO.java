@@ -22,19 +22,19 @@ import java.util.List;
 public class QuestaoCreateDTO {
 
 
-    @NotNull(message = "A pergunta não pode estar vazia.")
     @NotBlank(message = "A pergunta não pode estar em branco.")
     private String pergunta;
 
+    @NotBlank(message = "As opções da questão não devem estar em branco.")
+    @Size(min = 5, max = 5, message = "Uma questão deve conter uma lista de 5 opções.")
     private List<Opcao> opcoes = new ArrayList<>();
 
-    @NotNull(message = "A opção certa não pode ser nula.")
     @NotBlank(message = "A opção certa não pode estar em branco.")
     private String opcaoCerta;
 
-    @NotNull(message = "A dificuldade não pode estar nulo.")
+    @NotNull(message = "Uma prova precisa de um nível de dificuldade. Ela não pode estar nula.")
     private Dificuldade dificuldade;
 
-    @NotNull(message = "A trilha não pode estar nula.")
+    @NotNull(message = "Uma prova precisa de uma trilha. Ela não pode estar nula.")
     private Trilha trilha;
 }

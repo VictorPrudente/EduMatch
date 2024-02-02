@@ -1,6 +1,7 @@
 package VS13.Squad09.EduMatch.controllers;
 
 
+import VS13.Squad09.EduMatch.controllers.interfaces.IProvaController;
 import VS13.Squad09.EduMatch.dtos.request.prova.ProvaFinishCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.prova.ProvaStartCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.prova.ProvaFinishDTO;
@@ -15,13 +16,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/prova")
-public class ProvaController {
+public class ProvaController implements IProvaController {
 
     private final ProvaService service;
 
-    @PostMapping("/{trilha}/{dificuldade}")
-    public ResponseEntity<ProvaStartDTO> startTest(@RequestBody ProvaStartCreateDTO provaStartCreateDTO, @PathVariable Integer trilha, @PathVariable Integer dificuldade) throws Exception {
-        return ResponseEntity.ok(service.startTest(provaStartCreateDTO, trilha, dificuldade));
+    @PostMapping("/start")
+    public ResponseEntity<ProvaStartDTO> startTest(@RequestBody ProvaStartCreateDTO provaStartCreateDTO) throws Exception {
+        return ResponseEntity.ok(service.startTest(provaStartCreateDTO));
     }
 
     @PutMapping("/{idProva}")

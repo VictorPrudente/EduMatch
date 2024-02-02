@@ -44,23 +44,24 @@ public class ProvaService {
     @Value("${tempo.minimo}")
     private Integer tempo;
 
-    public ProvaStartDTO startTest(ProvaStartCreateDTO provaStartCreateDTO, Integer trilha, Integer dificuldade) throws Exception {
+    public ProvaStartDTO startTest(ProvaStartCreateDTO provaStart) throws Exception {
 
-        UsuarioDTO usuarioDTO = usuarioService.listarPorId(provaStartCreateDTO.getIdUsuario());
+        UsuarioDTO usuarioDTO = usuarioService.listarPorId(provaStart.getIdUsuario());
 
         Usuario usuario = mapper.convertValue(usuarioDTO, Usuario.class);
 
-        Prova prova = toEntity(provaStartCreateDTO);
+        Prova prova = toEntity(provaStart);
 
         prova.setDataInicio(LocalDateTime.now());
 
-        int duracao = tempo * Dificuldade.valueOf(dificuldade).getNivel();
+        int duracao = tempo * provaStart.getDificuldade().ordinal();
 
         prova.setTempoLimite(duracao + tempo) ;
         prova.setUsuario(usuario);
         prova.setStatus(Status.ATIVO);
 
-        List<Questao> questoes = gerarQuestoes(trilha, dificuldade);
+        List<Questao> questoes = gerarQuestoes(provaStart.getTrilha().ordinal(),
+                                               provaStart.getDificuldade().ordinal());
         prova.setQuestoes(questoes);
         prova.setTotalQuestoes(questoes.size());
 

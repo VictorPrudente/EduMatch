@@ -15,11 +15,11 @@ import java.util.List;
 @AllArgsConstructor
 public class ProvaFinishCreateDTO {
 
-    @NotNull
+    @NotNull(message = "A prova precisa ter um ID de usuário vinculada a ela.")
     private Integer idUsuario;
 
-    @NotNull
-    @Size(min = 5, max = 5)
+    @NotNull(message = "A prova precisa de uma lista de respostas.")
+    @Size(min = 5, max = 5, message = "A lista de respostas deve conter 5 respostas.")
     private List<Resposta> respostas;
 
 }
