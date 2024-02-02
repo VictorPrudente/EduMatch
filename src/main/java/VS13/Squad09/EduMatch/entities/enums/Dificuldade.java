@@ -6,9 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
 
+@Slf4j
 @Getter
 @AllArgsConstructor
-@Slf4j
 public enum Dificuldade {
 
     FACIL(1),

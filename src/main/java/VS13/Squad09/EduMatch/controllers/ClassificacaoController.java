@@ -1,6 +1,7 @@
 package VS13.Squad09.EduMatch.controllers;
 
 
+import VS13.Squad09.EduMatch.controllers.interfaces.IClassificacaoController;
 import VS13.Squad09.EduMatch.dtos.request.ClassificacaoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.ClassificacaoDTO;
 import VS13.Squad09.EduMatch.services.ClassificacaoService;
@@ -20,7 +21,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/rankings")
-public class ClassificacaoController {
+public class ClassificacaoController implements IClassificacaoController {
 
 
     private final ClassificacaoService classificacaoService;

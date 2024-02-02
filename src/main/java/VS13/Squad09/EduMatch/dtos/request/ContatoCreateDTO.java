@@ -16,10 +16,6 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class ContatoCreateDTO {
 
-    private Integer id;
-
-    private Integer id_usuario;
-
     @Schema(description = "Informações adicionais sobre o contato", required = true, example = "Apenas ligações")
     @Length(max = 50, message = "A descrição não pode ter mais q 50 caracteres.")
     private String descricao;

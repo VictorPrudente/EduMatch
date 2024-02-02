@@ -118,4 +118,5 @@ public interface IUsuarioController {
     )
     @PostMapping("/login")
     ResponseEntity<Boolean> login (@RequestBody LoginCreateDTO loginCreateDTO) throws Exception;
+
 }

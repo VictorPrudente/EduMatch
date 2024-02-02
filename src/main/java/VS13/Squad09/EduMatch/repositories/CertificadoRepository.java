@@ -112,7 +112,7 @@ public class CertificadoRepository {
 
             Statement st = con.createStatement();
 
-            String sql = "SELECT * FROM VS_13_EQUIPE_9.CERTIFICADO c\n" +
+            String sql = "SELECT * FROM CERTIFICADO c\n" +
                     "RIGHT JOIN VS_13_EQUIPE_9.USUARIO u ON u.ID_USUARIO = c.ID_CERTIFICADO";
 
 
@@ -121,8 +121,8 @@ public class CertificadoRepository {
             while (res.next()) {
                 Certificado certificado = new Certificado();
                 certificado.setId(res.getInt("id_certificado"));
-                certificado.setTrilha(Trilha.valueOf(res.getString("trilha")));
-                certificado.setDificuldade(Dificuldade.valueOf(res.getString("dificuldade")));
+                certificado.setTrilha(Trilha.valueOf(res.getInt("trilha")));
+                certificado.setDificuldade(Dificuldade.valueOf(res.getInt("dificuldade")));
                 Timestamp ts = res.getTimestamp("data_emitida");
                 certificado.setConclusao(ts.toLocalDateTime());
                 certificados.add(certificado);
@@ -149,8 +149,8 @@ public class CertificadoRepository {
 
             String sql = """
                 SELECT c.trilha, c.dificuldade, c.data_emitida, u.nome, u.sobrenome
-                FROM VS_13_EQUIPE_9.CERTIFICADO c
-                INNER JOIN VS_13_EQUIPE_9.USUARIO u ON c.ID_USUARIO = u.ID_USUARIO
+                FROM CERTIFICADO c
+                INNER JOIN USUARIO u ON c.ID_USUARIO = u.ID_USUARIO
                 WHERE c.ID_USUARIO = ?""";
 
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -161,14 +161,12 @@ public class CertificadoRepository {
 
             while (res.next()) {
                 Certificado certificado = new Certificado();
-                certificado.setId(res.getInt("id_certificado"));
                 certificado.setTrilha(Trilha.valueOf(res.getInt("trilha")));
                 certificado.setDificuldade(Dificuldade.valueOf(res.getInt("dificuldade")));
                 Timestamp ts = res.getTimestamp("data_emitida");
                 certificado.setConclusao(ts.toLocalDateTime());
 
                 Usuario usuario = new Usuario();
-                usuario.setId(idUsuario);
                 usuario.setNome(res.getString("nome"));
                 usuario.setSobrenome(res.getString("sobrenome"));
 

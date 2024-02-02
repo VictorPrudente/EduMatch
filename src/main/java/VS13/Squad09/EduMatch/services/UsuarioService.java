@@ -3,6 +3,7 @@ package VS13.Squad09.EduMatch.services;
 import VS13.Squad09.EduMatch.dtos.UsuarioCompletoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.request.LoginCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
+import VS13.Squad09.EduMatch.dtos.response.PessoaJuridicaDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Status;
@@ -46,8 +47,7 @@ public class UsuarioService {
         usuarioRepository.save(usuarioEntity);
 
         UsuarioDTO usuarioDTO2 = objectMapper.convertValue(usuarioEntity, UsuarioDTO.class);
-        //emailService.sendEmail(usuarioEntity, 1);
-
+        emailService.sendEmail(usuarioEntity, null, 1);
         return usuarioDTO2;
     }
 
@@ -84,6 +84,17 @@ public class UsuarioService {
                 objectMapper.convertValue(usuario, UsuarioDTO.class)).collect(Collectors.toList());
     }
 
+    public UsuarioDTO atualizar(Integer id, UsuarioCreateDTO usuarioCreateDTO) throws Exception {
+
+        validarUsuario(usuarioCreateDTO);
+        Usuario usuarioAtualizado = objectMapper.convertValue(usuarioCreateDTO, Usuario.class);
+        usuarioAtualizado.setId(id);
+        usuarioRepository.atualizar(id, usuarioAtualizado);
+        UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioAtualizado, UsuarioDTO.class);
+        emailService.sendEmail(usuarioAtualizado, null, 2);
+        return usuarioDTO;
+
+    }
     public Boolean login(LoginCreateDTO loginCreateDTO) throws Exception {
         Usuario usuarioProcurado = usuarioRepository.listarPorEmail(loginCreateDTO.getEmail());
         log.info(usuarioProcurado.toString());
@@ -92,21 +103,25 @@ public class UsuarioService {
         }
         throw new IllegalArgumentException("Senha inválida.");
     }
-
-
+  
     public List<UsuarioDTO> listarEmpresas() throws Exception {
         return usuarioRepository.findAll().stream()
                 .filter(usuario -> usuario.getTipoUsuario().ordinal() == 1)
                 .filter(usuario -> usuario.getStatus().ordinal() == 1)
-                .map(usuario -> objectMapper.convertValue(usuario, UsuarioDTO.class))
+                .map(usuario -> objectMapper.convertValue(usuario, PessoaJuridicaDTO.class))
                 .collect(Collectors.toList());
     }
 
     public UsuarioDTO delete(Integer id) throws Exception {
         Usuario usuarioProcurado = usuarioRepository.findById(id).orElseThrow(() -> new IllegalStateException("O valor está ausente!"));
         usuarioProcurado.setStatus(Status.INATIVO);
-        usuarioRepository.save(usuarioProcurado);
-        return objectMapper.convertValue(usuarioProcurado, UsuarioDTO.class);
+        String email = usuarioProcurado.getEmail();
+        usuarioProcurado.setEmail(null);
+        usuarioRepository.atualizar(id, usuarioProcurado);
+        usuarioProcurado.setEmail(email);
+        UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioProcurado, UsuarioDTO.class);
+        emailService.sendEmail(usuarioProcurado,null, 3);
+        return usuarioDTO;
     }
 
 

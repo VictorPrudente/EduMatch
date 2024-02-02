@@ -24,9 +24,14 @@ import java.util.List;
 public class ContatoController implements IContatoController {
     private final ContatoService contatoService;
 
-    @GetMapping("/{idUsuario}/usuario")
-    public ResponseEntity<List<ContatoDTO>> listarPorUsuario(Integer idUsuario) throws Exception {
+    @GetMapping("/usuario/{idUsuario}")
+    public ResponseEntity<ContatoDTO> listarPorUsuario(Integer idUsuario) throws Exception {
         return new ResponseEntity<>(contatoService.listarPorUsuario(idUsuario), HttpStatus.OK);
+    }
+
+    @GetMapping("/{idContato}")
+    public ResponseEntity<ContatoDTO> listarPorId(@PathVariable Integer idContato) throws Exception {
+        return new ResponseEntity<>(contatoService.listarPorId(idContato), HttpStatus.OK);
     }
 
     @PostMapping("/{idUsuario}")

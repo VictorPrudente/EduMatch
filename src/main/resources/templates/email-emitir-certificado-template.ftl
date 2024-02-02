@@ -19,7 +19,7 @@
                         </div>
 
                         <div style="font-size: 24px; color: #555100;">
-                            <br> Olá ${nome}, Parabéms! Você acabou de receber um novo certificado! <br>
+                            <br> Olá ${nome}, Parabéns! Você acabou de receber um novo certificado! <br>
                             <br> {certificado} <br>
                         </div>
                         <div>

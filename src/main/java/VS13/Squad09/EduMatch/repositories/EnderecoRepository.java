@@ -1,7 +1,10 @@
 package VS13.Squad09.EduMatch.repositories;
 
 import VS13.Squad09.EduMatch.entities.Endereco;
+import VS13.Squad09.EduMatch.entities.Usuario;
+import VS13.Squad09.EduMatch.entities.enums.TipoDeEndereco;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -37,9 +40,11 @@ public class EnderecoRepository {
             Integer proximoId = this.getProximoId(con);
             endereco.setId(proximoId);
 
-            String sql = "INSERT INTO VS_13_EQUIPE_9.ENDERECO\n" +
-                    "(id_endereco, logradouro, numero, complemento, cep, cidade, estado, pais, id_usuario)\n" +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)\n";
+            String sql = """
+                    INSERT INTO VS_13_EQUIPE_9.ENDERECO
+                    (id_endereco, logradouro, numero, complemento, cep, cidade, estado, pais, tipo_endereco, id_usuario)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """;
 
             PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -51,7 +56,8 @@ public class EnderecoRepository {
             stmt.setString(6, endereco.getCidade());
             stmt.setString(7, endereco.getEstado());
             stmt.setString(8, endereco.getPais());
-            stmt.setInt(9, idUsuario);
+            stmt.setInt(9, endereco.getTipoDeEndereco().ordinal());
+            stmt.setInt(10, idUsuario);
 
 
             stmt.executeUpdate();
@@ -111,7 +117,8 @@ public class EnderecoRepository {
                             cep = ?,
                             cidade = ?,
                             estado = ?,
-                            pais = ?
+                            pais = ?,
+                            tipo_endereco = ?
                         WHERE ID_ENDERECO = ?""";
 
             PreparedStatement stmt = con.prepareStatement(sql);
@@ -123,7 +130,8 @@ public class EnderecoRepository {
             stmt.setString(5, endereco.getCidade());
             stmt.setString(6, endereco.getEstado());
             stmt.setString(7, endereco.getPais());
-            stmt.setInt(8, id);
+            stmt.setInt(8, endereco.getTipoDeEndereco().ordinal());
+            stmt.setInt(9, id);
 
             stmt.executeUpdate();
 
@@ -154,16 +162,7 @@ public class EnderecoRepository {
             ResultSet res = stmt.executeQuery(sql);
 
             while (res.next()) {
-                Endereco endereco = new Endereco();
-                endereco.setId(res.getInt("id_endereco"));
-                endereco.setLogradouro(res.getString("logradouro"));
-                endereco.setNumero(res.getInt("numero"));
-                endereco.setComplemento(res.getString("complemento"));
-                endereco.setCep(res.getString("cep"));
-                endereco.setCidade(res.getString("cidade"));
-                endereco.setEstado(res.getString("estado"));
-                endereco.setPais(res.getString("pais"));
-                enderecos.add(endereco);
+                enderecos.add(querryEndereco(res));
             }
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
@@ -185,7 +184,7 @@ public class EnderecoRepository {
         try {
             con = conexaoBancoDeDados.getConnection();
             String sql = """
-                    SELECT end.id_endereco, end.logradouro, end.numero, end.complemento, end.cep, end.cidade, end.estado, end.pais, end.id_usuario
+                    SELECT end.id_endereco, end.logradouro, end.numero, end.complemento, end.cep, end.cidade, end.estado, end.pais, end.tipo_endereco, end.id_usuario
                     FROM VS_13_EQUIPE_9.ENDERECO end
                     WHERE end.id_usuario = ?""";
 
@@ -194,18 +193,10 @@ public class EnderecoRepository {
 
                 ResultSet res = stmt.executeQuery();
                 if (res.next()) {
-                    Endereco endereco = new Endereco();
-                    endereco.setId(res.getInt("id_endereco"));
-                    endereco.setLogradouro(res.getString("logradouro"));
-                    endereco.setNumero(res.getInt("numero"));
-                    endereco.setComplemento(res.getString("complemento"));
-                    endereco.setCep(res.getString("cep"));
-                    endereco.setCidade(res.getString("cidade"));
-                    endereco.setEstado(res.getString("estado"));
-                    endereco.setPais(res.getString("pais"));
-                    endereco.setUsuarioId(res.getInt("id_usuario"));
-                    return endereco;
+                    return querryEndereco(res);
                 }
+                return null;
+
         } catch (SQLException e) {
             throw new BancoDeDadosException(e.getCause());
         } finally {
@@ -217,6 +208,52 @@ public class EnderecoRepository {
                 e.printStackTrace();
             }
         }
-        return null;
+    }
+
+
+    public Endereco listarPorId(Integer id) throws BancoDeDadosException, NaoEncontradoException {
+        Connection con = null;
+        try {
+            con = conexaoBancoDeDados.getConnection();
+            String sql = """
+                    SELECT end.id_endereco, end.logradouro, end.numero, end.complemento, end.cep, end.cidade, end.estado, end.pais, end.tipo_endereco, end.id_usuario
+                    FROM VS_13_EQUIPE_9.ENDERECO end
+                    WHERE end.id_endereco = ?""";
+
+            PreparedStatement stmt = con.prepareStatement(sql);
+            stmt.setInt(1, id);
+
+            ResultSet res = stmt.executeQuery();
+            if (res.next()) {
+                return querryEndereco(res);
+            }
+            throw new NaoEncontradoException("Nenhum endereço encontrado com este ID.");
+
+        } catch (SQLException e) {
+            throw new BancoDeDadosException(e.getCause());
+        } finally {
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private Endereco querryEndereco(ResultSet res) throws SQLException {
+        Endereco endereco = new Endereco();
+        endereco.setId(res.getInt("id_endereco"));
+        endereco.setLogradouro(res.getString("logradouro"));
+        endereco.setNumero(res.getInt("numero"));
+        endereco.setComplemento(res.getString("complemento"));
+        endereco.setCep(res.getString("cep"));
+        endereco.setCidade(res.getString("cidade"));
+        endereco.setEstado(res.getString("estado"));
+        endereco.setPais(res.getString("pais"));
+        endereco.setTipoDeEndereco(TipoDeEndereco.valueOf(res.getInt("TIPO_ENDERECO")));
+        endereco.setUsuarioId(res.getInt("id_usuario"));
+        return endereco;
     }
 }

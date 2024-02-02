@@ -26,7 +26,6 @@ public interface IQuestaoController {
             throws BancoDeDadosException;
 
 
-
     @Operation(summary = "Atualizar uma Questão", description = "Atualiza uma questão no banco de dados passando seu id como parâmetro, tornando a versão antiga inativa e criando uma nova versão da mesma.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem sucedida. Questão atualizada."),
@@ -94,12 +93,12 @@ public interface IQuestaoController {
     ResponseEntity<List<QuestaoDTO>> findAllByTrail(@PathVariable Integer trilha)
             throws BancoDeDadosException;
 
-    @Operation(summary = "Listar todas as questões do banco de dados.", description = "Lista todas as questão do banco de dados, ordenada pela trilha e pela dificuldade.")
+    @Operation(summary = "Listar todas as questões do banco de dados pelo seu status.", description = "Lista todas as questão do banco de dados ativas ou inativas passando como parâmetro 0 ou 1.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem sucedida."),
             @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso."),
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção.")})
-    @GetMapping({"/{trilha}"})
-    ResponseEntity<List<QuestaoDTO>> findAllActive()
+    @GetMapping({"/all/{status}"})
+    ResponseEntity<List<QuestaoDTO>> findAllByStatus(@PathVariable Integer status)
             throws BancoDeDadosException;
 }
