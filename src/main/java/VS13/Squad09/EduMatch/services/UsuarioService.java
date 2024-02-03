@@ -81,10 +81,10 @@ public class UsuarioService {
         return objectMapper.convertValue(usuarioRepository.listarPorEmail(email), UsuarioDTO.class );
     }
 
-    public List<UsuarioDTO> rankearUsuarios() throws BancoDeDadosException {
-        return usuarioRepository.rankearJogadores().stream().map(usuario ->
-                objectMapper.convertValue(usuario, UsuarioDTO.class)).collect(Collectors.toList());
-    }
+//    public List<UsuarioDTO> rankearUsuarios() throws BancoDeDadosException {
+//        return usuarioRepository.rankearJogadores().stream().map(usuario ->
+//                objectMapper.convertValue(usuario, UsuarioDTO.class)).collect(Collectors.toList());
+//    }
 
     public UsuarioDTO atualizar(Integer id, UsuarioCreateDTO usuarioCreateDTO) throws Exception {
 
@@ -151,13 +151,13 @@ public class UsuarioService {
             return null;
         }
     }
-    public List<UsuarioCompletoRelatorioDTO> listarUsuarioCompletoRelatorio(Integer id) {
-        return usuarioRepository.procurarUsuarioCompletoDTO(id)
-                .stream().map(usuario -> {
-                    usuario.setEnderecosUsuario(usuarioRepository.procurarEnderecos(usuario.getIdUsuario()));
-                    usuario.setContatosUsuario(usuarioRepository.procurarContatos(usuario.getIdUsuario()));
-                    return usuario;
-                }).toList();
-    }
+//    public List<UsuarioCompletoRelatorioDTO> listarUsuarioCompletoRelatorio(Integer id) {
+//        return usuarioRepository.procurarUsuarioCompletoDTO(id)
+//                .stream().map(usuario -> {
+//                    usuario.setEnderecosUsuario(usuarioRepository.procurarEnderecos(usuario.getIdUsuario()));
+//                    usuario.setContatosUsuario(usuarioRepository.procurarContatos(usuario.getIdUsuario()));
+//                    return usuario;
+//                }).toList();
+//    }
 }
 

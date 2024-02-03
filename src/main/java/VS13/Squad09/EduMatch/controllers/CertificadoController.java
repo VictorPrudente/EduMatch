@@ -16,11 +16,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Slf4j
+@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/certificado")
-@Validated
-@Slf4j
 public class CertificadoController implements ICertificadoController {
 
     private final CertificadoService certificadoService;

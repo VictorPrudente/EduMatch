@@ -5,10 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -19,10 +16,11 @@ import java.util.Objects;
 @Entity(name = "INSIGNIA")
 public class Insignia extends Distintivo {
 
+
     @Column(name = "DATA_EMITIDA")
     private LocalDateTime dataEmitida;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     private Usuario usuario;
 

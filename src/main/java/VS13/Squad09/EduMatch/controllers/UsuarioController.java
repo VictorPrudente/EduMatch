@@ -46,10 +46,10 @@ public class UsuarioController implements IUsuarioController {
         return ResponseEntity.ok(usuarioService.listarPorStatus(stts));
     }
 
-    @GetMapping("/rankear")
-    public ResponseEntity<List<UsuarioDTO>> rankearUsuarios () throws Exception{
-        return ResponseEntity.ok(usuarioService.rankearUsuarios());
-    }
+//    @GetMapping("/rankear")
+//    public ResponseEntity<List<UsuarioDTO>> rankearUsuarios () throws Exception{
+//        return ResponseEntity.ok(usuarioService.rankearUsuarios());
+//    }
 
     @PutMapping("/{idUsuario}")
     public ResponseEntity<UsuarioDTO> atualizar(@RequestBody @Valid UsuarioCreateDTO usuarioAtualizar) throws Exception {
@@ -67,8 +67,8 @@ public class UsuarioController implements IUsuarioController {
         return ResponseEntity.ok(usuarioService.login(loginCreateDTO));
     }
 
-    @GetMapping("/usuario-completo/{idPesoa}")
-    public ResponseEntity<List<UsuarioCompletoRelatorioDTO>> listarUsuarioCompletoRelatorio(@PathVariable("idUsuario") @NotNull Integer idUsuario){
-        return ResponseEntity.ok(usuarioService.listarUsuarioCompletoRelatorio(idUsuario));
-    }
+//    @GetMapping("/usuario-completo/{idPesoa}")
+//    public ResponseEntity<List<UsuarioCompletoRelatorioDTO>> listarUsuarioCompletoRelatorio(@PathVariable("idUsuario") @NotNull Integer idUsuario){
+//        return ResponseEntity.ok(usuarioService.listarUsuarioCompletoRelatorio(idUsuario));
+//    }
 }
