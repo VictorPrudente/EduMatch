@@ -26,7 +26,6 @@ public class Questao {
     @Column(name = "PERGUNTA")
     private String pergunta;
 
-    @JsonIgnore
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "LISTA_OPCOES", joinColumns = @JoinColumn(name = "ID_QUESTAO", nullable = false))
     private List<Opcao> opcoes = new ArrayList<>();

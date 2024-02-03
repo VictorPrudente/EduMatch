@@ -25,7 +25,6 @@ public class QuestaoCreateDTO {
     @NotBlank(message = "A pergunta não pode estar em branco.")
     private String pergunta;
 
-    @NotBlank(message = "As opções da questão não devem estar em branco.")
     @Size(min = 5, max = 5, message = "Uma questão deve conter uma lista de 5 opções.")
     private List<Opcao> opcoes = new ArrayList<>();
 
