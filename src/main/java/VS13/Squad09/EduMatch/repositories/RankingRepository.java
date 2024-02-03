@@ -13,8 +13,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RankingRepository extends JpaRepository<Ranking, Integer> {
 
-    //Page<Ranking> findByEloOrderByUsuariosDesc(Elo elo, Pageable pageable);
+    Page<Ranking> findAllByTitulo(String titulo, Pageable pageable);
 
     @Query(value = "SELECT * FROM RANKING r WHERE r.titulo = :titulo", nativeQuery = true)
-    Ranking findByTitulo(@Param("titulo") String titulo);
+    Ranking findByElo(@Param("titulo") String titulo);
 }

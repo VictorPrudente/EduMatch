@@ -34,19 +34,18 @@ public class RankingService {
                 .collect(Collectors.toList());
     }
 
-//    public Page<RankingDTO> listarPorRanking(Elo elo, Pageable page){
-//        return rankingRepository.findByEloOrderByUsuariosDesc(elo, page)
-//                .map(ranking -> objectMapper.convertValue(ranking, RankingDTO.class));
-//    }
+    public Page<RankingDTO> listarPorRanking(String titulo, Pageable page){
+        return rankingRepository.findAllByTitulo(titulo, page)
+                .map(ranking -> objectMapper.convertValue(ranking, RankingDTO.class));
+    }
 
-    public Ranking subirRanking(String nome, Usuario usuario) throws NaoEncontradoException {
-        Ranking ranking = rankingRepository.findByTitulo(nome);
+    public Ranking subirRanking(String nome, Usuario usuario) {
+        Ranking ranking = rankingRepository.findByElo(nome);
         if(usuario.getPontuacao() >= ranking.getPontuacaoNecessaria()){
             ranking.getUsuarios().add(usuario);
             return ranking;
         }
-
-        throw new NaoEncontradoException("Nenhum ranking encontrado com este nome.");
+        return null;
     }
 
 

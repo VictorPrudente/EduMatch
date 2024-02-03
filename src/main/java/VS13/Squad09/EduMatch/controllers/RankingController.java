@@ -35,12 +35,11 @@ public class RankingController implements IRankingController {
         return new ResponseEntity<>(rankingDTO, HttpStatus.OK);
     }
 
-//    @GetMapping("{id}")
-//    public ResponseEntity<Page<RankingDTO>> rankearJogadores(@PageableDefault(size = 100, sort = {"Usuario"}) Pageable page,
-//                                                             @PathVariable Integer id) throws Exception {
-//        Page<RankingDTO> rankingDTO = rankingService.listarPorRanking(Elo.valueOf(id), page);
-//        log.debug("Todos as classificaçõess listados.");
-//        return ResponseEntity.ok(rankingDTO);
-//    }
+    @GetMapping("/elo/{titulo}")
+    public ResponseEntity<Page<RankingDTO>> listarPorRanking(@PageableDefault(size = 50) Pageable pageable, @PathVariable String titulo) throws Exception {
+        Page<RankingDTO> rankingDTO = rankingService.listarPorRanking(titulo, pageable);
+        return ResponseEntity.ok(rankingDTO);
+    }
+
 
 }
