@@ -90,8 +90,9 @@ public class UsuarioService {
 
         validarUsuario(usuarioCreateDTO);
         Usuario usuarioAtualizado = objectMapper.convertValue(usuarioCreateDTO, Usuario.class);
-        usuarioAtualizado.setId(id);
-        usuarioRepository.atualizar(id, usuarioAtualizado);
+        Usuario usuarioRecuperado = usuarioRepository.findById(id).get();
+        usuarioAtualizado.setId(usuarioRecuperado.getId());
+        usuarioRepository.save(usuarioAtualizado);
         UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioAtualizado, UsuarioDTO.class);
         emailService.sendEmail(usuarioAtualizado, null, 2);
         return usuarioDTO;
@@ -106,7 +107,7 @@ public class UsuarioService {
         throw new IllegalArgumentException("Senha inválida.");
     }
   
-    public List<UsuarioDTO> listarEmpresas() throws Exception {
+    public List<PessoaJuridicaDTO> listarEmpresas() throws Exception {
         return usuarioRepository.findAll().stream()
                 .filter(usuario -> usuario.getTipoUsuario().ordinal() == 1)
                 .filter(usuario -> usuario.getStatus().ordinal() == 1)
@@ -119,7 +120,7 @@ public class UsuarioService {
         usuarioProcurado.setStatus(Status.INATIVO);
         String email = usuarioProcurado.getEmail();
         usuarioProcurado.setEmail(null);
-        usuarioRepository.atualizar(id, usuarioProcurado);
+        usuarioRepository.save(usuarioProcurado);
         usuarioProcurado.setEmail(email);
         UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioProcurado, UsuarioDTO.class);
         emailService.sendEmail(usuarioProcurado,null, 3);

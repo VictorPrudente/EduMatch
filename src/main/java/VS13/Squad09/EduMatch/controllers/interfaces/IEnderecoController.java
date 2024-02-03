@@ -42,7 +42,7 @@ public interface IEnderecoController {
             @ApiResponse(responseCode = "404", description = "Não foi encontrado um endereço com este ID. Endereço não deletado."),
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção. Endereço não deletado.")})
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> deletar(@PathVariable Integer id) throws BancoDeDadosException, NaoEncontradoException;
+    ResponseEntity<Void> deletar(@PathVariable Integer id) throws Exception;
 
 
     @Operation(summary = "Listar todos os endereços pelo ID do seu dono", description = "Retorna uma lista de endereços do banco correspondentes ao ID daquele dono.")
