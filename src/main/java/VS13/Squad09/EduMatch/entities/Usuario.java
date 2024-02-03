@@ -1,9 +1,6 @@
 package VS13.Squad09.EduMatch.entities;
 
-import VS13.Squad09.EduMatch.entities.enums.Status;
-import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
-import VS13.Squad09.EduMatch.entities.enums.Role;
-import VS13.Squad09.EduMatch.entities.enums.TipoEmpresa;
+import VS13.Squad09.EduMatch.entities.enums.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -82,17 +79,26 @@ public class Usuario {
 //    @JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco")
 //    private Endereco endereco;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Insignia> insignias;
+//    @JsonInclude(JsonInclude.Include.NON_NULL)
+//    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Set<Insignia> insignias;
 
 //    @JsonInclude(JsonInclude.Include.NON_NULL)
 //    @OneToMany(mappedBy = "USUARIO", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private Set<Certificado> certificados;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_DISTINTIVO", referencedColumnName = "ID_DISTINTIVO")
+    @JoinColumn(name = "ID_RANKING", referencedColumnName = "ID_RANKING")
     private Ranking ranking;
+
+    @Column(name = "ELO")
+    private Elo elo;
+
+
+    public void pontuar(Integer pontos){
+        this.pontuacao += pontos;
+    }
   
     @Override
     public boolean equals(Object object) {

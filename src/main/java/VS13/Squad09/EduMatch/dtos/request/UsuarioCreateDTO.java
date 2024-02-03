@@ -1,10 +1,7 @@
 package VS13.Squad09.EduMatch.dtos.request;
 
 
-import VS13.Squad09.EduMatch.entities.enums.Role;
-import VS13.Squad09.EduMatch.entities.enums.Status;
-import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
-import VS13.Squad09.EduMatch.entities.enums.TipoEmpresa;
+import VS13.Squad09.EduMatch.entities.enums.*;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -66,4 +63,9 @@ public class UsuarioCreateDTO {
         @Schema(description = "Tipo de Empresa", example = "0 = PRIVADA")
         private TipoEmpresa tipoEmpresa;
 
+        private Integer pontuacao;
+
+        private Integer moedas;
+
+        private Elo elo;
 }

@@ -1,6 +1,7 @@
 package VS13.Squad09.EduMatch.services;
 
 
+import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.prova.ProvaFinishCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.prova.ProvaStartCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.prova.ProvaFinishDTO;
@@ -11,7 +12,6 @@ import VS13.Squad09.EduMatch.entities.Prova;
 import VS13.Squad09.EduMatch.entities.Questao;
 import VS13.Squad09.EduMatch.entities.Resposta;
 import VS13.Squad09.EduMatch.entities.Usuario;
-import VS13.Squad09.EduMatch.entities.enums.Dificuldade;
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
@@ -73,7 +73,7 @@ public class ProvaService {
 
     }
 
-    public ProvaFinishDTO finishTest(Integer idProva, ProvaFinishCreateDTO provaFinishCreateDTO) throws NaoEncontradoException, RegraDeNegocioException {
+    public ProvaFinishDTO finishTest(Integer idProva, ProvaFinishCreateDTO provaFinishCreateDTO) throws Exception {
 
         Prova prova = getById(idProva);
         prova.setDataFinal(LocalDateTime.now());
@@ -102,6 +102,10 @@ public class ProvaService {
         prova.setStatus(Status.INATIVO);
         repository.save(prova);
 
+        Usuario usuario = prova.getUsuario();
+        usuario.pontuar(pontuacao+200);
+        UsuarioCreateDTO usuarioCreateDTO = mapper.convertValue(usuario, UsuarioCreateDTO.class);
+        usuarioService.atualizar(usuario.getId(), usuarioCreateDTO);
         ProvaFinishDTO provaFinishDTO = new ProvaFinishDTO();
         BeanUtils.copyProperties(prova, provaFinishDTO);
         return provaFinishDTO;

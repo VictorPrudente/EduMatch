@@ -1,7 +1,11 @@
 package VS13.Squad09.EduMatch.services;
 
 import VS13.Squad09.EduMatch.dtos.response.RankingDTO;
+import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
+import VS13.Squad09.EduMatch.entities.Ranking;
+import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Elo;
+import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.repositories.RankingRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -24,15 +28,36 @@ public class RankingService {
 
 
     public List<RankingDTO> listarTodos() throws Exception {
-        log.debug("Listando Classificacaos...");
-        return rankingRepository.findAll().stream().map(classificacao ->
-                        objectMapper.convertValue(classificacao, RankingDTO.class))
+        log.debug("Listando rankings...");
+        return rankingRepository.findAll().stream().map(ranking ->
+                        objectMapper.convertValue(ranking, RankingDTO.class))
                 .collect(Collectors.toList());
     }
 
-    public Page<RankingDTO> listarPorRanking(Elo elo, Pageable page){
-        return rankingRepository.findByEloOrderByUsuariosDesc(elo, page)
-                .map(ranking -> objectMapper.convertValue(ranking, RankingDTO.class));
+//    public Page<RankingDTO> listarPorRanking(Elo elo, Pageable page){
+//        return rankingRepository.findByEloOrderByUsuariosDesc(elo, page)
+//                .map(ranking -> objectMapper.convertValue(ranking, RankingDTO.class));
+//    }
+
+    public Ranking subirRanking(String nome, Usuario usuario) throws NaoEncontradoException {
+        Ranking ranking = rankingRepository.findByTitulo(nome);
+        if(usuario.getPontuacao() >= ranking.getPontuacaoNecessaria()){
+            ranking.getUsuarios().add(usuario);
+            return ranking;
+        }
+
+        throw new NaoEncontradoException("Nenhum ranking encontrado com este nome.");
     }
 
+
+
+    //METODOS ADICIONAIS
+
+    private Usuario userToEntity(UsuarioDTO usuarioDTO){
+        return objectMapper.convertValue(usuarioDTO, Usuario.class);
+    }
+
+    private UsuarioDTO userToDTO(Object o){
+        return objectMapper.convertValue(o, UsuarioDTO.class);
+    }
 }

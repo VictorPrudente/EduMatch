@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
-public interface IClassificacaoController {
+public interface IRankingController {
     @Operation(summary = "Listar todas as Classificações", description = "Lista todas as classificações cadastradas.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem sucedida."),

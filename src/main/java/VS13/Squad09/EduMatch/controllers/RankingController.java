@@ -1,7 +1,7 @@
 package VS13.Squad09.EduMatch.controllers;
 
 
-import VS13.Squad09.EduMatch.controllers.interfaces.IClassificacaoController;
+import VS13.Squad09.EduMatch.controllers.interfaces.IRankingController;
 import VS13.Squad09.EduMatch.dtos.response.RankingDTO;
 import VS13.Squad09.EduMatch.entities.enums.Elo;
 import VS13.Squad09.EduMatch.services.RankingService;
@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/rankings")
-public class RankingController implements IClassificacaoController {
+public class RankingController implements IRankingController {
 
 
     private final RankingService rankingService;
@@ -35,12 +35,12 @@ public class RankingController implements IClassificacaoController {
         return new ResponseEntity<>(rankingDTO, HttpStatus.OK);
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<Page<RankingDTO>> rankearJogadores(@PageableDefault(size = 100, sort = {"Usuario"}) Pageable page,
-                                                             @PathVariable Integer id) throws Exception {
-        Page<RankingDTO> rankingDTO = rankingService.listarPorRanking(Elo.valueOf(id), page);
-        log.debug("Todos as classificaçõess listados.");
-        return ResponseEntity.ok(rankingDTO);
-    }
+//    @GetMapping("{id}")
+//    public ResponseEntity<Page<RankingDTO>> rankearJogadores(@PageableDefault(size = 100, sort = {"Usuario"}) Pageable page,
+//                                                             @PathVariable Integer id) throws Exception {
+//        Page<RankingDTO> rankingDTO = rankingService.listarPorRanking(Elo.valueOf(id), page);
+//        log.debug("Todos as classificaçõess listados.");
+//        return ResponseEntity.ok(rankingDTO);
+//    }
 
 }

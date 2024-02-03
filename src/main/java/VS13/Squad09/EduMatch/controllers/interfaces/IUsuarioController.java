@@ -24,7 +24,7 @@ public interface IUsuarioController {
             }
     )
     @PostMapping
-    ResponseEntity<UsuarioDTO> salvar(@RequestBody @Valid UsuarioCreateDTO usuario) throws Exception;
+    ResponseEntity<UsuarioDTO> criar(@RequestBody @Valid UsuarioCreateDTO usuario) throws Exception;
 
 
     @Operation(summary = "Listar todos os usuários", description = "Lista todos os usuários do banco")

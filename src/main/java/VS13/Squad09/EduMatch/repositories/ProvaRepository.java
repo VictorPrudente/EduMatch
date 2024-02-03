@@ -13,7 +13,4 @@ import java.util.List;
 @Repository
 public interface ProvaRepository extends JpaRepository<Prova, Integer> {
 
-//    @Query(value = "SELECT * FROM PROVA_QUESTAO pq JOIN QUESTAO q ON pq.ID_PROVA_QUESTAO = q.ID_QUESTAO WHERE pq.ID_PROVA = :provaId", nativeQuery = true)
-//    Prova receberQuestoes(@Param("provaId") Integer id);
-
 }
