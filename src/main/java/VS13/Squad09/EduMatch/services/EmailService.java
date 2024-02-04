@@ -87,7 +87,7 @@ public class EmailService {
         Map<String, Object> dados = new HashMap<>();
         if (usuario != null){
             dados.put("nome", usuario.getNome());
-            dados.put("id", usuario.getId());
+            dados.put("id", usuario.getIdUsuario());
         }
         if (certificado != null){
             dados.put("nome", certificado.getUsuario().getNome());
