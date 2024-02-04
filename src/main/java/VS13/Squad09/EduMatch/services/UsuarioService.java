@@ -1,11 +1,12 @@
 package VS13.Squad09.EduMatch.services;
 
-import VS13.Squad09.EduMatch.dtos.UsuarioCompletoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.request.LoginCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.PessoaJuridicaDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
+import VS13.Squad09.EduMatch.entities.Ranking;
 import VS13.Squad09.EduMatch.entities.Usuario;
+import VS13.Squad09.EduMatch.entities.enums.Elo;
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.entities.enums.TipoEmpresa;
 import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
@@ -15,6 +16,7 @@ import VS13.Squad09.EduMatch.repositories.UsuarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -30,8 +32,9 @@ public class UsuarioService {
     private final ObjectMapper objectMapper;
     private final UsuarioRepository usuarioRepository;
     private final EmailService emailService;
+    private final RankingService rankingService;
 
-    public UsuarioDTO adicionar(UsuarioCreateDTO usuarioCreateDTO) throws Exception {
+    public UsuarioDTO criar(UsuarioCreateDTO usuarioCreateDTO) throws Exception {
         log.info("Criando usuario");
         validarUsuario(usuarioCreateDTO);
 
@@ -39,7 +42,7 @@ public class UsuarioService {
         usuarioEntity.setStatus(Status.ATIVO);
         usuarioEntity.setPontuacao(0);
         usuarioEntity.setMoedas(0);
-
+        usuarioEntity.setElo(Elo.FERRO);
         if(usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_FISICA){
             usuarioEntity.setTipoEmpresa(TipoEmpresa.USUARIO_PADRAO);
         }
@@ -49,7 +52,7 @@ public class UsuarioService {
         usuarioRepository.save(usuarioEntity);
 
         UsuarioDTO usuarioDTO2 = objectMapper.convertValue(usuarioEntity, UsuarioDTO.class);
-        emailService.sendEmail(usuarioEntity, null, 1);
+        //emailService.sendEmail(usuarioEntity, null, 1);
         return usuarioDTO2;
     }
 
@@ -89,15 +92,26 @@ public class UsuarioService {
     public UsuarioDTO atualizar(Integer id, UsuarioCreateDTO usuarioCreateDTO) throws Exception {
 
         validarUsuario(usuarioCreateDTO);
-        Usuario usuarioAtualizado = objectMapper.convertValue(usuarioCreateDTO, Usuario.class);
         Usuario usuarioRecuperado = usuarioRepository.findById(id).get();
-        usuarioAtualizado.setId(usuarioRecuperado.getId());
-        usuarioRepository.save(usuarioAtualizado);
-        UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioAtualizado, UsuarioDTO.class);
-        emailService.sendEmail(usuarioAtualizado, null, 2);
-        return usuarioDTO;
+        BeanUtils.copyProperties(usuarioCreateDTO, usuarioRecuperado);
 
+        Integer eloAtual = usuarioRecuperado.getElo().ordinal();
+
+        if(eloAtual < Elo.values().length) {
+            String elo = Elo.valueOf(++eloAtual).name();
+            Ranking ranking = rankingService.subirRanking(elo, usuarioRecuperado);
+            if (ranking != null) {
+                usuarioRecuperado.setRanking(ranking);
+                usuarioRecuperado.setElo(Elo.valueOf(++eloAtual));
+            }
+        }
+
+        usuarioRepository.save(usuarioRecuperado);
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        BeanUtils.copyProperties(usuarioRecuperado, usuarioDTO);
+        return usuarioDTO;
     }
+
     public Boolean login(LoginCreateDTO loginCreateDTO) throws Exception {
         Usuario usuarioProcurado = usuarioRepository.listarPorEmail(loginCreateDTO.getEmail());
         log.info(usuarioProcurado.toString());
@@ -128,11 +142,13 @@ public class UsuarioService {
     }
 
 
-    public UsuarioCreateDTO validarUsuario(UsuarioCreateDTO usuarioCreateDTO) throws RegraDeNegocioException {
+
+    //METODOS ADICIONAIS
+
+    public void validarUsuario(UsuarioCreateDTO usuarioCreateDTO) throws RegraDeNegocioException {
         if (usuarioCreateDTO.getCNPJ() == null && usuarioCreateDTO.getCPF() == null) {
             throw new RegraDeNegocioException("Documentação vazia");
         }
-        return usuarioCreateDTO;
     }
 
     private String hashPassword(String senha){

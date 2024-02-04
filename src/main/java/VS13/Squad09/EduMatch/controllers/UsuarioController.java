@@ -26,9 +26,9 @@ public class UsuarioController implements IUsuarioController {
     private final UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<UsuarioDTO> salvar(@RequestBody @Valid UsuarioCreateDTO usuario) throws Exception {
+    public ResponseEntity<UsuarioDTO> criar(@RequestBody @Valid UsuarioCreateDTO usuario) throws Exception {
         log.info("Criando");
-        return ResponseEntity.ok(usuarioService.adicionar(usuario));
+        return ResponseEntity.ok(usuarioService.criar(usuario));
     }
 
     @GetMapping

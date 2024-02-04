@@ -1,5 +1,6 @@
 package VS13.Squad09.EduMatch.dtos.response;
 
+import VS13.Squad09.EduMatch.entities.Ranking;
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
 import VS13.Squad09.EduMatch.entities.enums.Role;
@@ -28,4 +29,5 @@ public class UsuarioDTO {
     private Integer pontuacao;
     private TipoEmpresa tipoEmpresa;
     private Integer moedas;
+    private Ranking ranking;
 }
