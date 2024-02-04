@@ -1,8 +1,39 @@
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (1, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/iron%20ranking.png', 'FERRO', 'O elo inicial de cada aventureiro. Jogue mais provas para subir sua pontuação e conquistar patamares maiores!', 1, 0)
+
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (2, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/bronze%20icon.png', 'BRONZE', 'A primeira conquista na subida para o maior elo. Aqui, você já não é mais um jovem gafanhoto!', 1, 200)
+
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (3, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/silver%20ranking.png', 'PRATA', 'Aqueles que se encontram no ranking de prata estão a um passo de se tornarem verdadeiros cavaleiros de ouro!', 1, 400)
+
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (4, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/gold%20ranking.png', 'OURO', 'Apenas o começo para aquele que deseja obter maiores conhecimentos. Este ranking simboliza um marco especial, pois, a partir dele, apenas os melhores seguirão!', 1, 600)
+
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (5, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/RUBY%20ranking.png', 'RUBY', 'Os estudantes deste elo demonstram não só uma enorme curiosidade sobre diversas matérias, como demonstram persistencia e garra!', 1, 800)
+
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (6, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/ametista%20ranking.png', 'AMETISTA', 'RANKING AMETISTA', 1, 1000)
+
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (7, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/diamante%20ranking.png', 'DIAMANTE', 'RANKING DIAMANTE', 1, 1400)
+
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (8, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/aluno%20mestre.png', 'MENTE_BRILHANTE', 'RANKING MENTE_BRILHANTE', 1, 1800)
+
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (9, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/mente%20radiante.png', 'MENTE_RADIANTE', 'RANKING MENTE_RADIANTE', 1, 2400)
+
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (10, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/master%20mind.png', 'MASTER_MIND', 'RANKING MASTER_MIND', 1, 3500)
+
+
 -- INSERT EMPRESA
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
+INSERT INTO USUARIO (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
 VALUES (SEQ_EMPRESA.NEXTVAL, 'TechSol','Tecnologia','12345678900210','Desenvolvimento de software', 0);
 
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
+INSERT INTO USUARIO (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
 VALUES (SEQ_EMPRESA.NEXTVAL, 'EcoBio','Meio Ambiente','98765432100010','Reciclagem e preservação', 1);
 
 INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
