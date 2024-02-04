@@ -25,17 +25,13 @@ public class RankingService {
     private final RankingRepository rankingRepository;
     private final ObjectMapper objectMapper;
 
-
-
-    public List<RankingDTO> listarTodos() throws Exception {
-        log.debug("Listando rankings...");
-        return rankingRepository.findAll().stream().map(ranking ->
-                        objectMapper.convertValue(ranking, RankingDTO.class))
-                .collect(Collectors.toList());
-    }
-
-    public Page<RankingDTO> listarPorRanking(String titulo, Pageable page){
-        return rankingRepository.findAllByTitulo(titulo, page)
+    public Page<RankingDTO> listarPorRanking(String elo, Pageable page){
+        if (elo != null){
+            elo = elo.toUpperCase();
+            return rankingRepository.findAllByTitulo(elo, page)
+                    .map(ranking -> objectMapper.convertValue(ranking, RankingDTO.class));
+        }
+        return rankingRepository.findAll(page)
                 .map(ranking -> objectMapper.convertValue(ranking, RankingDTO.class));
     }
 
