@@ -1,27 +1,27 @@
-//package VS13.Squad09.EduMatch.entities;
-//import VS13.Squad09.EduMatch.entities.enums.TipoDeContato;
-//import lombok.AllArgsConstructor;
-//import lombok.Data;
-//import lombok.NoArgsConstructor;
-//
-//import javax.persistence.*;
-//
-//@Data
-//@NoArgsConstructor
-//@Entity(name = "CONTATO")
-//@AllArgsConstructor
-//public class Contato {
-//    @Id
-//    @Column(name = "ID_CONTATO")
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CONTATO")
-//    private Integer id;
-//    @Column(name = "DESCRICAO")
-//    private String descricao;
-//    @Column(name = "TELEFONE")
-//    private String telefone;
-//    @Column(name = "TIPO")
-//    private TipoDeContato tipo;
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
-//    private Usuario usuario;
-//}
+package VS13.Squad09.EduMatch.entities;
+import VS13.Squad09.EduMatch.entities.enums.TipoDeContato;
+import lombok.*;
+
+import javax.persistence.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity(name = "CONTATO")
+public class Contato {
+    @Id
+    @Column(name = "ID_CONTATO")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CONTATO")
+    @SequenceGenerator(name = "SEQ_CONTATO", sequenceName = "SEQ_CONTATO", allocationSize = 1)
+    private Integer id;
+    @Column(name = "DESCRICAO")
+    private String descricao;
+    @Column(name = "TELEFONE")
+    private String telefone;
+    @Column(name = "TIPO_CONTATO")
+    private TipoDeContato tipo;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
+    private Usuario usuario;
+}

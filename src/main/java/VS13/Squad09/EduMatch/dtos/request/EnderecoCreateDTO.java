@@ -17,10 +17,6 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class EnderecoCreateDTO {
 
-    private Integer id;
-
-    private Integer usuarioId;
-
     @Schema(description = "Nome da rua ou avenida", required = true, example = "Rua x")
     @NotBlank(message = "A rua não pode estar vazia.")
     private String logradouro;

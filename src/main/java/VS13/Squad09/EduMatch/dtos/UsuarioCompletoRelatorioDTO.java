@@ -14,8 +14,8 @@ public class UsuarioCompletoRelatorioDTO {
         private Integer idUsuario;
         private String nome;
         private String email;
-        private List<ContatoRelatorioDTO> contatosUsuario = new ArrayList<>();
-        private List<EnderecoRelatorioDTO> enderecosUsuario = new ArrayList<>();
+        private ContatoRelatorioDTO contatoUsuario = new ContatoRelatorioDTO();
+        private EnderecoRelatorioDTO enderecoUsuario = new EnderecoRelatorioDTO();
 
         public UsuarioCompletoRelatorioDTO(Integer idUsuario, String nome, String email) {
             this.idUsuario = idUsuario;

@@ -66,6 +66,6 @@ public interface ICertificadoController {
             @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
             @ApiResponse(responseCode = "404", description = "Não foi encontrado o certificado com o id fornecido"),
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")})
-    @DeleteMapping("/{id}")
-    ResponseEntity<String> deletar(@NotNull @PathVariable("id") Integer id) throws Exception;
+    @DeleteMapping("/{certificado}")
+    public ResponseEntity<Void> deletar(@Valid @RequestBody CertificadoCreateDTO certificado) throws Exception;
 }

@@ -106,7 +106,7 @@ public class ProvaService {
         Usuario usuario = prova.getUsuario();
         usuario.pontuar(pontuacao+200);
         UsuarioCreateDTO usuarioCreateDTO = mapper.convertValue(usuario, UsuarioCreateDTO.class);
-        usuarioService.atualizar(usuario.getId(), usuarioCreateDTO);
+        usuarioService.atualizar(usuario.getIdUsuario(), usuarioCreateDTO);
         ProvaFinishDTO provaFinishDTO = new ProvaFinishDTO();
         BeanUtils.copyProperties(prova, provaFinishDTO);
         return provaFinishDTO;
