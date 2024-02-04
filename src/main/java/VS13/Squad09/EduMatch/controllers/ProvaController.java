@@ -29,8 +29,4 @@ public class ProvaController implements IProvaController {
     public ResponseEntity<ProvaFinishDTO> finishTest(@PathVariable Integer idProva, @RequestBody ProvaFinishCreateDTO prova) throws Exception {
         return ResponseEntity.ok(service.finishTest(idProva,prova));
     }
-
-
-
-
 }

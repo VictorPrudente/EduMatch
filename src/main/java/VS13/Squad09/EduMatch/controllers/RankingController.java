@@ -24,20 +24,12 @@ import java.util.List;
 @RequestMapping("/rankings")
 public class RankingController implements IRankingController {
 
-
     private final RankingService rankingService;
 
-
     @GetMapping
-    public ResponseEntity<List<RankingDTO>> listarTodos() throws Exception {
-        List<RankingDTO> rankingDTO = rankingService.listarTodos();
-        log.debug("Todos as classificaçõess listados.");
-        return new ResponseEntity<>(rankingDTO, HttpStatus.OK);
-    }
-
-    @GetMapping("/elo/{titulo}")
-    public ResponseEntity<Page<RankingDTO>> listarPorRanking(@PageableDefault(size = 50) Pageable pageable, @PathVariable String titulo) throws Exception {
-        Page<RankingDTO> rankingDTO = rankingService.listarPorRanking(titulo, pageable);
+    public ResponseEntity<Page<RankingDTO>> listarPorRanking(@RequestParam(required = false) String elo,
+                                                             @PageableDefault(size = 50) Pageable pageable) throws Exception {
+        Page<RankingDTO> rankingDTO = rankingService.listarPorRanking(elo, pageable);
         return ResponseEntity.ok(rankingDTO);
     }
 

@@ -97,6 +97,7 @@ public class ProvaService {
                 }
             }
         }
+        prova.getRespostas().addAll(respostas);
         prova.setPontos(pontuacao);
         prova.setTotalAcertos(acertos);
         prova.setStatus(Status.INATIVO);

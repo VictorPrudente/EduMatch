@@ -12,6 +12,7 @@ import org.hibernate.proxy.HibernateProxy;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -35,10 +36,9 @@ public class Prova {
             inverseJoinColumns = @JoinColumn(name = "ID_QUESTAO"))
     private List<Questao> questoes;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "LISTA_RESPOSTAS", joinColumns = @JoinColumn(name = "ID_PROVA", nullable = false))
-    private List<Resposta> respostas;
+    private List<Resposta> respostas = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "ID_USUARIO")
