@@ -226,94 +226,210 @@ E) 3', 5, 'A', 3, 2, 1);
 
 
 --Insert Português
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual é o sinônimo da palavra "rápido"?
+DECLARE
+    v_id_questao NUMBER;
+BEGIN
 
-A) Devagar
-B) Lento
-C) Ágil
-D) Manso
-E) Estático', 1, 'C', 1, 1, 1);
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual é o sinônimo da palavra "rápido"?', 'Ágil', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual é o antônimo da palavra "alegre"?
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Devagar');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Lento');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Ágil');
 
-A) Triste
-B) Feliz
-C) Radiante
-D) Contente
-E) Jubiloso', 1, 'A', 1, 1, 1);
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Manso');
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual é o sinônimo da palavra "grande"?
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Estático');
 
-A) Pequeno
-B) Gigante
-C) Largo
-D) Longo
-E) Curto', 1, 'B', 1, 1, 1);
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual é o plural correto de "cidadão"?
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual é o antônimo da palavra "alegre"?', 'Triste', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
 
-A) Cidadãos
-B) Cidadãoes
-C) Cidadõeis
-D) Cidadões
-E) Cidadães', 3, 'A', 2, 1, 1);
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Triste');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Feliz');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Radiante');
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual é o significado da expressão "a gota dágua"?
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Contente');
 
-A) Algo pequeno e irrelevante
-B) Uma grande conquista
-C) Uma chuva intensa
-D) Uma expressão de alegria
-E) Uma demonstração de coragem', 3, 'A', 2, 1, 1);
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Jubiloso');
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual é o autor da obra "Dom Casmurro"?
 
-A) Machado de Assis
-B) José de Alencar
-C) Lima Barreto
-D) Graciliano Ramos
-E) Monteiro Lobato', 3, 'A', 2, 1, 1);
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual é o sinônimo da palavra "grande"?', 'Gigante', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Na frase "Aquele gesto revelou uma benevolência incomum", o que significa "benevolência"?
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Pequeno');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Gigante');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Largo');
 
-A) Maldade
-B) Crueldade
-C) Bondade
-D) Arrogância
-E) Desprezo', 5, 'C', 3, 1, 1);
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Longo');
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Na frase "A tessitura da trama era intricada", o que significa "tessitura"?
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Curto');
 
-A) Textura
-B) Espessura
-C) Altura
-D) Largura
-E) Densidade', 5, 'A', 3, 1, 1);
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual é o significado da expressão "chover no molhado"?
-A) Conseguir algo com facilidade
-B) Lidar com um problema difícil
-C) Estar sempre ocupado
-D) Discutir algo desnecessário
-E) Chorar por algo perdido', 5, 'D', 3, 1, 1);
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual é o plural correto de "cidadão"?', 'Cidadãos', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Identifique a alternativa em que o uso da vírgula está correto:
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Cidadãos');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Cidadãoes');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Cidadenses');
 
-a) O carro novo é, bonito.
-b) Na festa, encontramos amigos.
-c) Ela comprou um, celular novo.
-d) Eles foram ao cinema, ontem.
-e) Gostamos de pizza, com bastante queijo.', 5, 'B', 3, 1, 1);
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Cidadões');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Cidadães');
+
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual é o significado da expressão "a gota dágua"?', 'Chegar ao limite', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Chegar ao limite');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Uma grande conquista');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Uma chuva intensa');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Uma expressão de alegria');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Uma demonstração de coragem');
+
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Na frase "Aquele gesto revelou uma benevolência incomum", o que significa "benevolência"?', 'Bondade', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Maldade');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Crueldade');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Bondade');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Arrogância');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Desprezo');
+
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Na frase "A tessitura da trama era intricada", o que significa "tessitura"?', 'Textura', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Textura');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Espessura');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Altura');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Largura');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Densidade');
+
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual é o significado da expressão "chover no molhado"?', 'Discutir algo desnecessário', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Conseguir algo com facilidade');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Lidar com um problema difícil');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Estar sempre ocupado');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Discutir algo desnecessário');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Chorar por algo perdido');
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Identifique a alternativa em que o uso da vírgula está correto:', 'Na festa, encontramos amigos', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'O carro novo é, bonito');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Na festa, encontramos amigos');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Ela comprou um, celular novo');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Eles foram ao cinema, ontem');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Gostamos de pizza, com bastante queijo');
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual é o autor da obra "Dom Casmurro"?', 'Machado de Assis', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Machado de Assis');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'José de Alencar');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Lima Barreto');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Graciliano Ramos');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Monteiro Lobato');
+
+    COMMIT;
+END;
+
 
 
 --Insert QUESTAO SOFTSKILLS
