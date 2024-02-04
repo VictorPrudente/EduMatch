@@ -27,17 +27,17 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query("""
             SELECT new VS13.Squad09.EduMatch.dtos.EnderecoRelatorioDTO(
               e.cep, e.cidade, e.estado, e.pais)
-            FROM usuario u
-            JOIN u.enderecos e
+            FROM USUARIO u
+            JOIN u.endereco e
             WHERE u.idUsuario = :idUsuario""")
     EnderecoRelatorioDTO procurarEnderecos(@Param("idUsuario") Integer idUsuario);
 
 
     @Query("""
             SELECT new VS13.Squad09.EduMatch.dtos.ContatoRelatorioDTO(
-                c.numero)
+                c.telefone)
             FROM USUARIO u
-            JOIN u.contatos c
+            JOIN u.contato c
             where u.idUsuario = :idUsuario""")
     ContatoRelatorioDTO procurarContatos(@Param("idUsuario") Integer idUsuario);
 
