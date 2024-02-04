@@ -19,10 +19,10 @@ import java.util.Set;
 public class Usuario {
 
     @Id
-    @Column(name = "ID_USUARIO")
+    @Column(name = "id_usuario")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USUARIO")
     @SequenceGenerator(name = "SEQ_USUARIO", sequenceName = "SEQ_USUARIO", allocationSize = 1)
-    private Integer id;
+    private Integer idUsuario;
 
     @Column(name = "email")
     private String email;
@@ -67,25 +67,25 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private Set<Prova> prova;
 
-//    @JsonInclude(JsonInclude.Include.NON_NULL)
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "id_contato", referencedColumnName = "id_contato")
-//    private Contato contato;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_contato", referencedColumnName = "id_contato")
+    private Contato contato;
 
-//    @JsonInclude(JsonInclude.Include.NON_NULL)
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco")
-//    private Endereco endereco;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco")
+    private Endereco endereco;
 
-//    @JsonInclude(JsonInclude.Include.NON_NULL)
-//    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Set<Insignia> insignias;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Insignia> insignias;
 
-//    @JsonInclude(JsonInclude.Include.NON_NULL)
-//    @OneToMany(mappedBy = "USUARIO", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Set<Certificado> certificados;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Certificado> certificados;
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
@@ -105,11 +105,11 @@ public class Usuario {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Usuario usuario = (Usuario) object;
-        return Objects.equals(id, usuario.id);
+        return Objects.equals(idUsuario, usuario.idUsuario);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(idUsuario);
     }
 }

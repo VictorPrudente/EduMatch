@@ -1,5 +1,7 @@
 package VS13.Squad09.EduMatch.services;
 
+import VS13.Squad09.EduMatch.dtos.UsuarioCompletoRelatorioDTO;
+import VS13.Squad09.EduMatch.dtos.UsuarioECertificadoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.request.LoginCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.PessoaJuridicaDTO;
@@ -17,7 +19,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -43,10 +50,10 @@ public class UsuarioService {
         usuarioEntity.setPontuacao(0);
         usuarioEntity.setMoedas(0);
         usuarioEntity.setElo(Elo.FERRO);
-        if(usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_FISICA){
+        if (usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_FISICA) {
             usuarioEntity.setTipoEmpresa(TipoEmpresa.USUARIO_PADRAO);
         }
-      
+
         String senha = hashPassword(usuarioEntity.getSenha());
         usuarioEntity.setSenha(senha);
         usuarioRepository.save(usuarioEntity);
@@ -81,13 +88,13 @@ public class UsuarioService {
     }
 
     public UsuarioDTO listarPorEmail(String email) throws BancoDeDadosException {
-        return objectMapper.convertValue(usuarioRepository.listarPorEmail(email), UsuarioDTO.class );
+        return objectMapper.convertValue(usuarioRepository.listarPorEmail(email), UsuarioDTO.class);
     }
 
-//    public List<UsuarioDTO> rankearUsuarios() throws BancoDeDadosException {
-//        return usuarioRepository.rankearJogadores().stream().map(usuario ->
-//                objectMapper.convertValue(usuario, UsuarioDTO.class)).collect(Collectors.toList());
-//    }
+    public List<UsuarioDTO> rankearUsuarios() throws BancoDeDadosException {
+        return usuarioRepository.rankearJogadores().stream().map(usuario ->
+                objectMapper.convertValue(usuario, UsuarioDTO.class)).collect(Collectors.toList());
+    }
 
     public UsuarioDTO atualizar(Integer id, UsuarioCreateDTO usuarioCreateDTO) throws Exception {
 
@@ -97,7 +104,7 @@ public class UsuarioService {
 
         Integer eloAtual = usuarioRecuperado.getElo().ordinal();
 
-        if(eloAtual < Elo.values().length) {
+        if (eloAtual < Elo.values().length) {
             String elo = Elo.valueOf(++eloAtual).name();
             Ranking ranking = rankingService.subirRanking(elo, usuarioRecuperado);
             if (ranking != null) {
@@ -115,12 +122,12 @@ public class UsuarioService {
     public Boolean login(LoginCreateDTO loginCreateDTO) throws Exception {
         Usuario usuarioProcurado = usuarioRepository.listarPorEmail(loginCreateDTO.getEmail());
         log.info(usuarioProcurado.toString());
-        if(hashPassword(loginCreateDTO.getSenha()).equals(usuarioProcurado.getSenha())) {
+        if (hashPassword(loginCreateDTO.getSenha()).equals(usuarioProcurado.getSenha())) {
             return true;
         }
         throw new IllegalArgumentException("Senha inválida.");
     }
-  
+
     public List<PessoaJuridicaDTO> listarEmpresas() throws Exception {
         return usuarioRepository.findAll().stream()
                 .filter(usuario -> usuario.getTipoUsuario().ordinal() == 1)
@@ -137,10 +144,9 @@ public class UsuarioService {
         usuarioRepository.save(usuarioProcurado);
         usuarioProcurado.setEmail(email);
         UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioProcurado, UsuarioDTO.class);
-        emailService.sendEmail(usuarioProcurado,null, 3);
+        emailService.sendEmail(usuarioProcurado, null, 3);
         return usuarioDTO;
     }
-
 
 
     //METODOS ADICIONAIS
@@ -151,29 +157,40 @@ public class UsuarioService {
         }
     }
 
-    private String hashPassword(String senha){
+    private String hashPassword(String senha) {
         try {
             MessageDigest cript = MessageDigest.getInstance("SHA-256");
             byte[] passwordBytes = senha.getBytes(StandardCharsets.UTF_8);
             byte[] hashedBytes = cript.digest(passwordBytes);
 
             StringBuilder sb = new StringBuilder();
-            for (byte b : hashedBytes){
+            for (byte b : hashedBytes) {
                 sb.append(String.format("%02x", b));
             }
             return sb.toString();
-        } catch (NoSuchAlgorithmException e){
+        } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             return null;
         }
     }
-//    public List<UsuarioCompletoRelatorioDTO> listarUsuarioCompletoRelatorio(Integer id) {
-//        return usuarioRepository.procurarUsuarioCompletoDTO(id)
-//                .stream().map(usuario -> {
-//                    usuario.setEnderecosUsuario(usuarioRepository.procurarEnderecos(usuario.getIdUsuario()));
-//                    usuario.setContatosUsuario(usuarioRepository.procurarContatos(usuario.getIdUsuario()));
-//                    return usuario;
-//                }).toList();
-//    }
+
+    public UsuarioCompletoRelatorioDTO listarUsuarioCompletoRelatorio(Integer id) {
+        UsuarioCompletoRelatorioDTO usuarioCompletoRelatorioDTO = usuarioRepository.procurarUsuarioCompletoDTO(id);
+        usuarioCompletoRelatorioDTO.setContatoUsuario(usuarioRepository.procurarContatos(usuarioCompletoRelatorioDTO.getIdUsuario()));
+        usuarioCompletoRelatorioDTO.setEnderecoUsuario(usuarioRepository.procurarEnderecos(usuarioCompletoRelatorioDTO.getIdUsuario()));
+        return usuarioCompletoRelatorioDTO;
+    }
+
+    public UsuarioECertificadoRelatorioDTO listarUsuarioComCertificado(Integer id) {
+        UsuarioECertificadoRelatorioDTO usuarioECertificadoRelatorioDTO = usuarioRepository.procurarUsuarioECertificadoDTO(id);
+        usuarioECertificadoRelatorioDTO.setCertificadoUsuario(usuarioRepository.procurarCertificado(id));
+        return usuarioECertificadoRelatorioDTO;
+    }
+
+    public Page<Usuario> listPaginadaByName(Integer paginaSolicitada, Integer tamanhoPagina) {
+        Pageable pageable = PageRequest.of(paginaSolicitada, tamanhoPagina, Sort.by("nome").descending());
+        return usuarioRepository.findAll(pageable);
+    }
 }
+
 
