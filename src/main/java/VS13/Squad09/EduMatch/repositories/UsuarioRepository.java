@@ -10,10 +10,10 @@ import java.util.List;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
-    @Query(value = "SELECT * FROM VEM_SER.USUARIO u WHERE p.email = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM USUARIO u WHERE u.email = ?1", nativeQuery = true)
     Usuario listarPorEmail(String email);
 
-    @Query(value = "SELECT * FROM VEM_SER.USUARIO u ORDER BY p.pontuacao DESC", nativeQuery = true)
+    @Query(value = "SELECT * FROM USUARIO u ORDER BY u.PONTUACAO DESC", nativeQuery = true)
     List <Usuario> rankearJogadores();
 
     @Query("""
