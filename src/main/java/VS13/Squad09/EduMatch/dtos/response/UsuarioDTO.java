@@ -1,22 +1,23 @@
 package VS13.Squad09.EduMatch.dtos.response;
 
-import VS13.Squad09.EduMatch.entities.Ranking;
-import VS13.Squad09.EduMatch.entities.enums.Status;
-import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
-import VS13.Squad09.EduMatch.entities.enums.Role;
-import VS13.Squad09.EduMatch.entities.enums.TipoEmpresa;
+import VS13.Squad09.EduMatch.entities.*;
+import VS13.Squad09.EduMatch.entities.enums.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.Hidden;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class UsuarioDTO {
-    private Integer id;
+    private Integer idUsuario;
     private String email;
     private String nome;
     private String sobrenome;
@@ -30,4 +31,10 @@ public class UsuarioDTO {
     private TipoEmpresa tipoEmpresa;
     private Integer moedas;
     private Ranking ranking;
+    private Contato contato;
+    private Endereco endereco;
+    private Set<Insignia> insignias;
+    private Set<Certificado> certificados;
+    private Elo elo;
+
 }

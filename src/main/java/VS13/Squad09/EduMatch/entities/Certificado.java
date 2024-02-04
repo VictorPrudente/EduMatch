@@ -23,14 +23,19 @@ public class Certificado {
     @SequenceGenerator(name = "SEQ_CERTIFICADO", sequenceName = "SEQ_CERTIFICADO", allocationSize = 1)
     private Integer id_certificado;
 
+    @Column(name = "trilha")
     private Trilha trilha;
 
+    @Column(name = "dificuldade")
+    private Dificuldade dificuldade;
+
+    @Column(name = "data_emitida")
     private LocalDateTime conclusao = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     private Usuario usuario;
 
-    private Dificuldade dificuldade;
-
 }
+
+
