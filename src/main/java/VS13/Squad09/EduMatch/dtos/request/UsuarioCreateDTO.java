@@ -18,7 +18,7 @@ public class UsuarioCreateDTO {
         @Hidden
         @Positive
         @Schema(description = "Id do usuário", example = "1")
-        private Integer id;
+        private Integer idUsuario;
 
         @NotNull
         @NotBlank
@@ -32,7 +32,7 @@ public class UsuarioCreateDTO {
         @NotNull
         @NotBlank
         @Email
-        @Schema(description = "e-mail do usuário", example = "fulano@gmail.com")
+        @Schema(description = "e-mail do usuário", example = "fulano@gmail.com", required = true)
         private String email;
 
         @NotNull
@@ -63,9 +63,4 @@ public class UsuarioCreateDTO {
         @Schema(description = "Tipo de Empresa", example = "0 = PRIVADA")
         private TipoEmpresa tipoEmpresa;
 
-        private Integer pontuacao;
-
-        private Integer moedas;
-
-        private Elo elo;
 }
