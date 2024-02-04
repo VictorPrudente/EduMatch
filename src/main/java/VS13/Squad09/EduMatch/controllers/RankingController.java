@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class RankingController implements IRankingController {
 
     @GetMapping
     public ResponseEntity<Page<RankingDTO>> listarPorRanking(@RequestParam(required = false) String elo,
-                                                             @PageableDefault(size = 50) Pageable pageable) throws Exception {
+                                                             @PageableDefault(size = 50, direction = Sort.Direction.DESC) Pageable pageable) throws Exception {
         Page<RankingDTO> rankingDTO = rankingService.listarPorRanking(elo, pageable);
         return ResponseEntity.ok(rankingDTO);
     }
