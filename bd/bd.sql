@@ -212,26 +212,22 @@ CREATE TABLE USUARIO (
     id_usuario NUMBER(38,0) NOT NULL,
     email VARCHAR2(100) UNIQUE,
     senha VARCHAR2(100) NOT NULL,
-    nome VARCHAR2(50) NOT NULL,
-    tipo_usuario NUMBER(1,0) NOT NULL CHECK (tipo_usuario IN (0,1)),
+    nome VARCHAR2(50),
+    tipo_usuario NUMBER(1,0) NOT NULL CHECK (tipo_usuario IN (0,1,2)),
     cpf VARCHAR2(11) UNIQUE,
-    sobrenome VARCHAR2(50) NOT NULL,
-    data_nascimento DATE ,
-    pontuacao NUMBER(3,0),
+    sobrenome VARCHAR2(50),
+    data_nascimento DATE,
+    pontuacao NUMBER(5,0),
     moedas NUMBER(38,0),
+    ELO NUMBER (2,0),
     cnpj VARCHAR2(14) UNIQUE,
     tipo_empresa NUMBER (1,0) CHECK (tipo_empresa BETWEEN 0 AND 3),
-    role NUMBER(1,0) NOT NULL CHECK (role IN (0,1,2)),
     status NUMBER (1,0) NOT NULL CHECK (status IN (0,1)),
-    id_prova NUMBER(38,0),
+    ID_RANKING NUMBER(38,0),
     id_contato NUMBER(38,0),
     id_endereco NUMBER(38,0),
-    id_insignia NUMBER(38,0),
-    id_certificado NUMBER(38,0),
-    id_ranking NUMBER(38,0),
-    PRIMARY KEY ( id_usuario ),
     CONSTRAINT  FK_RANKING_USUARIO FOREIGN KEY (ID_RANKING) REFERENCES RANKING (id_ranking),
-    ELO NUMBER(1,0) NOT NULL CHECK (elo BETWEEN 0 AND 9)
+    PRIMARY KEY ( id_usuario )
 );
 
 
@@ -285,9 +281,9 @@ CREATE SEQUENCE SEQ_ENDERECO
 
 CREATE TABLE CERTIFICADO (
     id_certificado NUMBER(38,0) NOT NULL,
-    trilha NUMBER(2,0) NOT NULL CHECK (trilha BETWEEN 0 AND 10),
-    dificuldade NUMBER(1,0) NOT NULL CHECK (dificuldade IN (1,2,3)),
-    conclusao DATE NOT NULL,
+    trilha NUMBER(2,0) NOT NULL,
+    dificuldade NUMBER(1,0) NOT NULL,
+    data_emitida DATE NOT NULL,
     id_usuario NUMBER(38,0) NOT NULL,
     PRIMARY KEY ( id_certificado ),
     CONSTRAINT FK_CERTIFICADO_USUARIO FOREIGN KEY ( id_usuario ) REFERENCES USUARIO ( id_usuario )
@@ -363,16 +359,16 @@ CREATE SEQUENCE SEQ_PROVA_QUESTAO
     NOCACHE
     NOCYCLE;
 
-CREATE TABLE INSIGNIA (
+CREATE TABLE insignia (
     ID_INSIGNIA NUMBER(38,0),
     imagem_url VARCHAR2(500),
     titulo VARCHAR2(255) NOT NULL,
     descricao VARCHAR2(255),
     STATUS NUMBER(1,0) NOT NULL CHECK (status IN (0,1)),
-    id_usuario NUMBER(38,0),
     data_emitida TIMESTAMP NOT NULL,
-    PRIMARY KEY (ID_INSIGNIA),
-    CONSTRAINT FK_INSIGNIA_USUARIO FOREIGN KEY ( id_usuario ) REFERENCES USUARIO ( id_usuario )
+    ID_USUARIO NUMBER(38,0),
+    FOREIGN KEY (ID_USUARIO) REFERENCES USUARIO (ID_USUARIO),
+    PRIMARY KEY (ID_INSIGNIA)
 );
 
 CREATE SEQUENCE SEQ_INSIGNIA

@@ -45,6 +45,11 @@ public class RankingService {
     }
 
 
+    public Ranking rankingInicial() {
+        return rankingRepository.findByElo("FERRO");
+    }
+
+
 
     //METODOS ADICIONAIS
 

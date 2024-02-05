@@ -30,35 +30,32 @@ VALUES (10, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMat
 
 
 -- INSERT EMPRESA
-INSERT INTO USUARIO (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'TechSol','Tecnologia','12345678900210','Desenvolvimento de software', 0);
+INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
+VALUES (SEQ_USUARIO.NEXTVAL, 'TechSol', 'techsol@email.com', '12345', '12345678900210', 2, 0, 1);
 
-INSERT INTO USUARIO (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'EcoBio','Meio Ambiente','98765432100010','Reciclagem e preservação', 1);
+INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
+VALUES (SEQ_USUARIO.NEXTVAL, 'EcoBio', 'ecobio@email.com', '12345', '98765432100010', 2, 1, 1);
 
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'SaúdeVital','Saúde','78901234500010','Serviços de saúde e cuidados', 0);
+INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
+VALUES (SEQ_USUARIO.NEXTVAL, 'SaúdeVital', 'saudevital@email.com', '12345', '78901234500010', 2, 1, 1);
 
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'AgroTech','Agricultura','34567890100010','Desenvolvimento de tecnologias agrícolas', 0);
+INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
+VALUES (SEQ_USUARIO.NEXTVAL, 'AgroTech', 'agrotech@email.com', '12345', '34567890100010', 2, 0, 1);
 
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'ConstruPrime','Construção','01234567800010','Construção civil e infraestrutura', 1);
+INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
+VALUES (SEQ_USUARIO.NEXTVAL, 'ConstruPrime', 'cprime@email.com', '12345', '01234567800010', 2, 0, 1);
 
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'ModaStyle','Moda','56789012300010','Comércio de roupas e acessórios', 1);
+INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
+VALUES (SEQ_USUARIO.NEXTVAL, 'ModaStyle', 'mstyle@email.com', '12345', '56789012300010', 2, 0, 1);
 
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'EducaTech','Educação','23456789000010','Tecnologias educacionais', 1);
+INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
+VALUES (SEQ_USUARIO.NEXTVAL, 'EducaTech', 'edutech@email.com', '12345', '23456789000010', 2, 0, 1);
 
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'EnergiSolar','Energia','89012345600010','Energia solar sustentável', 0);
+INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
+VALUES (SEQ_USUARIO.NEXTVAL, 'EnergiSolar', 'energisol@email.com', '12345', '89012345600010', 2, 0, 1);
 
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'EnergiSolar','Energia','89012345600011','Energia solar sustentável', 1);
-
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'TransLog','Logística','45678901200010','Serviços de logística', 0);
+INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
+VALUES (SEQ_USUARIO.NEXTVAL, 'TransLog', 'translog@email.com', '12345', '45678901200010', 2, 1, 1);
 
 
 -- Insert Escola
