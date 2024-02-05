@@ -11,7 +11,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,13 +28,19 @@ public class RankingService {
     private final ObjectMapper objectMapper;
 
     public Page<RankingDTO> listarPorRanking(String elo, Pageable page){
+        Page<Ranking> rankingPage;
         if (elo != null){
             elo = elo.toUpperCase();
-            return rankingRepository.findAllByTitulo(elo, page)
-                    .map(ranking -> objectMapper.convertValue(ranking, RankingDTO.class));
+            rankingPage =  rankingRepository.findAllByTitulo(elo, page);
+        } else {
+            rankingPage = rankingRepository.findAll(page);
         }
-        return rankingRepository.findAll(page)
-                .map(ranking -> objectMapper.convertValue(ranking, RankingDTO.class));
+        List<RankingDTO> rankingDTOList = rankingPage.getContent()
+                .stream()
+                .map(ranking -> objectMapper.convertValue(ranking, RankingDTO.class))
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(rankingDTOList, page, rankingPage.getTotalElements());
     }
 
     public Ranking subirRanking(String nome, Usuario usuario) {

@@ -22,10 +22,6 @@ public class EnderecoService {
     public EnderecoDTO salvar(Integer id, EnderecoCreateDTO enderecoCreateDTO) throws Exception {
         usuarioService.listarPorId(id);
 
-        if(returnEnderecoByIdUsuario(id) != null) {
-            throw new RegraDeNegocioException("Usuário já possui um endereço cadastrado.");
-        }
-
         Endereco enderecoEntity = enderecoMapper.toEntity(enderecoCreateDTO);
 
         return enderecoMapper.toDto(enderecoRepository.save(enderecoEntity));
