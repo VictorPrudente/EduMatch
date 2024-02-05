@@ -19,9 +19,9 @@ public interface CertificadoRepository extends JpaRepository<Certificado, Intege
             "WHERE ROWNUM <= 1", nativeQuery = true)
     Certificado listarUltimo(Integer idUsuario);
 
-    @Query(value = "SELECT c.trilha, c.dificuldade, c.conclusao, u.nome, u.sobrenome " +
-                "FROM CERTIFICADO c " +
-                "INNER JOIN USUARIO u ON c.ID_USUARIO = u.ID_USUARIO " +
-                "WHERE c.idUsuario = ?1", nativeQuery = true)
+    @Query(value = "SELECT ce.trilha, ce.dificuldade, ce.conclusao, u.nome, u.sobrenome " +
+                "FROM CERTIFICADO ce " +
+                "INNER JOIN USUARIO u ON ce.ID_USUARIO = u.ID_USUARIO " +
+                "WHERE u.ID_USUARIO= ?1", nativeQuery = true)
     List<Certificado> listarPorUsuario(Integer idUsuario);
 }

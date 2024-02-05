@@ -64,18 +64,6 @@ public interface IUsuarioController {
     @GetMapping("/status/{stts}")
     ResponseEntity<List<UsuarioDTO>> listarPorStatus(@PathVariable @NotNull Integer stts) throws Exception;
 
-
-    @Operation(summary = "Mostra rank dos usuários", description = "Rankeia todos os usuários do banco")
-    @ApiResponses(
-            value = {
-                    @ApiResponse(responseCode = "200", description = "Retornou o rank de usuários"),
-                    @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
-                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
-            }
-    )
-    @GetMapping("/rankear")
-    ResponseEntity<List<UsuarioDTO>> rankearUsuarios() throws Exception;
-
     @Operation(summary = "Mostrar relatório de usuario", description = "Mostra relatório de usuario no banco")
     @ApiResponses(
             value = {

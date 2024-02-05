@@ -29,13 +29,13 @@ public class Certificado {
     @Column(name = "dificuldade")
     private Dificuldade dificuldade;
 
-    @Column(name = "CONCLUSAO")
-    private LocalDateTime conclusao;
+    @Column(name = "conclusao")
+    private LocalDateTime conclusao = LocalDateTime.now();
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     private Usuario usuario;
-
 }
 
 

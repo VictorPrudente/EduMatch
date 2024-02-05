@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CertificadoDTO {
+
     private Trilha trilha;
     private LocalDateTime conclusao;
     private Usuario usuario;

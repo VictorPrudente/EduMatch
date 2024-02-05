@@ -29,7 +29,7 @@ public class UsuarioCreateDTO {
         private String sobrenome;
 
         @Email
-        @Schema(description = "e-mail do usuário", example = "fulano@gmail.com")
+        @Schema(description = "e-mail do usuário", example = "fulano@gmail.com", required = true)
         private String email;
 
         @NotBlank
