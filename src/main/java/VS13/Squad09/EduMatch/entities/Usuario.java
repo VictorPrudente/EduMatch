@@ -57,9 +57,6 @@ public class Usuario {
     @Column(name = "tipo_empresa")
     private TipoEmpresa tipoEmpresa;
 
-    @Column(name = "role")
-    private Role role;
-
     @Column(name = "status")
     private Status status;
   
@@ -88,7 +85,7 @@ public class Usuario {
     private Set<Certificado> certificados;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_RANKING", referencedColumnName = "ID_RANKING")
     private Ranking ranking;
 

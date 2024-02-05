@@ -213,7 +213,7 @@ CREATE TABLE USUARIO (
     email VARCHAR2(100) UNIQUE,
     senha VARCHAR2(100) NOT NULL,
     nome VARCHAR2(50),
-    tipo_usuario NUMBER(1,0) NOT NULL CHECK (tipo_usuario IN (0,1)),
+    tipo_usuario NUMBER(1,0) NOT NULL CHECK (tipo_usuario IN (0,1,2)),
     cpf VARCHAR2(11) UNIQUE,
     sobrenome VARCHAR2(50),
     data_nascimento DATE,
@@ -221,10 +221,11 @@ CREATE TABLE USUARIO (
     moedas NUMBER(38,0),
     ELO NUMBER (2,0),
     cnpj VARCHAR2(14) UNIQUE,
-    tipo_empresa NUMBER (1,0) CHECK (tipo_empresa BETWEEN 0 AND 4),
-    role NUMBER(1,0) NOT NULL CHECK (role IN (0,1,2)),
+    tipo_empresa NUMBER (1,0) CHECK (tipo_empresa BETWEEN 0 AND 3),
     status NUMBER (1,0) NOT NULL CHECK (status IN (0,1)),
-    ID_RANKING NUMBER(1,0),
+    ID_RANKING NUMBER(38,0),
+    id_contato NUMBER(38,0),
+    id_endereco NUMBER(38,0),
     CONSTRAINT  FK_RANKING_USUARIO FOREIGN KEY (ID_RANKING) REFERENCES RANKING (id_ranking),
     PRIMARY KEY ( id_usuario )
 );
@@ -280,8 +281,8 @@ CREATE SEQUENCE SEQ_ENDERECO
 
 CREATE TABLE CERTIFICADO (
     id_certificado NUMBER(38,0) NOT NULL,
-    trilha NUMBER(2,0) NOT NULL CHECK (trilha BETWEEN 0 AND 10),
-    dificuldade NUMBER(1,0) NOT NULL CHECK (dificuldade IN (1,2,3)),
+    trilha NUMBER(2,0) NOT NULL,
+    dificuldade NUMBER(1,0) NOT NULL,
     data_emitida DATE NOT NULL,
     id_usuario NUMBER(38,0) NOT NULL,
     PRIMARY KEY ( id_certificado ),
@@ -365,6 +366,8 @@ CREATE TABLE insignia (
     descricao VARCHAR2(255),
     STATUS NUMBER(1,0) NOT NULL CHECK (status IN (0,1)),
     data_emitida TIMESTAMP NOT NULL,
+    ID_USUARIO NUMBER(38,0),
+    FOREIGN KEY (ID_USUARIO) REFERENCES USUARIO (ID_USUARIO),
     PRIMARY KEY (ID_INSIGNIA)
 );
 

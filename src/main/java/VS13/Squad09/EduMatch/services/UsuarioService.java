@@ -50,6 +50,7 @@ public class UsuarioService {
         usuarioEntity.setPontuacao(0);
         usuarioEntity.setMoedas(0);
         usuarioEntity.setElo(Elo.FERRO);
+        usuarioEntity.setRanking(rankingService.rankingInicial());
         if (usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_FISICA) {
             usuarioEntity.setTipoEmpresa(TipoEmpresa.USUARIO_PADRAO);
         }
@@ -58,9 +59,8 @@ public class UsuarioService {
         usuarioEntity.setSenha(senha);
         usuarioRepository.save(usuarioEntity);
 
-        UsuarioDTO usuarioDTO2 = objectMapper.convertValue(usuarioEntity, UsuarioDTO.class);
         //emailService.sendEmail(usuarioEntity, null, 1);
-        return usuarioDTO2;
+        return objectMapper.convertValue(usuarioEntity, UsuarioDTO.class);
     }
 
     public List<UsuarioDTO> listarTodos() throws BancoDeDadosException {

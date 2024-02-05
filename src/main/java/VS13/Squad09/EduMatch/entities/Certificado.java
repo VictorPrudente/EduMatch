@@ -29,8 +29,8 @@ public class Certificado {
     @Column(name = "dificuldade")
     private Dificuldade dificuldade;
 
-    @Column(name = "data_emitida")
-    private LocalDateTime conclusao = LocalDateTime.now();
+    @Column(name = "CONCLUSAO")
+    private LocalDateTime conclusao;
 
     @ManyToOne
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
