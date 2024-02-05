@@ -17,17 +17,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 public class CertificadoCreateDTO {
-    @Positive(message = "O id não pode ser negativo")
-    @Schema(description = "Id do Certificado", example = "1")
-    private Integer id;
 
     @NotNull(message = "A trilha não pode estar vazia.")
-    @Schema(description = "Trilha que será selecionada", required = true, example = "MATEMATICA")
+    @Schema(description = "Trilha que será selecionada", required = true, example = "MATEMATICA/PORTUGUES/SOFTSKILLS")
     private Trilha trilha;
 
-
     @NotNull(message = "O tipo de dificuldade não pode estar vazia.")
-    @Schema(description = "Dificuldade da trilha", example = "FACIL")
+    @Schema(description = "Dificuldade da trilha", example = "1(FACIL)/2(MEDIO)/3(DIFICIL)")
     private Dificuldade dificuldade;
-
 }

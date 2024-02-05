@@ -36,9 +36,9 @@ public class CertificadoService {
         Certificado certificadoEntity = objectMapper.convertValue(certificado, Certificado.class);
 
         certificadoEntity.setConclusao(LocalDateTime.now());
-        certificadoEntity.setUsuario(usuario);
-        certificadoEntity = certificadoRepository.save(certificadoEntity);
-        emailService.sendEmail(certificadoEntity.getUsuario(), certificadoEntity,4);
+        usuario.getCertificados().add(certificadoEntity);
+        certificadoRepository.save(certificadoEntity);
+        // emailService.sendEmail(certificadoEntity.getUsuario(), certificadoEntity,4);
 
         CertificadoDTO certificadoDTO = objectMapper.convertValue(certificadoEntity, CertificadoDTO.class);
 

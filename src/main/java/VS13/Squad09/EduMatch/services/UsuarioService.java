@@ -91,11 +91,6 @@ public class UsuarioService {
         return objectMapper.convertValue(usuarioRepository.listarPorEmail(email), UsuarioDTO.class);
     }
 
-    public List<UsuarioDTO> rankearUsuarios() throws BancoDeDadosException {
-        return usuarioRepository.rankearJogadores().stream().map(usuario ->
-                objectMapper.convertValue(usuario, UsuarioDTO.class)).collect(Collectors.toList());
-    }
-
     public UsuarioDTO atualizar(Integer id, UsuarioCreateDTO usuarioCreateDTO) throws Exception {
 
         validarUsuario(usuarioCreateDTO);

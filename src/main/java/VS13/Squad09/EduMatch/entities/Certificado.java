@@ -29,11 +29,11 @@ public class Certificado {
     @Column(name = "conclusao")
     private LocalDateTime conclusao = LocalDateTime.now();
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     private Usuario usuario;
 
     @Column(name = "dificuldade")
     private Dificuldade dificuldade;
-
 }

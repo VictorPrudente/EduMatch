@@ -52,10 +52,6 @@ public class UsuarioCreateDTO {
         @Schema(description = "Tipo de usuário", example = "PESSOA_FISICA/PESSOA-JURIDICA")
         private TipoUsuario tipoUsuario;
 
-        @NotNull
-        @Schema(description = "Permissão do usuário", example = "ADM")
-        private Role role;
-
         @Past
         @Schema(description = "Data de nascimento do usuário", example = "yyyy-mm-dd")
         private LocalDate dataNascimento;

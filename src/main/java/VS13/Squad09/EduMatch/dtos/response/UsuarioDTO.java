@@ -23,7 +23,6 @@ public class UsuarioDTO {
     private String CPF;
     private String CNPJ;
     private TipoUsuario tipoUsuario;
-    private Role role;
     private Status status;
     private LocalDate dataNascimento;
     private Integer pontuacao;

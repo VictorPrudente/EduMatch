@@ -13,9 +13,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     @Query(value = "SELECT * FROM USUARIO u WHERE u.email = ?1", nativeQuery = true)
     Usuario listarPorEmail(String email);
 
-    @Query(value = "SELECT * FROM USUARIO u ORDER BY u.pontuacao DESC", nativeQuery = true)
-    List <Usuario> rankearJogadores();
-
     @Query("""
             SELECT new VS13.Squad09.EduMatch.dtos.UsuarioCompletoRelatorioDTO(
                 u.idUsuario, u.nome, u.email)
