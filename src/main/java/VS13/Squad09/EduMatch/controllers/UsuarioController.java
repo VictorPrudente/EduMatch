@@ -50,8 +50,9 @@ public class UsuarioController implements IUsuarioController {
     }
 
     @PutMapping("/{idUsuario}")
-    public ResponseEntity<UsuarioDTO> atualizar(@RequestBody @Valid UsuarioCreateDTO usuarioAtualizar) throws Exception {
-        return ResponseEntity.ok().body(usuarioService.atualizar(usuarioAtualizar));
+    public ResponseEntity<UsuarioDTO> atualizar(@RequestBody @Valid UsuarioCreateDTO usuarioAtualizar,
+                                                @PathVariable Integer idUsuario) throws Exception {
+        return ResponseEntity.ok().body(usuarioService.atualizar(idUsuario, usuarioAtualizar));
     }
 
     @DeleteMapping("/{idUsuario}")

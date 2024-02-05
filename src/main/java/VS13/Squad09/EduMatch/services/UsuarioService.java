@@ -79,14 +79,6 @@ public class UsuarioService {
         return objectMapper.convertValue(usuarioRepository.findById(id), UsuarioDTO.class);
     }
 
-    public UsuarioDTO atualizar(UsuarioCreateDTO usuarioCreateDTO) throws Exception {
-        validarUsuario(usuarioCreateDTO);
-        Usuario usuarioAtualizado = objectMapper.convertValue(usuarioCreateDTO, Usuario.class);
-        usuarioRepository.save(usuarioAtualizado);
-        return objectMapper.convertValue(usuarioAtualizado, UsuarioDTO.class);
-        //emailService.sendEmail(usuario, 2);
-    }
-
     public UsuarioDTO listarPorEmail(String email) throws BancoDeDadosException {
         return objectMapper.convertValue(usuarioRepository.listarPorEmail(email), UsuarioDTO.class);
     }
@@ -98,13 +90,13 @@ public class UsuarioService {
         BeanUtils.copyProperties(usuarioCreateDTO, usuarioRecuperado);
 
         Integer eloAtual = usuarioRecuperado.getElo().ordinal();
-
+        Integer proximoelo = eloAtual + 1;
         if (eloAtual < Elo.values().length) {
-            String elo = Elo.valueOf(++eloAtual).name();
+            String elo = Elo.valueOf(proximoelo).name();
             Ranking ranking = rankingService.subirRanking(elo, usuarioRecuperado);
             if (ranking != null) {
                 usuarioRecuperado.setRanking(ranking);
-                usuarioRecuperado.setElo(Elo.valueOf(++eloAtual));
+                usuarioRecuperado.setElo(Elo.valueOf(proximoelo));
             }
         }
 

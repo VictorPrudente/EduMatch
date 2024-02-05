@@ -23,13 +23,13 @@ public class Certificado {
     @SequenceGenerator(name = "SEQ_CERTIFICADO", sequenceName = "SEQ_CERTIFICADO", allocationSize = 1)
     private Integer id_certificado;
 
-    @Column(name = "trilha")
+    @Column(name = "TRILHA")
     private Trilha trilha;
 
-    @Column(name = "dificuldade")
+    @Column(name = "DIFICULDADE")
     private Dificuldade dificuldade;
 
-    @Column(name = "conclusao")
+    @Column(name = "CONCLUSAO")
     private LocalDateTime conclusao = LocalDateTime.now();
 
     @JsonIgnore

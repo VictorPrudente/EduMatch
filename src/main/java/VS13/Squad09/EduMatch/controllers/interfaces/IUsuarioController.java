@@ -93,7 +93,8 @@ public interface IUsuarioController {
             }
     )
     @PutMapping("/{idUsuario}")
-    public ResponseEntity<UsuarioDTO> atualizar(@RequestBody @Valid UsuarioCreateDTO usuarioAtualizar) throws Exception;
+    public ResponseEntity<UsuarioDTO> atualizar(@RequestBody @Valid UsuarioCreateDTO usuarioAtualizar,
+                                                @PathVariable Integer idUsuario) throws Exception;
 
 
     @Operation(summary = "Deletar um usuario", description = "Deleta o usuario do banco")

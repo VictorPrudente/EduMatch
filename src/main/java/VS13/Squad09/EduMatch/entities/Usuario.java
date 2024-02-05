@@ -66,25 +66,21 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private Set<Prova> prova;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_contato", referencedColumnName = "id_contato")
     private Contato contato;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco")
     private Endereco endereco;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Insignia> insignias;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Certificado> certificados;
+    private Set<Certificado> certificados = new HashSet<>();
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)

@@ -38,7 +38,6 @@ public class RankingService {
     public Ranking subirRanking(String nome, Usuario usuario) {
         Ranking ranking = rankingRepository.findByElo(nome);
         if(usuario.getPontuacao() >= ranking.getPontuacaoNecessaria()){
-            ranking.getUsuarios().add(usuario);
             return ranking;
         }
         return null;

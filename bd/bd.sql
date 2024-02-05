@@ -283,7 +283,7 @@ CREATE TABLE CERTIFICADO (
     id_certificado NUMBER(38,0) NOT NULL,
     trilha NUMBER(2,0) NOT NULL,
     dificuldade NUMBER(1,0) NOT NULL,
-    data_emitida DATE NOT NULL,
+    conclusao DATE NOT NULL,
     id_usuario NUMBER(38,0) NOT NULL,
     PRIMARY KEY ( id_certificado ),
     CONSTRAINT FK_CERTIFICADO_USUARIO FOREIGN KEY ( id_usuario ) REFERENCES USUARIO ( id_usuario )
