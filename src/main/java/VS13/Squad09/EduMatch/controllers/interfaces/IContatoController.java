@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 public interface IContatoController {
     @Operation(summary = "Listar o contato pelo ID do seu usuário", description = "Retorna uma lista de contatos do banco correspondentes ao ID daquele usuário.")

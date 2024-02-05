@@ -1,15 +1,18 @@
 package VS13.Squad09.EduMatch.controllers.interfaces;
 
+import VS13.Squad09.EduMatch.dtos.UsuarioCompletoRelatorioDTO;
+import VS13.Squad09.EduMatch.dtos.UsuarioECertificadoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.request.LoginCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
+import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -24,7 +27,7 @@ public interface IUsuarioController {
             }
     )
     @PostMapping
-    ResponseEntity<UsuarioDTO> salvar(@RequestBody @Valid UsuarioCreateDTO usuario) throws Exception;
+    ResponseEntity<UsuarioDTO> criar(@RequestBody @Valid UsuarioCreateDTO usuario) throws Exception;
 
 
     @Operation(summary = "Listar todos os usuários", description = "Lista todos os usuários do banco")
@@ -61,18 +64,25 @@ public interface IUsuarioController {
     @GetMapping("/status/{stts}")
     ResponseEntity<List<UsuarioDTO>> listarPorStatus(@PathVariable @NotNull Integer stts) throws Exception;
 
-
-    @Operation(summary = "Mostra rank dos usuários", description = "Rankeia todos os usuários do banco")
+    @Operation(summary = "Mostrar relatório de usuario", description = "Mostra relatório de usuario no banco")
     @ApiResponses(
             value = {
-                    @ApiResponse(responseCode = "200", description = "Retornou o rank de usuários"),
+                    @ApiResponse(responseCode = "200", description = "Retornou o relatório do usuário"),
                     @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )
-    @GetMapping("/rankear")
-    ResponseEntity<List<UsuarioDTO>> rankearUsuarios() throws Exception;
+    @GetMapping("/usuario-completo/{idUsuario}")
+    public ResponseEntity<UsuarioCompletoRelatorioDTO> listarUsuarioCompletoRelatorio(@PathVariable("idUsuario") @NotNull Integer idUsuario);
 
+    @GetMapping("/usuario-com-certificado/{idUsuario}")
+    public ResponseEntity<UsuarioECertificadoRelatorioDTO> listarUsuarioComCertificado(@PathVariable("idUsuario") @NotNull Integer idUsuario);
+
+    @GetMapping("/usuario-paginado")
+    public ResponseEntity<Page<Usuario>> listPaginada(@RequestParam(defaultValue = "0")
+                                                      Integer paginaSolicitada,
+                                                      @RequestParam(defaultValue = "10")
+                                                      Integer tamanhoPagina);
 
     @Operation(summary = "Atualizar um usuario", description = "Atualiza um usuario no banco")
     @ApiResponses(
@@ -83,8 +93,8 @@ public interface IUsuarioController {
             }
     )
     @PutMapping("/{idUsuario}")
-    ResponseEntity<UsuarioDTO> atualizar(@PathVariable("idUsuario") @NotNull Integer id,
-                                                @RequestBody @Valid UsuarioCreateDTO usuarioAtualizar) throws Exception;
+    public ResponseEntity<UsuarioDTO> atualizar(@RequestBody @Valid UsuarioCreateDTO usuarioAtualizar,
+                                                @PathVariable Integer idUsuario) throws Exception;
 
 
     @Operation(summary = "Deletar um usuario", description = "Deleta o usuario do banco")

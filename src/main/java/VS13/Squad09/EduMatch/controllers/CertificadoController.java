@@ -16,11 +16,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Slf4j
+@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/certificado")
-@Validated
-@Slf4j
 public class CertificadoController implements ICertificadoController {
 
     private final CertificadoService certificadoService;
@@ -52,10 +52,10 @@ public class CertificadoController implements ICertificadoController {
         return new ResponseEntity<>(certificadoService.criar(idUsuario, certificado), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletar(@NotNull @PathVariable("id") Integer id) throws Exception {
+    @DeleteMapping("/{certificado}")
+    public ResponseEntity<Void> deletar(@Valid @RequestBody CertificadoCreateDTO certificado) throws Exception {
         log.info("Certificado Deletado.");
-        certificadoService.deletar(id);
-        return new ResponseEntity<>("Certificado deletado com sucesso", HttpStatus.OK);
+        certificadoService.deletar(certificado);
+        return ResponseEntity.ok().build();
     }
 }

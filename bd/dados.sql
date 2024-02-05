@@ -1,33 +1,61 @@
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (1, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/iron%20ranking.png', 'FERRO', 'O elo inicial de cada aventureiro. Jogue mais provas para subir sua pontuação e conquistar patamares maiores!', 1, 0)
+
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (2, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/bronze%20icon.png', 'BRONZE', 'A primeira conquista na subida para o maior elo. Aqui, você já não é mais um jovem gafanhoto!', 1, 200)
+
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (3, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/silver%20ranking.png', 'PRATA', 'Aqueles que se encontram no ranking de prata estão a um passo de se tornarem verdadeiros cavaleiros de ouro!', 1, 400)
+
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (4, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/gold%20ranking.png', 'OURO', 'Apenas o começo para aquele que deseja obter maiores conhecimentos. Este ranking simboliza um marco especial, pois, a partir dele, apenas os melhores seguirão!', 1, 600)
+
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (5, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/RUBY%20ranking.png', 'RUBY', 'Os estudantes deste elo demonstram não só uma enorme curiosidade sobre diversas matérias, como demonstram persistencia e garra!', 1, 800)
+
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (6, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/ametista%20ranking.png', 'AMETISTA', 'RANKING AMETISTA', 1, 1000)
+
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (7, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/diamante%20ranking.png', 'DIAMANTE', 'RANKING DIAMANTE', 1, 1400)
+
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (8, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/aluno%20mestre.png', 'MENTE_BRILHANTE', 'RANKING MENTE_BRILHANTE', 1, 1800)
+
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (9, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/mente%20radiante.png', 'MENTE_RADIANTE', 'RANKING MENTE_RADIANTE', 1, 2400)
+
+INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACAO_NECESSARIA)
+VALUES (10, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/master%20mind.png', 'MASTER_MIND', 'RANKING MASTER_MIND', 1, 3500)
+
+
 -- INSERT EMPRESA
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'TechSol','Tecnologia','12345678900210','Desenvolvimento de software', 0);
+INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
+VALUES (SEQ_USUARIO.NEXTVAL, 'TechSol', 'techsol@email.com', '12345', '12345678900210', 2, 0, 1);
 
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'EcoBio','Meio Ambiente','98765432100010','Reciclagem e preservação', 1);
+INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
+VALUES (SEQ_USUARIO.NEXTVAL, 'EcoBio', 'ecobio@email.com', '12345', '98765432100010', 2, 1, 1);
 
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'SaúdeVital','Saúde','78901234500010','Serviços de saúde e cuidados', 0);
+INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
+VALUES (SEQ_USUARIO.NEXTVAL, 'SaúdeVital', 'saudevital@email.com', '12345', '78901234500010', 2, 1, 1);
 
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'AgroTech','Agricultura','34567890100010','Desenvolvimento de tecnologias agrícolas', 0);
+INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
+VALUES (SEQ_USUARIO.NEXTVAL, 'AgroTech', 'agrotech@email.com', '12345', '34567890100010', 2, 0, 1);
 
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'ConstruPrime','Construção','01234567800010','Construção civil e infraestrutura', 1);
+INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
+VALUES (SEQ_USUARIO.NEXTVAL, 'ConstruPrime', 'cprime@email.com', '12345', '01234567800010', 2, 0, 1);
 
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'ModaStyle','Moda','56789012300010','Comércio de roupas e acessórios', 1);
+INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
+VALUES (SEQ_USUARIO.NEXTVAL, 'ModaStyle', 'mstyle@email.com', '12345', '56789012300010', 2, 0, 1);
 
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'EducaTech','Educação','23456789000010','Tecnologias educacionais', 1);
+INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
+VALUES (SEQ_USUARIO.NEXTVAL, 'EducaTech', 'edutech@email.com', '12345', '23456789000010', 2, 0, 1);
 
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'EnergiSolar','Energia','89012345600010','Energia solar sustentável', 0);
+INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
+VALUES (SEQ_USUARIO.NEXTVAL, 'EnergiSolar', 'energisol@email.com', '12345', '89012345600010', 2, 0, 1);
 
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'EnergiSolar','Energia','89012345600011','Energia solar sustentável', 1);
-
-INSERT INTO EMPRESA (id_empresa, nome, setor, cnpj, area_de_atuacao, tipo)
-VALUES (SEQ_EMPRESA.NEXTVAL, 'TransLog','Logística','45678901200010','Serviços de logística', 0);
+INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
+VALUES (SEQ_USUARIO.NEXTVAL, 'TransLog', 'translog@email.com', '12345', '45678901200010', 2, 1, 1);
 
 
 -- Insert Escola
@@ -195,94 +223,210 @@ E) 3', 5, 'A', 3, 2, 1);
 
 
 --Insert Português
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual é o sinônimo da palavra "rápido"?
+DECLARE
+    v_id_questao NUMBER;
+BEGIN
 
-A) Devagar
-B) Lento
-C) Ágil
-D) Manso
-E) Estático', 1, 'C', 1, 1, 1);
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual é o sinônimo da palavra "rápido"?', 'Ágil', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual é o antônimo da palavra "alegre"?
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Devagar');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Lento');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Ágil');
 
-A) Triste
-B) Feliz
-C) Radiante
-D) Contente
-E) Jubiloso', 1, 'A', 1, 1, 1);
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Manso');
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual é o sinônimo da palavra "grande"?
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Estático');
 
-A) Pequeno
-B) Gigante
-C) Largo
-D) Longo
-E) Curto', 1, 'B', 1, 1, 1);
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual é o plural correto de "cidadão"?
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual é o antônimo da palavra "alegre"?', 'Triste', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
 
-A) Cidadãos
-B) Cidadãoes
-C) Cidadõeis
-D) Cidadões
-E) Cidadães', 3, 'A', 2, 1, 1);
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Triste');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Feliz');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Radiante');
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual é o significado da expressão "a gota dágua"?
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Contente');
 
-A) Algo pequeno e irrelevante
-B) Uma grande conquista
-C) Uma chuva intensa
-D) Uma expressão de alegria
-E) Uma demonstração de coragem', 3, 'A', 2, 1, 1);
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Jubiloso');
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual é o autor da obra "Dom Casmurro"?
 
-A) Machado de Assis
-B) José de Alencar
-C) Lima Barreto
-D) Graciliano Ramos
-E) Monteiro Lobato', 3, 'A', 2, 1, 1);
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual é o sinônimo da palavra "grande"?', 'Gigante', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Na frase "Aquele gesto revelou uma benevolência incomum", o que significa "benevolência"?
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Pequeno');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Gigante');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Largo');
 
-A) Maldade
-B) Crueldade
-C) Bondade
-D) Arrogância
-E) Desprezo', 5, 'C', 3, 1, 1);
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Longo');
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Na frase "A tessitura da trama era intricada", o que significa "tessitura"?
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Curto');
 
-A) Textura
-B) Espessura
-C) Altura
-D) Largura
-E) Densidade', 5, 'A', 3, 1, 1);
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual é o significado da expressão "chover no molhado"?
-A) Conseguir algo com facilidade
-B) Lidar com um problema difícil
-C) Estar sempre ocupado
-D) Discutir algo desnecessário
-E) Chorar por algo perdido', 5, 'D', 3, 1, 1);
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual é o plural correto de "cidadão"?', 'Cidadãos', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Identifique a alternativa em que o uso da vírgula está correto:
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Cidadãos');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Cidadãoes');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Cidadenses');
 
-a) O carro novo é, bonito.
-b) Na festa, encontramos amigos.
-c) Ela comprou um, celular novo.
-d) Eles foram ao cinema, ontem.
-e) Gostamos de pizza, com bastante queijo.', 5, 'B', 3, 1, 1);
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Cidadões');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Cidadães');
+
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual é o significado da expressão "a gota dágua"?', 'Chegar ao limite', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Chegar ao limite');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Uma grande conquista');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Uma chuva intensa');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Uma expressão de alegria');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Uma demonstração de coragem');
+
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Na frase "Aquele gesto revelou uma benevolência incomum", o que significa "benevolência"?', 'Bondade', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Maldade');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Crueldade');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Bondade');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Arrogância');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Desprezo');
+
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Na frase "A tessitura da trama era intricada", o que significa "tessitura"?', 'Textura', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Textura');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Espessura');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Altura');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Largura');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Densidade');
+
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual é o significado da expressão "chover no molhado"?', 'Discutir algo desnecessário', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Conseguir algo com facilidade');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Lidar com um problema difícil');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Estar sempre ocupado');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Discutir algo desnecessário');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Chorar por algo perdido');
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Identifique a alternativa em que o uso da vírgula está correto:', 'Na festa, encontramos amigos', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'O carro novo é, bonito');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Na festa, encontramos amigos');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Ela comprou um, celular novo');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Eles foram ao cinema, ontem');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Gostamos de pizza, com bastante queijo');
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual é o autor da obra "Dom Casmurro"?', 'Machado de Assis', 5, 0, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Machado de Assis');
+  
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'José de Alencar');
+        
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Lima Barreto');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Graciliano Ramos');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'Monteiro Lobato');
+
+    COMMIT;
+END;
+
 
 
 --Insert QUESTAO SOFTSKILLS

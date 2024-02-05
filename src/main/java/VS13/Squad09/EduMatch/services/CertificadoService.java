@@ -11,8 +11,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,24 +36,26 @@ public class CertificadoService {
         Certificado certificadoEntity = objectMapper.convertValue(certificado, Certificado.class);
 
         certificadoEntity.setConclusao(LocalDateTime.now());
-        certificadoEntity.setUsuario(usuario);
-        certificadoEntity = certificadoRepository.adicionar(certificadoEntity);
-        emailService.sendEmail(certificadoEntity.getUsuario(), certificadoEntity,4);
+        usuario.getCertificados().add(certificadoEntity);
+        certificadoRepository.save(certificadoEntity);
+        // emailService.sendEmail(certificadoEntity.getUsuario(), certificadoEntity,4);
 
         CertificadoDTO certificadoDTO = objectMapper.convertValue(certificadoEntity, CertificadoDTO.class);
 
         return certificadoDTO;
     }
 
-    public String deletar(int id) throws Exception {
+    public Void deletar(CertificadoCreateDTO certificado) throws Exception {
         log.debug("Deletando certificado...");
-
-        return certificadoRepository.remover(id);
+        Certificado certificadoEntity = objectMapper.convertValue(certificado, Certificado.class);
+        certificadoRepository.delete(certificadoEntity);
+        log.info("Certificado deletado");
+        return null;
     }
 
     public List<CertificadoDTO> listarTodos() throws Exception {
         log.debug("Listando Certificados...");
-        return certificadoRepository.listar().stream().map(certificado ->
+        return certificadoRepository.findAll().stream().map(certificado ->
                         objectMapper.convertValue(certificado, CertificadoDTO.class))
                 .collect(Collectors.toList());
     }
