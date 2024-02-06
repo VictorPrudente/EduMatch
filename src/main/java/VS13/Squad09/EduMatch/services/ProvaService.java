@@ -62,9 +62,9 @@ public class ProvaService {
 
         List<Questao> questoes = gerarQuestoes(provaStart.getTrilha().ordinal(),
                                                provaStart.getDificuldade().ordinal());
+        //ORDENAR POR ID
         prova.setQuestoes(questoes);
         prova.setTotalQuestoes(questoes.size());
-
 
         prova.shuffleOpcoes();
         repository.save(prova);
@@ -97,6 +97,7 @@ public class ProvaService {
                 }
             }
         }
+
         prova.getRespostas().addAll(respostas);
         prova.setPontos(pontuacao);
         prova.setTotalAcertos(acertos);
