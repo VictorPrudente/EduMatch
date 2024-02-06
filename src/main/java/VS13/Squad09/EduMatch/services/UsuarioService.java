@@ -178,6 +178,10 @@ public class UsuarioService {
         Pageable pageable = PageRequest.of(paginaSolicitada, tamanhoPagina, Sort.by("nome").descending());
         return usuarioRepository.findAll(pageable);
     }
+
+    public Optional<Usuario> findByLoginAndSenha(String login, String senha){
+        return usuarioRepository.findByLoginAndSenha(login, senha);
+    }
 }
 
 
