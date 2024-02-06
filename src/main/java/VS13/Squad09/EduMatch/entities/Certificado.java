@@ -8,6 +8,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 
 @Getter
@@ -21,7 +22,7 @@ public class Certificado {
     @Column(name = "ID_CERTIFICADO")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CERTIFICADO")
     @SequenceGenerator(name = "SEQ_CERTIFICADO", sequenceName = "SEQ_CERTIFICADO", allocationSize = 1)
-    private Integer id_certificado;
+    private Integer id;
 
     @Column(name = "TRILHA")
     private Trilha trilha;
@@ -36,6 +37,19 @@ public class Certificado {
     @ManyToOne
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     private Usuario usuario;
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Certificado that = (Certificado) object;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
 
 
