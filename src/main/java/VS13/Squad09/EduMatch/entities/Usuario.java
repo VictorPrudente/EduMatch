@@ -90,6 +90,8 @@ public class Usuario {
     @Column(name = "ELO")
     private Elo elo;
 
+    @Column(name = "login")
+    private String login;
 
     public void pontuar(Integer pontos){
         this.pontuacao += pontos;
