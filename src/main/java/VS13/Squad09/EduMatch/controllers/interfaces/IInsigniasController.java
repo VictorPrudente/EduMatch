@@ -33,6 +33,6 @@ public interface IInsigniasController {
             @ApiResponse(responseCode = "200", description = "Operação bem sucedida. Insignia cadastrada."),
             @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso. Insignia não cadastrada."),
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção. Insignia não cadastrada.")})
-    @PostMapping("/{idUsuario}")
-    ResponseEntity<InsigniaDTO> criar(@PathVariable Integer idUsuario, @Valid @RequestBody InsigniaCreateDTO insignia) throws Exception;
+    @PostMapping
+    ResponseEntity<InsigniaDTO> criar(@Valid @RequestBody InsigniaCreateDTO insignia) throws Exception;
 }

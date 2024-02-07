@@ -11,8 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -24,18 +24,13 @@ public class InsigniaService {
     private final UsuarioService usuarioService;
     private final ObjectMapper objectMapper;
 
-    public InsigniaDTO criar(Integer idUsuario, InsigniaCreateDTO insignia) throws Exception {
+    public InsigniaDTO criar(InsigniaCreateDTO insignia) throws Exception {
         log.debug("Criando Insignia...");
-        UsuarioDTO usuarioDTO = usuarioService.listarPorId(idUsuario);
         Insignia insigniaEntity = objectMapper.convertValue(insignia, Insignia.class);
-        insigniaEntity.setDataEmitida(LocalDateTime.now());
-        Usuario usuario = objectMapper.convertValue(usuarioDTO, Usuario.class);
-        insigniaEntity.setUsuario(usuario);
 
         insigniaRepository.save(insigniaEntity);
-        InsigniaDTO insigniaDTO = objectMapper.convertValue(insigniaEntity, InsigniaDTO.class);
 
-        return insigniaDTO;
+        return objectMapper.convertValue(insigniaEntity, InsigniaDTO.class);
     }
 
     public void deletar(int id) throws Exception {
@@ -45,7 +40,7 @@ public class InsigniaService {
     public InsigniaDTO listarPorUsuario(Integer usuarioId) throws Exception {
         Usuario usuario = objectMapper.convertValue(usuarioService.listarPorId(usuarioId), Usuario.class);
 
-        List<Insignia> insignias = insigniaRepository.findAllByUsuario(usuario);
+        List<Insignia> insignias = insigniaRepository.findAll();
 
         if (insignias.isEmpty()) {
             throw new Exception("Nenhum insignia encontrado para o usuário com ID: " + usuarioId);
@@ -59,4 +54,28 @@ public class InsigniaService {
                 .map(insignia -> objectMapper.convertValue(insignia, InsigniaDTO.class))
                 .collect(Collectors.toList());
     }
+
+    public InsigniaDTO findBadge(String descricao){
+        return toDTO(insigniaRepository.findByTagIgnoreCase(descricao));
+    }
+
+
+    public InsigniaDTO addUsuario(Integer idUsuaraio, Integer idInsignia) throws Exception {
+
+        UsuarioDTO usuarioDTO = usuarioService.listarPorId(idUsuaraio);
+        Usuario usuario = objectMapper.convertValue(usuarioDTO, Usuario.class);
+
+        Insignia insignia = insigniaRepository.findById(idInsignia).get();
+        InsigniaDTO insigniaDTO = objectMapper.convertValue(insignia, InsigniaDTO.class);
+
+        insignia.getUsuarios().add(usuario);
+        return objectMapper.convertValue(insigniaRepository.save(insignia), InsigniaDTO.class);
+    }
+
+    //MÉTODOS ADICIONAIS
+
+    private InsigniaDTO toDTO(Insignia insignia){
+        return objectMapper.convertValue(insignia, InsigniaDTO.class);
+    }
+
 }

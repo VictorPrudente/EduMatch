@@ -21,31 +21,15 @@ import java.time.LocalDateTime;
 public class InsigniaCreateDTO {
 
     @NotBlank
-    @Schema(description = "imagem da insignia", example = "https://img.freepik.com/fotos-premium/arvore-psicodelica-ao-por-do-sol-hd-wallpaper_899449-86011.jpg")
-    private String urlImagem;
+    @Schema(description = "Url da imagem da insignia", example = "https://img.freepik.com/fotos-premium/arvore-psicodelica-ao-por-do-sol-hd-wallpaper_899449-86011.jpg")
+    private String imagemUrl;
 
     @NotBlank
-    @Schema(description = "título da insignia", example = "Bronze")
+    @Schema(description = "título da insignia", example = "Português Fácil")
     private String titulo;
 
-    @NotBlank
-    @Schema(description = "descrição da insignia", example = "Complete 1 trilha para ganhar a insignia de bronze")
+    @NotBlank(message = "A descrição da insígnia não pode ficar em branco.")
+    @Schema(description = "descrição da insignia", example = "Esta insignia é recompensada a todos que completarem a prova de Português na dificuldade Fácil.")
     private String descricao;
 
-    @NotNull
-    @Positive
-    @Schema(description = "pontuação da insignia", example = "10")
-    private Integer pontuacao;
-
-    @NotNull
-    @Schema(description = "trilha da insignia", example = "0 = PORTUGUES")
-    private Trilha trilha;
-
-    @NotNull
-    @Schema(description = "dificuldade da insignia", example = "0 = FACIL")
-    private Dificuldade dificuldade;
-
-    @NotNull
-    @Schema(description = "status da insignia", example = "1 = ATIVO")
-    private Status status;
 }

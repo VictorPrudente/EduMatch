@@ -4,14 +4,12 @@ package VS13.Squad09.EduMatch.services;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.prova.ProvaFinishCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.prova.ProvaStartCreateDTO;
+import VS13.Squad09.EduMatch.dtos.response.InsigniaDTO;
 import VS13.Squad09.EduMatch.dtos.response.prova.ProvaFinishDTO;
 import VS13.Squad09.EduMatch.dtos.response.prova.ProvaStartDTO;
 import VS13.Squad09.EduMatch.dtos.response.QuestaoDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
-import VS13.Squad09.EduMatch.entities.Prova;
-import VS13.Squad09.EduMatch.entities.Questao;
-import VS13.Squad09.EduMatch.entities.Resposta;
-import VS13.Squad09.EduMatch.entities.Usuario;
+import VS13.Squad09.EduMatch.entities.*;
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
@@ -38,11 +36,15 @@ public class ProvaService {
     private final ProvaRepository repository;
     private final QuestaoService questaoService;
     private final UsuarioService usuarioService;
+    private final InsigniaService insigniaService;
     private final ObjectMapper mapper;
 
 
     @Value("${tempo.minimo}")
     private Integer tempo;
+
+    @Value("${aprovacao}")
+    private Integer aprovacao;
 
     public ProvaStartDTO startTest(ProvaStartCreateDTO provaStart) throws Exception {
 
@@ -90,13 +92,13 @@ public class ProvaService {
         for (Questao questao : questoes) {
             for (Resposta resposta : respostas) {
                 if(resposta.getResposta().equals(questao.getOpcaoCerta())){
-                    respostas.remove(resposta);
                     pontuacao += questao.getPontos();
                     acertos ++;
                     break;
                 }
             }
         }
+
 
         prova.getRespostas().addAll(respostas);
         prova.setPontos(pontuacao);
@@ -106,6 +108,16 @@ public class ProvaService {
 
         Usuario usuario = prova.getUsuario();
         usuario.pontuar(pontuacao+200);
+
+
+        Questao questao = prova.getQuestoes().get(0);
+        if (acertos * 100 / questoes.size() >= aprovacao){
+            String tag = questao.getTrilha().name() + "_" + questao.getDificuldade().name();
+            InsigniaDTO insigniaDTO = insigniaService.findBadge(tag);
+            InsigniaDTO insignia = mapper.convertValue(insigniaDTO, InsigniaDTO.class);
+            insignia.getUsuarios().add(usuario);
+            //insigniaService.addUsuario(insignia);
+        }
         UsuarioCreateDTO usuarioCreateDTO = mapper.convertValue(usuario, UsuarioCreateDTO.class);
         usuarioService.atualizar(usuario.getIdUsuario(), usuarioCreateDTO);
         ProvaFinishDTO provaFinishDTO = new ProvaFinishDTO();

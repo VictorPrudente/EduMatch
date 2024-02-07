@@ -40,10 +40,21 @@ public class InsigniaController implements IInsigniasController {
         return new ResponseEntity<>(insigniaDTO, HttpStatus.OK);
     }
 
-    @PostMapping("/{idUsuario}")
-    public ResponseEntity<InsigniaDTO> criar(@PathVariable Integer idUsuario, @Valid @RequestBody InsigniaCreateDTO insignia) throws Exception {
+    @GetMapping("/descricao/{texto}")
+    public ResponseEntity<InsigniaDTO> listarPorUsuario(@PathVariable String texto) throws Exception {
+        InsigniaDTO insigniaDTO = insigniaService.findBadge(texto);
+        return new ResponseEntity<>(insigniaDTO, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<InsigniaDTO> criar(@Valid @RequestBody InsigniaCreateDTO insignia) throws Exception {
         log.debug("Insignia Criado.");
-        return new ResponseEntity<>(insigniaService.criar(idUsuario, insignia), HttpStatus.CREATED);
+        return new ResponseEntity<>(insigniaService.criar(insignia), HttpStatus.CREATED);
+    }
+
+    @PutMapping("{idUsuario}/{idInsignia}")
+    public ResponseEntity<InsigniaDTO> addUsuario(@PathVariable Integer idUsuario, @PathVariable Integer idInsignia) throws Exception {
+        return ResponseEntity.ok(insigniaService.addUsuario(idUsuario, idInsignia));
     }
 
 }

@@ -1,5 +1,6 @@
 package VS13.Squad09.EduMatch.dtos.response;
 
+import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Dificuldade;
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 
 @Data
@@ -16,13 +18,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class InsigniaDTO {
     private Integer id;
-    private String urlImagem;
+    private String imagemUrl;
     private String titulo;
     private String descricao;
-    private Integer pontuacao;
-    private Trilha trilha;
-    private Dificuldade dificuldade;
     private Status status;
-    private LocalDateTime dataEmitida;
-    private Integer idUsuario;
+    private Set<Usuario> usuarios;
 }

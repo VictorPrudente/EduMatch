@@ -8,7 +8,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,22 +19,22 @@ import java.util.Objects;
 @Entity(name = "INSIGNIA")
 public class Insignia {
 
-
     @Id
     @Column(name = "ID_INSIGNIA")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_INSIGNIA")
     @SequenceGenerator(name = "SEQ_INSIGNIA", sequenceName = "SEQ_INSIGNIA", allocationSize = 1)
     private Integer id;
 
-    @Column(name = "DATA_EMITIDA")
-    private LocalDateTime dataEmitida;
-
-    @ManyToOne
-    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
-    private Usuario usuario;
+    @ManyToMany
+    @JoinTable(
+            name = "USUARIO_INSIGNIA",
+            joinColumns = @JoinColumn(name = "ID_INSIGNIA"),
+            inverseJoinColumns = @JoinColumn(name = "ID_USUARIO")
+    )
+    private Set<Usuario> usuarios = new HashSet<>();
 
     @Column(name = "IMAGEM_URL")
-    private String urlImagem;
+    private String imagemUrl;
 
     @Column(name = "TITULO")
     private String titulo;
@@ -43,17 +45,19 @@ public class Insignia {
     @Column(name = "STATUS")
     private Status status;
 
+    @Column(name = "TAG")
+    private String tag;
+
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
-        if (!super.equals(object)) return false;
         Insignia insignia = (Insignia) object;
-        return Objects.equals(usuario, insignia.usuario);
+        return Objects.equals(id, insignia.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), usuario);
+        return Objects.hash(id);
     }
 }

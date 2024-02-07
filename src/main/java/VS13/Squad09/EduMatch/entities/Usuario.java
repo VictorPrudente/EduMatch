@@ -76,8 +76,9 @@ public class Usuario {
     @JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco")
     private Endereco endereco;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Insignia> insignias;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "usuarios")
+    private Set<Insignia> insignias = new HashSet<>();
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Certificado> certificados = new HashSet<>();
