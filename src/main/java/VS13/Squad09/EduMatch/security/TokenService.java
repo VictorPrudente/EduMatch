@@ -1,16 +1,14 @@
 package VS13.Squad09.EduMatch.security;
 import VS13.Squad09.EduMatch.entities.Usuario;
-import VS13.Squad09.EduMatch.services.UsuarioService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
-
-import java.util.Base64;
+import java.util.Collections;
 import java.util.Date;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,8 +22,8 @@ public class TokenService {
 
     @Value("${jwt.secret}")
     private String secret;
-    private final UsuarioService usuarioService;
 
+    // Novo
     public String generateToken(Usuario usuario) {
         Date now = new Date();
         Date exp = new Date(now.getTime() + Long.parseLong(expiration));
@@ -40,7 +38,7 @@ public class TokenService {
                         .compact();
     }
 
-    public Optional<Usuario> isValid(String token) {
+    public UsernamePasswordAuthenticationToken isValid(String token) {
         if (token != null) {
             Claims body = Jwts.parser()
                     .setSigningKey(secret)
@@ -48,9 +46,11 @@ public class TokenService {
                     .getBody();
             String user = body.get(Claims.ID, String.class);
             if (user != null) {
-                return usuarioService.findById(Integer.valueOf(user));
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                        new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+                return usernamePasswordAuthenticationToken;
             }
         }
-        return Optional.empty();
+        return null;
     }
 }

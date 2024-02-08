@@ -56,5 +56,6 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
             """)
     List<CertificadoRelatorioDTO> procurarCertificado(@Param("idUsuario") Integer idUsuario);
 
-    Optional<Usuario> findByLoginAndSenha(String login, String senha);
+    Optional<Usuario> findByEmailAndSenha(String email, String senha);
+    Optional<Usuario> findByEmail(String email);
 }
