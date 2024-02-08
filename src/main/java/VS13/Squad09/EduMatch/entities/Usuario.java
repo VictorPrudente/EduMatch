@@ -8,9 +8,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -76,15 +74,17 @@ public class Usuario {
     @JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco")
     private Endereco endereco;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "usuarios")
-    private Set<Insignia> insignias = new HashSet<>();
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "USUARIO_INSIGNIA",
+            joinColumns = @JoinColumn(name = "ID_USUARIO"),
+            inverseJoinColumns = @JoinColumn(name = "ID_INSIGNIA"))
+    private List<Insignia> insignias = new ArrayList<>();
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Certificado> certificados = new HashSet<>();
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_RANKING", referencedColumnName = "ID_RANKING")
     private Ranking ranking;
 

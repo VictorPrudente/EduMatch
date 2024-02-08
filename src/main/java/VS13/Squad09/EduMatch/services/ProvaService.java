@@ -4,7 +4,7 @@ package VS13.Squad09.EduMatch.services;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.prova.ProvaFinishCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.prova.ProvaStartCreateDTO;
-import VS13.Squad09.EduMatch.dtos.response.InsigniaDTO;
+import VS13.Squad09.EduMatch.dtos.insignia.response.InsigniaDetailedDTO;
 import VS13.Squad09.EduMatch.dtos.response.prova.ProvaFinishDTO;
 import VS13.Squad09.EduMatch.dtos.response.prova.ProvaStartDTO;
 import VS13.Squad09.EduMatch.dtos.response.QuestaoDTO;
@@ -113,10 +113,8 @@ public class ProvaService {
         Questao questao = prova.getQuestoes().get(0);
         if (acertos * 100 / questoes.size() >= aprovacao){
             String tag = questao.getTrilha().name() + "_" + questao.getDificuldade().name();
-            InsigniaDTO insigniaDTO = insigniaService.findBadge(tag);
-            InsigniaDTO insignia = mapper.convertValue(insigniaDTO, InsigniaDTO.class);
-            insignia.getUsuarios().add(usuario);
-            //insigniaService.addUsuario(insignia);
+            InsigniaDetailedDTO insigniaDetailedDTO = insigniaService.acharPorTag(tag);
+            InsigniaDetailedDTO insignia = mapper.convertValue(insigniaDetailedDTO, InsigniaDetailedDTO.class);
         }
         UsuarioCreateDTO usuarioCreateDTO = mapper.convertValue(usuario, UsuarioCreateDTO.class);
         usuarioService.atualizar(usuario.getIdUsuario(), usuarioCreateDTO);

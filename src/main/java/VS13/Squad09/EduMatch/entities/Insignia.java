@@ -1,6 +1,7 @@
 package VS13.Squad09.EduMatch.entities;
 
 import VS13.Squad09.EduMatch.entities.enums.Status;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,12 +26,11 @@ public class Insignia {
     @SequenceGenerator(name = "SEQ_INSIGNIA", sequenceName = "SEQ_INSIGNIA", allocationSize = 1)
     private Integer id;
 
+    @JsonIgnore
     @ManyToMany
-    @JoinTable(
-            name = "USUARIO_INSIGNIA",
+    @JoinTable(name = "USUARIO_INSIGNIA",
             joinColumns = @JoinColumn(name = "ID_INSIGNIA"),
-            inverseJoinColumns = @JoinColumn(name = "ID_USUARIO")
-    )
+            inverseJoinColumns = @JoinColumn(name = "ID_USUARIO"))
     private Set<Usuario> usuarios = new HashSet<>();
 
     @Column(name = "IMAGEM_URL")
