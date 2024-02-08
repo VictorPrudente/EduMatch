@@ -17,7 +17,6 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UsuarioDTO {
     private Integer idUsuario;
     private String email;
@@ -35,6 +34,7 @@ public class UsuarioDTO {
     private Endereco endereco;
     private Set<Insignia> insignias;
     private Set<Certificado> certificados;
+    private Ranking ranking;
     private Elo elo;
 
 }
