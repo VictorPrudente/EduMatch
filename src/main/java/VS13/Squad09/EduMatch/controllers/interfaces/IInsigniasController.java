@@ -1,7 +1,7 @@
 package VS13.Squad09.EduMatch.controllers.interfaces;
 
-import VS13.Squad09.EduMatch.dtos.request.InsigniaCreateDTO;
-import VS13.Squad09.EduMatch.dtos.response.InsigniaDTO;
+import VS13.Squad09.EduMatch.dtos.insignia.request.InsigniaCreateDTO;
+import VS13.Squad09.EduMatch.dtos.insignia.response.InsigniaDetailedDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -14,25 +14,32 @@ import java.util.List;
 
 public interface IInsigniasController {
 
-    @Operation(summary = "Listar todas as Insignias", description = "Lista todas as insignias cadastradas.")
+    @Operation(summary = "Criar uma Insignia / Rota ADM", description = "Cria uma nova insignia no banco de dados.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Operação bem sucedida."),
-            @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção.")})
-    @GetMapping
-    ResponseEntity<List<InsigniaDTO>> listarTodos() throws Exception;
-
-    @Operation(summary = "Listar Todas as Insignias de um Usuário", description = "Lista todas as insignias obtidas por um usuário específico.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Operação bem sucedida."),
-            @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção.")})
-    @GetMapping("/usuario/{usuarioId}")
-    ResponseEntity<InsigniaDTO> listarPorUsuario(@NotNull @PathVariable("usuarioId") Integer usuarioId) throws Exception;
-
-    @Operation(summary = "Criar uma Insignia", description = "Cria uma nova insignia para um usuário específico.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Operação bem sucedida. Insignia cadastrada."),
+            @ApiResponse(responseCode = "200", description = "Operação bem sucedida. Insignia criada."),
             @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso. Insignia não cadastrada."),
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção. Insignia não cadastrada.")})
-    @PostMapping("/{idUsuario}")
-    ResponseEntity<InsigniaDTO> criar(@PathVariable Integer idUsuario, @Valid @RequestBody InsigniaCreateDTO insignia) throws Exception;
+    @PostMapping
+    ResponseEntity<InsigniaDetailedDTO> criar(@Valid @RequestBody InsigniaCreateDTO insignia) throws Exception;
+
+    @Operation(summary = "Listar todas ou uma insígnia", description = "Podendo receber ou não id no parâmetro de pesquisa," +
+            " este método retornará todas insígnias do banco trazendo consigo a URL da sua imagem e seu título ou, caso seja passado um ID válido, uma insígnia com suas informações completas.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação bem sucedida."),
+            @ApiResponse(responseCode = "404", description = "Não foi encontrada uma insígnia com este ID."),
+            @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção.")})
+    @GetMapping
+    ResponseEntity<List<Object>> listarInsignias(@RequestParam(required = false) Integer id) throws Exception;
+
+    @Operation(summary = "Listar todas ou uma insígnia de um Usuário", description = "Recebe no parâmetro de pesquisa o ID de um usuário, podendo receber ou não o ID de uma insígnia." +
+            "Caso não seja passado o ID de uma insígnia, irá listar todas as insígnias adquiridas por aquele usuário, trazendo em cada uma a URL de sua imagem e seu título. Caso seja passado o ID válido de uma insígnia que o usuário possua, irá trazer os dados completos daquela insígnia. ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação bem sucedida."),
+            @ApiResponse(responseCode = "404", description = "Nenhum usuário encontrado com este ID."),
+            @ApiResponse(responseCode = "404", description = "Nenhuma insígnia com este ID foi adquirida pelo usuário."),
+            @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção.")})
+    @GetMapping("/usuario")
+    ResponseEntity<List<Object>> listarPorUsuario(@RequestParam Integer usuario,
+                                                         @RequestParam(required = false) Integer insignia) throws Exception;
+
 }
