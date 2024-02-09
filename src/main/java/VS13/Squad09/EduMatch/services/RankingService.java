@@ -6,7 +6,9 @@ import VS13.Squad09.EduMatch.dtos.ranking.response.RankingUsuarioDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Ranking;
 import VS13.Squad09.EduMatch.entities.Usuario;
+import VS13.Squad09.EduMatch.entities.enums.Elo;
 import VS13.Squad09.EduMatch.entities.enums.Status;
+import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.repositories.RankingRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +37,29 @@ public class RankingService {
         return toDTO(rankingRepository.save(ranking));
     }
 
+    public RankingDTO atualizar(Integer id, RankingCreateDTO rankingCreateDTO) throws NaoEncontradoException {
+
+        Ranking ranking = getRanking(id);
+
+        Ranking rankingAtualizado = toEntity(rankingCreateDTO);
+        rankingAtualizado.setId(ranking.getId());
+        rankingAtualizado.setStatus(Status.ATIVO);
+
+       return toDTO(rankingRepository.save(rankingAtualizado));
+    }
+
+    public List<RankingDTO> listarRankings(String elo) throws Exception{
+        List<RankingDTO> rankings = new ArrayList<>();
+        if (elo != null) {
+            elo = elo.toUpperCase();
+            rankings.add(toDTO(rankingRepository.findByElo(elo)));
+        } else {
+            rankings.addAll(rankingRepository.findElos().stream()
+                    .map(this::toDTO).toList());
+        }
+        return rankings;
+    }
+
     public Page<RankingUsuarioDTO> listarPorRanking(String elo, Pageable page){
         Page<Ranking> rankingPage;
         if (elo != null){
@@ -50,22 +76,36 @@ public class RankingService {
         return new PageImpl<>(rankingUsuarioDTOList, page, rankingPage.getTotalElements());
     }
 
-    public Ranking subirRanking(String nome, Usuario usuario) {
-        Ranking ranking = rankingRepository.findByElo(nome);
-        if(usuario.getPontuacao() >= ranking.getPontuacaoNecessaria()){
-            return ranking;
-        }
-        return null;
-    }
+    public Ranking subirRanking(Usuario usuario) {
 
+        int eloAtual = usuario.getElo().ordinal();
+        Integer proximoelo = eloAtual + 1;
+
+        Ranking rankingAtual = usuario.getRanking();
+
+        if (eloAtual < Elo.values().length) {
+            String elo = Elo.valueOf(proximoelo).name();
+            Ranking novoRanking = rankingRepository.findByElo(elo);
+            if (usuario.getPontuacao() >= novoRanking.getPontuacaoNecessaria()) {
+                return novoRanking;
+            }
+        }
+        return rankingAtual;
+    }
 
     public Ranking rankingInicial() {
         return rankingRepository.findByElo("FERRO");
     }
 
 
-
     //METODOS ADICIONAIS
+
+    private Ranking getRanking(Integer id) throws NaoEncontradoException {
+        return rankingRepository.findById(id).stream()
+                .findFirst()
+                .orElseThrow(() -> new NaoEncontradoException("Nenhum ranking encontrado com este ID."));
+    }
+
 
     private RankingDTO toDTO(Object o){
         return objectMapper.convertValue(o, RankingDTO.class);
@@ -73,12 +113,5 @@ public class RankingService {
 
     private Ranking toEntity(Object o){
         return objectMapper.convertValue(o, Ranking.class);
-    }
-    private Usuario userToEntity(UsuarioDTO usuarioDTO){
-        return objectMapper.convertValue(usuarioDTO, Usuario.class);
-    }
-
-    private UsuarioDTO userToDTO(Object o){
-        return objectMapper.convertValue(o, UsuarioDTO.class);
     }
 }

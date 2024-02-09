@@ -5,6 +5,7 @@ import VS13.Squad09.EduMatch.controllers.interfaces.IRankingController;
 import VS13.Squad09.EduMatch.dtos.ranking.request.RankingCreateDTO;
 import VS13.Squad09.EduMatch.dtos.ranking.response.RankingDTO;
 import VS13.Squad09.EduMatch.dtos.ranking.response.RankingUsuarioDTO;
+import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.services.RankingService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Slf4j
 @Validated
@@ -35,6 +37,15 @@ public class RankingController implements IRankingController {
         return new ResponseEntity<>(rankingService.criar(rankingCreateDTO), HttpStatus.CREATED);
     }
 
+    @PutMapping("{idRanking}")
+    public ResponseEntity<RankingDTO> atualizar(@PathVariable Integer idRanking, @Valid @RequestBody RankingCreateDTO rankingCreateDTO) throws NaoEncontradoException {
+        return ResponseEntity.ok(rankingService.atualizar(idRanking, rankingCreateDTO));
+    }
+
+    @GetMapping("/elos")
+    public ResponseEntity<List<RankingDTO>> listarRankings(@RequestParam(required = false) String elo) throws Exception {
+        return ResponseEntity.ok(rankingService.listarRankings(elo));
+    }
 
     @GetMapping
     public ResponseEntity<Page<RankingUsuarioDTO>> listarPorRanking(@RequestParam(required = false) String elo,
@@ -42,8 +53,4 @@ public class RankingController implements IRankingController {
         Page<RankingUsuarioDTO> rankingDTO = rankingService.listarPorRanking(elo, pageable);
         return ResponseEntity.ok(rankingDTO);
     }
-
-
-
-
 }

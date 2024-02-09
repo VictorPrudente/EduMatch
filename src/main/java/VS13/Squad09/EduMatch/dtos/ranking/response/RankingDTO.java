@@ -1,9 +1,11 @@
 package VS13.Squad09.EduMatch.dtos.ranking.response;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
