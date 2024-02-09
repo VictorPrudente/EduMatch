@@ -1,20 +1,16 @@
-package VS13.Squad09.EduMatch.dtos.ranking;
+package VS13.Squad09.EduMatch.dtos.ranking.response;
 
-import VS13.Squad09.EduMatch.entities.Usuario;
 import lombok.*;
-
-import java.util.List;
-
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class RankingDTO {
-
     private Integer id;
     private String urlImagem;
     private String titulo;
     private String descricao;
-    private List<Usuario> usuarios;
+    private Integer pontuacaoNecessaria;
 }

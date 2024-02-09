@@ -1,6 +1,6 @@
 package VS13.Squad09.EduMatch.controllers.interfaces;
 
-import VS13.Squad09.EduMatch.dtos.ranking.RankingDTO;
+import VS13.Squad09.EduMatch.dtos.ranking.response.RankingUsuarioDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -17,6 +17,6 @@ public interface IRankingController {
             @ApiResponse(responseCode = "200", description = "Operação bem sucedida."),
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção.")})
     @GetMapping
-    ResponseEntity<Page<RankingDTO>> listarPorRanking(@RequestParam(required = false) String elo,
-                                                      @PageableDefault(size = 50) Pageable pageable) throws Exception;
+    ResponseEntity<Page<RankingUsuarioDTO>> listarPorRanking(@RequestParam(required = false) String elo,
+                                                             @PageableDefault(size = 50) Pageable pageable) throws Exception;
 }
