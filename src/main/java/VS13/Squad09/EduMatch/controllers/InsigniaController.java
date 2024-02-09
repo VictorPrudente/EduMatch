@@ -42,18 +42,4 @@ public class InsigniaController implements IInsigniasController {
                                                          @RequestParam(required = false) Integer insignia) throws Exception {
         return ResponseEntity.ok(insigniaService.listarPorUsuario(usuario, insignia));
     }
-
-    @Hidden
-    @GetMapping("/descricao/{texto}")
-    public ResponseEntity<InsigniaDetailedDTO> acharPorTag(@PathVariable String texto) throws Exception {
-        InsigniaDetailedDTO insigniaDetailedDTO = insigniaService.acharPorTag(texto);
-        return new ResponseEntity<>(insigniaDetailedDTO, HttpStatus.OK);
-    }
-
-    @Hidden
-    @PostMapping("{idUsuario}/{idInsignia}")
-    public ResponseEntity<InsigniaDetailedDTO> addUsuario(@PathVariable Integer idUsuario, @PathVariable Integer idInsignia) throws Exception {
-        return ResponseEntity.ok(insigniaService.addUsuario(idUsuario, idInsignia));
-    }
-
 }
