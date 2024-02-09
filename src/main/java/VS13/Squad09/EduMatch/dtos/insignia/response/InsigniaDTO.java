@@ -9,5 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class InsigniaDTO {
     private Integer id;
+    private String titulo;
     private String imagemUrl;
 }
