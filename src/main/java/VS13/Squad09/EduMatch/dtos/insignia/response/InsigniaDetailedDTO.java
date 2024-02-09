@@ -14,5 +14,6 @@ public class InsigniaDetailedDTO {
     private String imagemUrl;
     private String titulo;
     private String descricao;
+    private String tag;
     private Status status;
 }

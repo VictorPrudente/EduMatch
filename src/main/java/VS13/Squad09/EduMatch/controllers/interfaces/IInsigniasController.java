@@ -1,5 +1,6 @@
 package VS13.Squad09.EduMatch.controllers.interfaces;
 
+
 import VS13.Squad09.EduMatch.dtos.insignia.request.InsigniaCreateDTO;
 import VS13.Squad09.EduMatch.dtos.insignia.response.InsigniaDetailedDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -7,18 +8,17 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public interface IInsigniasController {
 
-    @Operation(summary = "Criar uma Insignia / Rota ADM", description = "Cria uma nova insignia no banco de dados.")
+    @Operation(summary = "Criar uma Insígnia / Rota ADM", description = "Cria uma nova insígnia no banco de dados.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Operação bem sucedida. Insignia criada."),
-            @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso. Insignia não cadastrada."),
-            @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção. Insignia não cadastrada.")})
+            @ApiResponse(responseCode = "201", description = "Operação bem sucedida. Insígnia criada."),
+            @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso. Insígnia não cadastrada."),
+            @ApiResponse(responseCode = "409", description = "Restrição de valor único violada. Insígnia não cadastrada."),
+            @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção. Insígnia não cadastrada.")})
     @PostMapping
     ResponseEntity<InsigniaDetailedDTO> criar(@Valid @RequestBody InsigniaCreateDTO insignia) throws Exception;
 

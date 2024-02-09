@@ -29,6 +29,128 @@ INSERT INTO RANKING (ID_RANKING, IMAGEM_URL, TITULO, DESCRICAO, STATUS, PONTUACA
 VALUES (10, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/hml/src/main/resources/images/master%20mind.png', 'MASTER_MIND', 'RANKING MASTER_MIND', 1, 3500)
 
 
+--INSERT INSIGNIAS
+
+--PORTUGUES
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/portugues_facil.png', 'Português Fácil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Português na dificuldade Fácil', 1, 'PORTUGUES_FACIL');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/portugues_medio.png', 'Português Média', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Português na dificuldade Média', 1, 'PORTUGUES_MEDIO');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/portugues_dificil.png', 'Português Difícil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Português na dificuldade Difícil', 1, 'PORTUGUES_DIFICIL');
+
+
+--MATEMATICA
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/matematica_facil.png', 'Matemática Fácil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Matemática na dificuldade Fácil', 1, 'MATEMATICA_FACIL');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/matematica_medio.png', 'Matemática Média', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Matemática na dificuldade Média', 1, 'MATEMATICA_MEDIO');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/matematica_dificil.png', 'Matemática Difícil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Matemática na dificuldade Difícil', 1, 'MATEMATICA_DIFICIL');
+
+
+--SOFT_SKILLS
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/soft_skills_facil.png', 'SoftSKills Fácil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de SoftSKills na dificuldade Fácil', 1, 'SOFT_SKILLS_FACIL');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/soft_skills_medio.png', 'SoftSKills Média', 'Esta insignia é recompensada a todos os usuários que completaram a prova de SoftSKills na dificuldade Média', 1, 'SOFT_SKILLS_MEDIO');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/soft_skills_dificil.png', 'SoftSKills Difícil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de SoftSKills na dificuldade Difícil', 1, 'SOFT_SKILLS_DIFICIL');
+
+
+--GEOGRAFIA
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/geografia_facil.png', 'Geografia Fácil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Geografia na dificuldade Fácil', 1, 'GEOGRAFIA_FACIL');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/geografia_medio.png', 'Geografia Média', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Geografia na dificuldade Média', 1, 'GEOGRAFIA_MEDIO');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/geografia_dificil.png', 'Geografia Difícil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Geografia na dificuldade Difícil', 1, 'GEOGRAFIA_DIFICIL');
+
+
+--HISTORIA
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/historia_facil.png', 'História Fácil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de História na dificuldade Fácil', 1, 'HISTORIA_FACIL');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/historia_medio.png', 'História Média', 'Esta insignia é recompensada a todos os usuários que completaram a prova de História na dificuldade Média', 1, 'HISTORIA_MEDIO');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/historia_dificil.png', 'História Difícil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de História na dificuldade Difícil', 1, 'HISTORIA_DIFICIL');
+
+
+--FISICA
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/fisica_facil.png', 'Física Fácil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Física na dificuldade Fácil', 1, 'FISICA_FACIL');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/fisica_medio.png', 'Física Média', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Física na dificuldade Média', 1, 'FISICA_MEDIO');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/fisica_dificil.png', 'Física Difícil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Física na dificuldade Difícil', 1, 'FISICA_DIFICIL');
+
+
+--QUIMICA
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/quimica_facil.png', 'Química Fácil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Química na dificuldade Fácil', 1, 'QUIMICA_FACIL');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/quimica_medio.png', 'Química Média', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Química na dificuldade Média', 1, 'QUIMICA_MEDIO');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/quimica_dificil.png', 'Química Difícil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Química na dificuldade Difícil', 1, 'QUIMICA_DIFICIL');
+
+
+--BIOLOGIA
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/biologia_facil.png', 'Biologia Fácil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Biologia na dificuldade Fácil', 1, 'BIOLOGIA_FACIL');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/biologia_medio.png', 'Biologia Média', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Biologia na dificuldade Média', 1, 'BIOLOGIA_MEDIO');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/biologia_dificil.png', 'Biologia Difícil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Biologia na dificuldade Difícil', 1, 'BIOLOGIA_DIFICIL');
+
+
+--ATUALIDADES
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/atualidades_facil.png', 'Atualidades Fácil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Atualidades na dificuldade Fácil', 1, 'ATUALIDADES_FACIL');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/atualidades_medio.png', 'Atualidades Média', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Atualidades na dificuldade Média', 1, 'ATUALIDADES_MEDIO');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/atualidades_dificil.png', 'Atualidades Difícil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Atualidades na dificuldade Difícil', 1, 'ATUALIDADES_DIFICIL');
+
+
+--ESPANHOL
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/espanhol_facil.png', 'Espanhol Fácil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Espanhol na dificuldade Fácil', 1, 'ESPANHOL_FACIL');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/espanhol_medio.png', 'Espanhol Média', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Espanhol na dificuldade Média', 1, 'ESPANHOL_MEDIO');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/espanhol_dificil.png', 'Espanhol Difícil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Espanhol na dificuldade Difícil', 1, 'ESPANHOL_DIFICIL');
+
+
+--INGLES
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/ingles_facil.png', 'Inglês Fácil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Inglês na dificuldade Fácil', 1, 'INGLES_FACIL');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/ingles_medio.png', 'Inglês Média', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Inglês na dificuldade Média', 1, 'INGLES_MEDIO');
+
+INSERT INTO INSIGNIA (id_insignia, imagem_url, titulo, descricao, status, tag)
+VALUES (SEQ_USUARIO.NEXTVAL, 'https://raw.githubusercontent.com/VictorPrudente/vs13-squad9-EduMatch/spring/migration/src/main/resources/images/ingles_dificil.png', 'Inglês Difícil', 'Esta insignia é recompensada a todos os usuários que completaram a prova de Inglês na dificuldade Difícil', 1, 'INGLES_DIFICIL');
+
 -- INSERT EMPRESA
 INSERT INTO USUARIO (ID_USUARIO, NOME, EMAIL, SENHA, CNPJ, TIPO_USUARIO, TIPO_EMPRESA, STATUS)
 VALUES (SEQ_USUARIO.NEXTVAL, 'TechSol', 'techsol@email.com', '12345', '12345678900210', 2, 0, 1);

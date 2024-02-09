@@ -99,7 +99,6 @@ public class ProvaService {
             }
         }
 
-
         prova.getRespostas().addAll(respostas);
         prova.setPontos(pontuacao);
         prova.setTotalAcertos(acertos);
@@ -113,9 +112,9 @@ public class ProvaService {
         Questao questao = prova.getQuestoes().get(0);
         if (acertos * 100 / questoes.size() >= aprovacao){
             String tag = questao.getTrilha().name() + "_" + questao.getDificuldade().name();
-            InsigniaDetailedDTO insigniaDetailedDTO = insigniaService.acharPorTag(tag);
-            InsigniaDetailedDTO insignia = mapper.convertValue(insigniaDetailedDTO, InsigniaDetailedDTO.class);
+            insigniaService.addUsuario(usuario, tag);
         }
+
         UsuarioCreateDTO usuarioCreateDTO = mapper.convertValue(usuario, UsuarioCreateDTO.class);
         usuarioService.atualizar(usuario.getIdUsuario(), usuarioCreateDTO);
         ProvaFinishDTO provaFinishDTO = new ProvaFinishDTO();
