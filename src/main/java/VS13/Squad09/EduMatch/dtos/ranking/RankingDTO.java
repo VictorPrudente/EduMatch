@@ -1,4 +1,4 @@
-package VS13.Squad09.EduMatch.dtos.response;
+package VS13.Squad09.EduMatch.dtos.ranking;
 
 import VS13.Squad09.EduMatch.entities.Usuario;
 import lombok.*;
