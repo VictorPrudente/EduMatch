@@ -18,24 +18,20 @@ import javax.validation.constraints.Positive;
 public class RankingCreateDTO {
 
 
-    @URL(message = "")
-    @Schema(description = "imagem da classificação", example = "https://img.freepik.com/fotos-premium/arvore-psicodelica-ao-por-do-sol-hd-wallpaper_899449-86011.jpg")
+    @URL(message = "Não é possível inserir um ranking no banco sem passar a URL da sua imagem. É necessário também, que a URL provida seja válida e única.")
+    @Schema(description = "Imagem do Ranking", example = "https://img.freepik.com/fotos-premium/arvore-psicodelica-ao-por-do-sol-hd-wallpaper_899449-86011.jpg")
     private String urlImagem;
 
-    @NotBlank
-    @Schema(description = "título da classificação", example = "Bronze")
+    @NotBlank(message = "O título do ranking não pode ficar em branco, assim como deve ser único.")
+    @Schema(description = "Título do Ranking", example = "Bronze")
     private String titulo;
 
-    @NotBlank
-    @Schema(description = "descrição da classificação", example = "Complete 1 trilha para ganhar a classificação de bronze")
+    @NotBlank(message = "A descrição do ranking não pode ser nula, assim como deve ser única.")
+    @Schema(description = "Descrição do ranking", example = "O elo inicial de cada aventureiro. Jogue mais provas para subir sua pontuação e conquistar patamares maiores!")
     private String descricao;
 
-    @NotNull
-    @Positive
-    @Schema(description = "pontuação necessária para subir de classificação", example = "100")
+    @NotNull(message = "A pontuação mínima do ranking não pode ser nula e deve ser única.")
+    @Positive(message = "A pontuação mínima do ranking deve ser positiva e única.")
+    @Schema(description = "Pontuação necessária para que o usuário possa subir de ranking.", example = "1000")
     private Integer pontuacaoNecessaria;
-
-    @NotNull
-    @Schema(description = "status da classificação", example = "1 = ATIVO")
-    private Status status;
 }
