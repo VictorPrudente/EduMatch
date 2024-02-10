@@ -8,9 +8,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -66,30 +64,35 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private Set<Prova> prova;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_contato", referencedColumnName = "id_contato")
     private Contato contato;
 
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco")
     private Endereco endereco;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Insignia> insignias;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "USUARIO_INSIGNIA",
+            joinColumns = @JoinColumn(name = "ID_USUARIO"),
+            inverseJoinColumns = @JoinColumn(name = "ID_INSIGNIA"))
+    private List<Insignia> insignias = new ArrayList<>();
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Certificado> certificados = new HashSet<>();
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_RANKING", referencedColumnName = "ID_RANKING")
     private Ranking ranking;
 
     @Column(name = "ELO")
     private Elo elo;
 
+    @Column(name = "login")
+    private String login;
 
     public void pontuar(Integer pontos){
         this.pontuacao += pontos;

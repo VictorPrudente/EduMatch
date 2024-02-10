@@ -29,7 +29,7 @@ public class RankingController implements IRankingController {
 
     @GetMapping
     public ResponseEntity<Page<RankingDTO>> listarPorRanking(@RequestParam(required = false) String elo,
-                                                             @PageableDefault(size = 50, direction = Sort.Direction.DESC) Pageable pageable) throws Exception {
+                                                             @PageableDefault(size = 50, sort = "pontuacaoNecessaria", direction = Sort.Direction.DESC) Pageable pageable) throws Exception {
         Page<RankingDTO> rankingDTO = rankingService.listarPorRanking(elo, pageable);
         return ResponseEntity.ok(rankingDTO);
     }

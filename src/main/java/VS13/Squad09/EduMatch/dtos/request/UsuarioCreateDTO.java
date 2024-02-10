@@ -54,5 +54,8 @@ public class UsuarioCreateDTO {
 
         @Schema(description = "Tipo de Empresa", example = "0 = PRIVADA")
         private TipoEmpresa tipoEmpresa;
+
+        @Schema(description = "Login", example = "login123")
+        private String login;
 }
 

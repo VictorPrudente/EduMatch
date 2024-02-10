@@ -21,13 +21,10 @@ public class ContatoService {
     public ContatoDTO salvar(Integer id, ContatoCreateDTO contatoCreateDTO) throws Exception {
         usuarioService.listarPorId(id);
 
-        if(returnContatoByIdUsuario(id) != null) {
-            throw new RegraDeNegocioException("Usuário já possui um contato cadastrado.");
-        }
 
-        Contato contatoEntity = contatoMapper.toEntity(contatoCreateDTO);
+            Contato contatoEntity = contatoMapper.toEntity(contatoCreateDTO);
 
-        return contatoMapper.toDto(contatoRepository.save(contatoEntity));
+            return contatoMapper.toDto(contatoRepository.save(contatoEntity));
     }
 
     public ContatoDTO atualizar(Integer id, ContatoCreateDTO contatoCreateDTO) throws Exception {

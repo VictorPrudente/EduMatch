@@ -1,13 +1,11 @@
 package VS13.Squad09.EduMatch.entities;
 
 
-import VS13.Squad09.EduMatch.entities.enums.Elo;
 import VS13.Squad09.EduMatch.entities.enums.Status;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -22,8 +20,9 @@ public class Ranking {
     @SequenceGenerator(name = "SEQ_RANKING", sequenceName = "SEQ_RANKING", allocationSize = 1)
     private Integer id;
 
+    @OrderBy("pontuacao DESC")
     @OneToMany(mappedBy = "ranking", cascade = CascadeType.ALL)
-    private Set<Usuario> usuarios;
+    private List<Usuario> usuarios;
 
     @Column(name = "PONTUACAO_NECESSARIA")
     private Integer pontuacaoNecessaria;
@@ -44,13 +43,12 @@ public class Ranking {
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
-        if (!super.equals(object)) return false;
         Ranking ranking = (Ranking) object;
-        return Objects.equals(pontuacaoNecessaria, ranking.pontuacaoNecessaria);
+        return Objects.equals(id, ranking.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), pontuacaoNecessaria);
+        return Objects.hash(id);
     }
 }
