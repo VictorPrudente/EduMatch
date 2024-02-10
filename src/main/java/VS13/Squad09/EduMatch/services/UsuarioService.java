@@ -4,7 +4,7 @@ import VS13.Squad09.EduMatch.dtos.UsuarioCompletoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.UsuarioECertificadoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.request.LoginCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
-import VS13.Squad09.EduMatch.dtos.response.PessoaJuridicaDTO;
+import VS13.Squad09.EduMatch.dtos.usuario.response.EmpresaDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Ranking;
 import VS13.Squad09.EduMatch.entities.Usuario;
@@ -50,7 +50,7 @@ public class UsuarioService {
         usuarioEntity.setPontuacao(0);
         usuarioEntity.setMoedas(0);
         usuarioEntity.setElo(Elo.FERRO);
-        usuarioEntity.setRanking(rankingService.rankingInicial());
+        usuarioEntity.setRanking(objectMapper.convertValue(rankingService.rankingInicial(), Ranking.class));
         if (usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_FISICA) {
             usuarioEntity.setTipoEmpresa(TipoEmpresa.USUARIO_PADRAO);
         }
@@ -107,12 +107,8 @@ public class UsuarioService {
         throw new IllegalArgumentException("Senha inválida.");
     }
 
-    public List<PessoaJuridicaDTO> listarEmpresas() throws Exception {
-        return usuarioRepository.findAll().stream()
-                .filter(usuario -> usuario.getTipoUsuario().ordinal() == 1)
-                .filter(usuario -> usuario.getStatus().ordinal() == 1)
-                .map(usuario -> objectMapper.convertValue(usuario, PessoaJuridicaDTO.class))
-                .collect(Collectors.toList());
+    public List<EmpresaDTO> listarEmpresas() {
+        return usuarioRepository.listarEmpresas();
     }
 
     public UsuarioDTO delete(Integer id) throws Exception {
