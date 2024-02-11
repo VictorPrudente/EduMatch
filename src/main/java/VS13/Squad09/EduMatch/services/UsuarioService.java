@@ -6,6 +6,7 @@ import VS13.Squad09.EduMatch.dtos.request.LoginCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.PessoaJuridicaDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
+import VS13.Squad09.EduMatch.entities.Contato;
 import VS13.Squad09.EduMatch.entities.Ranking;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Elo;
@@ -181,6 +182,16 @@ public class UsuarioService {
 
     public Optional<Usuario> findByLoginAndSenha(String login, String senha){
         return usuarioRepository.findByLoginAndSenha(login, senha);
+    }
+
+    public void usuarioComContato(Usuario usuario, Contato contato){
+        usuario.setContato(contato);
+        usuarioRepository.save(usuario);
+    }
+
+    public void usuarioSemContato(Usuario usuario){
+        usuario.setContato(null);
+        usuarioRepository.save(usuario);
     }
 }
 
