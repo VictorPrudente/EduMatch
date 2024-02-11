@@ -2,7 +2,6 @@ package VS13.Squad09.EduMatch.entities;
 
 import VS13.Squad09.EduMatch.entities.enums.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
@@ -33,7 +32,7 @@ public class Usuario {
     @Column(name = "nome")
     private String nome;
 
-    @Column(name = "role")
+    @Column(name = "TIPO_USUARIO")
     private TipoUsuario tipoUsuario;
 
     @Column(name = "cpf")
@@ -53,9 +52,6 @@ public class Usuario {
 
     @Column(name = "cnpj")
     private String CNPJ;
-
-    @Column(name = "tipo_empresa")
-    private TipoEmpresa tipoEmpresa;
 
     @Column(name = "status")
     private Status status;
@@ -91,11 +87,15 @@ public class Usuario {
     @Column(name = "ELO")
     private Elo elo;
 
-    @Column(name = "login")
-    private String login;
+    @Column(name = "PONTUACAO_PROXIMO_ELO")
+    private Integer pontuacaoProximoElo;
 
     public void pontuar(Integer pontos){
         this.pontuacao += pontos;
+    }
+
+    public boolean hasNextElo(){
+        return this.getElo().ordinal() < Elo.values().length-1;
     }
   
     @Override

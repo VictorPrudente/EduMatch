@@ -15,5 +15,4 @@ public class EmpresaDTO {
     private String email;
     private String nome;
     private String CNPJ;
-    private TipoEmpresa tipoEmpresa;
 }

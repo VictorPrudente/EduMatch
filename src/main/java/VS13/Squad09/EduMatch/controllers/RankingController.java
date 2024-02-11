@@ -4,7 +4,7 @@ package VS13.Squad09.EduMatch.controllers;
 import VS13.Squad09.EduMatch.controllers.interfaces.IRankingController;
 import VS13.Squad09.EduMatch.dtos.ranking.request.RankingCreateDTO;
 import VS13.Squad09.EduMatch.dtos.ranking.response.RankingDTO;
-import VS13.Squad09.EduMatch.dtos.ranking.response.RankingUsuarioDTO;
+import VS13.Squad09.EduMatch.entities.Ranking;
 import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.services.RankingService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,30 +27,32 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/rankings")
-@Tag(name = "Ranking", description = "EndPoints do Ranking")
+@Tag(name = "Ranking", description = "Rotas privadas")
 public class RankingController implements IRankingController {
 
     private final RankingService rankingService;
 
+    //OK
     @PostMapping
     public ResponseEntity<RankingDTO> criar(@Valid @RequestBody RankingCreateDTO rankingCreateDTO) throws Exception {
         return new ResponseEntity<>(rankingService.criar(rankingCreateDTO), HttpStatus.CREATED);
     }
 
+    //OK
     @PutMapping("{idRanking}")
-    public ResponseEntity<RankingDTO> atualizar(@PathVariable Integer idRanking, @Valid @RequestBody RankingCreateDTO rankingCreateDTO) throws NaoEncontradoException {
-        return ResponseEntity.ok(rankingService.atualizar(idRanking, rankingCreateDTO));
-    }
-
-    @GetMapping("/elos")
-    public ResponseEntity<List<RankingDTO>> listarRankings(@RequestParam(required = false) String elo) throws Exception {
-        return ResponseEntity.ok(rankingService.listarRankings(elo));
+    public ResponseEntity<RankingDTO> atualizar(@PathVariable String elo, @Valid @RequestBody RankingCreateDTO rankingCreateDTO) throws NaoEncontradoException {
+        return ResponseEntity.ok(rankingService.atualizar(elo, rankingCreateDTO));
     }
 
     @GetMapping
-    public ResponseEntity<Page<RankingUsuarioDTO>> listarPorRanking(@RequestParam(required = false) String elo,
-                                                                    @PageableDefault(size = 50, sort = "pontuacaoNecessaria", direction = Sort.Direction.DESC) Pageable pageable) throws Exception {
-        Page<RankingUsuarioDTO> rankingDTO = rankingService.listarPorRanking(elo, pageable);
+    public ResponseEntity<Page<RankingDTO>> listarPorRanking(@RequestParam(required = false) String elo,
+                                                          @PageableDefault(size = 50, sort = "pontuacaoNecessaria", direction = Sort.Direction.DESC) Pageable pageable) throws Exception {
+        Page<RankingDTO> rankingDTO = rankingService.listarPorRanking(elo, pageable);
         return ResponseEntity.ok(rankingDTO);
+    }
+
+    @GetMapping("/elo")
+    public ResponseEntity<List<RankingDTO>> listarRanking() throws Exception {
+        return ResponseEntity.ok(rankingService.listarPorElo());
     }
 }

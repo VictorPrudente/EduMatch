@@ -16,7 +16,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/parceiros")
-@Tag(name = "Empresas Parceiras")
+@Tag(name = "Empresas Parceiras", description = "Rota pública")
 public class EmpresaController implements IEmpresaController {
 
     private final UsuarioService usuarioService;
