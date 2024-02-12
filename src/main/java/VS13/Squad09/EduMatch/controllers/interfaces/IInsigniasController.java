@@ -1,8 +1,8 @@
 package VS13.Squad09.EduMatch.controllers.interfaces;
 
 
-import VS13.Squad09.EduMatch.dtos.insignia.request.InsigniaCreateDTO;
-import VS13.Squad09.EduMatch.dtos.insignia.response.InsigniaDetailedDTO;
+import VS13.Squad09.EduMatch.dtos.request.InsigniaCreateDTO;
+import VS13.Squad09.EduMatch.dtos.response.InsigniaDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -13,14 +13,14 @@ import java.util.List;
 
 public interface IInsigniasController {
 
-    @Operation(summary = "Criar uma Insígnia / Rota ADM", description = "Cria uma nova insígnia no banco de dados.")
+    @Operation(summary = "Criar uma Insígnia", description = "Cria uma nova insígnia no banco de dados.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Operação bem sucedida. Insígnia criada."),
             @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso. Insígnia não cadastrada."),
             @ApiResponse(responseCode = "409", description = "Restrição de valor único violada. Insígnia não cadastrada."),
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção. Insígnia não cadastrada.")})
     @PostMapping
-    ResponseEntity<InsigniaDetailedDTO> criar(@Valid @RequestBody InsigniaCreateDTO insignia) throws Exception;
+    ResponseEntity<InsigniaDTO> criar(@Valid @RequestBody InsigniaCreateDTO insignia) throws Exception;
 
 
     @Operation(summary = "Listar todas ou uma insígnia de um Usuário", description = "Recebe no parâmetro de pesquisa o ID de um usuário, podendo receber ou não o ID de uma insígnia." +
@@ -31,7 +31,7 @@ public interface IInsigniasController {
             @ApiResponse(responseCode = "404", description = "Nenhuma insígnia com este ID foi adquirida pelo usuário."),
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção.")})
     @GetMapping("/usuario")
-    ResponseEntity<List<Object>> listarPorUsuario(@RequestParam Integer usuario,
+    ResponseEntity<List<InsigniaDTO>> listarPorUsuario(@RequestParam Integer usuario,
                                                          @RequestParam(required = false) Integer insignia) throws Exception;
 
 }

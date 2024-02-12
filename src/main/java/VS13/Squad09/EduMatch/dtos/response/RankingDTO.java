@@ -1,4 +1,4 @@
-package VS13.Squad09.EduMatch.dtos.ranking.response;
+package VS13.Squad09.EduMatch.dtos.response;
 
 import VS13.Squad09.EduMatch.dtos.usuario.response.UsuarioMinDTO;
 import VS13.Squad09.EduMatch.entities.enums.Status;

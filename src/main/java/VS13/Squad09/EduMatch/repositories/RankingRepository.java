@@ -1,6 +1,6 @@
 package VS13.Squad09.EduMatch.repositories;
 
-import VS13.Squad09.EduMatch.dtos.ranking.response.RankingDTO;
+import VS13.Squad09.EduMatch.dtos.response.RankingDTO;
 import VS13.Squad09.EduMatch.dtos.usuario.response.UsuarioMinDTO;
 import VS13.Squad09.EduMatch.entities.Ranking;
 import org.springframework.data.domain.Page;
@@ -21,7 +21,7 @@ public interface RankingRepository extends JpaRepository<Ranking, Integer> {
 
 
     @Query("""
-            SELECT new VS13.Squad09.EduMatch.dtos.ranking.response.RankingDTO
+            SELECT new VS13.Squad09.EduMatch.dtos.response.RankingDTO
             (rank.id, rank.titulo, rank.urlImagem, rank.descricao, rank.pontuacaoNecessaria, rank.status)
             FROM RANKING rank
             WHERE rank.status = 1

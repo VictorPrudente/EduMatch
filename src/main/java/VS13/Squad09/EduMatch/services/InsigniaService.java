@@ -1,9 +1,7 @@
 package VS13.Squad09.EduMatch.services;
 
-import VS13.Squad09.EduMatch.dtos.insignia.request.InsigniaCreateDTO;
-import VS13.Squad09.EduMatch.dtos.insignia.response.InsigniaDTO;
-import VS13.Squad09.EduMatch.dtos.insignia.response.InsigniaDetailedDTO;
-import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
+import VS13.Squad09.EduMatch.dtos.request.InsigniaCreateDTO;
+import VS13.Squad09.EduMatch.dtos.response.InsigniaDTO;
 import VS13.Squad09.EduMatch.entities.Insignia;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Status;
@@ -15,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -26,7 +25,7 @@ public class InsigniaService {
     private final UsuarioService usuarioService;
     private final ObjectMapper objectMapper;
 
-    public InsigniaDetailedDTO criar(InsigniaCreateDTO insigniaCreateDTO) throws Exception {
+    public InsigniaDTO criar(InsigniaCreateDTO insigniaCreateDTO) throws Exception {
 
         Insignia insignia = toEntity(insigniaCreateDTO);
 
@@ -34,56 +33,50 @@ public class InsigniaService {
 
         insigniaRepository.save(insignia);
 
-        return toDetailDTO(insignia);
+        return toDTO(insignia);
     }
 
-    public List<Object> listarInsignias(Integer idInsingia) {
-        List<Object> insignias = new ArrayList<>();
+    public List<InsigniaDTO> listarInsignias(Integer idInsingia) {
+        List<InsigniaDTO> insignias = new ArrayList<>();
         if (idInsingia == null){
-            insignias.addAll(insigniaRepository.findAll().stream()
-                    .map(this::toDTO).toList());
+            insignias.addAll(insigniaRepository.findInsignias());
         } else {
-            insignias.add(toDetailDTO(insigniaRepository.findById(idInsingia)));
+            insignias.add(toDTO(insigniaRepository.findInsignia(idInsingia)));
         }
         return insignias;
     }
 
 
-    public List<Object> listarPorUsuario(Integer usuarioId, Integer idInsignia) throws Exception {
+    public List<InsigniaDTO> listarPorUsuario(Integer usuarioId, Integer idInsignia) throws Exception {
 
         Usuario usuario = objectMapper.convertValue(usuarioService.listarPorId(usuarioId), Usuario.class);
-        List<Object> insignias = new ArrayList<>();
 
         if (usuario.getInsignias().isEmpty()) {
             throw new NaoEncontradoException("Nenhum insignia encontrada para este usuário");
         }
-        if(idInsignia == null){
-            insignias.addAll(usuario.getInsignias().stream()
-                    .map(this::toDTO).toList());
-        } else {
-           insignias.add(usuario.getInsignias().stream()
-                   .filter(i -> i.getId().equals(idInsignia))
-                   .findFirst().orElseThrow(() -> new NaoEncontradoException("Nenhuma insígnia com este ID foi encontrada.")));
+
+        List<InsigniaDTO> insignias = usuario.getInsignias().stream().map(this::toDTO).toList();
+
+        if (idInsignia != null) {
+            return insignias.stream()
+                    .filter(insigniaDTO -> insigniaDTO.getId().equals(idInsignia))
+                    .findFirst()
+                    .map(Collections::singletonList)
+                    .orElseThrow(() -> new NaoEncontradoException("Nenhuma insígnia com este ID foi encontrada."));
         }
-        return insignias;
+            return insignias;
     }
 
 
-
-
-    public InsigniaDetailedDTO addUsuario(Usuario usuario, String tag) throws Exception {
+    public InsigniaDTO addUsuario(Usuario usuario, String tag) throws Exception {
         Insignia insignia = acharPorTag(tag);
-        InsigniaDetailedDTO insigniaDetailedDTO = objectMapper.convertValue(insignia, InsigniaDetailedDTO.class);
+        InsigniaDTO insigniaDetailedDTO = objectMapper.convertValue(insignia, InsigniaDTO.class);
 
         insignia.getUsuarios().add(usuario);
-        return objectMapper.convertValue(insigniaRepository.save(insignia), InsigniaDetailedDTO.class);
+        return objectMapper.convertValue(insigniaRepository.save(insignia), InsigniaDTO.class);
     }
 
     //MÉTODOS ADICIONAIS
-
-    private InsigniaDetailedDTO toDetailDTO(Object o){
-        return objectMapper.convertValue(o, InsigniaDetailedDTO.class);
-    }
 
     private InsigniaDTO toDTO(Object o){
         return objectMapper.convertValue(o, InsigniaDTO.class);
