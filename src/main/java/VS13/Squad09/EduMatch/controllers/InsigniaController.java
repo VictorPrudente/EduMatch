@@ -19,22 +19,16 @@ import java.util.List;
 @Slf4j
 @Validated
 @RestController
-@Tag(name = "Insignias", description = "EndPoints da Insignia")
 @RequiredArgsConstructor
 @RequestMapping("/insignia")
+@Tag(name = "Insignias", description = "Rotas privadas")
 public class InsigniaController implements IInsigniasController {
-
 
     private final InsigniaService insigniaService;
 
     @PostMapping
     public ResponseEntity<InsigniaDetailedDTO> criar(@Valid @RequestBody InsigniaCreateDTO insignia) throws Exception {
         return new ResponseEntity<>(insigniaService.criar(insignia), HttpStatus.CREATED);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Object>> listarInsignias(@RequestParam(required = false) Integer id) throws Exception {
-        return ResponseEntity.ok(insigniaService.listarInsignias(id));
     }
 
     @GetMapping("/usuario")

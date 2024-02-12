@@ -1,4 +1,4 @@
-package VS13.Squad09.EduMatch.dtos.request;
+package VS13.Squad09.EduMatch.dtos.usuario.request;
 
 
 import VS13.Squad09.EduMatch.entities.*;
@@ -44,18 +44,8 @@ public class UsuarioCreateDTO {
         @Schema(description = "CNPJ do usuário/PJ", example = "10123456000412")
         private String CNPJ;
 
-        @NotNull
-        @Schema(description = "Tipo de usuário", example = "PESSOA_FISICA/PESSOA-JURIDICA")
-        private TipoUsuario tipoUsuario;
-
         @Past
         @Schema(description = "Data de nascimento do usuário", example = "yyyy-mm-dd")
         private LocalDate dataNascimento;
-
-        @Schema(description = "Tipo de Empresa", example = "0 = PRIVADA")
-        private TipoEmpresa tipoEmpresa;
-
-        @Schema(description = "Login", example = "login123")
-        private String login;
 }
 

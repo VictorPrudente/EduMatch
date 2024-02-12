@@ -3,14 +3,13 @@ package VS13.Squad09.EduMatch.services;
 import VS13.Squad09.EduMatch.dtos.UsuarioCompletoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.UsuarioECertificadoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.request.LoginCreateDTO;
-import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
-import VS13.Squad09.EduMatch.dtos.response.PessoaJuridicaDTO;
+import VS13.Squad09.EduMatch.dtos.usuario.request.UsuarioCreateDTO;
+import VS13.Squad09.EduMatch.dtos.usuario.response.EmpresaDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Ranking;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Elo;
 import VS13.Squad09.EduMatch.entities.enums.Status;
-import VS13.Squad09.EduMatch.entities.enums.TipoEmpresa;
 import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
@@ -50,13 +49,15 @@ public class UsuarioService {
         usuarioEntity.setPontuacao(0);
         usuarioEntity.setMoedas(0);
         usuarioEntity.setElo(Elo.FERRO);
-        usuarioEntity.setRanking(rankingService.rankingInicial());
-        if (usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_FISICA) {
-            usuarioEntity.setTipoEmpresa(TipoEmpresa.USUARIO_PADRAO);
+        if (!usuarioEntity.getCPF().isBlank()) {
+            usuarioEntity.setTipoUsuario(TipoUsuario.PESSOA_FISICA);
+        } else {
+            usuarioEntity.setTipoUsuario(TipoUsuario.PESSOA_JURIDICA);
         }
 
         String senha = hashPassword(usuarioEntity.getSenha());
         usuarioEntity.setSenha(senha);
+        usuarioEntity.setRanking(rankingService.novoRanking("FERRO"));
         usuarioRepository.save(usuarioEntity);
 
         //emailService.sendEmail(usuarioEntity, null, 1);
@@ -89,9 +90,7 @@ public class UsuarioService {
         Usuario usuarioRecuperado = usuarioRepository.findById(id).get();
         BeanUtils.copyProperties(usuarioCreateDTO, usuarioRecuperado);
 
-        Ranking ranking = rankingService.subirRanking(usuarioRecuperado);
-        usuarioRecuperado.setRanking(ranking);
-
+        subirElo(usuarioRecuperado);
         usuarioRepository.save(usuarioRecuperado);
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         BeanUtils.copyProperties(usuarioRecuperado, usuarioDTO);
@@ -107,12 +106,8 @@ public class UsuarioService {
         throw new IllegalArgumentException("Senha inválida.");
     }
 
-    public List<PessoaJuridicaDTO> listarEmpresas() throws Exception {
-        return usuarioRepository.findAll().stream()
-                .filter(usuario -> usuario.getTipoUsuario().ordinal() == 1)
-                .filter(usuario -> usuario.getStatus().ordinal() == 1)
-                .map(usuario -> objectMapper.convertValue(usuario, PessoaJuridicaDTO.class))
-                .collect(Collectors.toList());
+    public List<EmpresaDTO> listarEmpresas() {
+        return usuarioRepository.listarEmpresas();
     }
 
     public UsuarioDTO delete(Integer id) throws Exception {
@@ -135,6 +130,42 @@ public class UsuarioService {
             throw new RegraDeNegocioException("Documentação vazia");
         }
     }
+
+    private void subirElo(Usuario usuario){
+        if (usuario.hasNextElo()) {
+            Ranking proximoRanking = getNextElo(usuario);
+            if (usuario.getPontuacao() >= proximoRanking.getPontuacaoNecessaria()) {
+                updateRank(usuario, proximoRanking);
+                if (usuario.hasNextElo()) {
+                    Ranking rankingFuturo = getNextElo(usuario);
+                    setPontuacao(usuario, rankingFuturo);
+                }
+                else {
+                    usuario.setPontuacaoProximoElo(0);
+                }
+            }
+            else {
+                setPontuacao(usuario, proximoRanking);
+            }
+        }
+    }
+
+    private Ranking getNextElo(Usuario usuario){
+        String elo = Elo.valueOf(usuario.getElo().ordinal() + 1).name();
+        return rankingService.novoRanking(elo);
+    }
+
+    private void updateRank(Usuario usuario, Ranking ranking){
+        Integer proximoElo = usuario.getElo().ordinal() + 1;
+        usuario.setElo(Elo.valueOf(proximoElo));
+        usuario.setRanking(ranking);
+    }
+
+    private void setPontuacao(Usuario usuario, Ranking ranking){
+        Integer pontuacaoProximoElo = ranking.getPontuacaoNecessaria() - usuario.getPontuacao();
+        usuario.setPontuacaoProximoElo(pontuacaoProximoElo);
+    }
+
 
     private String hashPassword(String senha) {
         try {
@@ -171,9 +202,9 @@ public class UsuarioService {
         return usuarioRepository.findAll(pageable);
     }
 
-    public Optional<Usuario> findByLoginAndSenha(String login, String senha){
-        return usuarioRepository.findByLoginAndSenha(login, senha);
-    }
+//    public Optional<Usuario> findByLoginAndSenha(String login, String senha){
+//        return usuarioRepository.findByLoginAndSenha(login, senha);
+//    }
 }
 
 

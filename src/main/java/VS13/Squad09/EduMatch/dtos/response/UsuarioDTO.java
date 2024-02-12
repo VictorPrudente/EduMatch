@@ -36,5 +36,6 @@ public class UsuarioDTO {
     private Set<Certificado> certificados;
     private Ranking ranking;
     private Elo elo;
+    private Integer pontuacaoProximoElo;
 
 }
