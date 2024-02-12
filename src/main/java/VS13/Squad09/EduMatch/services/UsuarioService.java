@@ -91,16 +91,8 @@ public class UsuarioService {
         Usuario usuarioRecuperado = usuarioRepository.findById(id).get();
         BeanUtils.copyProperties(usuarioCreateDTO, usuarioRecuperado);
 
-        Integer eloAtual = usuarioRecuperado.getElo().ordinal();
-        Integer proximoelo = eloAtual + 1;
-        if (eloAtual < Elo.values().length) {
-            String elo = Elo.valueOf(proximoelo).name();
-            Ranking ranking = rankingService.subirRanking(elo, usuarioRecuperado);
-            if (ranking != null) {
-                usuarioRecuperado.setRanking(ranking);
-                usuarioRecuperado.setElo(Elo.valueOf(proximoelo));
-            }
-        }
+        Ranking ranking = rankingService.subirRanking(usuarioRecuperado);
+        usuarioRecuperado.setRanking(ranking);
 
         usuarioRepository.save(usuarioRecuperado);
         UsuarioDTO usuarioDTO = new UsuarioDTO();
