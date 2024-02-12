@@ -19,10 +19,25 @@ public interface RankingRepository extends JpaRepository<Ranking, Integer> {
     //MELHORAR
     Page<Ranking> findAllByTitulo(String titulo, Pageable pageable);
 
+    @Query("""
+            SELECT new VS13.Squad09.EduMatch.dtos.response.RankingDTO
+            (rank.id, rank.titulo, rank.imagemUrl)
+            FROM RANKING rank
+            WHERE rank.status = 1
+            ORDER BY rank.pontuacaoNecessaria""")
+    List<RankingDTO> findRankings();
 
     @Query("""
             SELECT new VS13.Squad09.EduMatch.dtos.response.RankingDTO
-            (rank.id, rank.titulo, rank.urlImagem, rank.descricao, rank.pontuacaoNecessaria, rank.status)
+            (rank.id, rank.titulo, rank.imagemUrl, rank.descricao, rank.pontuacaoNecessaria, rank.status)
+            FROM RANKING rank
+            WHERE rank.status = 1 AND rank.id = :idRanking
+            ORDER BY rank.pontuacaoNecessaria DESC""")
+    RankingDTO findRanking(@Param("idRanking") Integer idRanking);
+
+    @Query("""
+            SELECT new VS13.Squad09.EduMatch.dtos.response.RankingDTO
+            (rank.id, rank.titulo, rank.imagemUrl, rank.descricao, rank.pontuacaoNecessaria, rank.status)
             FROM RANKING rank
             WHERE rank.status = 1
             AND (:titulo IS NULL OR rank.titulo = :titulo)

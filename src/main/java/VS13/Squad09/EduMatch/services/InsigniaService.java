@@ -36,15 +36,7 @@ public class InsigniaService {
         return toDTO(insignia);
     }
 
-    public List<InsigniaDTO> listarInsignias(Integer idInsingia) {
-        List<InsigniaDTO> insignias = new ArrayList<>();
-        if (idInsingia == null){
-            insignias.addAll(insigniaRepository.findInsignias());
-        } else {
-            insignias.add(toDTO(insigniaRepository.findInsignia(idInsingia)));
-        }
-        return insignias;
-    }
+
 
 
     public List<InsigniaDTO> listarPorUsuario(Integer usuarioId, Integer idInsignia) throws Exception {
@@ -74,6 +66,16 @@ public class InsigniaService {
 
         insignia.getUsuarios().add(usuario);
         return objectMapper.convertValue(insigniaRepository.save(insignia), InsigniaDTO.class);
+    }
+
+    public List<InsigniaDTO> listarInsignias(Integer idInsingia) {
+        List<InsigniaDTO> insignias = new ArrayList<>();
+        if (idInsingia == null){
+            insignias.addAll(insigniaRepository.findInsignias());
+        } else {
+            insignias.add(toDTO(insigniaRepository.findInsignia(idInsingia)));
+        }
+        return insignias;
     }
 
     //MÉTODOS ADICIONAIS

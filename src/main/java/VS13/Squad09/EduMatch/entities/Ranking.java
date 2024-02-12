@@ -21,7 +21,7 @@ public class Ranking {
     private Integer id;
 
     @Column(name = "IMAGEM_URL", nullable = false, unique = true)
-    private String urlImagem;
+    private String imagemUrl;
 
     @Column(name = "TITULO", nullable = false, unique = true)
     private String titulo;

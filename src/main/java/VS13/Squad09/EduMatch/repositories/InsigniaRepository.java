@@ -25,7 +25,6 @@ import java.util.Optional;
 @Repository
 public interface InsigniaRepository extends JpaRepository<Insignia, Integer> {
 
-
     Insignia findByTagIgnoreCase(String tag);
 
     @Query("""
