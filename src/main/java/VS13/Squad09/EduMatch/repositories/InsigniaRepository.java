@@ -41,4 +41,21 @@ public interface InsigniaRepository extends JpaRepository<Insignia, Integer> {
             FROM INSIGNIA i
             WHERE i.status = 1""")
     List<InsigniaDTO> findInsignias();
+
+
+    @Query("""
+            SELECT new VS13.Squad09.EduMatch.dtos.response.InsigniaDTO
+            (i.id, i.imagemUrl, i.titulo)
+            FROM INSIGNIA i
+            JOIN i.usuarios ui
+            WHERE ui.idUsuario = :idUsuario""")
+    List<InsigniaDTO> findAllByOwner(@Param("idUsuario") Integer idUsuario);
+
+    @Query("""
+            SELECT new VS13.Squad09.EduMatch.dtos.response.InsigniaDTO
+            (i.id, i.imagemUrl, i.titulo, i.descricao, i.tag, i.status)
+            FROM INSIGNIA i
+            JOIN i.usuarios ui
+            WHERE ui.idUsuario = :idUsuario AND i.id = :idInsignia""")
+    InsigniaDTO findOneByOwner(@Param("idUsuario") Integer idUsuario, @Param("idInsignia") Integer idInsignia);
 }

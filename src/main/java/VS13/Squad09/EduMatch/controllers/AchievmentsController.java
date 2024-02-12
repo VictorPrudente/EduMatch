@@ -1,6 +1,7 @@
 package VS13.Squad09.EduMatch.controllers;
 
 
+import VS13.Squad09.EduMatch.controllers.interfaces.IAchievmentController;
 import VS13.Squad09.EduMatch.dtos.response.InsigniaDTO;
 import VS13.Squad09.EduMatch.dtos.response.RankingDTO;
 import VS13.Squad09.EduMatch.services.InsigniaService;
@@ -19,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/achievments")
 @Tag(name = "Achievments", description = "Rota pública")
-public class AchievmentsController {
+public class AchievmentsController implements IAchievmentController {
 
     private final InsigniaService insigniaService;
     private final RankingService rankingService;

@@ -4,6 +4,7 @@ package VS13.Squad09.EduMatch.controllers;
 import VS13.Squad09.EduMatch.controllers.interfaces.IInsigniasController;
 import VS13.Squad09.EduMatch.dtos.request.InsigniaCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.InsigniaDTO;
+import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.services.InsigniaService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/insignia")
-@Tag(name = "Insignias", description = "Rotas ADM")
+@Tag(name = "Insignias", description = "Rotas privadas")
 public class InsigniaController implements IInsigniasController {
 
     private final InsigniaService insigniaService;
@@ -30,9 +31,14 @@ public class InsigniaController implements IInsigniasController {
         return new ResponseEntity<>(insigniaService.criar(insignia), HttpStatus.CREATED);
     }
 
-    @GetMapping("/usuario")
+    @PutMapping("{idInsignia}")
+    public ResponseEntity<InsigniaDTO> atualizar(@PathVariable Integer idInsignia, @Valid @RequestBody InsigniaCreateDTO insignia) throws NaoEncontradoException {
+        return ResponseEntity.ok(insigniaService.atualizar(idInsignia, insignia));
+    }
+
+    @GetMapping
     public ResponseEntity<List<InsigniaDTO>> listarPorUsuario(@RequestParam Integer usuario,
-                                                         @RequestParam(required = false) Integer insignia) throws Exception {
+                                                         @RequestParam(required = false) Integer insignia) throws NaoEncontradoException {
         return ResponseEntity.ok(insigniaService.listarPorUsuario(usuario, insignia));
     }
 }
