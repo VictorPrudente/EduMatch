@@ -2,7 +2,6 @@ package VS13.Squad09.EduMatch.entities;
 
 import VS13.Squad09.EduMatch.entities.enums.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,10 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -59,9 +55,6 @@ public class Usuario implements UserDetails  {
     @Column(name = "cnpj")
     private String CNPJ;
 
-    @Column(name = "tipo_empresa")
-    private TipoEmpresa tipoEmpresa;
-
     @Column(name = "status")
     private Status status;
   
@@ -79,8 +72,11 @@ public class Usuario implements UserDetails  {
     @JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco")
     private Endereco endereco;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Insignia> insignias;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "USUARIO_INSIGNIA",
+            joinColumns = @JoinColumn(name = "ID_USUARIO"),
+            inverseJoinColumns = @JoinColumn(name = "ID_INSIGNIA"))
+    private List<Insignia> insignias = new ArrayList<>();
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Certificado> certificados = new HashSet<>();
@@ -92,6 +88,15 @@ public class Usuario implements UserDetails  {
 
     @Column(name = "ELO")
     private Elo elo;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "USUARIO_CARGO",
+            joinColumns = @JoinColumn(name = "ID_USUARIO"),
+            inverseJoinColumns = @JoinColumn(name = "ID_CARGO")
+    )
+    private Set<Cargo> cargos = new HashSet<>();
 
     public void pontuar(Integer pontos){
         this.pontuacao += pontos;
@@ -112,7 +117,7 @@ public class Usuario implements UserDetails  {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return cargos;
     }
 
     @Override

@@ -13,6 +13,7 @@ import VS13.Squad09.EduMatch.entities.enums.TipoEmpresa;
 import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
+import VS13.Squad09.EduMatch.repositories.CargoRepository;
 import VS13.Squad09.EduMatch.repositories.UsuarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -39,9 +40,11 @@ public class UsuarioService {
     private final EmailService emailService;
     private final RankingService rankingService;
     private final PasswordEncoder passwordEncoder;
+    private final CargoRepository cargoRepository;
 
     public UsuarioDTO criar(UsuarioCreateDTO usuarioCreateDTO) throws RegraDeNegocioException {
         log.info("Criando usuario");
+
             validarCredencialUsuario(usuarioCreateDTO);
             Usuario usuarioEntity = objectMapper.convertValue(usuarioCreateDTO, Usuario.class);
 
@@ -55,8 +58,12 @@ public class UsuarioService {
             usuarioEntity.setElo(Elo.FERRO);
             usuarioEntity.setRanking(rankingService.rankingInicial());
             if (usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_FISICA) {
-                usuarioEntity.setTipoEmpresa(TipoEmpresa.USUARIO_PADRAO);
+                usuarioEntity.getCargos().add(cargoRepository.findByNome("ROLE_USUARIO"));
             }
+            if (usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_JURIDICA){
+                usuarioEntity.getCargos().add(cargoRepository.findByNome("ROLE_COMPANY"));
+            }
+
             usuarioRepository.save(usuarioEntity);
 
             //emailService.sendEmail(usuarioEntity, null, 1);
@@ -119,6 +126,8 @@ public class UsuarioService {
         usuarioProcurado.setStatus(Status.INATIVO);
         String email = usuarioProcurado.getEmail();
         usuarioProcurado.setEmail(null);
+        String cpf = usuarioProcurado.getCPF();
+        usuarioProcurado.setCPF(null);
         usuarioRepository.save(usuarioProcurado);
         usuarioProcurado.setEmail(email);
         UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioProcurado, UsuarioDTO.class);

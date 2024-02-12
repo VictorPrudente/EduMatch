@@ -47,9 +47,5 @@ public class UsuarioCreateDTO {
         @Past
         @Schema(description = "Data de nascimento do usuário", example = "yyyy-mm-dd",required = true)
         private LocalDate dataNascimento;
-
-        @Schema(description = "Tipo de Empresa", example = "0 = PRIVADA", required = true)
-        private TipoEmpresa tipoEmpresa;
-
 }
 

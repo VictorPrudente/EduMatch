@@ -27,11 +27,11 @@ public interface IUsuarioController {
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<UsuarioDTO>> listarTodos() throws BancoDeDadosException;
 
 
-    @Operation(summary = "Lista um usuario", description = "Lista um usuario no banco pelo id")
+    @Operation(summary = "Listar um usuario", description = "Lista um usuario no banco pelo id")
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "Listou um usuario"),
@@ -39,10 +39,10 @@ public interface IUsuarioController {
                     @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
             }
     )
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<UsuarioDTO> listarPorId(@PathVariable("id") @NotNull Integer id) throws Exception;
 
-    @Operation(summary = "Lista usuarios pelo status", description = "Lista usuarios no banco pelo status")
+    @Operation(summary = "Listar usuarios pelo status", description = "Lista usuarios no banco pelo status")
     @ApiResponses(
             value = {
                     @ApiResponse(responseCode = "200", description = "Listou um usuario pelo e-mail"),

@@ -21,7 +21,7 @@ import java.util.List;
 
 @Slf4j
 @Validated
-@Tag(name="Usuario", description = "Endpoint do CRU de Usuario")
+@Tag(name="Usuario", description = "Endpoint do CRUD de Usuario")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/usuario")
@@ -29,12 +29,12 @@ public class UsuarioController implements IUsuarioController {
 
     private final UsuarioService usuarioService;
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<UsuarioDTO>> listarTodos() throws BancoDeDadosException {
         return ResponseEntity.ok(usuarioService.listarTodos());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<UsuarioDTO> listarPorId(@PathVariable("id") @NotNull Integer id) throws Exception {
         return ResponseEntity.ok(usuarioService.listarPorId(id));
     }
