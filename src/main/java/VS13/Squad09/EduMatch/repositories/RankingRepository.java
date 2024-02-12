@@ -49,7 +49,7 @@ public interface RankingRepository extends JpaRepository<Ranking, Integer> {
     (user.idUsuario, user.nome, user.sobrenome, user.pontuacao)
      FROM USUARIO user
      WHERE user.ranking.id = :idRanking AND user.tipoUsuario = 1 AND user.status = 1
-     ORDER BY user.pontuacao DESC""")
+     ORDER BY user.pontuacao DESC, user.idUsuario""")
     List<UsuarioMinDTO> getUsers(@Param("idRanking") Integer idRanking);
 
     @Query(value = """
