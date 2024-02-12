@@ -1,6 +1,7 @@
 package VS13.Squad09.EduMatch.entities;
 
 import VS13.Squad09.EduMatch.entities.enums.TipoDeEndereco;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -32,7 +33,8 @@ public class Endereco {
     private String estado;
     @Column(name = "PAIS")
     private String pais;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "ID_USUARIO")
     private Usuario usuario;
 }

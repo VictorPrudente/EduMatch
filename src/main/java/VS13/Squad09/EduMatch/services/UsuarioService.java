@@ -7,6 +7,7 @@ import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.PessoaJuridicaDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Contato;
+import VS13.Squad09.EduMatch.entities.Endereco;
 import VS13.Squad09.EduMatch.entities.Ranking;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Elo;
@@ -191,6 +192,16 @@ public class UsuarioService {
 
     public void usuarioSemContato(Usuario usuario){
         usuario.setContato(null);
+        usuarioRepository.save(usuario);
+    }
+
+    public void usuarioComEndereco(Usuario usuario, Endereco endereco){
+        usuario.setEndereco(endereco);
+        usuarioRepository.save(usuario);
+    }
+
+    public void usuarioSemEndereco(Usuario usuario){
+        usuario.setEndereco(null);
         usuarioRepository.save(usuario);
     }
 }

@@ -67,9 +67,8 @@ public class Usuario {
     @JoinColumn(name = "id_contato")
     private Contato contato;
 
-    @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
