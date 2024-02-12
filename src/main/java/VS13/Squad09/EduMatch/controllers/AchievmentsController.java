@@ -31,7 +31,7 @@ public class AchievmentsController {
     }
 
     @GetMapping("/rankings")
-    public ResponseEntity<List<RankingDTO>> listarRankings(@RequestParam(required = false) Integer idInsignia){
-        return ResponseEntity.ok(rankingService.listarRankings(idInsignia));
+    public ResponseEntity<List<RankingDTO>> listarRankings(@RequestParam(required = false) Integer idRanking){
+        return ResponseEntity.ok(rankingService.listarRankings(idRanking));
     }
 }
