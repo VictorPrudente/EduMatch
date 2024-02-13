@@ -7,6 +7,7 @@ import VS13.Squad09.EduMatch.dtos.response.QuestaoDTO;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.services.QuestaoService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/questoes")
+@Tag(name = "Questoes", description = "Rota Privada / ADM")
 public class QuestaoController implements IQuestaoController {
 
     private final QuestaoService service;
@@ -56,7 +58,6 @@ public class QuestaoController implements IQuestaoController {
     public ResponseEntity<List<QuestaoDTO>> findAllByTrailAndDificulty(@PathVariable Integer trilha, @PathVariable Integer dificuldade) throws BancoDeDadosException {
         return ResponseEntity.ok(service.findAllByTrailAndDificulty(trilha, dificuldade));
     }
-
 
     @GetMapping({"/{trilha}/all"})
     public ResponseEntity<List<QuestaoDTO>> findAllByTrail(@PathVariable Integer trilha) throws BancoDeDadosException {

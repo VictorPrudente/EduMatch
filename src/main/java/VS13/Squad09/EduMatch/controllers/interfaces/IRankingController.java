@@ -1,7 +1,7 @@
 package VS13.Squad09.EduMatch.controllers.interfaces;
 
-import VS13.Squad09.EduMatch.dtos.ranking.request.RankingCreateDTO;
-import VS13.Squad09.EduMatch.dtos.ranking.response.RankingDTO;
+import VS13.Squad09.EduMatch.dtos.request.RankingCreateDTO;
+import VS13.Squad09.EduMatch.dtos.response.RankingDTO;
 import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

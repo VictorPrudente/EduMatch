@@ -1,4 +1,4 @@
-package VS13.Squad09.EduMatch.dtos.ranking.request;
+package VS13.Squad09.EduMatch.dtos.request;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;

@@ -1,7 +1,8 @@
 package VS13.Squad09.EduMatch.services;
 
-import VS13.Squad09.EduMatch.dtos.ranking.request.RankingCreateDTO;
-import VS13.Squad09.EduMatch.dtos.ranking.response.RankingDTO;
+import VS13.Squad09.EduMatch.dtos.request.RankingCreateDTO;
+import VS13.Squad09.EduMatch.dtos.response.InsigniaDTO;
+import VS13.Squad09.EduMatch.dtos.response.RankingDTO;
 import VS13.Squad09.EduMatch.entities.Ranking;
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,12 +48,14 @@ public class RankingService {
     }
 
     //OK
-    public List<RankingDTO> listarRankings(String elo) throws Exception{
-        if (elo != null) {
-            elo = elo.toUpperCase();
+    public List<RankingDTO> listarRankings(Integer idRanking) {
+        List<RankingDTO> rankings = new ArrayList<>();
+        if (idRanking == null){
+            rankings.addAll(rankingRepository.findRankings());
+        } else {
+            rankings.add(toDTO(rankingRepository.findRanking(idRanking)));
         }
-        return rankingRepository.findElo(elo).stream()
-                .map(this::toDTO).toList();
+        return rankings;
     }
 
     public List<RankingDTO> listarPorElo(){

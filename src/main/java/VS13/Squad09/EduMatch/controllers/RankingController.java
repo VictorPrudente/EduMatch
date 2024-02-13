@@ -2,9 +2,8 @@ package VS13.Squad09.EduMatch.controllers;
 
 
 import VS13.Squad09.EduMatch.controllers.interfaces.IRankingController;
-import VS13.Squad09.EduMatch.dtos.ranking.request.RankingCreateDTO;
-import VS13.Squad09.EduMatch.dtos.ranking.response.RankingDTO;
-import VS13.Squad09.EduMatch.entities.Ranking;
+import VS13.Squad09.EduMatch.dtos.request.RankingCreateDTO;
+import VS13.Squad09.EduMatch.dtos.response.RankingDTO;
 import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.services.RankingService;
 import io.swagger.v3.oas.annotations.tags.Tag;
