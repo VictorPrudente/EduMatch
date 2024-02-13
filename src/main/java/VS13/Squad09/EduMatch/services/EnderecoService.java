@@ -75,7 +75,7 @@ public class EnderecoService {
     private Endereco returnEnderecoByIdUsuario(Integer idUsuario) throws NaoEncontradoException {
         return enderecoRepository.findAll()
                 .stream()
-                .filter(endereco -> endereco.getUsuario().getIdUsuario().equals(idUsuario))
+                .filter(endereco -> endereco.getIdUsuario().equals(idUsuario))
                 .findFirst()
                 .orElseThrow(() -> new NaoEncontradoException("Usuário informado não possui endereço!"));
     }
