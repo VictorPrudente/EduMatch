@@ -33,7 +33,7 @@ public class EnderecoService {
         }
 
         Endereco enderecoEntity = enderecoMapper.toEntity(enderecoCreateDTO);
-        enderecoEntity.setUsuario(usuarioEntity);
+        enderecoEntity.setIdUsuario(usuarioEntity.getIdUsuario());
         enderecoEntity = enderecoRepository.save(enderecoEntity);
 
         usuarioService.usuarioComEndereco(usuarioEntity, enderecoEntity);
@@ -51,7 +51,7 @@ public class EnderecoService {
     public void deletar(Integer id) throws Exception {
         Endereco endereco = returnEnderecoById(id);
 
-        usuarioService.usuarioSemEndereco(endereco.getUsuario());
+        usuarioService.usuarioSemEndereco(endereco.getIdUsuario());
 
         enderecoRepository.delete(endereco);
     }

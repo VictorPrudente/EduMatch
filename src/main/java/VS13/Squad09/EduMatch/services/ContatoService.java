@@ -33,7 +33,7 @@ public class ContatoService {
         }
 
         Contato contatoEntity = contatoMapper.toEntity(contatoCreateDTO);
-        contatoEntity.setUsuario(usuarioEntity);
+        contatoEntity.setIdUsuario(usuarioEntity.getIdUsuario());
         contatoEntity = contatoRepository.save(contatoEntity);
 
         usuarioService.usuarioComContato(usuarioEntity, contatoEntity);
@@ -51,7 +51,7 @@ public class ContatoService {
     public void deletar(Integer id) throws Exception {
         Contato contato = returnContatoById(id);
 
-        usuarioService.usuarioSemContato(contato.getUsuario());
+        usuarioService.usuarioSemContato(contato.getIdUsuario());
 
         contatoRepository.delete(contato);
     }
@@ -75,7 +75,7 @@ public class ContatoService {
     private Contato returnContatoByIdUsuario(Integer idUsuario) throws NaoEncontradoException {
         return contatoRepository.findAll()
                 .stream()
-                .filter(contato -> contato.getUsuario().getIdUsuario().equals(idUsuario))
+                .filter(contato -> contato.getIdUsuario().equals(idUsuario))
                 .findFirst()
                 .orElseThrow(() -> new NaoEncontradoException("Usuário informado não possui endereço!"));
     }

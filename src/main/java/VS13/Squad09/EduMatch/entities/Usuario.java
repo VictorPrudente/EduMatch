@@ -32,7 +32,7 @@ public class Usuario {
     @Column(name = "nome")
     private String nome;
 
-    @Column(name = "role")
+    @Column(name = "tipo_usuario")
     private TipoUsuario tipoUsuario;
 
     @Column(name = "cpf")
@@ -63,12 +63,14 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private Set<Prova> prova;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id_contato")
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_contato", referencedColumnName = "id_contato")
     private Contato contato;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id_endereco")
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_endereco", referencedColumnName = "id_endereco")
     private Endereco endereco;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

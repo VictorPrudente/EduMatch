@@ -33,8 +33,6 @@ public class Endereco {
     private String estado;
     @Column(name = "PAIS")
     private String pais;
-    @JsonIgnore
-    @ManyToOne
     @JoinColumn(name = "ID_USUARIO")
-    private Usuario usuario;
+    private Integer idUsuario;
 }

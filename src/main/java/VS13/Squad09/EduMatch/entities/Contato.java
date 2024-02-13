@@ -22,8 +22,6 @@ public class Contato {
     private String telefone;
     @Column(name = "TIPO_CONTATO")
     private TipoDeContato tipo;
-    @JsonIgnore
-    @ManyToOne
     @JoinColumn(name = "ID_USUARIO")
-    private Usuario usuario;
+    private Integer idUsuario;
 }

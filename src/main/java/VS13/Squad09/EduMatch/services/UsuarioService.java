@@ -182,7 +182,8 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
     }
 
-    public void usuarioSemContato(Usuario usuario){
+    public void usuarioSemContato(Integer idUsuario){
+        Usuario usuario = usuarioRepository.findById(idUsuario).get();
         usuario.setContato(null);
         usuarioRepository.save(usuario);
     }
@@ -192,7 +193,8 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
     }
 
-    public void usuarioSemEndereco(Usuario usuario){
+    public void usuarioSemEndereco(Integer idUsuario){
+        Usuario usuario = usuarioRepository.findById(idUsuario).get();
         usuario.setEndereco(null);
         usuarioRepository.save(usuario);
     }
