@@ -32,7 +32,11 @@ public class Usuario {
     @Column(name = "nome")
     private String nome;
 
+<<<<<<< HEAD
     @Column(name = "tipo_usuario")
+=======
+    @Column(name = "TIPO_USUARIO")
+>>>>>>> b8f9aadbd4d50ba90e1f1e1ef06b461c879b57e1
     private TipoUsuario tipoUsuario;
 
     @Column(name = "cpf")
@@ -52,9 +56,6 @@ public class Usuario {
 
     @Column(name = "cnpj")
     private String CNPJ;
-
-    @Column(name = "tipo_empresa")
-    private TipoEmpresa tipoEmpresa;
 
     @Column(name = "status")
     private Status status;
@@ -90,11 +91,15 @@ public class Usuario {
     @Column(name = "ELO")
     private Elo elo;
 
-    @Column(name = "login")
-    private String login;
+    @Column(name = "PONTUACAO_PROXIMO_ELO")
+    private Integer pontuacaoProximoElo;
 
     public void pontuar(Integer pontos){
         this.pontuacao += pontos;
+    }
+
+    public boolean hasNextElo(){
+        return this.getElo().ordinal() < Elo.values().length-1;
     }
   
     @Override
