@@ -5,8 +5,11 @@ import VS13.Squad09.EduMatch.dtos.response.QuestaoDTO;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,46 +62,58 @@ public interface IQuestaoController {
             throws BancoDeDadosException, NaoEncontradoException;
 
 
-    @Operation(summary = "Listar uma questão pela sua dificuldade e sua trilha.", description = "Lista uma questão passando como parâmetro sua trilha e o nível da dificuldade desejada.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Operação bem sucedida."),
-            @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso."),
-            @ApiResponse(responseCode = "404", description = "Não foi encontrado uma questão com esta Trilha e este nível de dificuldade."),
-            @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção.")})
-    @GetMapping({"/{trilha}/{dificuldade}"})
-    ResponseEntity<QuestaoDTO> findByTrailAndDificulty(@PathVariable Integer trilha,
-                                                       @PathVariable Integer dificuldade)
-            throws BancoDeDadosException, NaoEncontradoException;
-
-
-    @Operation(summary = "Listar todas as questão com a mesma dificuldade da mesma trilha.", description = "Lista todas as questão passando como parâmetro sua trilha e o nível da dificuldade desejada.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Operação bem sucedida."),
-            @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso."),
-            @ApiResponse(responseCode = "404", description = "Não foi encontrado uma questão com esta Trilha e este nível de dificuldade."),
-            @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção.")})
-    @GetMapping({"/all/{trilha}/{dificuldade}"})
-    ResponseEntity<List<QuestaoDTO>> findAllByTrailAndDificulty(@PathVariable Integer trilha,
-                                                                @PathVariable Integer dificuldade)
-            throws BancoDeDadosException;
-
-
-    @Operation(summary = "Listar todas as questões de uma determinada trilha.", description = "Lista todas as questão passando como parâmetro sua trilha ordenada pela dificuldade.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Operação bem sucedida."),
-            @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso."),
-            @ApiResponse(responseCode = "404", description = "Não foi encontrado uma questão com esta Trilha."),
-            @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção.")})
-    @GetMapping({"/{trilha}"})
-    ResponseEntity<List<QuestaoDTO>> findAllByTrail(@PathVariable Integer trilha)
-            throws BancoDeDadosException;
-
-    @Operation(summary = "Listar todas as questões do banco de dados pelo seu status.", description = "Lista todas as questão do banco de dados ativas ou inativas passando como parâmetro 0 ou 1.")
+    @Operation(summary = "Lista as questões de maneira paginada.", description = "Lista as questões paginadas através de uma trilha específica, uma trilha e uma dificuldade específica ou todas as questões.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operação bem sucedida."),
             @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso."),
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção.")})
-    @GetMapping({"/all/{status}"})
-    ResponseEntity<List<QuestaoDTO>> findAllByStatus(@PathVariable Integer status)
-            throws BancoDeDadosException;
+    @GetMapping
+    ResponseEntity<Page<QuestaoDTO>> listarQuestoes(
+
+            @Parameter(name = "status",
+                    description = "Status da questão.",
+                    examples = {
+                            @ExampleObject(name = "Ativa", value = "1"),
+                            @ExampleObject(name = "Inativa", value = "0")},
+                    allowEmptyValue = true)
+            @RequestParam(required = false) Integer status,
+
+            @Parameter(name = "trilha",
+                    description = "Trilha das questões",
+                    examples = {
+                            @ExampleObject(name = "Português", value = "0"),
+                            @ExampleObject(name = "Matemática", value = "1"),
+                            @ExampleObject(name = "Soft Skills", value = "2"),
+                            @ExampleObject(name = "Geografia", value = "3"),
+                            @ExampleObject(name = "História", value = "4"),
+                            @ExampleObject(name = "Física", value = "5"),
+                            @ExampleObject(name = "Química", value = "6"),
+                            @ExampleObject(name = "Biologia", value = "7"),
+                            @ExampleObject(name = "Atualidades", value = "8"),
+                            @ExampleObject(name = "Espanhol", value = "9"),
+                            @ExampleObject(name = "Inglês", value = "10")},
+                    allowEmptyValue = true)
+            @RequestParam(required = false) Integer trilha,
+
+            @Parameter(name = "dificuldade",
+                    description = "Dificuldade da questão",
+                    examples = {
+                            @ExampleObject(name = "Fácil", value = "0"),
+                            @ExampleObject(name = "Médio", value = "1"),
+                            @ExampleObject(name = "Difícil", value = "2")},
+                    allowEmptyValue = true)
+            @RequestParam(required = false) Integer dificuldade,
+
+            @Parameter(name = "sort",
+                    description = "Ordenamento das questões.",
+                    allowEmptyValue = true)
+            @RequestParam(required = false) String sort,
+
+            @Parameter(name = "page",
+                    description = "Index das páginas.")
+            @RequestParam(required = false, defaultValue = "0") Integer page,
+
+            @Parameter(name = "size",
+                    description = "Quantidade de questões por página.")
+            @RequestParam(required = false, defaultValue = "10") Integer size) throws Exception;
 }

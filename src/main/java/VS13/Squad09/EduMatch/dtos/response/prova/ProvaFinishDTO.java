@@ -2,6 +2,7 @@ package VS13.Squad09.EduMatch.dtos.response.prova;
 
 import VS13.Squad09.EduMatch.entities.Questao;
 import VS13.Squad09.EduMatch.entities.Usuario;
+import VS13.Squad09.EduMatch.entities.enums.Resultado;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
@@ -22,11 +23,16 @@ public class ProvaFinishDTO {
 
     private Integer pontos;
 
+    private Double nota;
+
     private Integer totalAcertos;
 
     private Integer totalQuestoes;
 
+    private Resultado resultado;
+
     private List<Questao> questoes;
 
     private Usuario usuario;
+
 }

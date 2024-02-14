@@ -28,7 +28,6 @@ public class UsuarioDTO {
     private Status status;
     private LocalDate dataNascimento;
     private Integer pontuacao;
-    private TipoEmpresa tipoEmpresa;
     private Integer moedas;
     private Contato contato;
     private Endereco endereco;
