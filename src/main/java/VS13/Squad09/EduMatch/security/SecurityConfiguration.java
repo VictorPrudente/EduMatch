@@ -30,7 +30,7 @@ public class SecurityConfiguration {
                 .cors().and()
                 .csrf().disable()
                 .authorizeHttpRequests((authz) -> authz
-                        .antMatchers("/auth/login", "/", "/auth/create-usuario").permitAll()
+                        .antMatchers("/auth/login", "/", "/auth/create-usuario", "/achievments/rankings", "/achievments/insignias", "/parceiros").permitAll()
 
                         // USUARIO
                         .antMatchers(HttpMethod.GET, "/usuario/all").hasAnyAuthority("ROLE_COMPANY", "ROLE_ADM")
@@ -43,9 +43,6 @@ public class SecurityConfiguration {
 
                         // CONTATO
                         .antMatchers("/contato/**").hasAnyAuthority("ROLE_USUARIO", "ROLE_ADM", "ROLE_COMPANY")
-
-                        // EMPRESA
-                        .antMatchers("/parceiros").hasAnyAuthority("ROLE_USUARIO", "ROLE_ADM", "ROLE_COMPANY")
 
                         // ENDERECO
                         .antMatchers("/endereco/**").hasAnyAuthority("ROLE_USUARIO", "ROLE_ADM", "ROLE_COMPANY")
