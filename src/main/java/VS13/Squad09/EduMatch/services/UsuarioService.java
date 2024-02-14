@@ -25,6 +25,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -39,7 +40,6 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final EmailService emailService;
     private final RankingService rankingService;
-    private final PasswordEncoder passwordEncoder;
     private final CargoRepository cargoRepository;
 
     public UsuarioDTO criar(UsuarioCreateDTO usuarioCreateDTO) throws RegraDeNegocioException {
@@ -48,7 +48,8 @@ public class UsuarioService {
             validarCredencialUsuario(usuarioCreateDTO);
             Usuario usuarioEntity = objectMapper.convertValue(usuarioCreateDTO, Usuario.class);
 
-            String senhaEncriptografada = passwordEncoder.encode(usuarioEntity.getSenha());
+            SCryptPasswordEncoder sCryptPasswordEncoder = new SCryptPasswordEncoder();
+            String senhaEncriptografada = sCryptPasswordEncoder.encode(usuarioEntity.getSenha());
             usuarioEntity.setSenha(senhaEncriptografada);
 
             usuarioEntity.setTipoUsuario(validarTipoUsuario(usuarioCreateDTO));

@@ -57,6 +57,9 @@ public class Usuario implements UserDetails  {
 
     @Column(name = "status")
     private Status status;
+
+    @Column(name = "foto_url")
+    private String fotoUrl;
   
     @JsonIgnore
     @OneToMany(mappedBy = "usuario")

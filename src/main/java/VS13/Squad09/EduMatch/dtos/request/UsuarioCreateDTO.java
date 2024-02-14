@@ -47,5 +47,8 @@ public class UsuarioCreateDTO {
         @Past
         @Schema(description = "Data de nascimento do usuário", example = "yyyy-mm-dd",required = true)
         private LocalDate dataNascimento;
+
+        @Schema(description = "Foto de usuário")
+        private String fotoUrl;
 }
 

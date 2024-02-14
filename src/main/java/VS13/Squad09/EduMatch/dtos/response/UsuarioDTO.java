@@ -4,6 +4,7 @@ import VS13.Squad09.EduMatch.entities.enums.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
+import javax.persistence.Column;
 import java.time.LocalDate;
 
 @Data
@@ -23,5 +24,5 @@ public class UsuarioDTO {
     private Integer pontuacao;
     private Integer moedas;
     private Elo elo;
-
+    private String fotoUrl;
 }
