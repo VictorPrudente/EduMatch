@@ -2,18 +2,18 @@ package VS13.Squad09.EduMatch.services;
 
 import VS13.Squad09.EduMatch.dtos.UsuarioCompletoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.UsuarioECertificadoRelatorioDTO;
-import VS13.Squad09.EduMatch.dtos.request.LoginCreateDTO;
-import VS13.Squad09.EduMatch.dtos.usuario.request.UsuarioCreateDTO;
-import VS13.Squad09.EduMatch.dtos.usuario.response.EmpresaDTO;
+import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
+import VS13.Squad09.EduMatch.dtos.response.PessoaJuridicaDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Ranking;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Elo;
 import VS13.Squad09.EduMatch.entities.enums.Status;
+import VS13.Squad09.EduMatch.entities.enums.TipoEmpresa;
 import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
-import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
+import VS13.Squad09.EduMatch.repositories.CargoRepository;
 import VS13.Squad09.EduMatch.repositories.UsuarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +23,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,29 +40,35 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final EmailService emailService;
     private final RankingService rankingService;
+    private final CargoRepository cargoRepository;
 
-    public UsuarioDTO criar(UsuarioCreateDTO usuarioCreateDTO) throws Exception {
+    public UsuarioDTO criar(UsuarioCreateDTO usuarioCreateDTO) throws RegraDeNegocioException {
         log.info("Criando usuario");
-        validarUsuario(usuarioCreateDTO);
 
-        Usuario usuarioEntity = objectMapper.convertValue(usuarioCreateDTO, Usuario.class);
-        usuarioEntity.setStatus(Status.ATIVO);
-        usuarioEntity.setPontuacao(0);
-        usuarioEntity.setMoedas(0);
-        usuarioEntity.setElo(Elo.FERRO);
-        if (!usuarioEntity.getCPF().isBlank()) {
-            usuarioEntity.setTipoUsuario(TipoUsuario.PESSOA_FISICA);
-        } else {
-            usuarioEntity.setTipoUsuario(TipoUsuario.PESSOA_JURIDICA);
-        }
+            validarCredencialUsuario(usuarioCreateDTO);
+            Usuario usuarioEntity = objectMapper.convertValue(usuarioCreateDTO, Usuario.class);
 
-        String senha = hashPassword(usuarioEntity.getSenha());
-        usuarioEntity.setSenha(senha);
-        usuarioEntity.setRanking(rankingService.novoRanking("FERRO"));
-        usuarioRepository.save(usuarioEntity);
+            SCryptPasswordEncoder sCryptPasswordEncoder = new SCryptPasswordEncoder();
+            String senhaEncriptografada = sCryptPasswordEncoder.encode(usuarioEntity.getSenha());
+            usuarioEntity.setSenha(senhaEncriptografada);
 
-        //emailService.sendEmail(usuarioEntity, null, 1);
-        return objectMapper.convertValue(usuarioEntity, UsuarioDTO.class);
+            usuarioEntity.setTipoUsuario(validarTipoUsuario(usuarioCreateDTO));
+            usuarioEntity.setStatus(Status.ATIVO);
+            usuarioEntity.setPontuacao(0);
+            usuarioEntity.setMoedas(0);
+            usuarioEntity.setElo(Elo.FERRO);
+            usuarioEntity.setRanking(rankingService.rankingInicial());
+            if (usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_FISICA) {
+                usuarioEntity.getCargos().add(cargoRepository.findByNome("ROLE_USUARIO"));
+            }
+            if (usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_JURIDICA){
+                usuarioEntity.getCargos().add(cargoRepository.findByNome("ROLE_COMPANY"));
+            }
+
+            usuarioRepository.save(usuarioEntity);
+
+            //emailService.sendEmail(usuarioEntity, null, 1);
+            return objectMapper.convertValue(usuarioEntity, UsuarioDTO.class);
     }
 
     public List<UsuarioDTO> listarTodos() throws BancoDeDadosException {
@@ -87,28 +93,33 @@ public class UsuarioService {
 
     public UsuarioDTO atualizar(Integer id, UsuarioCreateDTO usuarioCreateDTO) throws Exception {
 
-        validarUsuario(usuarioCreateDTO);
+        validarCredencialUsuario(usuarioCreateDTO);
         Usuario usuarioRecuperado = usuarioRepository.findById(id).get();
         BeanUtils.copyProperties(usuarioCreateDTO, usuarioRecuperado);
 
-        subirElo(usuarioRecuperado);
+        Integer eloAtual = usuarioRecuperado.getElo().ordinal();
+        Integer proximoelo = eloAtual + 1;
+        if (eloAtual < Elo.values().length) {
+            String elo = Elo.valueOf(proximoelo).name();
+            Ranking ranking = rankingService.subirRanking(elo, usuarioRecuperado);
+            if (ranking != null) {
+                usuarioRecuperado.setRanking(ranking);
+                usuarioRecuperado.setElo(Elo.valueOf(proximoelo));
+            }
+        }
+
         usuarioRepository.save(usuarioRecuperado);
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         BeanUtils.copyProperties(usuarioRecuperado, usuarioDTO);
         return usuarioDTO;
     }
 
-    public Boolean login(LoginCreateDTO loginCreateDTO) throws Exception {
-        Usuario usuarioProcurado = usuarioRepository.listarPorEmail(loginCreateDTO.getEmail());
-        log.info(usuarioProcurado.toString());
-        if (hashPassword(loginCreateDTO.getSenha()).equals(usuarioProcurado.getSenha())) {
-            return true;
-        }
-        throw new IllegalArgumentException("Senha inválida.");
-    }
-
-    public List<EmpresaDTO> listarEmpresas() {
-        return usuarioRepository.listarEmpresas();
+    public List<PessoaJuridicaDTO> listarEmpresas() throws Exception {
+        return usuarioRepository.findAll().stream()
+                .filter(usuario -> usuario.getTipoUsuario().ordinal() == 1)
+                .filter(usuario -> usuario.getStatus().ordinal() == 1)
+                .map(usuario -> objectMapper.convertValue(usuario, PessoaJuridicaDTO.class))
+                .collect(Collectors.toList());
     }
 
     public UsuarioDTO delete(Integer id) throws Exception {
@@ -116,6 +127,8 @@ public class UsuarioService {
         usuarioProcurado.setStatus(Status.INATIVO);
         String email = usuarioProcurado.getEmail();
         usuarioProcurado.setEmail(null);
+        String cpf = usuarioProcurado.getCPF();
+        usuarioProcurado.setCPF(null);
         usuarioRepository.save(usuarioProcurado);
         usuarioProcurado.setEmail(email);
         UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioProcurado, UsuarioDTO.class);
@@ -126,63 +139,20 @@ public class UsuarioService {
 
     //METODOS ADICIONAIS
 
-    private void validarUsuario(UsuarioCreateDTO usuarioCreateDTO) throws RegraDeNegocioException {
+    private void validarCredencialUsuario(UsuarioCreateDTO usuarioCreateDTO) throws RegraDeNegocioException {
         if (usuarioCreateDTO.getCNPJ() == null && usuarioCreateDTO.getCPF() == null) {
             throw new RegraDeNegocioException("Documentação vazia");
         }
     }
 
-    private void subirElo(Usuario usuario) throws NaoEncontradoException {
-        if (usuario.hasNextElo()) {
-            Ranking proximoRanking = getNextElo(usuario);
-            if (usuario.getPontuacao() >= proximoRanking.getPontuacaoNecessaria()) {
-                updateRank(usuario, proximoRanking);
-                if (usuario.hasNextElo()) {
-                    Ranking rankingFuturo = getNextElo(usuario);
-                    setPontuacao(usuario, rankingFuturo);
-                }
-                else {
-                    usuario.setPontuacaoProximoElo(0);
-                }
-            }
-            else {
-                setPontuacao(usuario, proximoRanking);
-            }
+    private TipoUsuario validarTipoUsuario(UsuarioCreateDTO usuarioCreateDTO) throws RegraDeNegocioException {
+        if (usuarioCreateDTO.getCNPJ() != null){
+            return TipoUsuario.PESSOA_JURIDICA;
         }
-    }
-
-    private Ranking getNextElo(Usuario usuario) throws NaoEncontradoException {
-        String elo = Elo.valueOf(usuario.getElo().ordinal() + 1).name();
-        return rankingService.novoRanking(elo);
-    }
-
-    private void updateRank(Usuario usuario, Ranking ranking) throws NaoEncontradoException {
-        Integer proximoElo = usuario.getElo().ordinal() + 1;
-        usuario.setElo(Elo.valueOf(proximoElo));
-        usuario.setRanking(ranking);
-    }
-
-    private void setPontuacao(Usuario usuario, Ranking ranking){
-        Integer pontuacaoProximoElo = ranking.getPontuacaoNecessaria() - usuario.getPontuacao();
-        usuario.setPontuacaoProximoElo(pontuacaoProximoElo);
-    }
-
-
-    private String hashPassword(String senha) {
-        try {
-            MessageDigest cript = MessageDigest.getInstance("SHA-256");
-            byte[] passwordBytes = senha.getBytes(StandardCharsets.UTF_8);
-            byte[] hashedBytes = cript.digest(passwordBytes);
-
-            StringBuilder sb = new StringBuilder();
-            for (byte b : hashedBytes) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
+        if (usuarioCreateDTO.getCPF() != null) {
+            return TipoUsuario.PESSOA_FISICA;
         }
+        throw new RegraDeNegocioException("Usuário inválido");
     }
 
     public UsuarioCompletoRelatorioDTO listarUsuarioCompletoRelatorio(Integer id) {
@@ -203,9 +173,25 @@ public class UsuarioService {
         return usuarioRepository.findAll(pageable);
     }
 
-//    public Optional<Usuario> findByLoginAndSenha(String login, String senha){
-//        return usuarioRepository.findByLoginAndSenha(login, senha);
-//    }
+    public Optional<Usuario> findByEmailAndSenha(String login, String senha){
+        return usuarioRepository.findByEmailAndSenha(login, senha);
+    }
+
+    public Usuario findById(Integer idUsuario) throws RegraDeNegocioException {
+        return usuarioRepository.findById(idUsuario).orElseThrow(() -> new RegraDeNegocioException("Login não encontrado"));
+    }
+
+    public Optional<Usuario> findByEmail(String email){
+        return usuarioRepository.findByEmail(email);
+    }
+
+    public Integer getIdLoggedUser(){
+        return Integer.parseInt(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+    }
+
+    public Usuario getLoggedUser() throws RegraDeNegocioException {
+        return findById(getIdLoggedUser());
+    }
 }
 
 
