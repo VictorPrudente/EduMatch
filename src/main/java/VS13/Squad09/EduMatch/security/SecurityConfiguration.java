@@ -34,7 +34,7 @@ public class SecurityConfiguration {
 
                         // USUARIO
                         .antMatchers(HttpMethod.GET, "/usuario/all").hasAnyAuthority("ROLE_COMPANY", "ROLE_ADM")
-                        .antMatchers(HttpMethod.GET, "/usuario/id").hasAnyAuthority("ROLE_USUARIO", "ROLE_COMPANY", "ROLE_ADM")
+                        .antMatchers(HttpMethod.GET, "/usuario/id/**").hasAnyAuthority("ROLE_USUARIO", "ROLE_COMPANY", "ROLE_ADM")
                         .antMatchers(HttpMethod.GET, "/usuario/usuario-paginado").hasAnyAuthority("ROLE_COMPANY", "ROLE_ADM")
                         .antMatchers(HttpMethod.GET, "/usuario/usuario-completo/**").hasAnyAuthority("ROLE_COMPANY", "ROLE_ADM", "ROLE_USUARIO")
                         .antMatchers(HttpMethod.GET, "/usuario/usuario-com-certificado/**").hasAnyAuthority("ROLE_COMPANY", "ROLE_ADM", "ROLE_USUARIO")
@@ -43,6 +43,9 @@ public class SecurityConfiguration {
 
                         // CONTATO
                         .antMatchers("/contato/**").hasAnyAuthority("ROLE_USUARIO", "ROLE_ADM", "ROLE_COMPANY")
+
+                        // EMPRESA
+                        .antMatchers("/parceiros").hasAnyAuthority("ROLE_USUARIO", "ROLE_ADM", "ROLE_COMPANY")
 
                         // ENDERECO
                         .antMatchers("/endereco/**").hasAnyAuthority("ROLE_USUARIO", "ROLE_ADM", "ROLE_COMPANY")
@@ -58,9 +61,6 @@ public class SecurityConfiguration {
 
                         // PROVA
                         .antMatchers("/prova/**").hasAnyAuthority("ROLE_ADM")
-
-                        // EMPRESA
-                        .antMatchers("/empresa/**").hasAuthority("ROLE_ADM")
 
                         // QUESTAO
                         .antMatchers("/questao/**").hasAuthority("ROLE_ADM")

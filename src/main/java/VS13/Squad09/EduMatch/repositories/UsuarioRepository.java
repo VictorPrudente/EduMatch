@@ -1,5 +1,6 @@
 package VS13.Squad09.EduMatch.repositories;
 import VS13.Squad09.EduMatch.dtos.*;
+import VS13.Squad09.EduMatch.dtos.usuario.response.EmpresaDTO;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -58,4 +59,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
     Optional<Usuario> findByEmailAndSenha(String email, String senha);
     Optional<Usuario> findByEmail(String email);
+
+    @Query("""
+            SELECT new VS13.Squad09.EduMatch.dtos.usuario.response.EmpresaDTO
+            (e.idUsuario, e.email, e.nome, e.CNPJ)
+                         FROM USUARIO e WHERE e.status = 1 AND e.tipoUsuario = 2""")
+                List<EmpresaDTO> listarEmpresas();
 }
+

@@ -2,9 +2,8 @@ package VS13.Squad09.EduMatch.controllers.interfaces;
 
 import VS13.Squad09.EduMatch.dtos.UsuarioCompletoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.UsuarioECertificadoRelatorioDTO;
-import VS13.Squad09.EduMatch.dtos.request.LoginCreateDTO;
-import VS13.Squad09.EduMatch.dtos.usuario.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
+import VS13.Squad09.EduMatch.dtos.usuario.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import io.swagger.v3.oas.annotations.Operation;

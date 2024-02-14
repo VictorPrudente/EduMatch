@@ -1,4 +1,4 @@
-package VS13.Squad09.EduMatch.dtos.request;
+package VS13.Squad09.EduMatch.dtos.usuario.request;
 
 
 import VS13.Squad09.EduMatch.entities.*;

@@ -22,7 +22,7 @@ public class EmpresaController implements IEmpresaController {
     private final UsuarioService usuarioService;
 
     @GetMapping()
-    public ResponseEntity<List<EmpresaDTO>> listarEmpresas (){
+    public ResponseEntity<List<EmpresaDTO>> listarEmpresas () throws Exception {
         return ResponseEntity.ok(usuarioService.listarEmpresas());
     }
 }

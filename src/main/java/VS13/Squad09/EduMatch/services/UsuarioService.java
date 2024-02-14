@@ -2,16 +2,16 @@ package VS13.Squad09.EduMatch.services;
 
 import VS13.Squad09.EduMatch.dtos.UsuarioCompletoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.UsuarioECertificadoRelatorioDTO;
-import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
-import VS13.Squad09.EduMatch.dtos.response.PessoaJuridicaDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
+import VS13.Squad09.EduMatch.dtos.usuario.request.UsuarioCreateDTO;
+import VS13.Squad09.EduMatch.dtos.usuario.response.EmpresaDTO;
 import VS13.Squad09.EduMatch.entities.Ranking;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Elo;
 import VS13.Squad09.EduMatch.entities.enums.Status;
-import VS13.Squad09.EduMatch.entities.enums.TipoEmpresa;
 import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
 import VS13.Squad09.EduMatch.repositories.CargoRepository;
 import VS13.Squad09.EduMatch.repositories.UsuarioRepository;
@@ -24,7 +24,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -56,8 +55,7 @@ public class UsuarioService {
             usuarioEntity.setStatus(Status.ATIVO);
             usuarioEntity.setPontuacao(0);
             usuarioEntity.setMoedas(0);
-            usuarioEntity.setElo(Elo.FERRO);
-            usuarioEntity.setRanking(rankingService.rankingInicial());
+            usuarioEntity.setRanking(rankingService.novoRanking("FERRO"));
             if (usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_FISICA) {
                 usuarioEntity.getCargos().add(cargoRepository.findByNome("ROLE_USUARIO"));
             }
@@ -97,28 +95,18 @@ public class UsuarioService {
         Usuario usuarioRecuperado = usuarioRepository.findById(id).get();
         BeanUtils.copyProperties(usuarioCreateDTO, usuarioRecuperado);
 
-        Integer eloAtual = usuarioRecuperado.getElo().ordinal();
-        Integer proximoelo = eloAtual + 1;
-        if (eloAtual < Elo.values().length) {
-            String elo = Elo.valueOf(proximoelo).name();
-            Ranking ranking = rankingService.subirRanking(elo, usuarioRecuperado);
-            if (ranking != null) {
-                usuarioRecuperado.setRanking(ranking);
-                usuarioRecuperado.setElo(Elo.valueOf(proximoelo));
-            }
-        }
-
+        subirElo(usuarioRecuperado);
         usuarioRepository.save(usuarioRecuperado);
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         BeanUtils.copyProperties(usuarioRecuperado, usuarioDTO);
         return usuarioDTO;
     }
 
-    public List<PessoaJuridicaDTO> listarEmpresas() throws Exception {
+    public List<EmpresaDTO> listarEmpresas() throws Exception {
         return usuarioRepository.findAll().stream()
                 .filter(usuario -> usuario.getTipoUsuario().ordinal() == 1)
                 .filter(usuario -> usuario.getStatus().ordinal() == 1)
-                .map(usuario -> objectMapper.convertValue(usuario, PessoaJuridicaDTO.class))
+                .map(usuario -> objectMapper.convertValue(usuario, EmpresaDTO.class))
                 .collect(Collectors.toList());
     }
 
@@ -192,6 +180,42 @@ public class UsuarioService {
     public Usuario getLoggedUser() throws RegraDeNegocioException {
         return findById(getIdLoggedUser());
     }
+
+    private void subirElo(Usuario usuario) throws NaoEncontradoException {
+        if (usuario.hasNextElo()) {
+            Ranking proximoRanking = getNextElo(usuario);
+            if (usuario.getPontuacao() >= proximoRanking.getPontuacaoNecessaria()) {
+                updateRank(usuario, proximoRanking);
+                if (usuario.hasNextElo()) {
+                    Ranking rankingFuturo = getNextElo(usuario);
+                    setPontuacao(usuario, rankingFuturo);
+                }
+                else {
+                    usuario.setPontuacaoProximoElo(0);
+                }
+            }
+            else {
+                setPontuacao(usuario, proximoRanking);
+            }
+        }
+    }
+
+    private Ranking getNextElo(Usuario usuario) throws NaoEncontradoException {
+        String elo = Elo.valueOf(usuario.getElo().ordinal() + 1).name();
+        return rankingService.novoRanking(elo);
+    }
+
+    private void updateRank(Usuario usuario, Ranking ranking) throws NaoEncontradoException {
+        Integer proximoElo = usuario.getElo().ordinal() + 1;
+        usuario.setElo(Elo.valueOf(proximoElo));
+        usuario.setRanking(ranking);
+    }
+
+    private void setPontuacao(Usuario usuario, Ranking ranking){
+        Integer pontuacaoProximoElo = ranking.getPontuacaoNecessaria() - usuario.getPontuacao();
+        usuario.setPontuacaoProximoElo(pontuacaoProximoElo);
+    }
+
 }
 
 

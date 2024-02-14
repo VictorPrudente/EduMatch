@@ -92,6 +92,9 @@ public class Usuario implements UserDetails  {
     @Column(name = "ELO")
     private Elo elo;
 
+    @Column(name = "PONTUACAO_PROXIMO_ELO")
+    private Integer pontuacaoProximoElo;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -103,6 +106,10 @@ public class Usuario implements UserDetails  {
 
     public void pontuar(Integer pontos){
         this.pontuacao += pontos;
+    }
+
+    public boolean hasNextElo(){
+        return this.getElo().ordinal() < Elo.values().length-1;
     }
   
     @Override

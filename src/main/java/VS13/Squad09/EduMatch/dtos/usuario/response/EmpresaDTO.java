@@ -1,11 +1,11 @@
 package VS13.Squad09.EduMatch.dtos.usuario.response;
+import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmpresaDTO {

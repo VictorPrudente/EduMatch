@@ -1,7 +1,7 @@
 package VS13.Squad09.EduMatch.controllers;
 import VS13.Squad09.EduMatch.dtos.LoginDTO;
-import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
+import VS13.Squad09.EduMatch.dtos.usuario.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
 import VS13.Squad09.EduMatch.security.TokenService;
