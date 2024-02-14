@@ -245,103 +245,214 @@ VALUES (SEQ_USUARIO.nextval, 'john@email.com', '6a4b8c2d7e0f3a5b1c9d4e8f2a6b7c0d
 
 
 --Insert questao MATEMATICA
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Para a excursão da escola, a escola alugou um ônibus que tem 29 lugares.
-Somente 18 adolescentes confirmaram que irão na viagem.
-Quantos lugares irão sobrar?
+DECLARE
+    v_id_questao NUMBER;
+BEGIN
 
-A) 10
-B) 9
-C) 11
-D) 12
-E) 8', 1, 'C', 1, 2, 1);
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual é o valor de x na equação 2x + 5 = 15?', '5', 5, 1, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Ana esta de aniversário, ela convidou 17 meninos e 27 meninas.
-Quantos convidados vai ter no total da festa?
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '5');
 
-A) 40
-B) 34
-C) 42
-D) 37
-E) 44', 1, 'E', 1, 2, 1);
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '10');
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Joao precisa de 15 cadernos.
-Seu pai lhe deu 7 e sua mãe deu 6 cadernos.
-Faltou quantos cadernos para o João?
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '7.5');
 
-A) 1
-B) 2
-C) 4
-D) 3
-E) 5', 1, 'B', 1, 2, 1);
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '8');
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Um triângulo retângulo tem as seguintes medidas:
-Lado A: 6 cm
-Lado B: 8 cm
-Qual é o comprimento da hipotenusa (lado C) desse triângulo?
-
-A) 10 cm
-B) 12
-C) 14
-D) 15
-E) 18', 1, 'B', 1, 2, 1);
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '6');
 
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual é o dobro de 27,5?
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual o valor de A na expressão algébrica a seguir?
+3a - 2 = 13.', '5', 5, 1, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
 
-A) 61
-B) 60
-C) 51
-D) 54
-E) 55', 3, 'E', 2, 2, 1);
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '5');
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Quanto é 963 divido por 3?
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '4');
 
-A) 321
-B) 431
-C) 323
-D) 421
-E) 325', 3, 'A', 2, 2, 1);
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '3');
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual é o triplo de 562?
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '6');
 
-A) 1684
-B) 1686
-C) 1124
-D) 1844
-E) 1680', 3, 'B', 2, 2, 1);
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '5.5');
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual é o antecessor do número 81, multiplicado por 2?
 
-A) 160
-B) 162
-C) 180
-D) 145
-E) 161', 5, 'A', 3, 2, 1);
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Se f(x) = 2x² - 3x + 1, qual é o valor de f(3)?', '10', 5, 1, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual é o sucessor do número 101, dividido por 3?
-A) 34
-B) 52
-C) 36
-D) 50
-E) 32', 5, 'A', 3, 2, 1);
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '16');
 
-INSERT INTO QUESTAO (id_questao, pergunta, pontos, opcao_correta, dificuldade, trilha, status)
-VALUES (SEQ_QUESTAO.nextval, 'Qual a soma dos lados de 6 triangulos?
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '18');
 
-A) 18
-B) 9
-C) 16
-D) 6
-E) 3', 5, 'A', 3, 2, 1);
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '10');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '12');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '9');
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Simplifique a expressão: 4x²/2x', '2x', 5, 1, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '2x');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '4x');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '2x²');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'x');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '2');
+
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual é o valor de x na equação quadrática:
+x² - 4x - 5 = 0', '5', 5, 1, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '5');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '-1');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '1');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '-5');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '10');
+
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Se a + b = 10 e a - b = 4, qual o valor de a?', '7', 5, 1, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '7');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '8');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '6');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '5');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '4');
+
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Resolva a inequação 2x + 7 > 15', 'x > 4', 5, 1, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'x > 4');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'x < 5');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'x > 6');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'x < 6');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, 'x > 7');
+
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual o valor de sen(30°)', '0.5', 5, 1, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '0.5');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '0.87');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '0.25');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '1');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '0.75');
+
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Qual é o resultado da expressão 3x² - 2x + 5, quando x = 2?', '13', 5, 1, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '13');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '15');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '17');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '19');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '21');
+
+
+INSERT INTO QUESTAO (ID_QUESTAO, PERGUNTA, OPCAO_CORRETA, PONTOS, TRILHA, DIFICULDADE, STATUS)
+VALUES (SEQ_QUESTAO.NEXTVAL, 'Se 2y - 3 = 5, qual o valor de y?', '4', 5, 1, 0, 1)
+RETURNING ID_QUESTAO INTO v_id_questao;
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '4');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '3');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '2');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '5');
+
+INSERT INTO LISTA_OPCOES (ID_QUESTAO, OPCOES)
+VALUES (v_id_questao, '6');
+
+
+    COMMIT;
+END;
+
 
 
 --Insert Português

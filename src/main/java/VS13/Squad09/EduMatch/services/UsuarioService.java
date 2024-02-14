@@ -12,6 +12,7 @@ import VS13.Squad09.EduMatch.entities.enums.Elo;
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
+import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
 import VS13.Squad09.EduMatch.repositories.UsuarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -125,13 +126,13 @@ public class UsuarioService {
 
     //METODOS ADICIONAIS
 
-    public void validarUsuario(UsuarioCreateDTO usuarioCreateDTO) throws RegraDeNegocioException {
+    private void validarUsuario(UsuarioCreateDTO usuarioCreateDTO) throws RegraDeNegocioException {
         if (usuarioCreateDTO.getCNPJ() == null && usuarioCreateDTO.getCPF() == null) {
             throw new RegraDeNegocioException("Documentação vazia");
         }
     }
 
-    private void subirElo(Usuario usuario){
+    private void subirElo(Usuario usuario) throws NaoEncontradoException {
         if (usuario.hasNextElo()) {
             Ranking proximoRanking = getNextElo(usuario);
             if (usuario.getPontuacao() >= proximoRanking.getPontuacaoNecessaria()) {
@@ -150,12 +151,12 @@ public class UsuarioService {
         }
     }
 
-    private Ranking getNextElo(Usuario usuario){
+    private Ranking getNextElo(Usuario usuario) throws NaoEncontradoException {
         String elo = Elo.valueOf(usuario.getElo().ordinal() + 1).name();
         return rankingService.novoRanking(elo);
     }
 
-    private void updateRank(Usuario usuario, Ranking ranking){
+    private void updateRank(Usuario usuario, Ranking ranking) throws NaoEncontradoException {
         Integer proximoElo = usuario.getElo().ordinal() + 1;
         usuario.setElo(Elo.valueOf(proximoElo));
         usuario.setRanking(ranking);
