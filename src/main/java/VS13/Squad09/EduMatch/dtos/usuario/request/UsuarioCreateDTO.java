@@ -22,10 +22,10 @@ import java.util.Set;
 public class UsuarioCreateDTO {
 
         @NotBlank
-        @Schema(description = "Nome do usuário", example = "fulano / ciclano LTDA")
+        @Schema(description = "Nome do usuário", example = "fulano / ciclano LTDA", required = true)
         private String nome;
 
-        @Schema(description = "Sobrenome do usuário", example = "Silva")
+        @Schema(description = "Sobrenome do usuário", example = "Silva", required = true)
         private String sobrenome;
 
         @Email
@@ -33,7 +33,7 @@ public class UsuarioCreateDTO {
         private String email;
 
         @NotBlank
-        @Schema(description = "Senha do usuário", example = "OiTudoBem?123")
+        @Schema(description = "Senha do usuário", example = "OiTudoBem?123", required = true)
         private String senha;
 
         @Size(min = 11 , max = 11)
@@ -45,7 +45,10 @@ public class UsuarioCreateDTO {
         private String CNPJ;
 
         @Past
-        @Schema(description = "Data de nascimento do usuário", example = "yyyy-mm-dd")
+        @Schema(description = "Data de nascimento do usuário", example = "yyyy-mm-dd",required = true)
         private LocalDate dataNascimento;
+
+        @Schema(description = "Foto de usuário")
+        private String fotoUrl;
 }
 

@@ -5,13 +5,11 @@ import VS13.Squad09.EduMatch.entities.enums.Dificuldade;
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.*;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "QUESTAO")
@@ -51,5 +49,18 @@ public class Questao {
 
     public void shuffleOpcoes(){
         Collections.shuffle(opcoes);
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Questao questao = (Questao) object;
+        return Objects.equals(id, questao.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

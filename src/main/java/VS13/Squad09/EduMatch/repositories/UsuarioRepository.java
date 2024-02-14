@@ -57,11 +57,13 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
             """)
     List<CertificadoRelatorioDTO> procurarCertificado(@Param("idUsuario") Integer idUsuario);
 
-//    Optional<Usuario> findByLoginAndSenha(String login, String senha);
+    Optional<Usuario> findByEmailAndSenha(String email, String senha);
+    Optional<Usuario> findByEmail(String email);
 
     @Query("""
             SELECT new VS13.Squad09.EduMatch.dtos.usuario.response.EmpresaDTO
             (e.idUsuario, e.email, e.nome, e.CNPJ)
-             FROM USUARIO e WHERE e.status = 1 AND e.tipoUsuario = 2""")
-    List<EmpresaDTO> listarEmpresas();
+                         FROM USUARIO e WHERE e.status = 1 AND e.tipoUsuario = 2""")
+                List<EmpresaDTO> listarEmpresas();
 }
+

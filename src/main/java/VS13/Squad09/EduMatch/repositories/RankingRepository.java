@@ -1,6 +1,6 @@
 package VS13.Squad09.EduMatch.repositories;
 
-import VS13.Squad09.EduMatch.dtos.ranking.response.RankingDTO;
+import VS13.Squad09.EduMatch.dtos.response.RankingDTO;
 import VS13.Squad09.EduMatch.dtos.usuario.response.UsuarioMinDTO;
 import VS13.Squad09.EduMatch.entities.Ranking;
 import org.springframework.data.domain.Page;
@@ -19,10 +19,25 @@ public interface RankingRepository extends JpaRepository<Ranking, Integer> {
     //MELHORAR
     Page<Ranking> findAllByTitulo(String titulo, Pageable pageable);
 
+    @Query("""
+            SELECT new VS13.Squad09.EduMatch.dtos.response.RankingDTO
+            (rank.id, rank.titulo, rank.imagemUrl)
+            FROM RANKING rank
+            WHERE rank.status = 1
+            ORDER BY rank.pontuacaoNecessaria""")
+    List<RankingDTO> findRankings();
 
     @Query("""
-            SELECT new VS13.Squad09.EduMatch.dtos.ranking.response.RankingDTO
-            (rank.id, rank.titulo, rank.urlImagem, rank.descricao, rank.pontuacaoNecessaria, rank.status)
+            SELECT new VS13.Squad09.EduMatch.dtos.response.RankingDTO
+            (rank.id, rank.titulo, rank.imagemUrl, rank.descricao, rank.pontuacaoNecessaria, rank.status)
+            FROM RANKING rank
+            WHERE rank.status = 1 AND rank.id = :idRanking
+            ORDER BY rank.pontuacaoNecessaria DESC""")
+    RankingDTO findRanking(@Param("idRanking") Integer idRanking);
+
+    @Query("""
+            SELECT new VS13.Squad09.EduMatch.dtos.response.RankingDTO
+            (rank.id, rank.titulo, rank.imagemUrl, rank.descricao, rank.pontuacaoNecessaria, rank.status)
             FROM RANKING rank
             WHERE rank.status = 1
             AND (:titulo IS NULL OR rank.titulo = :titulo)
@@ -34,7 +49,7 @@ public interface RankingRepository extends JpaRepository<Ranking, Integer> {
     (user.idUsuario, user.nome, user.sobrenome, user.pontuacao)
      FROM USUARIO user
      WHERE user.ranking.id = :idRanking AND user.tipoUsuario = 1 AND user.status = 1
-     ORDER BY user.pontuacao DESC""")
+     ORDER BY user.pontuacao DESC, user.idUsuario""")
     List<UsuarioMinDTO> getUsers(@Param("idRanking") Integer idRanking);
 
     @Query(value = """

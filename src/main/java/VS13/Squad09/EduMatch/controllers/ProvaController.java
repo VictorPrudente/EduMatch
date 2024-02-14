@@ -7,6 +7,7 @@ import VS13.Squad09.EduMatch.dtos.request.prova.ProvaStartCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.prova.ProvaFinishDTO;
 import VS13.Squad09.EduMatch.dtos.response.prova.ProvaStartDTO;
 import VS13.Squad09.EduMatch.services.ProvaService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/prova")
+@Tag(name = "Provas", description = "Rotas privadas")
 public class ProvaController implements IProvaController {
 
     private final ProvaService service;
