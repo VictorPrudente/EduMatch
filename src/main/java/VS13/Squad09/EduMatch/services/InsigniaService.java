@@ -1,8 +1,7 @@
 package VS13.Squad09.EduMatch.services;
 
-import VS13.Squad09.EduMatch.dtos.insignia.request.InsigniaCreateDTO;
-import VS13.Squad09.EduMatch.dtos.insignia.response.InsigniaDTO;
-import VS13.Squad09.EduMatch.dtos.insignia.response.InsigniaDetailedDTO;
+import VS13.Squad09.EduMatch.dtos.request.InsigniaCreateDTO;
+import VS13.Squad09.EduMatch.dtos.response.InsigniaDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Insignia;
 import VS13.Squad09.EduMatch.entities.Usuario;
@@ -15,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -26,7 +26,7 @@ public class InsigniaService {
     private final UsuarioService usuarioService;
     private final ObjectMapper objectMapper;
 
-    public InsigniaDetailedDTO criar(InsigniaCreateDTO insigniaCreateDTO) throws Exception {
+    public InsigniaDTO criar(InsigniaCreateDTO insigniaCreateDTO) throws Exception {
 
         Insignia insignia = toEntity(insigniaCreateDTO);
 
@@ -34,56 +34,57 @@ public class InsigniaService {
 
         insigniaRepository.save(insignia);
 
-        return toDetailDTO(insignia);
+        return toDTO(insignia);
     }
 
-    public List<Object> listarInsignias(Integer idInsingia) {
-        List<Object> insignias = new ArrayList<>();
-        if (idInsingia == null){
-            insignias.addAll(insigniaRepository.findAll().stream()
-                    .map(this::toDTO).toList());
+
+    public InsigniaDTO atualizar(Integer idInsignia, InsigniaCreateDTO insigniaCreateDTO) throws NaoEncontradoException {
+
+        Insignia insignia = getInsignia(idInsignia);
+
+        Insignia insigniaAtualizada = toEntity(insigniaCreateDTO);
+        insigniaAtualizada.setId(insignia.getId());
+
+        insigniaRepository.save(insigniaAtualizada);
+
+        return toDTO(insigniaAtualizada);
+    }
+
+    public List<InsigniaDTO> listarPorUsuario(Integer idUsuario, Integer idInsignia) throws NaoEncontradoException {
+        List<InsigniaDTO> insignias = new ArrayList<>();
+
+        if (idInsignia != null) {
+            insignias.add(insigniaRepository.findOneByOwner(idUsuario, idInsignia));
         } else {
-            insignias.add(toDetailDTO(insigniaRepository.findById(idInsingia)));
+            insignias = insigniaRepository.findAllByOwner(idUsuario);
         }
-        return insignias;
-    }
-
-
-    public List<Object> listarPorUsuario(Integer usuarioId, Integer idInsignia) throws Exception {
-
-        Usuario usuario = objectMapper.convertValue(usuarioService.listarPorId(usuarioId), Usuario.class);
-        List<Object> insignias = new ArrayList<>();
-
-        if (usuario.getInsignias().isEmpty()) {
+        if (insignias.contains(null)) {
             throw new NaoEncontradoException("Nenhum insignia encontrada para este usuário");
         }
-        if(idInsignia == null){
-            insignias.addAll(usuario.getInsignias().stream()
-                    .map(this::toDTO).toList());
-        } else {
-           insignias.add(usuario.getInsignias().stream()
-                   .filter(i -> i.getId().equals(idInsignia))
-                   .findFirst().orElseThrow(() -> new NaoEncontradoException("Nenhuma insígnia com este ID foi encontrada.")));
-        }
-        return insignias;
+            return insignias;
     }
 
 
+    public void addUsuario(Usuario usuario, String tag) throws Exception {
 
-
-    public InsigniaDetailedDTO addUsuario(Usuario usuario, String tag) throws Exception {
         Insignia insignia = acharPorTag(tag);
-        InsigniaDetailedDTO insigniaDetailedDTO = objectMapper.convertValue(insignia, InsigniaDetailedDTO.class);
 
         insignia.getUsuarios().add(usuario);
-        return objectMapper.convertValue(insigniaRepository.save(insignia), InsigniaDetailedDTO.class);
+
+        insigniaRepository.save(insignia);
+    }
+
+    public List<InsigniaDTO> listarInsignias(Integer idInsingia) {
+        List<InsigniaDTO> insignias = new ArrayList<>();
+        if (idInsingia != null){
+            insignias.add(insigniaRepository.findInsignia(idInsingia));
+        } else {
+            insignias.addAll(insigniaRepository.findInsignias());
+        }
+        return insignias;
     }
 
     //MÉTODOS ADICIONAIS
-
-    private InsigniaDetailedDTO toDetailDTO(Object o){
-        return objectMapper.convertValue(o, InsigniaDetailedDTO.class);
-    }
 
     private InsigniaDTO toDTO(Object o){
         return objectMapper.convertValue(o, InsigniaDTO.class);
@@ -91,6 +92,11 @@ public class InsigniaService {
 
     private Insignia toEntity(Object o){
         return objectMapper.convertValue(o, Insignia.class);
+    }
+
+    private Insignia getInsignia(Integer idInsignia) throws NaoEncontradoException {
+        return insigniaRepository.findById(idInsignia)
+                .orElseThrow(() -> new NaoEncontradoException("Nenhuma insignia com o ID fornecido fora encontrada."));
     }
 
     private Insignia acharPorTag(String descricao){

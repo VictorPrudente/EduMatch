@@ -2,9 +2,10 @@ package VS13.Squad09.EduMatch.entities;
 
 import VS13.Squad09.EduMatch.entities.enums.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,7 +17,7 @@ import java.util.*;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity(name = "USUARIO")
-public class Usuario {
+public class Usuario implements UserDetails  {
 
     @Id
     @Column(name = "id_usuario")
@@ -54,11 +55,11 @@ public class Usuario {
     @Column(name = "cnpj")
     private String CNPJ;
 
-    @Column(name = "tipo_empresa")
-    private TipoEmpresa tipoEmpresa;
-
     @Column(name = "status")
     private Status status;
+
+    @Column(name = "foto_url")
+    private String fotoUrl;
   
     @JsonIgnore
     @OneToMany(mappedBy = "usuario")
@@ -84,18 +85,31 @@ public class Usuario {
     private Set<Certificado> certificados = new HashSet<>();
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ID_RANKING", referencedColumnName = "ID_RANKING")
     private Ranking ranking;
 
     @Column(name = "ELO")
     private Elo elo;
 
-    @Column(name = "login")
-    private String login;
+    @Column(name = "PONTUACAO_PROXIMO_ELO")
+    private Integer pontuacaoProximoElo;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "USUARIO_CARGO",
+            joinColumns = @JoinColumn(name = "ID_USUARIO"),
+            inverseJoinColumns = @JoinColumn(name = "ID_CARGO")
+    )
+    private Set<Cargo> cargos = new HashSet<>();
 
     public void pontuar(Integer pontos){
         this.pontuacao += pontos;
+    }
+
+    public boolean hasNextElo(){
+        return this.getElo().ordinal() < Elo.values().length-1;
     }
   
     @Override
@@ -109,5 +123,40 @@ public class Usuario {
     @Override
     public int hashCode() {
         return Objects.hash(idUsuario);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return cargos;
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

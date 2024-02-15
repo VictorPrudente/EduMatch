@@ -2,10 +2,10 @@ package VS13.Squad09.EduMatch.controllers;
 
 
 import VS13.Squad09.EduMatch.controllers.interfaces.IInsigniasController;
-import VS13.Squad09.EduMatch.dtos.insignia.request.InsigniaCreateDTO;
-import VS13.Squad09.EduMatch.dtos.insignia.response.InsigniaDetailedDTO;
+import VS13.Squad09.EduMatch.dtos.request.InsigniaCreateDTO;
+import VS13.Squad09.EduMatch.dtos.response.InsigniaDTO;
+import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.services.InsigniaService;
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,27 +19,25 @@ import java.util.List;
 @Slf4j
 @Validated
 @RestController
-@Tag(name = "Insignias", description = "EndPoints da Insignia")
 @RequiredArgsConstructor
 @RequestMapping("/insignia")
 public class InsigniaController implements IInsigniasController {
 
-
     private final InsigniaService insigniaService;
 
     @PostMapping
-    public ResponseEntity<InsigniaDetailedDTO> criar(@Valid @RequestBody InsigniaCreateDTO insignia) throws Exception {
+    public ResponseEntity<InsigniaDTO> criar(@Valid @RequestBody InsigniaCreateDTO insignia) throws Exception {
         return new ResponseEntity<>(insigniaService.criar(insignia), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<List<Object>> listarInsignias(@RequestParam(required = false) Integer id) throws Exception {
-        return ResponseEntity.ok(insigniaService.listarInsignias(id));
+    @PutMapping("{idInsignia}")
+    public ResponseEntity<InsigniaDTO> atualizar(@PathVariable Integer idInsignia, @Valid @RequestBody InsigniaCreateDTO insignia) throws NaoEncontradoException {
+        return ResponseEntity.ok(insigniaService.atualizar(idInsignia, insignia));
     }
 
-    @GetMapping("/usuario")
-    public ResponseEntity<List<Object>> listarPorUsuario(@RequestParam Integer usuario,
-                                                         @RequestParam(required = false) Integer insignia) throws Exception {
+    @GetMapping
+    public ResponseEntity<List<InsigniaDTO>> listarPorUsuario(@RequestParam Integer usuario,
+                                                         @RequestParam(required = false) Integer insignia) throws NaoEncontradoException {
         return ResponseEntity.ok(insigniaService.listarPorUsuario(usuario, insignia));
     }
 }

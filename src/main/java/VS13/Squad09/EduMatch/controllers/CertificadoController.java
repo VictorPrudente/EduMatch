@@ -5,6 +5,7 @@ import VS13.Squad09.EduMatch.controllers.interfaces.ICertificadoController;
 import VS13.Squad09.EduMatch.dtos.request.CertificadoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.CertificadoDTO;
 import VS13.Squad09.EduMatch.services.CertificadoService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import java.util.List;
 @Slf4j
 @Validated
 @RestController
+@Tag(name="Certificado", description = "Endpoint do CRUD de Certificado")
 @RequiredArgsConstructor
 @RequestMapping("/certificado")
 public class CertificadoController implements ICertificadoController {

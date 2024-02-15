@@ -19,9 +19,7 @@ public interface ICertificadoController {
             value = {
                     @ApiResponse(responseCode = "200", description = "Retornou a lista de certificados"),
                     @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
-                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
-            }
-    )
+                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")})
     @GetMapping
     ResponseEntity<List<CertificadoDTO>> listarTodos() throws Exception;
 
