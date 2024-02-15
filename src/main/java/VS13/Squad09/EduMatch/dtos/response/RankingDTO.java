@@ -1,8 +1,6 @@
 package VS13.Squad09.EduMatch.dtos.response;
 
-import VS13.Squad09.EduMatch.dtos.usuario.response.UsuarioMinDTO;
 import VS13.Squad09.EduMatch.entities.enums.Status;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
@@ -21,7 +19,7 @@ public class RankingDTO {
     private String descricao;
     private Integer pontuacaoNecessaria;
     private Status status;
-    private List<UsuarioMinDTO> usuarios;
+    private List<UsuarioDTO> usuarios;
 
 
     public RankingDTO(Integer id, String titulo, String imagemUrl) {

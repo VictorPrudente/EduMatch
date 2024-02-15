@@ -21,7 +21,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/insignia")
-@Tag(name = "Insignias", description = "Rotas privadas")
 public class InsigniaController implements IInsigniasController {
 
     private final InsigniaService insigniaService;

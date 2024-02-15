@@ -1,10 +1,10 @@
 package VS13.Squad09.EduMatch.services;
-import VS13.Squad09.EduMatch.dtos.usuario.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.prova.ProvaFinishCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.prova.ProvaStartCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.prova.ProvaFinishDTO;
 import VS13.Squad09.EduMatch.dtos.response.prova.ProvaStartDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
+import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.entities.*;
 import VS13.Squad09.EduMatch.entities.enums.Resultado;
 import VS13.Squad09.EduMatch.entities.enums.Status;

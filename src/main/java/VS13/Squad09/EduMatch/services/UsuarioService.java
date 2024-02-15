@@ -3,8 +3,7 @@ package VS13.Squad09.EduMatch.services;
 import VS13.Squad09.EduMatch.dtos.UsuarioCompletoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.UsuarioECertificadoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
-import VS13.Squad09.EduMatch.dtos.usuario.request.UsuarioCreateDTO;
-import VS13.Squad09.EduMatch.dtos.usuario.response.EmpresaDTO;
+import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.entities.Ranking;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Elo;
@@ -26,7 +25,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -102,12 +100,8 @@ public class UsuarioService {
         return usuarioDTO;
     }
 
-    public List<EmpresaDTO> listarEmpresas() throws Exception {
-        return usuarioRepository.findAll().stream()
-                .filter(usuario -> usuario.getTipoUsuario().ordinal() == 1)
-                .filter(usuario -> usuario.getStatus().ordinal() == 1)
-                .map(usuario -> objectMapper.convertValue(usuario, EmpresaDTO.class))
-                .collect(Collectors.toList());
+    public Set<UsuarioDTO> listarEmpresas() {
+        return usuarioRepository.listarEmpresas();
     }
 
     public UsuarioDTO delete(Integer id) throws Exception {

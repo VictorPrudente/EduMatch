@@ -31,7 +31,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/questoes")
-@Tag(name = "Questoes", description = "Rota Privada / ADM")
 public class QuestaoController implements IQuestaoController{
 
     private final QuestaoService service;

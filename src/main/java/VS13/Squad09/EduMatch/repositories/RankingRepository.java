@@ -1,7 +1,7 @@
 package VS13.Squad09.EduMatch.repositories;
 
 import VS13.Squad09.EduMatch.dtos.response.RankingDTO;
-import VS13.Squad09.EduMatch.dtos.usuario.response.UsuarioMinDTO;
+import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Ranking;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,12 +45,12 @@ public interface RankingRepository extends JpaRepository<Ranking, Integer> {
     List<RankingDTO> findElo(@Param("titulo") String titulo);
 
     @Query("""
-    SELECT new VS13.Squad09.EduMatch.dtos.usuario.response.UsuarioMinDTO
-    (user.idUsuario, user.nome, user.sobrenome, user.pontuacao)
+    SELECT new VS13.Squad09.EduMatch.dtos.response.UsuarioDTO
+    (user.idUsuario, user.nome, user.sobrenome, user.pontuacao, user.fotoUrl)
      FROM USUARIO user
      WHERE user.ranking.id = :idRanking AND user.tipoUsuario = 1 AND user.status = 1
      ORDER BY user.pontuacao DESC, user.idUsuario""")
-    List<UsuarioMinDTO> getUsers(@Param("idRanking") Integer idRanking);
+    List<UsuarioDTO> getUsers(@Param("idRanking") Integer idRanking);
 
     @Query(value = """
     SELECT posicao FROM
