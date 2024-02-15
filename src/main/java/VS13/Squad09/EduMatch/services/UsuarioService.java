@@ -155,10 +155,6 @@ public class UsuarioService {
         return usuarioRepository.findAll(pageable);
     }
 
-    public Optional<Usuario> findByEmailAndSenha(String login, String senha){
-        return usuarioRepository.findByEmailAndSenha(login, senha);
-    }
-
     public Usuario findById(Integer idUsuario) throws RegraDeNegocioException {
         return usuarioRepository.findById(idUsuario).orElseThrow(() -> new RegraDeNegocioException("Login não encontrado"));
     }

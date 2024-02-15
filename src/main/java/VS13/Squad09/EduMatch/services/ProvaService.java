@@ -129,7 +129,6 @@ public class ProvaService {
 
 
     //Métodos adicionais
-
     private Prova getById(Integer id) throws NaoEncontradoException {
         return repository.findById(id)
                 .orElseThrow(() -> new NaoEncontradoException("Nenhuma prova encontrada com este id."));
