@@ -1,4 +1,5 @@
 package VS13.Squad09.EduMatch.controllers;
+import VS13.Squad09.EduMatch.dtos.request.LoginDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.entities.Usuario;
@@ -26,11 +27,11 @@ public class AuthController {
     private final UsuarioService usuarioService;
 
     @PostMapping("/login")
-    public String auth(@RequestBody @Valid UsuarioCreateDTO usuarioCreateDTO) throws RegraDeNegocioException {
+    public String auth(@RequestBody @Valid LoginDTO loginDTO) throws RegraDeNegocioException {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(
-                        usuarioCreateDTO.getEmail(),
-                        usuarioCreateDTO.getSenha()
+                        loginDTO.getEmail(),
+                        loginDTO.getSenha()
                 );
 
         Authentication authentication =

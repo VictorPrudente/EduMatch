@@ -53,17 +53,17 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.DELETE, "/certificado/**").hasAnyAuthority("ROLE_ADM")
 
                         // INSIGNIA
-                        .antMatchers(HttpMethod.GET, "/insignia/**").hasAnyAuthority("ROLE_USUARIO", "ROLE_ADM")
+                        .antMatchers(HttpMethod.GET, "/insignia/**").hasAnyAuthority("ROLE_ADM", "ROLE_USUARIO", "ROLE_COMPANY")
                         .antMatchers(HttpMethod.POST, "/insignia/**").hasAnyAuthority("ROLE_ADM")
 
                         // PROVA
-                        .antMatchers("/prova/**").hasAnyAuthority("ROLE_ADM")
+                        .antMatchers("/prova/**").hasAnyAuthority("ROLE_ADM", "ROLE_USUARIO")
 
                         // QUESTAO
                         .antMatchers("/questao/**").hasAuthority("ROLE_ADM")
 
                         // RANKING
-                        .antMatchers("/ranking/**").hasAnyAuthority("ROLE_ADM", "ROLE_USUARIO", "ROLE_COMPANY")
+                        .antMatchers("/rankings/**").hasAnyAuthority("ROLE_ADM", "ROLE_USUARIO", "ROLE_COMPANY")
 
                         // ALL
                         .antMatchers("/**").hasAnyAuthority("ROLE_ADM")

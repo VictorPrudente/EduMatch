@@ -35,7 +35,7 @@ public class TokenService {
                 .map(Cargo::getAuthority)
                 .toList();
 
-        return TOKEN_PREFIX + " " +
+        return TOKEN_PREFIX +
                 Jwts.builder()
                         .setIssuer("pessoa-api")
                         .claim(Claims.ID, usuarioEntity.getIdUsuario().toString())
