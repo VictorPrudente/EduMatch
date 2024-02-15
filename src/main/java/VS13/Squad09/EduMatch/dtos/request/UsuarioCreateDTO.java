@@ -51,11 +51,5 @@ public class UsuarioCreateDTO {
         @Schema(description = "Foto de usuário")
         private String fotoUrl;
 
-
-        //LOGIN
-        public UsuarioCreateDTO(String email, String senha) {
-                this.email = email;
-                this.senha = senha;
-        }
 }
 
