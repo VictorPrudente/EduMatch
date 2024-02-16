@@ -83,14 +83,10 @@ public class UsuarioService {
         return objectMapper.convertValue(usuarioRepository.findById(id), UsuarioDTO.class);
     }
 
-    public UsuarioDTO listarPorEmail(String email) throws BancoDeDadosException {
-        return objectMapper.convertValue(usuarioRepository.listarPorEmail(email), UsuarioDTO.class);
-    }
-
     public UsuarioDTO atualizar(Integer id, UsuarioCreateDTO usuarioCreateDTO) throws Exception {
 
         validarCredencialUsuario(usuarioCreateDTO);
-        Usuario usuarioRecuperado = usuarioRepository.findById(id).get();
+        Usuario usuarioRecuperado = findById(id);
         BeanUtils.copyProperties(usuarioCreateDTO, usuarioRecuperado);
 
         subirElo(usuarioRecuperado);
@@ -114,7 +110,7 @@ public class UsuarioService {
         usuarioRepository.save(usuarioProcurado);
         usuarioProcurado.setEmail(email);
         UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioProcurado, UsuarioDTO.class);
-        emailService.sendEmail(usuarioProcurado, null, 3);
+        //emailService.sendEmail(usuarioProcurado, null, 3);
         return usuarioDTO;
     }
 
@@ -206,6 +202,9 @@ public class UsuarioService {
         usuario.setPontuacaoProximoElo(pontuacaoProximoElo);
     }
 
+    public UsuarioDTO getById(Integer id) throws RegraDeNegocioException {
+        return objectMapper.convertValue(findById(id), UsuarioDTO.class);
+    }
 }
 
 
