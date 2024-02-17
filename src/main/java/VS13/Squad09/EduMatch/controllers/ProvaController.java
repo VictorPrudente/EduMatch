@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/prova")
-@Tag(name = "Provas", description = "Rotas privadas")
 public class ProvaController implements IProvaController {
 
     private final ProvaService service;

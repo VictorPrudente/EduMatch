@@ -1,7 +1,7 @@
 package VS13.Squad09.EduMatch.controllers;
-import VS13.Squad09.EduMatch.dtos.LoginDTO;
+import VS13.Squad09.EduMatch.dtos.request.LoginDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
-import VS13.Squad09.EduMatch.dtos.usuario.request.UsuarioCreateDTO;
+import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
 import VS13.Squad09.EduMatch.security.TokenService;
@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -28,11 +27,11 @@ public class AuthController {
     private final UsuarioService usuarioService;
 
     @PostMapping("/login")
-    public String auth(@RequestBody @Valid LoginDTO LoginDTO) throws RegraDeNegocioException {
+    public String auth(@RequestBody @Valid LoginDTO loginDTO) throws RegraDeNegocioException {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(
-                        LoginDTO.getEmail(),
-                        LoginDTO.getSenha()
+                        loginDTO.getEmail(),
+                        loginDTO.getSenha()
                 );
 
         Authentication authentication =
@@ -53,4 +52,4 @@ public class AuthController {
     public ResponseEntity<Usuario> findLoggedUser() throws RegraDeNegocioException {
         return ResponseEntity.ok(usuarioService.getLoggedUser());
     }
-}
+}   

@@ -26,7 +26,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/rankings")
-@Tag(name = "Ranking", description = "Rotas privadas")
 public class RankingController implements IRankingController {
 
     private final RankingService rankingService;

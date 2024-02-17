@@ -6,11 +6,12 @@ import VS13.Squad09.EduMatch.dtos.response.InsigniaDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
-
+@Tag(name = "Insignias", description = "Rotas privadas para Administradores autenticados. Victor Prudente")
 public interface IInsigniasController {
 
     @Operation(summary = "Criar uma Insígnia", description = "Cria uma nova insígnia no banco de dados.")
@@ -33,5 +34,4 @@ public interface IInsigniasController {
     @GetMapping("/usuario")
     ResponseEntity<List<InsigniaDTO>> listarPorUsuario(@RequestParam Integer usuario,
                                                          @RequestParam(required = false) Integer insignia) throws Exception;
-
 }

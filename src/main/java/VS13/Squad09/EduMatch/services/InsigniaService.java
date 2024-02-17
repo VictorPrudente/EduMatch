@@ -23,7 +23,6 @@ import java.util.List;
 public class InsigniaService {
 
     private final InsigniaRepository insigniaRepository;
-    private final UsuarioService usuarioService;
     private final ObjectMapper objectMapper;
 
     public InsigniaDTO criar(InsigniaCreateDTO insigniaCreateDTO) throws Exception {

@@ -25,4 +25,23 @@ public class UsuarioDTO {
     private Integer moedas;
     private Elo elo;
     private String fotoUrl;
+    private Integer posicao;
+
+    //RANKING
+    public UsuarioDTO(Integer idUsuario, String nome, String sobrenome, Integer pontuacao, String fotoUrl) {
+        this.idUsuario = idUsuario;
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.pontuacao = pontuacao;
+        this.fotoUrl = fotoUrl;
+    }
+
+    //EMPRESA
+    public UsuarioDTO(Integer idUsuario, String email, String nome, String CNPJ, String fotoUrl) {
+        this.idUsuario = idUsuario;
+        this.email = email;
+        this.nome = nome;
+        this.CNPJ = CNPJ;
+        this.fotoUrl = fotoUrl;
+    }
 }

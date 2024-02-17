@@ -17,7 +17,7 @@ import java.util.List;
 public class TokenService {
     static final String HEADER_STRING = "Authorization";
 
-    private static final String TOKEN_PREFIX = "Bearer";
+    private static final String TOKEN_PREFIX = "Bearer ";
     private static final String CARGOS_CLAIM = "cargos";
 
     @Value("${jwt.expiration}")
@@ -35,7 +35,7 @@ public class TokenService {
                 .map(Cargo::getAuthority)
                 .toList();
 
-        return TOKEN_PREFIX + " " +
+        return TOKEN_PREFIX +
                 Jwts.builder()
                         .setIssuer("pessoa-api")
                         .claim(Claims.ID, usuarioEntity.getIdUsuario().toString())

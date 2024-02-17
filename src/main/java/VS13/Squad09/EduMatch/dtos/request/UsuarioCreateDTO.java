@@ -1,4 +1,4 @@
-package VS13.Squad09.EduMatch.dtos.usuario.request;
+package VS13.Squad09.EduMatch.dtos.request;
 
 
 import VS13.Squad09.EduMatch.entities.*;
@@ -50,5 +50,6 @@ public class UsuarioCreateDTO {
 
         @Schema(description = "Foto de usuário")
         private String fotoUrl;
+
 }
 
