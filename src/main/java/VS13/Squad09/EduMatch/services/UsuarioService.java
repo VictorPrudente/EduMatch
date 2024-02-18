@@ -51,13 +51,16 @@ public class UsuarioService {
 
             usuarioEntity.setTipoUsuario(validarTipoUsuario(usuarioCreateDTO));
             usuarioEntity.setStatus(Status.ATIVO);
-            usuarioEntity.setPontuacao(0);
-            usuarioEntity.setMoedas(0);
-            usuarioEntity.setRanking(rankingService.novoRanking("FERRO"));
-            if (usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_FISICA) {
+
+            if (usuarioEntity.getTipoUsuario().equals(TipoUsuario.PESSOA_FISICA)) {
                 usuarioEntity.getCargos().add(cargoRepository.findByNome("ROLE_USUARIO"));
+                usuarioEntity.setPontuacao(0);
+                usuarioEntity.setMoedas(0);
+                usuarioEntity.setElo(Elo.FERRO);
+                usuarioEntity.setRanking(rankingService.novoRanking("FERRO"));
             }
-            if (usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_JURIDICA){
+
+            if (usuarioEntity.getTipoUsuario().equals(TipoUsuario.PESSOA_JURIDICA)){
                 usuarioEntity.getCargos().add(cargoRepository.findByNome("ROLE_COMPANY"));
             }
 
@@ -89,7 +92,10 @@ public class UsuarioService {
         Usuario usuarioRecuperado = findById(id);
         BeanUtils.copyProperties(usuarioCreateDTO, usuarioRecuperado);
 
-        subirElo(usuarioRecuperado);
+        if(usuarioRecuperado.getTipoUsuario().equals(TipoUsuario.PESSOA_FISICA)) {
+            subirElo(usuarioRecuperado);
+        }
+
         usuarioRepository.save(usuarioRecuperado);
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         BeanUtils.copyProperties(usuarioRecuperado, usuarioDTO);
