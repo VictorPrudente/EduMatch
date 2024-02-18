@@ -92,7 +92,7 @@ public class UsuarioService {
         Usuario usuarioRecuperado = findById(id);
         BeanUtils.copyProperties(usuarioCreateDTO, usuarioRecuperado);
 
-        if(usuarioRecuperado.getTipoUsuario().equals(TipoUsuario.PESSOA_FISICA)) {
+        if(usuarioRecuperado.getTipoUsuario() == TipoUsuario.PESSOA_FISICA) {
             subirElo(usuarioRecuperado);
         }
 
