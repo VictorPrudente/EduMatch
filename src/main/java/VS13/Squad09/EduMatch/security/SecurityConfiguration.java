@@ -50,7 +50,6 @@ public class SecurityConfiguration {
                         // CERTIFICADO
                         .antMatchers(HttpMethod.GET, "/certificado/**").hasAnyAuthority("ROLE_USUARIO", "ROLE_ADM")
                         .antMatchers(HttpMethod.POST, "/certificado/**").hasAnyAuthority("ROLE_ADM")
-                        .antMatchers(HttpMethod.DELETE, "/certificado/**").hasAnyAuthority("ROLE_ADM")
 
                         // INSIGNIA
                         .antMatchers(HttpMethod.GET, "/insignia/**").hasAnyAuthority("ROLE_ADM", "ROLE_USUARIO", "ROLE_COMPANY")

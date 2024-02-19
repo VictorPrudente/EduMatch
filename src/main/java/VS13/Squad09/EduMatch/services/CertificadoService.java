@@ -5,6 +5,7 @@ import VS13.Squad09.EduMatch.dtos.response.CertificadoDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Certificado;
 import VS13.Squad09.EduMatch.entities.Usuario;
+import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
 import VS13.Squad09.EduMatch.repositories.CertificadoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -45,14 +46,6 @@ public class CertificadoService {
         return certificadoDTO;
     }
 
-    public Void deletar(CertificadoCreateDTO certificado) throws Exception {
-        log.debug("Deletando certificado...");
-        Certificado certificadoEntity = objectMapper.convertValue(certificado, Certificado.class);
-        certificadoRepository.delete(certificadoEntity);
-        log.info("Certificado deletado");
-        return null;
-    }
-
     public List<CertificadoDTO> listarTodos() throws Exception {
         log.debug("Listando Certificados...");
         return certificadoRepository.findAll().stream().map(certificado ->
@@ -60,12 +53,12 @@ public class CertificadoService {
                 .collect(Collectors.toList());
     }
 
-    public CertificadoDTO listarUltimo(Integer usuarioId) throws Exception {
+    public CertificadoDTO listarUltimo(Integer usuarioId) throws RegraDeNegocioException {
         log.debug("Listando último Certficado...");
         Certificado certificado = certificadoRepository.listarUltimo(usuarioId);
 
         if (certificado == null) {
-            throw new Exception("Nenhum certificado encontrado para o usuário com ID: " + usuarioId);
+            throw new RegraDeNegocioException("Nenhum certificado encontrado para o usuário com ID: " + usuarioId);
         }
 
         CertificadoDTO certificadoDTO = objectMapper.convertValue(certificado, CertificadoDTO.class);
@@ -73,11 +66,12 @@ public class CertificadoService {
     }
 
 
-    public List<CertificadoDTO> listarPorUsuario(Integer usuarioId) throws Exception {
+    public List<CertificadoDTO> listarPorUsuario(Integer usuarioId) throws RegraDeNegocioException {
+        usuarioService.findById(usuarioId);
         List<Certificado> certificados = certificadoRepository.listarPorUsuario(usuarioId);
 
         if (certificados.isEmpty()) {
-            throw new Exception("Nenhum certificado encontrado para o usuário com ID: " + usuarioId);
+            throw new RegraDeNegocioException("Nenhum certificado encontrado para o usuário com ID: " + usuarioId);
         }
 
         return certificados.stream()

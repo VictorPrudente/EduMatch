@@ -22,7 +22,7 @@ public class Certificado {
     @Column(name = "ID_CERTIFICADO")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_CERTIFICADO")
     @SequenceGenerator(name = "SEQ_CERTIFICADO", sequenceName = "SEQ_CERTIFICADO", allocationSize = 1)
-    private Integer id;
+    private Integer id_certificado;
 
     @Column(name = "TRILHA")
     private Trilha trilha;
@@ -43,12 +43,12 @@ public class Certificado {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Certificado that = (Certificado) object;
-        return Objects.equals(id, that.id);
+        return Objects.equals(id_certificado, that.id_certificado);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id_certificado);
     }
 }
 
