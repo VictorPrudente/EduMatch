@@ -2,6 +2,7 @@ package VS13.Squad09.EduMatch.controllers;
 
 
 import VS13.Squad09.EduMatch.controllers.interfaces.ICertificadoController;
+import VS13.Squad09.EduMatch.dtos.UsuarioECertificadoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.request.CertificadoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.CertificadoDTO;
 import VS13.Squad09.EduMatch.services.CertificadoService;
@@ -34,18 +35,11 @@ public class CertificadoController implements ICertificadoController {
         return new ResponseEntity<>(certificadoDTOs, HttpStatus.OK);
     }
 
-    @GetMapping("/usuario/{usuarioId}/ultimo")
-    public ResponseEntity<CertificadoDTO> listarUltimo(@NotNull @PathVariable("usuarioId") Integer usuarioId) throws Exception {
-        CertificadoDTO certificadoDTO = certificadoService.listarUltimo(usuarioId);
-        log.info("Ultimo certificado do usuário.");
-        return new ResponseEntity<>(certificadoDTO, HttpStatus.OK);
-    }
-
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<CertificadoDTO>> listarPorUsuario(@NotNull @PathVariable("usuarioId") Integer usuarioId) throws Exception {
-        List<CertificadoDTO> certificadoDTO = certificadoService.listarPorUsuario(usuarioId);
+    public ResponseEntity<UsuarioECertificadoRelatorioDTO> listarPorUsuario(@NotNull @PathVariable("usuarioId") Integer usuarioId) throws Exception {
+        UsuarioECertificadoRelatorioDTO usuarioECertificadoRelatorioDTO = certificadoService.listarPorUsuario(usuarioId);
         log.info("Certificados do usuário listados.");
-        return new ResponseEntity<>(certificadoDTO, HttpStatus.OK);
+        return new ResponseEntity<>(usuarioECertificadoRelatorioDTO, HttpStatus.OK);
     }
 
     @PostMapping("/{idUsuario}")

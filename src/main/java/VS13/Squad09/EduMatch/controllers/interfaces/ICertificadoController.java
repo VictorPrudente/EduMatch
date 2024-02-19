@@ -1,5 +1,6 @@
 package VS13.Squad09.EduMatch.controllers.interfaces;
 
+import VS13.Squad09.EduMatch.dtos.UsuarioECertificadoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.request.CertificadoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.CertificadoDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,18 +25,6 @@ public interface ICertificadoController {
     ResponseEntity<List<CertificadoDTO>> listarTodos() throws Exception;
 
 
-    @Operation(summary = "Listar último certificado", description = "Retorna lista do último certificado do usuário do banco de dados")
-    @ApiResponses(
-            value = {
-                    @ApiResponse(responseCode = "200", description = "Retornou último certificado"),
-                    @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso"),
-                    @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")
-            }
-    )
-    @GetMapping("/usuario/{usuarioId}/ultimo")
-    ResponseEntity<CertificadoDTO> listarUltimo(@NotNull @PathVariable("usuarioId") Integer usuarioId) throws Exception;
-
-
     @Operation(summary = "Listar certificados por usuário", description = "Retorna lista de todos os certificados do banco de dados por usuário")
     @ApiResponses(
             value = {
@@ -46,7 +35,7 @@ public interface ICertificadoController {
             }
     )
     @GetMapping("/usuario/{usuarioId}")
-    ResponseEntity<List<CertificadoDTO>> listarPorUsuario(@NotNull @PathVariable("usuarioId") Integer usuarioId) throws Exception;
+    public ResponseEntity<UsuarioECertificadoRelatorioDTO> listarPorUsuario(@NotNull @PathVariable("usuarioId") Integer usuarioId) throws Exception;
 
 
     @Operation(summary = "Criar um Certificado", description = "Cadastra um certificado no banco de dados vinculado a um usuário.")

@@ -1,5 +1,6 @@
 package VS13.Squad09.EduMatch.services;
 
+import VS13.Squad09.EduMatch.dtos.UsuarioECertificadoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.request.CertificadoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.CertificadoDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
@@ -30,14 +31,16 @@ public class CertificadoService {
     private final EmailService emailService;
     private final ObjectMapper objectMapper;
 
-    public CertificadoDTO criar(Integer idUsuario, CertificadoCreateDTO certificado) throws Exception {
+    public CertificadoDTO criar(Integer idUsuario, CertificadoCreateDTO certificadoCreate) throws Exception {
         log.debug("Criando Certificado...");
         UsuarioDTO usuarioDTO = usuarioService.listarPorId(idUsuario);
         Usuario usuario = objectMapper.convertValue(usuarioDTO, Usuario.class);
-        Certificado certificadoEntity = objectMapper.convertValue(certificado, Certificado.class);
+        Certificado certificadoEntity = objectMapper.convertValue(certificadoCreate, Certificado.class);
 
-        certificadoEntity.setConclusao(LocalDateTime.now());
+        certificadoEntity.setUsuario(usuario);
         usuario.getCertificados().add(certificadoEntity);
+        certificadoEntity.setConclusao(LocalDateTime.now());
+
         certificadoRepository.save(certificadoEntity);
         // emailService.sendEmail(certificadoEntity.getUsuario(), certificadoEntity,4);
 
@@ -53,29 +56,10 @@ public class CertificadoService {
                 .collect(Collectors.toList());
     }
 
-    public CertificadoDTO listarUltimo(Integer usuarioId) throws RegraDeNegocioException {
-        log.debug("Listando último Certficado...");
-        Certificado certificado = certificadoRepository.listarUltimo(usuarioId);
-
-        if (certificado == null) {
-            throw new RegraDeNegocioException("Nenhum certificado encontrado para o usuário com ID: " + usuarioId);
-        }
-
-        CertificadoDTO certificadoDTO = objectMapper.convertValue(certificado, CertificadoDTO.class);
-        return certificadoDTO;
-    }
-
-
-    public List<CertificadoDTO> listarPorUsuario(Integer usuarioId) throws RegraDeNegocioException {
+    public UsuarioECertificadoRelatorioDTO listarPorUsuario(Integer usuarioId) throws RegraDeNegocioException {
         usuarioService.findById(usuarioId);
-        List<Certificado> certificados = certificadoRepository.listarPorUsuario(usuarioId);
+        UsuarioECertificadoRelatorioDTO usuarioECertificadoRelatorioDTO = usuarioService.listarUsuarioComCertificado(usuarioId);
 
-        if (certificados.isEmpty()) {
-            throw new RegraDeNegocioException("Nenhum certificado encontrado para o usuário com ID: " + usuarioId);
-        }
-
-        return certificados.stream()
-                .map(certificado -> objectMapper.convertValue(certificado, CertificadoDTO.class))
-                .collect(Collectors.toList());
+        return usuarioECertificadoRelatorioDTO;
     }
 }
