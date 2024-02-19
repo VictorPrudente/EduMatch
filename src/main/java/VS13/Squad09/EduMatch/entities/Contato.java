@@ -22,8 +22,6 @@ public class Contato {
     private String telefone;
     @Column(name = "TIPO_CONTATO")
     private TipoDeContato tipo;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
-    private Usuario usuario;
+    @JoinColumn(name = "ID_USUARIO")
+    private Integer idUsuario;
 }
