@@ -5,6 +5,7 @@ import VS13.Squad09.EduMatch.controllers.interfaces.IEnderecoController;
 import VS13.Squad09.EduMatch.dtos.request.EnderecoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.EnderecoDTO;
 import VS13.Squad09.EduMatch.services.EnderecoService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import javax.validation.Valid;
 
 @Validated
 @RestController
+@Tag(name = "Endereço")
 @RequiredArgsConstructor
 @RequestMapping("/endereco")
 public class EnderecoController implements IEnderecoController {
@@ -40,11 +42,11 @@ public class EnderecoController implements IEnderecoController {
 
     @GetMapping("/usuario/{id}")
     public ResponseEntity<EnderecoDTO> listarPorDono(@PathVariable("id") Integer id) throws Exception {
-        return ResponseEntity.ok(enderecoService.findEnderecoByUsuarioId(id));
+        return ResponseEntity.ok(enderecoService.findEnderecoByIdUsuario(id));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<EnderecoDTO> listarPorId(@PathVariable("id") Integer id) throws Exception {
-        return ResponseEntity.ok(enderecoService.findByIdEndereco(id));
+        return ResponseEntity.ok(enderecoService.findById(id));
     }
 }

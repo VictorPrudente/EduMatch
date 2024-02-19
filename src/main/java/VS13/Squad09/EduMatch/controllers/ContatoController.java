@@ -25,12 +25,12 @@ public class ContatoController implements IContatoController {
 
     @GetMapping("/usuario/{idUsuario}")
     public ResponseEntity<ContatoDTO> listarPorUsuario(Integer idUsuario) throws Exception {
-        return new ResponseEntity<>(contatoService.findContatoByUsuarioId(idUsuario), HttpStatus.OK);
+        return new ResponseEntity<>(contatoService.findContatoByIdUsuario(idUsuario), HttpStatus.OK);
     }
 
     @GetMapping("/{idContato}")
     public ResponseEntity<ContatoDTO> listarPorId(@PathVariable Integer idContato) throws Exception {
-        return new ResponseEntity<>(contatoService.findByIdContato(idContato), HttpStatus.OK);
+        return new ResponseEntity<>(contatoService.findById(idContato), HttpStatus.OK);
     }
 
     @PostMapping("/{idUsuario}")
