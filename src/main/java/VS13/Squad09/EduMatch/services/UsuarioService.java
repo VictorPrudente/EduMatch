@@ -4,6 +4,8 @@ import VS13.Squad09.EduMatch.dtos.UsuarioCompletoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.UsuarioECertificadoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
+import VS13.Squad09.EduMatch.entities.Contato;
+import VS13.Squad09.EduMatch.entities.Endereco;
 import VS13.Squad09.EduMatch.entities.Ranking;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Elo;
@@ -212,6 +214,27 @@ public class UsuarioService {
         usuario.setPontuacaoProximoElo(pontuacaoProximoElo);
     }
 
+    public void usuarioComContato(Usuario usuario, Contato contato){
+        usuario.setContato(contato);
+        usuarioRepository.save(usuario);
+    }
+
+    public void usuarioSemContato(Integer idUsuario){
+        Usuario usuario = usuarioRepository.findById(idUsuario).get();
+        usuario.setContato(null);
+        usuarioRepository.save(usuario);
+    }
+
+    public void usuarioComEndereco(Usuario usuario, Endereco endereco){
+        usuario.setEndereco(endereco);
+        usuarioRepository.save(usuario);
+    }
+
+    public void usuarioSemEndereco(Integer idUsuario){
+        Usuario usuario = usuarioRepository.findById(idUsuario).get();
+        usuario.setEndereco(null);
+        usuarioRepository.save(usuario);
+    }
 }
 
 

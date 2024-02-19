@@ -40,11 +40,11 @@ public class EnderecoController implements IEnderecoController {
 
     @GetMapping("/usuario/{id}")
     public ResponseEntity<EnderecoDTO> listarPorDono(@PathVariable("id") Integer id) throws Exception {
-        return ResponseEntity.ok(enderecoService.findEnderecoByUsuarioId(id));
+        return ResponseEntity.ok(enderecoService.findEnderecoByIdUsuario(id));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<EnderecoDTO> listarPorId(@PathVariable("id") Integer id) throws Exception {
-        return ResponseEntity.ok(enderecoService.findByIdEndereco(id));
+        return ResponseEntity.ok(enderecoService.findById(id));
     }
 }
