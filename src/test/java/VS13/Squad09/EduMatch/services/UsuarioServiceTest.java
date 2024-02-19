@@ -4,6 +4,7 @@ import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Elo;
+import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
@@ -94,14 +95,31 @@ class UsuarioServiceTest {
 
     @Test
     public void deveriaRetornarListaPorStatus() throws BancoDeDadosException { // --> OK
+        Integer status = 1;
         List<Usuario> listaMock = List.of(retornarUsuario(), retornarUsuario(), retornarUsuario());
+        List<UsuarioDTO> listaMockDTO = List.of(retornarUsuarioDTO(), retornarUsuarioDTO(), retornarUsuarioDTO());
 
-        when(usuarioRepository.findAll()).thenReturn(listaMock);
+        doReturn(listaMockDTO).when(usuarioService).listarTodos();
 
-        List<UsuarioDTO> listaDTORetornada = usuarioService.listarTodos();
+        List<UsuarioDTO> listaDTORetornada = usuarioService.listarPorStatus(status);
 
         assertNotNull(listaDTORetornada);
         assertEquals(listaMock.size(), listaDTORetornada.size());
+    }
+
+    @Test
+    public void deveriaRetornarPorId() throws Exception {
+        Optional<Usuario> usuarioMock = Optional.of(retornarUsuario());
+        UsuarioDTO usuarioDTOMock = retornarUsuarioDTO();
+        Integer idAleatorio = new Random().nextInt();
+
+        when(usuarioRepository.findById(anyInt())).thenReturn(usuarioMock);
+        doReturn(usuarioDTOMock).when(objectMapper).convertValue(any(), eq(UsuarioDTO.class));
+
+        UsuarioDTO usuarioDTORetornada = usuarioService.listarPorId(idAleatorio);
+
+        assertNotNull(usuarioDTORetornada);
+        assertEquals(usuarioDTORetornada, usuarioDTOMock);
     }
 
     @Test
@@ -114,7 +132,6 @@ class UsuarioServiceTest {
 
         assertNotNull(listaDTORetornada);
         assertEquals(listaMock.size(), listaDTORetornada.size());
-
     }
 
     @Test
@@ -198,14 +215,6 @@ class UsuarioServiceTest {
         assertEquals(usuarioMock, usuarioEncontrado);
     }
 
-    @Test
-    public void deveriaRetornarUsuarioCredenciado(){
-        UsuarioCreateDTO usuarioCreateDTO = retornarUsuarioCreateDTO();
-
-
-    }
-
-
 // ------------------------------------------------ MOCKS ------------------------------------------------------------
 
     private static UsuarioCreateDTO retornarUsuarioCreateDTO() {
@@ -225,6 +234,10 @@ class UsuarioServiceTest {
         usuario.setCNPJ("19641486000175");
         usuario.setDataNascimento(LocalDate.parse("2000-01-01"));
         usuario.setFotoUrl("teste");
+        usuario.setStatus(Status.ATIVO);
+        usuario.setPontuacao(0);
+        usuario.setMoedas(0);
+        usuario.setElo(Elo.FERRO);
 
         return usuario;
     }
@@ -239,6 +252,11 @@ class UsuarioServiceTest {
         usuarioDTO.setCNPJ("19641486000175");
         usuarioDTO.setDataNascimento(LocalDate.parse("2000-01-01"));
         usuarioDTO.setFotoUrl("teste");
+        usuarioDTO.setStatus(Status.ATIVO);
+        usuarioDTO.setStatus(Status.ATIVO);
+        usuarioDTO.setPontuacao(0);
+        usuarioDTO.setMoedas(0);
+        usuarioDTO.setElo(Elo.FERRO);
 
         return usuarioDTO;
     }

@@ -87,7 +87,6 @@ public class UsuarioService {
     }
 
     public UsuarioDTO atualizar(Integer id, UsuarioCreateDTO usuarioCreateDTO) throws Exception {
-
         validarCredencialUsuario(usuarioCreateDTO);
         Usuario usuarioRecuperado = findById(id);
         BeanUtils.copyProperties(usuarioCreateDTO, usuarioRecuperado);
