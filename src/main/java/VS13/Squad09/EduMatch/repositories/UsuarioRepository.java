@@ -1,5 +1,6 @@
 package VS13.Squad09.EduMatch.repositories;
 import VS13.Squad09.EduMatch.dtos.*;
+import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -7,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
@@ -56,5 +58,13 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
             """)
     List<CertificadoRelatorioDTO> procurarCertificado(@Param("idUsuario") Integer idUsuario);
 
-    Optional<Usuario> findByLoginAndSenha(String login, String senha);
+    Optional<Usuario> findByEmailAndSenha(String email, String senha);
+    Optional<Usuario> findByEmail(String email);
+
+    @Query("""
+    SELECT new VS13.Squad09.EduMatch.dtos.response.UsuarioDTO
+    (e.idUsuario, e.email, e.nome, e.CNPJ, e.fotoUrl)
+    FROM USUARIO e WHERE e.status = 1 AND e.tipoUsuario = 2""")
+    Set<UsuarioDTO> listarEmpresas();
 }
+

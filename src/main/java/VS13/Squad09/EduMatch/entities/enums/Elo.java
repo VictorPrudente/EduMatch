@@ -1,5 +1,6 @@
 package VS13.Squad09.EduMatch.entities.enums;
 
+import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -21,12 +22,12 @@ public enum Elo {
     MASTER_MIND(9);
 
 
-    private Integer elo;
+    private final Integer elo;
 
-    public static Elo valueOf(Integer ranking){
+    public static Elo valueOf(Integer ranking) throws NaoEncontradoException {
         return Arrays.stream(Elo.values())
                 .filter(elo -> elo.getElo().equals(ranking))
                 .findFirst()
-                .orElseThrow(() -> new IllegalStateException("Tipo de Role não encontrado"));
+                .orElseThrow(() -> new NaoEncontradoException("Tipo de Role não encontrado"));
     }
 }

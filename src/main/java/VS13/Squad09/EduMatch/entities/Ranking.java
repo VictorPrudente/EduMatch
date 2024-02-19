@@ -15,28 +15,28 @@ import java.util.Objects;
 public class Ranking {
 
     @Id
-    @Column(name = "ID_RANKING")
+    @Column(name = "ID_RANKING", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_RANKING")
     @SequenceGenerator(name = "SEQ_RANKING", sequenceName = "SEQ_RANKING", allocationSize = 1)
     private Integer id;
+
+    @Column(name = "IMAGEM_URL", nullable = false, unique = true)
+    private String imagemUrl;
+
+    @Column(name = "TITULO", nullable = false, unique = true)
+    private String titulo;
+
+    @Column(name = "DESCRICAO", nullable = false, unique = true)
+    private String descricao;
+
+    @Column(name = "PONTUACAO_NECESSARIA", nullable = false, unique = true)
+    private Integer pontuacaoNecessaria;
 
     @OrderBy("pontuacao DESC")
     @OneToMany(mappedBy = "ranking", cascade = CascadeType.ALL)
     private List<Usuario> usuarios;
 
-    @Column(name = "PONTUACAO_NECESSARIA")
-    private Integer pontuacaoNecessaria;
-
-    @Column(name = "IMAGEM_URL")
-    private String urlImagem;
-
-    @Column(name = "TITULO")
-    private String titulo;
-
-    @Column(name = "DESCRICAO")
-    private String descricao;
-
-    @Column(name = "STATUS")
+    @Column(name = "STATUS", nullable = false)
     private Status status;
 
     @Override
