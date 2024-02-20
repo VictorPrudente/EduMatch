@@ -4,14 +4,19 @@ import VS13.Squad09.EduMatch.dtos.mapper.EnderecoMapper;
 import VS13.Squad09.EduMatch.dtos.request.EnderecoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.EnderecoDTO;
 import VS13.Squad09.EduMatch.entities.Endereco;
+import VS13.Squad09.EduMatch.entities.Log;
 import VS13.Squad09.EduMatch.entities.Usuario;
+import VS13.Squad09.EduMatch.entities.enums.TipoLog;
+import VS13.Squad09.EduMatch.entities.enums.TipoOperacao;
 import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
 import VS13.Squad09.EduMatch.repositories.EnderecoRepository;
+import VS13.Squad09.EduMatch.repositories.LogRepository;
 import VS13.Squad09.EduMatch.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -22,6 +27,7 @@ public class EnderecoService {
     private final EnderecoRepository enderecoRepository;
     private final UsuarioService usuarioService;
     private final UsuarioRepository usuarioRepository;
+    private final LogRepository logRepository;
     private final String NOT_FOUND_MESSAGE = "ID do Contato não encontrado!";
 
     public EnderecoDTO salvar(Integer idPessoa, EnderecoCreateDTO enderecoCreateDTO) throws RegraDeNegocioException, NaoEncontradoException {
@@ -37,6 +43,9 @@ public class EnderecoService {
         enderecoEntity = enderecoRepository.save(enderecoEntity);
 
         usuarioService.usuarioComEndereco(usuarioEntity, enderecoEntity);
+
+        Log log = new Log(TipoLog.ENDERECOS, TipoOperacao.SALVAR, "Endereco salvado", LocalDate.now());
+        logRepository.save(log);
 
         return enderecoMapper.toDto(enderecoEntity);
     }
@@ -61,6 +70,9 @@ public class EnderecoService {
     }
 
     private Endereco returnEnderecoById(Integer id) throws NaoEncontradoException {
+        Log log = new Log(TipoLog.ENDERECOS, TipoOperacao.PROCURAR, "Procurado endereco pelo ID Endereco", LocalDate.now());
+        logRepository.save(log);
+
         return enderecoRepository.findById(id)
                 .orElseThrow(() -> new NaoEncontradoException(NOT_FOUND_MESSAGE));
     }
