@@ -3,6 +3,7 @@ package VS13.Squad09.EduMatch.entities;
 import VS13.Squad09.EduMatch.entities.enums.TipoLog;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,4 +20,3 @@ public class Log {
         private String descricao;
         private String data;
     }
-}

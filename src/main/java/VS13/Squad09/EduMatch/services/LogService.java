@@ -5,6 +5,7 @@ import VS13.Squad09.EduMatch.dtos.response.LogContadorDTO;
 import VS13.Squad09.EduMatch.dtos.response.LogDTO;
 import VS13.Squad09.EduMatch.entities.Log;
 import VS13.Squad09.EduMatch.entities.enums.TipoLog;
+import VS13.Squad09.EduMatch.exceptions.EntidadeNaoEncontradaException;
 import VS13.Squad09.EduMatch.repositories.LogRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -76,8 +77,8 @@ public class LogService {
                 .orElseThrow(() -> new EntidadeNaoEncontradaException(NOT_FOUND_MESSAGE));
     }
 
-    public List<LogDTO> findAllAfterDate(String data) {
-        return logRepository.findAllAfterDate(data).stream().map(obj -> objectMapper.convertValue(obj, LogDTO.class)).collect(Collectors.toList());
-    }
+//    public List<LogDTO> findAllAfterDate(String data) {
+//        return logRepository.findAllAfterDate(data).stream().map(obj -> objectMapper.convertValue(obj, LogDTO.class)).collect(Collectors.toList());
+//    }
 
 }

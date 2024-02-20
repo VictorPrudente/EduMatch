@@ -3,6 +3,7 @@ package VS13.Squad09.EduMatch.controllers;
 import VS13.Squad09.EduMatch.dtos.response.LogContadorDTO;
 import VS13.Squad09.EduMatch.dtos.response.LogDTO;
 import VS13.Squad09.EduMatch.entities.enums.TipoLog;
+import VS13.Squad09.EduMatch.exceptions.EntidadeNaoEncontradaException;
 import VS13.Squad09.EduMatch.services.LogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -67,8 +68,8 @@ public class LogController {
         return logService.countLogsByDate(currentDate);
     }
 
-    @GetMapping("/return-all-after-date")
-    public List<LogDTO> returnAllAfterDate(String data) {
-        return logService.findAllAfterDate(data);
-    }
+//    @GetMapping("/return-all-after-date")
+//    public List<LogDTO> returnAllAfterDate(String data) {
+//        return logService.findAllAfterDate(data);
+//    }
 }
