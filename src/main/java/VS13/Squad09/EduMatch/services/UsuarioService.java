@@ -211,6 +211,7 @@ public class UsuarioService {
 
     public UsuarioDTO getById(Integer id) throws RegraDeNegocioException {
         return objectMapper.convertValue(findById(id), UsuarioDTO.class);
+    }
 
     public void usuarioComContato(Usuario usuario, Contato contato){
         usuario.setContato(contato);

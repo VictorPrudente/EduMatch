@@ -19,6 +19,9 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -43,11 +46,30 @@ class UsuarioServiceTest {
     @Mock
     private CargoRepository cargoRepository;
 
+    @Mock
+    private SecurityContext securityContext;
+
+    @Mock private Authentication authentication;
+
     @Spy
     @InjectMocks
     private UsuarioService usuarioService;
 
 
+    @Test
+    void getIdLoggedUserId(){
+        when(securityContext.getAuthentication()).thenReturn(authentication);
+        when(authentication.getPrincipal()).thenReturn(1);
+
+        SecurityContextHolder.setContext(securityContext);
+
+        when(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString()).thenReturn(null);
+        when(authentication.getPrincipal()).thenReturn(1);
+
+        usuarioService.getIdLoggedUser();
+
+        verify(usuarioService, times(1)).getIdLoggedUser();
+    }
     @Test
     @DisplayName("Deveria criar uma novo usuario com sucesso") // --> OK
     public void deveriaCriarUsuarioComSucesso() throws RegraDeNegocioException {
@@ -65,6 +87,26 @@ class UsuarioServiceTest {
         assertNotNull(usuarioDTOCriada);
         assertEquals(usuarioDTOCriada, usuarioDTOMock);
     }
+
+    @Test
+    @DisplayName("Deveria criar uma novo usuario com sucesso") // --> OK
+    public void deveriaCriarEmpresaComSucesso() throws RegraDeNegocioException {
+
+        UsuarioCreateDTO usuarioCreateDTOMock = retornarEmpresaCreateDTO();
+        Usuario usuarioMock = retornarEmpresa();
+        UsuarioDTO usuarioDTOMock = retornarEmpresaDTO();
+
+        when(objectMapper.convertValue(usuarioCreateDTOMock, Usuario.class)).thenReturn(usuarioMock);
+        when(usuarioRepository.save(any())).thenReturn(usuarioMock);
+        when(objectMapper.convertValue(usuarioMock, UsuarioDTO.class)).thenReturn(usuarioDTOMock);
+
+        UsuarioDTO usuarioDTOCriada =  usuarioService.criar(usuarioCreateDTOMock);
+
+        assertNotNull(usuarioDTOCriada);
+        assertEquals(usuarioDTOCriada, usuarioDTOMock);
+    }
+
+
 
     @Test
     public void deveriaListarComSucesso() throws BancoDeDadosException { // --> OK
@@ -169,8 +211,8 @@ class UsuarioServiceTest {
         usuarioMock.setSobrenome("Silva");
         usuarioMock.setEmail("carlos@dbccompany.com.br");
         usuarioMock.setSenha("12345");
-        //usuarioMock.setCPF("12312312312"); --> Ou CPF ou CNPJ
-        usuarioMock.setCNPJ("05637396000104");
+        usuarioMock.setCPF("12312312312");
+        //usuarioMock.setCNPJ("05637396000104");
         usuarioMock.setDataNascimento(LocalDate.parse("2000-01-01"));
         usuarioMock.setFotoUrl("teste");
 
@@ -220,7 +262,13 @@ class UsuarioServiceTest {
     private static UsuarioCreateDTO retornarUsuarioCreateDTO() {
         return new UsuarioCreateDTO("Rodrigo", "Silva",
                 "rodrigo@dbccompany.com.br", "12345", "34908161020",
-                "19641486000175", LocalDate.parse("2000-01-01"), "teste");
+                null, LocalDate.parse("2000-01-01"), "teste");
+    }
+
+    private static UsuarioCreateDTO retornarEmpresaCreateDTO() {
+        return new UsuarioCreateDTO("Rodrigo", "Silva",
+                "rodrigo@dbccompany.com.br", "12345", null,
+                "20242163000198", LocalDate.parse("2000-01-01"), "teste");
     }
 
     private static Usuario retornarUsuario() {
@@ -230,7 +278,7 @@ class UsuarioServiceTest {
         usuario.setSobrenome("Silva");
         usuario.setEmail("rodrigo@dbccompany.com.br");
         usuario.setSenha("12345");
-        //usuario.setCPF("34908161020"); --> Ou CPF ou CNPJ
+        usuario.setCPF("34908161020");
         usuario.setCNPJ("19641486000175");
         usuario.setDataNascimento(LocalDate.parse("2000-01-01"));
         usuario.setFotoUrl("teste");
@@ -242,13 +290,31 @@ class UsuarioServiceTest {
         return usuario;
     }
 
+    private static Usuario retornarEmpresa() {
+        Usuario empresa = new Usuario();
+        empresa.setIdUsuario(1);
+        empresa.setNome("Rodrigo");
+        empresa.setSobrenome("Silva");
+        empresa.setEmail("rodrigo@dbccompany.com.br");
+        empresa.setSenha("12345");
+        empresa.setCNPJ("19641486000175");
+        empresa.setDataNascimento(LocalDate.parse("2000-01-01"));
+        empresa.setFotoUrl("teste");
+        empresa.setStatus(Status.ATIVO);
+        empresa.setPontuacao(0);
+        empresa.setMoedas(0);
+        empresa.setElo(Elo.FERRO);
+
+        return empresa;
+    }
+
     public static UsuarioDTO retornarUsuarioDTO() {
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         usuarioDTO.setIdUsuario(1);
         usuarioDTO.setNome("Rodrigo");
         usuarioDTO.setSobrenome("Silva");
         usuarioDTO.setEmail("rodrigo@dbccompany.com.br");
-        //usuarioDTO.setCPF("34908161020"); --> Ou CPF ou CNPJ
+        usuarioDTO.setCPF("34908161020");
         usuarioDTO.setCNPJ("19641486000175");
         usuarioDTO.setDataNascimento(LocalDate.parse("2000-01-01"));
         usuarioDTO.setFotoUrl("teste");
@@ -259,6 +325,24 @@ class UsuarioServiceTest {
         usuarioDTO.setElo(Elo.FERRO);
 
         return usuarioDTO;
+    }
+
+    public static UsuarioDTO retornarEmpresaDTO() {
+        UsuarioDTO empresaDTO = new UsuarioDTO();
+        empresaDTO.setIdUsuario(1);
+        empresaDTO.setNome("Rodrigo");
+        empresaDTO.setSobrenome("Silva");
+        empresaDTO.setEmail("rodrigo@dbccompany.com.br");
+        empresaDTO.setCNPJ("19641486000175");
+        empresaDTO.setDataNascimento(LocalDate.parse("2000-01-01"));
+        empresaDTO.setFotoUrl("teste");
+        empresaDTO.setStatus(Status.ATIVO);
+        empresaDTO.setStatus(Status.ATIVO);
+        empresaDTO.setPontuacao(0);
+        empresaDTO.setMoedas(0);
+        empresaDTO.setElo(Elo.FERRO);
+
+        return empresaDTO;
     }
 
     public static UsuarioDTO retornarUsuarioDTO2() {
