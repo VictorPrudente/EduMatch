@@ -19,10 +19,10 @@ import java.time.LocalDateTime;
 public class CertificadoCreateDTO {
 
     @NotNull(message = "A trilha não pode estar vazia.")
-    @Schema(description = "Trilha que será selecionada", required = true, example = "MATEMATICA/PORTUGUES/SOFTSKILLS")
+    @Schema(description = "Trilha que será selecionada", required = true, example = "(0)MATEMATICA/(1)PORTUGUES/(2)SOFTSKILLS")
     private Trilha trilha;
 
     @NotNull(message = "O tipo de dificuldade não pode estar vazia.")
-    @Schema(description = "Dificuldade da trilha", example = "1(FACIL)/2(MEDIO)/3(DIFICIL)")
+    @Schema(description = "Dificuldade da trilha", example = "0(FACIL)/1(MEDIO)/2(DIFICIL)")
     private Dificuldade dificuldade;
 }
