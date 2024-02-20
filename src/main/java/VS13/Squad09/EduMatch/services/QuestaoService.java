@@ -28,10 +28,6 @@ public class QuestaoService {
     private final QuestaoRepository questaoRepository;
     private final ObjectMapper objectMapper;
 
-    @Value("${multiplicador.pontuacao}")
-    private Integer multiplicador;
-
-
     public QuestaoDTO create(QuestaoCreateDTO questaoCreateDTO){
 
         Questao questao = toEntity(questaoCreateDTO);
@@ -46,7 +42,7 @@ public class QuestaoService {
     public QuestaoDTO update(Integer id, QuestaoCreateDTO questaoCreateDTO) throws NaoEncontradoException {
 
         //Seto a questão atualizada como inativa.
-        Questao questao = toEntity(getById(id));
+        Questao questao = getById(id);
         questao.setStatus(Status.INATIVO);
         questaoRepository.save(questao);
 
@@ -58,7 +54,7 @@ public class QuestaoService {
     }
 
     public QuestaoDTO findById(Integer id) throws NaoEncontradoException {
-        return getById(id);
+        return toDTO(getById(id));
     }
 
     public Page<QuestaoDTO> questoesPage(Integer trilha, Integer dificuldade, Integer status, Pageable pageable)  {
@@ -89,30 +85,22 @@ public class QuestaoService {
 
     public QuestaoDTO delete(Integer id) throws NaoEncontradoException {
         log.info("Buscando questao na service.");
-        //Procuro a questão no banco de dados. Seto como inativa e a atualizo.
-        Questao questao = toEntity(getById(id));
-        log.info("Encontrada questao na service.");
-        log.info(questao.toString());
+        Questao questao = getById(id);
         questao.setStatus(Status.INATIVO);
-        questao.setPergunta("apagada");
-        log.info("setado status inativo na questao.");
-        log.info(questao.toString());
         questaoRepository.save(questao);
-        log.info("questao inativa no banco de dados.");
         return toDTO(questao);
     }
 
 
     //Métodos adicionais
 
-    private QuestaoDTO getById(Integer id) throws NaoEncontradoException {
-        Questao questao = questaoRepository.findById(id)
+    private Questao getById(Integer id) throws NaoEncontradoException {
+        return questaoRepository.findById(id)
                 .orElseThrow(() -> new NaoEncontradoException("Nenhuma questão encontrada com este id."));
-        return toDTO(questao);
     }
 
-    private QuestaoDTO toDTO(Questao questao){
-        return objectMapper.convertValue(questao, QuestaoDTO.class);
+    private QuestaoDTO toDTO(Object o){
+        return objectMapper.convertValue(o, QuestaoDTO.class);
     }
 
     private Questao toEntity(Object object){
@@ -120,7 +108,7 @@ public class QuestaoService {
     }
 
     private Integer pontuacao(Questao questao){
-        return (questao.getDificuldade().getNivel() * multiplicador) + multiplicador;
+        return (questao.getDificuldade().getNivel() * 5) + 5;
     }
 
 }

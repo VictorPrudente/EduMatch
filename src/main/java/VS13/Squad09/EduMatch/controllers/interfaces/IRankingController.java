@@ -36,11 +36,4 @@ public interface IRankingController {
     @PutMapping("{elo}")
     ResponseEntity<RankingDTO> atualizar(@PathVariable String elo, @Valid @RequestBody RankingCreateDTO rankingCreateDTO) throws NaoEncontradoException;
 
-    @Operation(summary = "Listar um ou todos os Rankings de maneira paginada junto com os usuários pertencentes aquele elo.", description = "Lista um ou todos os Rankings do sistema com seus respectivos usuários através de um parâmetro opcional (seu nome). A consulta traz por padrão, 50 usuários por página, ordenada pela pontuação necessária dos Rankings, indo do maior para o menor. Assim como ordena os usuários daquele elo através da pontuação deles, indo do jogador com a maior pontuação, para o jogador com a menor.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Operação bem sucedida."),
-            @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção.")})
-    @GetMapping
-    ResponseEntity<Page<RankingDTO>> listarPorRanking(@RequestParam(required = false) String elo,
-                                                             @PageableDefault(size = 50) Pageable pageable) throws Exception;
-}
+    }

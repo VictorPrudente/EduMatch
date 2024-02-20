@@ -33,7 +33,7 @@ public interface InsigniaRepository extends JpaRepository<Insignia, Integer> {
             FROM INSIGNIA  i
             WHERE i.status = 1 AND i.id = :idInsignia
             """)
-    InsigniaDTO findInsignia(@Param("idInsignia") Integer idInsignia);
+    List<InsigniaDTO> findInsignia(@Param("idInsignia") Integer idInsignia);
 
     @Query("""
             SELECT new VS13.Squad09.EduMatch.dtos.response.InsigniaDTO
@@ -57,5 +57,5 @@ public interface InsigniaRepository extends JpaRepository<Insignia, Integer> {
             FROM INSIGNIA i
             JOIN i.usuarios ui
             WHERE ui.idUsuario = :idUsuario AND i.id = :idInsignia""")
-    InsigniaDTO findOneByOwner(@Param("idUsuario") Integer idUsuario, @Param("idInsignia") Integer idInsignia);
+    List<InsigniaDTO> findOneByOwner(@Param("idUsuario") Integer idUsuario, @Param("idInsignia") Integer idInsignia);
 }
