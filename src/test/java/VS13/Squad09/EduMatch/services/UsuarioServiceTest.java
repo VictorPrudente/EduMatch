@@ -2,9 +2,11 @@ package VS13.Squad09.EduMatch.services;
 
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
+import VS13.Squad09.EduMatch.entities.Ranking;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Elo;
 import VS13.Squad09.EduMatch.entities.enums.Status;
+import VS13.Squad09.EduMatch.entities.enums.TipoUsuario;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
@@ -204,6 +206,7 @@ class UsuarioServiceTest {
         UsuarioCreateDTO usuarioCreateDTOMock = retornarUsuarioCreateDTO();
         Usuario usuarioAlterada = retornarUsuario();
         UsuarioDTO usuarioDTOMock = retornarUsuarioDTO();
+        usuarioAlterada.setPontuacao(10);
 
         Usuario usuarioMock = new Usuario();
         usuarioMock.setIdUsuario(1);
@@ -213,16 +216,20 @@ class UsuarioServiceTest {
         usuarioMock.setSenha("12345");
         usuarioMock.setCPF("12312312312");
         //usuarioMock.setCNPJ("05637396000104");
+        usuarioMock.setTipoUsuario(TipoUsuario.PESSOA_FISICA);
+        usuarioMock.setElo(Elo.FERRO);
+        usuarioMock.setPontuacao(0);
+        usuarioMock.setPontuacaoProximoElo(10);
         usuarioMock.setDataNascimento(LocalDate.parse("2000-01-01"));
         usuarioMock.setFotoUrl("teste");
 
         Usuario usuarioAntigo = new Usuario();
         BeanUtils.copyProperties(usuarioMock, usuarioAntigo);
 
-
         // ACT / WHEN
         when(usuarioRepository.findById(anyInt())).thenReturn(Optional.of(usuarioMock));
         when(usuarioRepository.save(usuarioMock)).thenReturn(usuarioAlterada);
+        when(rankingService.novoRanking("BRONZE")).thenReturn(retornarRanking());
 
         UsuarioDTO usuarioDTORetornada = usuarioService.atualizar(usuarioMock.getIdUsuario(), usuarioCreateDTOMock);
 
@@ -358,5 +365,13 @@ class UsuarioServiceTest {
         usuarioDTO.setFotoUrl("teste");
 
         return usuarioDTO;
+    }
+
+    public static Ranking retornarRanking(){
+        Ranking ranking = new Ranking();
+        ranking.setPontuacaoNecessaria(10);
+        ranking.setTitulo("PRATA");
+
+        return ranking;
     }
 }

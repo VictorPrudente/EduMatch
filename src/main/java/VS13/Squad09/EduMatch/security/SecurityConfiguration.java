@@ -64,6 +64,9 @@ public class SecurityConfiguration {
                         // RANKING
                         .antMatchers("/rankings/**").hasAnyAuthority("ROLE_ADM", "ROLE_USUARIO", "ROLE_COMPANY")
 
+                        //LOGS
+                        .antMatchers("/log/**").hasAnyAuthority("ROLE_ADM")
+
                         // ALL
                         .antMatchers("/**").hasAnyAuthority("ROLE_ADM")
                         .anyRequest().authenticated()
