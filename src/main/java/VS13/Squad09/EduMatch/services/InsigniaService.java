@@ -2,7 +2,6 @@ package VS13.Squad09.EduMatch.services;
 
 import VS13.Squad09.EduMatch.dtos.request.InsigniaCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.InsigniaDTO;
-import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Insignia;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Status;
@@ -14,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -25,7 +23,7 @@ public class InsigniaService {
     private final InsigniaRepository insigniaRepository;
     private final ObjectMapper objectMapper;
 
-    public InsigniaDTO criar(InsigniaCreateDTO insigniaCreateDTO) throws Exception {
+    public InsigniaDTO create(InsigniaCreateDTO insigniaCreateDTO) {
 
         Insignia insignia = toEntity(insigniaCreateDTO);
 
@@ -37,7 +35,7 @@ public class InsigniaService {
     }
 
 
-    public InsigniaDTO atualizar(Integer idInsignia, InsigniaCreateDTO insigniaCreateDTO) throws NaoEncontradoException {
+    public InsigniaDTO update(Integer idInsignia, InsigniaCreateDTO insigniaCreateDTO) throws NaoEncontradoException {
 
         Insignia insignia = getInsignia(idInsignia);
 
@@ -49,18 +47,12 @@ public class InsigniaService {
         return toDTO(insigniaAtualizada);
     }
 
-    public List<InsigniaDTO> listarPorUsuario(Integer idUsuario, Integer idInsignia) throws NaoEncontradoException {
-        List<InsigniaDTO> insignias = new ArrayList<>();
-
+    public List<InsigniaDTO> findByUser(Integer idUsuario, Integer idInsignia) {
         if (idInsignia != null) {
-            insignias.add(insigniaRepository.findOneByOwner(idUsuario, idInsignia));
+            return insigniaRepository.findOneByOwner(idUsuario, idInsignia);
         } else {
-            insignias = insigniaRepository.findAllByOwner(idUsuario);
+            return insigniaRepository.findAllByOwner(idUsuario);
         }
-        if (insignias.contains(null)) {
-            throw new NaoEncontradoException("Nenhum insignia encontrada para este usuário");
-        }
-            return insignias;
     }
 
 
@@ -73,18 +65,14 @@ public class InsigniaService {
         insigniaRepository.save(insignia);
     }
 
-    public List<InsigniaDTO> listarInsignias(Integer idInsingia) {
-        List<InsigniaDTO> insignias = new ArrayList<>();
+    public List<InsigniaDTO> findInsignias(Integer idInsingia) {
         if (idInsingia != null){
-            insignias.add(insigniaRepository.findInsignia(idInsingia));
-        } else {
-            insignias.addAll(insigniaRepository.findInsignias());
+            return insigniaRepository.findInsignia(idInsingia);
         }
-        return insignias;
+            return insigniaRepository.findInsignias();
     }
 
     //MÉTODOS ADICIONAIS
-
     private InsigniaDTO toDTO(Object o){
         return objectMapper.convertValue(o, InsigniaDTO.class);
     }

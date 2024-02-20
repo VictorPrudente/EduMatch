@@ -33,7 +33,7 @@ public interface RankingRepository extends JpaRepository<Ranking, Integer> {
             FROM RANKING rank
             WHERE rank.status = 1 AND rank.id = :idRanking
             ORDER BY rank.pontuacaoNecessaria DESC""")
-    RankingDTO findRanking(@Param("idRanking") Integer idRanking);
+    List<RankingDTO> findRanking(@Param("idRanking") Integer idRanking);
 
     @Query("""
             SELECT new VS13.Squad09.EduMatch.dtos.response.RankingDTO
