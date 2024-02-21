@@ -8,6 +8,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 
 @Getter
@@ -36,6 +37,19 @@ public class Certificado {
     @ManyToOne
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     private Usuario usuario;
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Certificado that = (Certificado) object;
+        return Objects.equals(id_certificado, that.id_certificado);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id_certificado);
+    }
 }
 
 

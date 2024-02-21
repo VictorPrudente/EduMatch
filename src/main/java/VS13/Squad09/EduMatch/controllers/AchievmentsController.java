@@ -28,11 +28,11 @@ public class AchievmentsController implements IAchievmentController {
 
     @GetMapping("/insignias")
     public ResponseEntity<List<InsigniaDTO>> listarInsignias(@RequestParam(required = false) Integer idInsignia){
-        return ResponseEntity.ok(insigniaService.listarInsignias(idInsignia));
+        return ResponseEntity.ok(insigniaService.findInsignias(idInsignia));
     }
 
     @GetMapping("/rankings")
     public ResponseEntity<List<RankingDTO>> listarRankings(@RequestParam(required = false) Integer idRanking){
-        return ResponseEntity.ok(rankingService.listarRankings(idRanking));
+        return ResponseEntity.ok(rankingService.findAll(idRanking));
     }
 }

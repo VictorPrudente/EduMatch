@@ -26,13 +26,6 @@ public class Insignia {
     @SequenceGenerator(name = "SEQ_INSIGNIA", sequenceName = "SEQ_INSIGNIA", allocationSize = 1)
     private Integer id;
 
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(name = "USUARIO_INSIGNIA",
-            joinColumns = @JoinColumn(name = "ID_INSIGNIA"),
-            inverseJoinColumns = @JoinColumn(name = "ID_USUARIO"))
-    private Set<Usuario> usuarios = new HashSet<>();
-
     @Column(name = "IMAGEM_URL")
     private String imagemUrl;
 
@@ -42,11 +35,18 @@ public class Insignia {
     @Column(name = "DESCRICAO")
     private String descricao;
 
+    @Column(name = "TAG")
+    private String tag;
+
     @Column(name = "STATUS")
     private Status status;
 
-    @Column(name = "TAG")
-    private String tag;
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "USUARIO_INSIGNIA",
+            joinColumns = @JoinColumn(name = "ID_INSIGNIA"),
+            inverseJoinColumns = @JoinColumn(name = "ID_USUARIO"))
+    private Set<Usuario> usuarios = new HashSet<>();
 
     @Override
     public boolean equals(Object object) {

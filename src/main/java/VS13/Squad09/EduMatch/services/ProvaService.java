@@ -52,9 +52,8 @@ public class ProvaService {
 
         prova.setDataInicio(LocalDateTime.now());
 
-        int duracao = tempo * provaStart.getDificuldade().ordinal();
 
-        prova.setTempoLimite(duracao + tempo);
+        prova.setTempoLimite(300);
         prova.setUsuario(usuario);
         prova.setStatus(Status.ATIVO);
 
@@ -111,7 +110,7 @@ public class ProvaService {
 
         Questao questao = prova.getQuestoes().get(0);
 
-        if (nota >= aprovacao){
+        if (nota >= 60){
             prova.setResultado(Resultado.APROVADO);
             String tag = questao.getTrilha().name() + "_" + questao.getDificuldade().name();
             insigniaService.addUsuario(usuario, tag);

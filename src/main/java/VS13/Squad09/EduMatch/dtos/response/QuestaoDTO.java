@@ -16,10 +16,10 @@ import java.util.List;
 @AllArgsConstructor
 public class QuestaoDTO {
     private Integer id;
-    private Integer pontos;
     private String pergunta;
     private List<Opcao> opcoes;
     private String opcaoCerta;
+    private Integer pontos;
     private Trilha trilha;
     private Dificuldade dificuldade;
     private Status status;

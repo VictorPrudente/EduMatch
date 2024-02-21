@@ -4,6 +4,8 @@ import VS13.Squad09.EduMatch.dtos.UsuarioCompletoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.UsuarioECertificadoRelatorioDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.dtos.request.UsuarioCreateDTO;
+import VS13.Squad09.EduMatch.entities.Contato;
+import VS13.Squad09.EduMatch.entities.Endereco;
 import VS13.Squad09.EduMatch.entities.Ranking;
 import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Elo;
@@ -51,13 +53,16 @@ public class UsuarioService {
 
             usuarioEntity.setTipoUsuario(validarTipoUsuario(usuarioCreateDTO));
             usuarioEntity.setStatus(Status.ATIVO);
-            usuarioEntity.setPontuacao(0);
-            usuarioEntity.setMoedas(0);
-            usuarioEntity.setRanking(rankingService.novoRanking("FERRO"));
-            if (usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_FISICA) {
+
+            if (usuarioEntity.getTipoUsuario().equals(TipoUsuario.PESSOA_FISICA)) {
                 usuarioEntity.getCargos().add(cargoRepository.findByNome("ROLE_USUARIO"));
+                usuarioEntity.setPontuacao(0);
+                usuarioEntity.setMoedas(0);
+                usuarioEntity.setElo(Elo.FERRO);
+                usuarioEntity.setRanking(rankingService.novoRanking("FERRO"));
             }
-            if (usuarioEntity.getTipoUsuario() == TipoUsuario.PESSOA_JURIDICA){
+
+            if (usuarioEntity.getTipoUsuario().equals(TipoUsuario.PESSOA_JURIDICA)){
                 usuarioEntity.getCargos().add(cargoRepository.findByNome("ROLE_COMPANY"));
             }
 
@@ -83,17 +88,15 @@ public class UsuarioService {
         return objectMapper.convertValue(usuarioRepository.findById(id), UsuarioDTO.class);
     }
 
-    public UsuarioDTO listarPorEmail(String email) throws BancoDeDadosException {
-        return objectMapper.convertValue(usuarioRepository.listarPorEmail(email), UsuarioDTO.class);
-    }
-
     public UsuarioDTO atualizar(Integer id, UsuarioCreateDTO usuarioCreateDTO) throws Exception {
-
         validarCredencialUsuario(usuarioCreateDTO);
-        Usuario usuarioRecuperado = usuarioRepository.findById(id).get();
+        Usuario usuarioRecuperado = findById(id);
         BeanUtils.copyProperties(usuarioCreateDTO, usuarioRecuperado);
 
-        subirElo(usuarioRecuperado);
+        if(usuarioRecuperado.getTipoUsuario() == TipoUsuario.PESSOA_FISICA) {
+            subirElo(usuarioRecuperado);
+        }
+
         usuarioRepository.save(usuarioRecuperado);
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         BeanUtils.copyProperties(usuarioRecuperado, usuarioDTO);
@@ -114,7 +117,7 @@ public class UsuarioService {
         usuarioRepository.save(usuarioProcurado);
         usuarioProcurado.setEmail(email);
         UsuarioDTO usuarioDTO = objectMapper.convertValue(usuarioProcurado, UsuarioDTO.class);
-        emailService.sendEmail(usuarioProcurado, null, 3);
+        //emailService.sendEmail(usuarioProcurado, null, 3);
         return usuarioDTO;
     }
 
@@ -206,6 +209,31 @@ public class UsuarioService {
         usuario.setPontuacaoProximoElo(pontuacaoProximoElo);
     }
 
+    public UsuarioDTO getById(Integer id) throws RegraDeNegocioException {
+        return objectMapper.convertValue(findById(id), UsuarioDTO.class);
+    }
+
+    public void usuarioComContato(Usuario usuario, Contato contato){
+        usuario.setContato(contato);
+        usuarioRepository.save(usuario);
+    }
+
+    public void usuarioSemContato(Integer idUsuario){
+        Usuario usuario = usuarioRepository.findById(idUsuario).get();
+        usuario.setContato(null);
+        usuarioRepository.save(usuario);
+    }
+
+    public void usuarioComEndereco(Usuario usuario, Endereco endereco){
+        usuario.setEndereco(endereco);
+        usuarioRepository.save(usuario);
+    }
+
+    public void usuarioSemEndereco(Integer idUsuario){
+        Usuario usuario = usuarioRepository.findById(idUsuario).get();
+        usuario.setEndereco(null);
+        usuarioRepository.save(usuario);
+    }
 }
 
 

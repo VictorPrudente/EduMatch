@@ -20,11 +20,11 @@ public class Ranking {
     @SequenceGenerator(name = "SEQ_RANKING", sequenceName = "SEQ_RANKING", allocationSize = 1)
     private Integer id;
 
-    @Column(name = "IMAGEM_URL", nullable = false, unique = true)
-    private String imagemUrl;
-
     @Column(name = "TITULO", nullable = false, unique = true)
     private String titulo;
+
+    @Column(name = "IMAGEM_URL", nullable = false, unique = true)
+    private String imagemUrl;
 
     @Column(name = "DESCRICAO", nullable = false, unique = true)
     private String descricao;
@@ -32,12 +32,12 @@ public class Ranking {
     @Column(name = "PONTUACAO_NECESSARIA", nullable = false, unique = true)
     private Integer pontuacaoNecessaria;
 
+    @Column(name = "STATUS", nullable = false)
+    private Status status;
+
     @OrderBy("pontuacao DESC")
     @OneToMany(mappedBy = "ranking", cascade = CascadeType.ALL)
     private List<Usuario> usuarios;
-
-    @Column(name = "STATUS", nullable = false)
-    private Status status;
 
     @Override
     public boolean equals(Object object) {

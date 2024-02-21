@@ -6,7 +6,6 @@ import VS13.Squad09.EduMatch.dtos.request.InsigniaCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.InsigniaDTO;
 import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.services.InsigniaService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -27,17 +26,17 @@ public class InsigniaController implements IInsigniasController {
 
     @PostMapping
     public ResponseEntity<InsigniaDTO> criar(@Valid @RequestBody InsigniaCreateDTO insignia) throws Exception {
-        return new ResponseEntity<>(insigniaService.criar(insignia), HttpStatus.CREATED);
+        return new ResponseEntity<>(insigniaService.create(insignia), HttpStatus.CREATED);
     }
 
     @PutMapping("{idInsignia}")
     public ResponseEntity<InsigniaDTO> atualizar(@PathVariable Integer idInsignia, @Valid @RequestBody InsigniaCreateDTO insignia) throws NaoEncontradoException {
-        return ResponseEntity.ok(insigniaService.atualizar(idInsignia, insignia));
+        return ResponseEntity.ok(insigniaService.update(idInsignia, insignia));
     }
 
     @GetMapping
     public ResponseEntity<List<InsigniaDTO>> listarPorUsuario(@RequestParam Integer usuario,
-                                                         @RequestParam(required = false) Integer insignia) throws NaoEncontradoException {
-        return ResponseEntity.ok(insigniaService.listarPorUsuario(usuario, insignia));
+                                                         @RequestParam(required = false) Integer insignia) {
+        return ResponseEntity.ok(insigniaService.findByUser(usuario, insignia));
     }
 }

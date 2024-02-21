@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
-@Tag(name = "Insignias", description = "Rotas privadas para Administradores autenticados. Victor Prudente")
+@Tag(name = "Insignias", description = "Rotas privadas para Administradores autenticados.")
 public interface IInsigniasController {
 
     @Operation(summary = "Criar uma Insígnia", description = "Cria uma nova insígnia no banco de dados.")
@@ -33,5 +33,5 @@ public interface IInsigniasController {
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção.")})
     @GetMapping("/usuario")
     ResponseEntity<List<InsigniaDTO>> listarPorUsuario(@RequestParam Integer usuario,
-                                                         @RequestParam(required = false) Integer insignia) throws Exception;
+                                                         @RequestParam(required = false) Integer insignia);
 }

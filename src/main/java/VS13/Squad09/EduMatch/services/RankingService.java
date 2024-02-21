@@ -1,7 +1,6 @@
 package VS13.Squad09.EduMatch.services;
 
 import VS13.Squad09.EduMatch.dtos.request.RankingCreateDTO;
-import VS13.Squad09.EduMatch.dtos.response.InsigniaDTO;
 import VS13.Squad09.EduMatch.dtos.response.RankingDTO;
 import VS13.Squad09.EduMatch.entities.Ranking;
 import VS13.Squad09.EduMatch.entities.enums.Status;
@@ -14,8 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,14 +26,14 @@ public class RankingService {
 
 
     //OK
-    public RankingDTO criar(RankingCreateDTO rankingCreateDTO) throws Exception{
+    public RankingDTO create(RankingCreateDTO rankingCreateDTO) throws Exception{
         Ranking ranking = toEntity(rankingCreateDTO);
         ranking.setStatus(Status.ATIVO);
         return toDTO(rankingRepository.save(ranking));
     }
 
     //OK
-    public RankingDTO atualizar(String elo, RankingCreateDTO rankingCreateDTO) throws NaoEncontradoException {
+    public RankingDTO update(String elo, RankingCreateDTO rankingCreateDTO) throws NaoEncontradoException {
 
         RankingDTO rankingDTO = getRanking(elo);
 
@@ -48,14 +45,12 @@ public class RankingService {
     }
 
     //OK
-    public List<RankingDTO> listarRankings(Integer idRanking) {
-        List<RankingDTO> rankings = new ArrayList<>();
+    public List<RankingDTO> findAll(Integer idRanking) {
         if (idRanking == null){
-            rankings.addAll(rankingRepository.findRankings());
+            return rankingRepository.findRankings();
         } else {
-            rankings.add(toDTO(rankingRepository.findRanking(idRanking)));
+            return rankingRepository.findRanking(idRanking);
         }
-        return rankings;
     }
 
     public List<RankingDTO> listarPorElo(){
@@ -65,28 +60,9 @@ public class RankingService {
                 .toList();
     }
 
-    //AJUSTAR PLAYERS
-    public Page<RankingDTO> listarPorRanking(String elo, Pageable page){
-        Page<Ranking> rankingPage;
-        if (elo != null){
-            elo = elo.toUpperCase();
-            rankingPage =  rankingRepository.findAllByTitulo(elo, page);
-        } else {
-            rankingPage = rankingRepository.findAll(page);
-        }
-        List<RankingDTO> rankingUsuarioDTOList = rankingPage.getContent()
-                .stream()
-                .map(ranking -> objectMapper.convertValue(ranking, RankingDTO.class))
-                .collect(Collectors.toList());
-
-        return new PageImpl<>(rankingUsuarioDTOList, page, rankingPage.getTotalElements());
-    }
-
     public Ranking novoRanking(String elo){
         return rankingRepository.findByTitulo(elo);
     }
-
-
 
     //METODOS ADICIONAIS
 
