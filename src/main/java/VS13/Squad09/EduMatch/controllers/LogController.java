@@ -5,6 +5,7 @@ import VS13.Squad09.EduMatch.dtos.response.LogDTO;
 import VS13.Squad09.EduMatch.entities.enums.TipoLog;
 import VS13.Squad09.EduMatch.exceptions.EntidadeNaoEncontradaException;
 import VS13.Squad09.EduMatch.services.LogService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name="Log ", description = "Endpoint do Log")
 @RequestMapping("/log")
 public class LogController {
     private final LogService logService;
