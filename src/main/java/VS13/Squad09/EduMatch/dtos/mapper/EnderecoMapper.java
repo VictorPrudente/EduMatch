@@ -1,10 +1,7 @@
 package VS13.Squad09.EduMatch.dtos.mapper;
 
-import VS13.Squad09.EduMatch.dtos.request.ContatoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.EnderecoCreateDTO;
-import VS13.Squad09.EduMatch.dtos.response.ContatoDTO;
 import VS13.Squad09.EduMatch.dtos.response.EnderecoDTO;
-import VS13.Squad09.EduMatch.entities.Contato;
 import VS13.Squad09.EduMatch.entities.Endereco;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;

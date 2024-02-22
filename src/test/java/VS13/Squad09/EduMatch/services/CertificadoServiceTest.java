@@ -8,9 +8,7 @@ import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Dificuldade;
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
 import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
-import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
 import VS13.Squad09.EduMatch.repositories.CertificadoRepository;
-import VS13.Squad09.EduMatch.repositories.UsuarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,11 +17,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;

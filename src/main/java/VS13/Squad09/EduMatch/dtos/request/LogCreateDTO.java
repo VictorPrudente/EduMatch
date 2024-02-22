@@ -5,7 +5,6 @@ import VS13.Squad09.EduMatch.entities.enums.TipoOperacao;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 

@@ -2,7 +2,6 @@ package VS13.Squad09.EduMatch.entities.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import java.util.Arrays;
 
 

@@ -3,7 +3,6 @@ package VS13.Squad09.EduMatch.dtos.response;
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
-
 import java.util.List;
 
 @Getter

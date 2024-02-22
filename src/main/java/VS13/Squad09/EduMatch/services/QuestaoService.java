@@ -3,20 +3,15 @@ package VS13.Squad09.EduMatch.services;
 import VS13.Squad09.EduMatch.dtos.request.QuestaoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.QuestaoDTO;
 import VS13.Squad09.EduMatch.entities.Questao;
-import VS13.Squad09.EduMatch.entities.enums.Dificuldade;
 import VS13.Squad09.EduMatch.entities.enums.Status;
-import VS13.Squad09.EduMatch.entities.enums.Trilha;
-import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.repositories.QuestaoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 import java.util.List;
 

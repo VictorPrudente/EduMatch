@@ -1,13 +1,9 @@
 package VS13.Squad09.EduMatch.dtos.request;
 
-import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Dificuldade;
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
 import io.swagger.v3.oas.annotations.media.Schema;
-
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
-import javax.validation.constraints.Positive;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

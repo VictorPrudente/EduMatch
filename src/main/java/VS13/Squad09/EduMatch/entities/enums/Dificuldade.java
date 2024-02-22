@@ -4,7 +4,6 @@ import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-
 import java.util.Arrays;
 
 @Slf4j

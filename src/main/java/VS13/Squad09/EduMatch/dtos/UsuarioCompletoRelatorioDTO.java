@@ -2,9 +2,6 @@ package VS13.Squad09.EduMatch.dtos;
 
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor

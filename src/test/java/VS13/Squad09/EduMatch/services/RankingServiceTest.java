@@ -1,4 +1,4 @@
-package VS13.Squad09.EduMatch;
+package VS13.Squad09.EduMatch.services;
 
 
 import VS13.Squad09.EduMatch.dtos.request.RankingCreateDTO;
@@ -8,7 +8,6 @@ import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.repositories.RankingRepository;
-import VS13.Squad09.EduMatch.services.RankingService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

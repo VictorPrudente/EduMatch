@@ -15,7 +15,6 @@ import VS13.Squad09.EduMatch.repositories.LogRepository;
 import VS13.Squad09.EduMatch.repositories.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.Optional;
 

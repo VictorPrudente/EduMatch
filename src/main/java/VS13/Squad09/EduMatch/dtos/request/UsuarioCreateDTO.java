@@ -1,20 +1,10 @@
 package VS13.Squad09.EduMatch.dtos.request;
 
 
-import VS13.Squad09.EduMatch.entities.*;
-import VS13.Squad09.EduMatch.entities.enums.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
-
-import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
-import java.util.Objects;
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -50,6 +40,5 @@ public class UsuarioCreateDTO {
 
         @Schema(description = "Foto de usuário")
         private String fotoUrl;
-
 }
 

@@ -1,25 +1,13 @@
 package VS13.Squad09.EduMatch.repositories;
 
-import VS13.Squad09.EduMatch.dtos.response.QuestaoDTO;
 import VS13.Squad09.EduMatch.entities.Questao;
-import VS13.Squad09.EduMatch.entities.enums.Dificuldade;
-import VS13.Squad09.EduMatch.entities.enums.Status;
-import VS13.Squad09.EduMatch.entities.enums.Trilha;
-import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
-import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 
 @Repository

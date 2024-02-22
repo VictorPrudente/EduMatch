@@ -4,7 +4,6 @@ import VS13.Squad09.EduMatch.entities.enums.TipoLog;
 import VS13.Squad09.EduMatch.entities.enums.TipoOperacao;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;

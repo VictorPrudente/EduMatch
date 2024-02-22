@@ -4,15 +4,9 @@ package VS13.Squad09.EduMatch.controllers;
 import VS13.Squad09.EduMatch.controllers.interfaces.IQuestaoController;
 import VS13.Squad09.EduMatch.dtos.request.QuestaoCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.QuestaoDTO;
-import VS13.Squad09.EduMatch.entities.Questao;
 import VS13.Squad09.EduMatch.exceptions.BancoDeDadosException;
 import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.services.QuestaoService;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
-import io.swagger.v3.oas.annotations.media.ExampleObject;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -22,9 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-import java.util.List;
 
 @Slf4j
 @Validated

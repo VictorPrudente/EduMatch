@@ -9,14 +9,9 @@ import VS13.Squad09.EduMatch.entities.Usuario;
 import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
 import VS13.Squad09.EduMatch.repositories.CertificadoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-
-
-import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;

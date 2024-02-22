@@ -5,7 +5,6 @@ import VS13.Squad09.EduMatch.entities.enums.Dificuldade;
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;

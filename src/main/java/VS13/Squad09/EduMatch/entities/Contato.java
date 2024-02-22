@@ -1,8 +1,8 @@
 package VS13.Squad09.EduMatch.entities;
-import VS13.Squad09.EduMatch.entities.enums.TipoDeContato;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
 
+
+import VS13.Squad09.EduMatch.entities.enums.TipoDeContato;
+import lombok.*;
 import javax.persistence.*;
 
 @Getter

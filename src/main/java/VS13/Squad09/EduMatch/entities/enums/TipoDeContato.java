@@ -5,7 +5,6 @@ import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-
 @Getter
 @AllArgsConstructor
 public enum TipoDeContato {

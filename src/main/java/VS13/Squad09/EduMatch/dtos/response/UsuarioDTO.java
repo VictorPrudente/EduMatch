@@ -3,8 +3,6 @@ package VS13.Squad09.EduMatch.dtos.response;
 import VS13.Squad09.EduMatch.entities.enums.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
-
-import javax.persistence.Column;
 import java.time.LocalDate;
 
 @Data

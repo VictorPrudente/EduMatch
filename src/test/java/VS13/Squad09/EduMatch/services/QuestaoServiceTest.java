@@ -1,4 +1,4 @@
-package VS13.Squad09.EduMatch;
+package VS13.Squad09.EduMatch.services;
 
 
 import VS13.Squad09.EduMatch.dtos.request.QuestaoCreateDTO;
@@ -11,7 +11,6 @@ import VS13.Squad09.EduMatch.entities.enums.Status;
 import VS13.Squad09.EduMatch.entities.enums.Trilha;
 import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.repositories.QuestaoRepository;
-import VS13.Squad09.EduMatch.services.QuestaoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +20,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;

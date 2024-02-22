@@ -1,9 +1,8 @@
-package VS13.Squad09.EduMatch;
+package VS13.Squad09.EduMatch.services;
 
 
 import VS13.Squad09.EduMatch.dtos.request.prova.ProvaFinishCreateDTO;
 import VS13.Squad09.EduMatch.dtos.request.prova.ProvaStartCreateDTO;
-import VS13.Squad09.EduMatch.dtos.response.QuestaoDTO;
 import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.dtos.response.prova.ProvaFinishDTO;
 import VS13.Squad09.EduMatch.dtos.response.prova.ProvaStartDTO;
@@ -11,13 +10,7 @@ import VS13.Squad09.EduMatch.entities.*;
 import VS13.Squad09.EduMatch.entities.enums.*;
 import VS13.Squad09.EduMatch.exceptions.RegraDeNegocioException;
 import VS13.Squad09.EduMatch.repositories.ProvaRepository;
-import VS13.Squad09.EduMatch.services.InsigniaService;
-import VS13.Squad09.EduMatch.services.ProvaService;
-import VS13.Squad09.EduMatch.services.QuestaoService;
-import VS13.Squad09.EduMatch.services.UsuarioService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.hibernate.validator.constraints.br.CNPJ;
-import org.hibernate.validator.constraints.br.CPF;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +19,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
