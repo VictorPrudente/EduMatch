@@ -15,7 +15,7 @@ import javax.validation.Valid;
 
 @Validated
 @RestController
-@Tag(name = "Endereço")
+@Tag(name = "Endereco", description = "Endpoint do CRUD de Endereco")
 @RequiredArgsConstructor
 @RequestMapping("/endereco")
 public class EnderecoController implements IEnderecoController {

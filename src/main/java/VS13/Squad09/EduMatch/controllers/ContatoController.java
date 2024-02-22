@@ -17,7 +17,7 @@ import javax.validation.Valid;
 @Slf4j
 @Validated
 @RestController
-@Tag(name = "Contato")
+@Tag(name = "Contato", description = "Endpoint do CRUD de Contato")
 @RequiredArgsConstructor
 @RequestMapping("/contato")
 public class ContatoController implements IContatoController {

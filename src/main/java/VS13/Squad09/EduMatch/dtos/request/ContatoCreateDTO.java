@@ -20,7 +20,7 @@ public class ContatoCreateDTO {
     private String descricao;
 
     @Schema(description = "Numero do contato", required = true, example = "21998561236")
-    @Size(min = 8, max = 9, message = "Telefone deve conter 9 digitos para celular ou 8 digitos para fixo.")
+    @Size(min = 8, max = 11, message = "Telefone deve conter 9 digitos para celular ou 8 digitos para fixo.")
     private String telefone;
 
     @Schema(description = "Tipo do contato", required = true, example = "RESIDENCIAL")
