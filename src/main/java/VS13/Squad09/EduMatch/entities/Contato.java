@@ -1,7 +1,8 @@
 package VS13.Squad09.EduMatch.entities;
+
+
 import VS13.Squad09.EduMatch.entities.enums.TipoDeContato;
 import lombok.*;
-
 import javax.persistence.*;
 
 @Getter
@@ -21,7 +22,6 @@ public class Contato {
     private String telefone;
     @Column(name = "TIPO_CONTATO")
     private TipoDeContato tipo;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
-    private Usuario usuario;
+    @JoinColumn(name = "ID_USUARIO")
+    private Integer idUsuario;
 }

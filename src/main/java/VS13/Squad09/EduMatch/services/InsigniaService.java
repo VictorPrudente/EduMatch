@@ -2,18 +2,16 @@ package VS13.Squad09.EduMatch.services;
 
 import VS13.Squad09.EduMatch.dtos.request.InsigniaCreateDTO;
 import VS13.Squad09.EduMatch.dtos.response.InsigniaDTO;
-import VS13.Squad09.EduMatch.dtos.response.UsuarioDTO;
 import VS13.Squad09.EduMatch.entities.Insignia;
 import VS13.Squad09.EduMatch.entities.Usuario;
+import VS13.Squad09.EduMatch.entities.enums.Status;
+import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import VS13.Squad09.EduMatch.repositories.InsigniaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -21,42 +19,73 @@ import java.util.stream.Collectors;
 public class InsigniaService {
 
     private final InsigniaRepository insigniaRepository;
-    private final UsuarioService usuarioService;
     private final ObjectMapper objectMapper;
 
-    public InsigniaDTO criar(Integer idUsuario, InsigniaCreateDTO insignia) throws Exception {
-        log.debug("Criando Insignia...");
-        UsuarioDTO usuarioDTO = usuarioService.listarPorId(idUsuario);
-        Insignia insigniaEntity = objectMapper.convertValue(insignia, Insignia.class);
-        insigniaEntity.setDataEmitida(LocalDateTime.now());
-        Usuario usuario = objectMapper.convertValue(usuarioDTO, Usuario.class);
-        insigniaEntity.setUsuario(usuario);
+    public InsigniaDTO create(InsigniaCreateDTO insigniaCreateDTO) {
 
-        insigniaRepository.save(insigniaEntity);
-        InsigniaDTO insigniaDTO = objectMapper.convertValue(insigniaEntity, InsigniaDTO.class);
+        Insignia insignia = toEntity(insigniaCreateDTO);
 
-        return insigniaDTO;
+        insignia.setStatus(Status.ATIVO);
+
+        insigniaRepository.save(insignia);
+
+        return toDTO(insignia);
     }
 
-    public void deletar(int id) throws Exception {
-        //não será deletada uma insignia do usuário.
+
+    public InsigniaDTO update(Integer idInsignia, InsigniaCreateDTO insigniaCreateDTO) throws NaoEncontradoException {
+
+        Insignia insignia = getInsignia(idInsignia);
+
+        Insignia insigniaAtualizada = toEntity(insigniaCreateDTO);
+        insigniaAtualizada.setId(insignia.getId());
+
+        insigniaRepository.save(insigniaAtualizada);
+
+        return toDTO(insigniaAtualizada);
     }
 
-    public InsigniaDTO listarPorUsuario(Integer usuarioId) throws Exception {
-        Usuario usuario = objectMapper.convertValue(usuarioService.listarPorId(usuarioId), Usuario.class);
-
-        List<Insignia> insignias = insigniaRepository.findAllByUsuario(usuario);
-
-        if (insignias.isEmpty()) {
-            throw new Exception("Nenhum insignia encontrado para o usuário com ID: " + usuarioId);
+    public List<InsigniaDTO> findByUser(Integer idUsuario, Integer idInsignia) {
+        if (idInsignia != null) {
+            return insigniaRepository.findOneByOwner(idUsuario, idInsignia);
+        } else {
+            return insigniaRepository.findAllByOwner(idUsuario);
         }
-
-        return objectMapper.convertValue(insignias, InsigniaDTO.class);
     }
 
-    public List<InsigniaDTO> listarTodas() throws Exception {
-        return insigniaRepository.findAll().stream()
-                .map(insignia -> objectMapper.convertValue(insignia, InsigniaDTO.class))
-                .collect(Collectors.toList());
+
+    public void addUsuario(Usuario usuario, String tag) throws Exception {
+
+        Insignia insignia = acharPorTag(tag);
+
+        insignia.getUsuarios().add(usuario);
+
+        insigniaRepository.save(insignia);
     }
+
+    public List<InsigniaDTO> findInsignias(Integer idInsingia) {
+        if (idInsingia != null){
+            return insigniaRepository.findInsignia(idInsingia);
+        }
+            return insigniaRepository.findInsignias();
+    }
+
+    //MÉTODOS ADICIONAIS
+    private InsigniaDTO toDTO(Object o){
+        return objectMapper.convertValue(o, InsigniaDTO.class);
+    }
+
+    private Insignia toEntity(Object o){
+        return objectMapper.convertValue(o, Insignia.class);
+    }
+
+    private Insignia getInsignia(Integer idInsignia) throws NaoEncontradoException {
+        return insigniaRepository.findById(idInsignia)
+                .orElseThrow(() -> new NaoEncontradoException("Nenhuma insignia com o ID fornecido fora encontrada."));
+    }
+
+    private Insignia acharPorTag(String descricao){
+        return insigniaRepository.findByTagIgnoreCase(descricao);
+    }
+
 }

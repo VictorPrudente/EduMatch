@@ -2,7 +2,6 @@ package VS13.Squad09.EduMatch.entities;
 
 import VS13.Squad09.EduMatch.entities.enums.TipoDeEndereco;
 import lombok.*;
-
 import javax.persistence.*;
 
 @Getter
@@ -32,7 +31,6 @@ public class Endereco {
     private String estado;
     @Column(name = "PAIS")
     private String pais;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
-    private Usuario usuario;
+    @JoinColumn(name = "ID_USUARIO")
+    private Integer idUsuario;
 }

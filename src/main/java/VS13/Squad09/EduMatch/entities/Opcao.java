@@ -2,10 +2,8 @@ package VS13.Squad09.EduMatch.entities;
 
 
 import lombok.*;
-
 import javax.persistence.*;
 import java.io.Serializable;
-
 
 @Getter
 @Setter

@@ -5,6 +5,7 @@ import VS13.Squad09.EduMatch.dtos.response.ContatoDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,16 @@ public interface IContatoController {
     )
     @GetMapping("/contato/{idUsuario}")
     ResponseEntity<ContatoDTO> listarPorUsuario(@PathVariable("idUsuario") Integer idUsuario) throws Exception;
+
+    @Operation(summary = "Retornar o contato pelo ID", description = "Retorna um contato do banco correspondente ao ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação bem sucedida."),
+            @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso."),
+            @ApiResponse(responseCode = "404", description = "Nenhum contato encontrado para esse ID."),
+            @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")}
+    )
+    @GetMapping("/{idContato}")
+    public ResponseEntity<ContatoDTO> listarPorId(@PathVariable Integer idContato) throws Exception;
 
     @Operation(summary = "Criar um Contato", description = "Cadastra um contato no banco de dados.")
     @ApiResponses(value = {

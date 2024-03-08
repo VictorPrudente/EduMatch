@@ -1,8 +1,8 @@
 package VS13.Squad09.EduMatch.entities.enums;
 
+import VS13.Squad09.EduMatch.exceptions.NaoEncontradoException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import java.util.Arrays;
 
 @Getter
@@ -22,13 +22,13 @@ public enum Trilha {
     INGLES(10);
 
 
-    private Integer tipo;
+    private final Integer tipo;
 
 
-    public static Trilha valueOf(Integer tipo){
+    public static Trilha valueOf(Integer tipo) throws NaoEncontradoException {
         return Arrays.stream(Trilha.values())
                 .filter(trilha -> trilha.getTipo().equals(tipo))
                 .findFirst()
-                .orElseThrow(() -> new IllegalStateException("Trilha não encontrada."));
+                .orElseThrow(() -> new NaoEncontradoException("Trilha não encontrada."));
     }
 }

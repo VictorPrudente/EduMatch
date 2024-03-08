@@ -51,4 +51,13 @@ public interface IEnderecoController {
             @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")})
     @GetMapping("/usuario/{id}")
     ResponseEntity<EnderecoDTO> listarPorDono(@PathVariable("id") Integer id) throws Exception;
+
+    @Operation(summary = "Retornar o endereço pelo ID", description = "Retorna um endereço do banco correspondente ao ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Operação bem sucedida."),
+            @ApiResponse(responseCode = "403", description = "Você não tem permissão para acessar este recurso."),
+            @ApiResponse(responseCode = "404", description = "Nenhum endereço encontrado para esse ID."),
+            @ApiResponse(responseCode = "500", description = "Foi gerada uma exceção")})
+    @GetMapping("/{id}")
+    ResponseEntity<EnderecoDTO> listarPorId(@PathVariable("id") Integer id) throws Exception;
 }

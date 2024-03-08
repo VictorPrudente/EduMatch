@@ -2,10 +2,8 @@ package VS13.Squad09.EduMatch.entities;
 
 
 import lombok.*;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
 import java.io.Serializable;
 
 @Getter

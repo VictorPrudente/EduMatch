@@ -1,13 +1,11 @@
 package VS13.Squad09.EduMatch.entities;
 
 
-import VS13.Squad09.EduMatch.entities.enums.Elo;
 import VS13.Squad09.EduMatch.entities.enums.Status;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -17,40 +15,40 @@ import java.util.Set;
 public class Ranking {
 
     @Id
-    @Column(name = "ID_RANKING")
+    @Column(name = "ID_RANKING", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_RANKING")
     @SequenceGenerator(name = "SEQ_RANKING", sequenceName = "SEQ_RANKING", allocationSize = 1)
     private Integer id;
 
-    @OneToMany(mappedBy = "ranking", cascade = CascadeType.ALL)
-    private Set<Usuario> usuarios;
-
-    @Column(name = "PONTUACAO_NECESSARIA")
-    private Integer pontuacaoNecessaria;
-
-    @Column(name = "IMAGEM_URL")
-    private String urlImagem;
-
-    @Column(name = "TITULO")
+    @Column(name = "TITULO", nullable = false, unique = true)
     private String titulo;
 
-    @Column(name = "DESCRICAO")
+    @Column(name = "IMAGEM_URL", nullable = false, unique = true)
+    private String imagemUrl;
+
+    @Column(name = "DESCRICAO", nullable = false, unique = true)
     private String descricao;
 
-    @Column(name = "STATUS")
+    @Column(name = "PONTUACAO_NECESSARIA", nullable = false, unique = true)
+    private Integer pontuacaoNecessaria;
+
+    @Column(name = "STATUS", nullable = false)
     private Status status;
+
+    @OrderBy("pontuacao DESC")
+    @OneToMany(mappedBy = "ranking", cascade = CascadeType.ALL)
+    private List<Usuario> usuarios;
 
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
-        if (!super.equals(object)) return false;
         Ranking ranking = (Ranking) object;
-        return Objects.equals(pontuacaoNecessaria, ranking.pontuacaoNecessaria);
+        return Objects.equals(id, ranking.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), pontuacaoNecessaria);
+        return Objects.hash(id);
     }
 }
